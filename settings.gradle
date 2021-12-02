@@ -1,0 +1,3 @@
+rootProject.name = "fast-white-sdk-android"
+include ':app'
+include ':library'

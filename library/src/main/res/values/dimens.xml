@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fast_default_layout_margin">8dp</dimen>
+    <dimen name="fast_default_view_padding">8dp</dimen>
+
+    <dimen name="fast_color_border_width">1dp</dimen>
+    <dimen name="fast_color_border_radius">4dp</dimen>
+
+    <dimen name="fast_bg_color_item_radius">4dp</dimen>
+    <dimen name="fast_bg_color_item_stroke_width">1dp</dimen>
+</resources>

@@ -1,0 +1,28 @@
+package io.agora.board.fast.model;
+
+import com.herewhite.sdk.WhiteSdkConfiguration;
+
+/**
+ * @author fenglibin
+ */
+public class FastSdkOptions {
+    private final String appId;
+
+    private WhiteSdkConfiguration configuration;
+
+    public FastSdkOptions(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setConfiguration(WhiteSdkConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    public WhiteSdkConfiguration getConfiguration() {
+        return configuration;
+    }
+}

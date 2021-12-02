@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="32dp"
+    android:layout_height="32dp">
+
+    <ImageView
+        android:id="@+id/appliance"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/fast_bg_appliance_item"
+        tools:src="@drawable/fast_ic_tool_arrow" />
+</FrameLayout>

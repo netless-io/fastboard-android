@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FastBoardView">
+        <attr name="fbv_main_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FastBoardTheme">
+        <attr name="customFastBoardViewStyle" format="reference" />
+    </declare-styleable>
+</resources>
