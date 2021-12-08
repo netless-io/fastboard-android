@@ -210,15 +210,6 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
         subToolsLayout.setFastStyle(fastStyle);
     }
 
-    public FastSdk obtainFastSdk() {
-        if (fastSdk == null) {
-            fastSdk = new FastSdk(this);
-            fastSdk.initSdk(new FastSdkOptions(getAppId()));
-            fastSdk.registerObserver(this);
-        }
-        return fastSdk;
-    }
-
     public FastSdk obtainFastSdk(FastSdkOptions options) {
         if (fastSdk == null) {
             fastSdk = new FastSdk(this);
@@ -226,9 +217,5 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
             fastSdk.registerObserver(this);
         }
         return fastSdk;
-    }
-
-    String getAppId() {
-        return Util.getAppIdFromMeta(getContext());
     }
 }

@@ -1,15 +1,13 @@
 package io.agora.board.fast.model;
 
-import android.graphics.Color;
-
 import androidx.annotation.ColorInt;
 
 /**
  * @author fenglibin
  */
 public class FastStyle {
-    private int mainColor = Color.parseColor("#3381FF");
-    private boolean darkMode = false;
+    private int mainColor;
+    private boolean darkMode;
 
     public FastStyle() {
     }

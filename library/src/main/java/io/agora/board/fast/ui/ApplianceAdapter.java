@@ -1,7 +1,5 @@
 package io.agora.board.fast.ui;
 
-import android.graphics.Color;
-import android.graphics.drawable.VectorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,6 @@ import android.widget.ImageView;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;

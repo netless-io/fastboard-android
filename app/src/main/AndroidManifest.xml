@@ -19,9 +19,5 @@
             </intent-filter>
         </activity>
         <activity android:name=".RoomActivity" />
-
-        <meta-data
-            android:name="io.agora.board.APP_ID"
-            android:value="283/VGiScM9Wiw2HJg" />
     </application>
 </manifest>
