@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RoomActivity" />
+        <activity
+            android:name=".RoomActivity"
+            android:configChanges="uiMode" />
     </application>
 </manifest>

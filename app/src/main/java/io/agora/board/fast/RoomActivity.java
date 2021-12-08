@@ -2,10 +2,12 @@ package io.agora.board.fast;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -46,6 +48,22 @@ public class RoomActivity extends AppCompatActivity {
         FastStyle fastStyle = new FastStyle();
         fastStyle.setMainColor(getThemePrimaryColor(this));
         fastSdk.setFastStyle(fastStyle);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration config) {
+        super.onConfigurationChanged(config);
+        int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+            case Configuration.UI_MODE_NIGHT_YES:
+                FastStyle fastStyle = new FastStyle();
+                fastStyle.setMainColor(getThemePrimaryColor(this));
+                fastSdk.setFastStyle(fastStyle);
+                break;
+            default:
+                break;
+        }
     }
 
     private static int getThemePrimaryColor(Context context) {
