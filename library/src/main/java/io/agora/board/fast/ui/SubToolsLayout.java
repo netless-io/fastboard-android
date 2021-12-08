@@ -62,7 +62,7 @@ public class SubToolsLayout extends LinearLayout {
         colorsRecyclerView.setAdapter(colorAdapter);
         colorsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
-        strokeSeeker.setStrokeRange(8, 16);
+        strokeSeeker.setStrokeRange(3, 12);
 
         setOnClickListener(v -> {
 

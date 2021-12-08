@@ -67,6 +67,9 @@ public class FastSdk {
     };
 
     private RoomListener roomListener = new RoomListener() {
+        private long canUndoSteps;
+        private long canRedoSteps;
+        
         @Override
         public void onPhaseChanged(RoomPhase phase) {
             observable.notifyRoomPhaseChanged(phase);
@@ -198,7 +201,6 @@ public class FastSdk {
     public void setFastStyle(FastStyle style) {
         observable.notifyGlobalStyleChanged(style);
     }
-
 
     public static class DefaultErrorHandler implements FastErrorHandler {
         private Activity activity;

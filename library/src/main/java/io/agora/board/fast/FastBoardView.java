@@ -2,6 +2,7 @@ package io.agora.board.fast;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
     private View overlayView;
     private View loadingView;
     private ProgressBar progressBar;
+    private FastStyle fastStyle;
 
     public FastBoardView(@NonNull Context context) {
         this(context, null);
@@ -89,7 +91,6 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
 
             fastSdk.setColor(color);
         });
-
         subToolsLayout.setOnStrokeChangedListener(width -> {
             fastSdk.setStokeWidth(width);
         });
@@ -133,7 +134,15 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
     }
 
     private void setupStyle(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FastBoardView, defStyleAttr, R.style.DefaultFastBoardView);
+        int mainColor = a.getColor(R.styleable.FastBoardView_fbv_main_color, Color.parseColor("#3381FF"));
+        boolean darkMode = a.getBoolean(R.styleable.FastBoardView_fbv_dark_mode, false);
+        a.recycle();
 
+        fastStyle = new FastStyle();
+        fastStyle.setMainColor(mainColor);
+        fastStyle.setDarkMode(darkMode);
+        updateStyle();
     }
 
     private void hideAllOverlay() {
@@ -192,9 +201,13 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
 
     @Override
     public void onGlobalStyleChanged(FastStyle style) {
-        ColorStateList color = ColorStateList.valueOf(style.getMainColor());
-        progressBar.setIndeterminateTintList(color);
-        subToolsLayout.setFastStyle(style);
+        fastStyle = style;
+        updateStyle();
+    }
+
+    private void updateStyle() {
+        progressBar.setIndeterminateTintList(ColorStateList.valueOf(fastStyle.getMainColor()));
+        subToolsLayout.setFastStyle(fastStyle);
     }
 
     public FastSdk obtainFastSdk() {

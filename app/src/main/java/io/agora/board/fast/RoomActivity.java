@@ -1,8 +1,9 @@
 package io.agora.board.fast;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +26,6 @@ public class RoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
-        setupFullScreen();
         setupFastBoard();
     }
 
@@ -43,14 +43,22 @@ public class RoomActivity extends AppCompatActivity {
         fastSdk.setErrorHandler(new FastSdk.DefaultErrorHandler(this));
 
         // global style change
-        FastStyle fastStyle = new FastStyle().setMainColor(Color.parseColor("#FF6200EE"));
+        FastStyle fastStyle = new FastStyle();
+        fastStyle.setMainColor(getThemePrimaryColor(this));
         fastSdk.setFastStyle(fastStyle);
+    }
+
+    private static int getThemePrimaryColor(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
+        return typedValue.data;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        setupFullScreen();
     }
 
     @Override

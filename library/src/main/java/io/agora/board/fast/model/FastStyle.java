@@ -14,17 +14,19 @@ public class FastStyle {
     public FastStyle() {
     }
 
-    public FastStyle setMainColor(@ColorInt int color) {
+    public void setMainColor(@ColorInt int color) {
         this.mainColor = color;
-        return this;
     }
 
     public int getMainColor() {
         return mainColor;
     }
 
-    public FastStyle setDarkMode(boolean darkMode) {
+    public void setDarkMode(boolean darkMode) {
         this.darkMode = darkMode;
-        return this;
+    }
+
+    public boolean isDarkMode() {
+        return darkMode;
     }
 }
