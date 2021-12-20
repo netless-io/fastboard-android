@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fast_default_exit_title">Exit?</string>
+    <string name="fast_default_exit_room_message">join room error, click and reenter</string>
+    <string name="fast_default_exit_player_message">join player error, click and reenter</string>
+    <string name="fast_default_exit_ok">OK</string>
+
+    <string name="fast_loading">loading…</string>
+</resources>

@@ -15,7 +15,9 @@ import androidx.annotation.Nullable;
 /**
  * @author fenglibin
  */
-class FastColorDrawable extends Drawable {
+class ColorDrawable extends Drawable {
+    private static final int DEFAULT_BOARDER_COLOR = Color.parseColor("#40000000");
+
     private Paint mPaintColor;
     private Paint mPaintBoarder;
     int mBorderWidth;
@@ -23,14 +25,18 @@ class FastColorDrawable extends Drawable {
 
     private RectF mRect;
 
-    public FastColorDrawable(int color, int borderWidth, int borderRadius) {
+    public ColorDrawable(int color, int borderWidth, int borderRadius) {
+        this(color, borderWidth, borderRadius, DEFAULT_BOARDER_COLOR);
+    }
+
+    public ColorDrawable(int color, int borderWidth, int borderRadius, int borderColor) {
         mPaintColor = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintColor.setStyle(Paint.Style.FILL);
         mPaintColor.setColor(color);
 
         mPaintBoarder = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBoarder.setStyle(Paint.Style.STROKE);
-        mPaintBoarder.setColor(Color.parseColor("#40000000"));
+        mPaintBoarder.setColor(borderColor);
 
         mRect = new RectF();
 

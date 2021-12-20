@@ -6,8 +6,13 @@
     tools:context=".RoomActivity"
     tools:ignore="MissingDefaultResource">
 
-    <io.agora.board.fast.FastBoardView
+    <io.agora.board.fast.FastboardView
         android:id="@+id/fast_board_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <io.agora.board.fast.ControlView
+        android:id="@+id/control_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

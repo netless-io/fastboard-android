@@ -9,8 +9,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
@@ -21,6 +23,7 @@ public class SubToolButton extends FrameLayout {
     private static final int TYPE_COLOR = 3;
 
     private ImageView subToolImage;
+    private ImageView subToolExpand;
 
     private int type;
     private int color;
@@ -57,6 +60,7 @@ public class SubToolButton extends FrameLayout {
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_sub_tool_button, this, true);
         subToolImage = root.findViewById(R.id.sub_tool_button_image);
+        subToolExpand = root.findViewById(R.id.sub_tool_expand);
 
         setOnClickListener(localOnClickListener);
         updateUi();
@@ -88,11 +92,11 @@ public class SubToolButton extends FrameLayout {
         switch (type) {
             case TYPE_DELETE:
                 setVisibility(VISIBLE);
-                subToolImage.setImageResource(R.drawable.fast_ic_delete);
+                subToolImage.setImageResource(R.drawable.fast_ic_tool_delete);
                 break;
             case TYPE_COLOR:
                 setVisibility(VISIBLE);
-                subToolImage.setImageDrawable(FastColorDrawableManager.getDrawable(getContext(), color));
+                subToolImage.setImageDrawable(ResourceFetcher.get().getColorDrawable(color));
                 break;
             default:
                 setVisibility(INVISIBLE);
@@ -107,6 +111,12 @@ public class SubToolButton extends FrameLayout {
     public void setColor(Integer color) {
         this.color = color;
         updateUi();
+    }
+
+    public void setFastStyle(FastStyle style) {
+        subToolImage.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));
+        subToolExpand.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));
+        this.setBackground(ResourceFetcher.get().getButtonBackground(style.isDarkMode()));
     }
 
     public interface OnSubToolClickListener {

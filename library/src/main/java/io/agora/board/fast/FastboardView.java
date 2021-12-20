@@ -10,17 +10,20 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.ShapeType;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.ui.ResourceFetcher;
 import io.agora.board.fast.ui.SubToolButton;
 import io.agora.board.fast.ui.SubToolsLayout;
 import io.agora.board.fast.ui.ToolButton;
@@ -29,9 +32,10 @@ import io.agora.board.fast.ui.ToolsLayout;
 /**
  * @author fenglibin
  */
-public class FastBoardView extends FrameLayout implements BoardStateObserver {
-    WhiteboardView whiteboardView;
+public class FastboardView extends FrameLayout implements BoardStateObserver {
     FastSdk fastSdk;
+    WhiteboardView whiteboardView;
+    FastContext fastContext = new FastContext();
 
     private ToolButton toolButton;
     private ToolsLayout toolsLayout;
@@ -42,18 +46,18 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
     private View overlayView;
     private View loadingView;
     private ProgressBar progressBar;
-    private FastStyle fastStyle;
 
-    public FastBoardView(@NonNull Context context) {
+    public FastboardView(@NonNull Context context) {
         this(context, null);
     }
 
-    public FastBoardView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public FastboardView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public FastBoardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public FastboardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        ResourceFetcher.get().init(context);
         setupView(context);
         setupStyle(context, attrs, defStyleAttr);
     }
@@ -76,9 +80,9 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
             hideAllOverlay();
 
             if (item == ApplianceItem.OTHER_CLEAR) {
-                fastSdk.cleanScene();
+                fastSdk.fastRoom.cleanScene();
             } else {
-                fastSdk.setAppliance(item.appliance);
+                fastSdk.fastRoom.setAppliance(item.appliance);
             }
         });
 
@@ -89,11 +93,11 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
 
             hideAllOverlay();
 
-            fastSdk.setColor(color);
+            fastSdk.fastRoom.setColor(color);
         });
-        subToolsLayout.setOnStrokeChangedListener(width -> {
-            fastSdk.setStokeWidth(width);
-        });
+        subToolsLayout.setOnStrokeChangedListener(width ->
+                fastSdk.fastRoom.setStokeWidth(width)
+        );
 
         toolButton.setOnClickListener(v -> {
             boolean target = !toolButton.isSelected();
@@ -109,7 +113,7 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
         subToolButton.setOnSubToolClickListener(new SubToolButton.OnSubToolClickListener() {
             @Override
             public void onDeleteClick() {
-                fastSdk.getRoom().deleteOperation();
+                fastSdk.fastRoom.getRoom().deleteOperation();
             }
 
             @Override
@@ -125,9 +129,9 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
             }
         });
 
-        overlayView.setOnClickListener(v -> {
-            hideAllOverlay();
-        });
+        overlayView.setOnClickListener(v ->
+                hideAllOverlay()
+        );
 
         loadingView = root.findViewById(R.id.loading_layout);
         loadingView.setVisibility(VISIBLE);
@@ -139,10 +143,11 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
         boolean darkMode = a.getBoolean(R.styleable.FastBoardView_fbv_dark_mode, false);
         a.recycle();
 
-        fastStyle = new FastStyle();
+        FastStyle fastStyle = new FastStyle();
         fastStyle.setMainColor(mainColor);
         fastStyle.setDarkMode(darkMode);
-        updateStyle();
+
+        fastContext.initFastStyle(fastStyle);
     }
 
     private void hideAllOverlay() {
@@ -200,14 +205,26 @@ public class FastBoardView extends FrameLayout implements BoardStateObserver {
     }
 
     @Override
-    public void onGlobalStyleChanged(FastStyle style) {
-        fastStyle = style;
-        updateStyle();
+    public void onGlobalStyleChanged(FastStyle fastStyle) {
+        updateStyle(fastStyle);
     }
 
-    private void updateStyle() {
+    private void updateStyle(FastStyle fastStyle) {
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(fastStyle.getMainColor()));
+        subToolButton.setFastStyle(fastStyle);
         subToolsLayout.setFastStyle(fastStyle);
+
+        toolButton.setFastStyle(fastStyle);
+        toolsLayout.setFastStyle(fastStyle);
+
+        whiteboardView.setBackgroundColor(ContextCompat.getColor(
+                getContext(),
+                R.color.fast_day_night_bg
+        ));
+    }
+
+    public FastStyle getFastStyle() {
+        return fastContext.getFastStyle();
     }
 
     public FastSdk obtainFastSdk(FastSdkOptions options) {

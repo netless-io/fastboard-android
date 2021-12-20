@@ -14,6 +14,7 @@ import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
 import io.agora.board.fast.library.R;
 
 /**
@@ -166,7 +167,7 @@ public final class StrokeSeeker extends View {
         this.invalidate();
     }
 
-    public final void setMainColor(@ColorInt int color) {
+    public final void setSeekerBarColor(@ColorInt int color) {
         indicatorPaint.setColor(color);
         leftPaint.setColor(color);
         this.invalidate();

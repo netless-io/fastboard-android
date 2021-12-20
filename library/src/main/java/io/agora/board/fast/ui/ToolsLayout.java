@@ -6,15 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
@@ -72,5 +74,10 @@ public class ToolsLayout extends FrameLayout {
 
     public boolean shown() {
         return getVisibility() == VISIBLE;
+    }
+
+    public void setFastStyle(FastStyle fastStyle) {
+        this.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
+        applianceAdapter.setStyle(fastStyle);
     }
 }

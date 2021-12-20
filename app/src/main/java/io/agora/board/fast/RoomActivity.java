@@ -1,5 +1,7 @@
 package io.agora.board.fast;
 
+import static androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE;
+
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -11,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+
+import java.util.Objects;
+
+import io.agora.board.fast.internal.DefaultErrorHandler;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
-
-import static androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE;
 
 /**
  * @author fenglibin
@@ -28,11 +32,16 @@ public class RoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        setupFullScreen();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         setupFastBoard();
+        setupController();
     }
 
     private void setupFastBoard() {
-        FastBoardView fastBoardView = findViewById(R.id.fast_board_view);
+        FastboardView fastBoardView = findViewById(R.id.fast_board_view);
         // create fastSdk
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SIMPLE_APP_ID);
         fastSdk = fastBoardView.obtainFastSdk(fastSdkOptions);
@@ -42,28 +51,38 @@ public class RoomActivity extends AppCompatActivity {
         fastSdk.joinRoom(roomOptions);
 
         // set error handler
-        fastSdk.setErrorHandler(new FastSdk.DefaultErrorHandler(this));
+        fastSdk.setErrorHandler(new DefaultErrorHandler(this));
 
         // global style change
-        FastStyle fastStyle = new FastStyle();
+        FastStyle fastStyle = fastSdk.getFastStyle();
+        fastStyle.setDarkMode(isDarkMode());
         fastStyle.setMainColor(getThemePrimaryColor(this));
         fastSdk.setFastStyle(fastStyle);
+    }
+
+    private void setupController() {
+        ControlView controlView = findViewById(R.id.control_view);
+        controlView.attachFastSdk(fastSdk);
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration config) {
         super.onConfigurationChanged(config);
-        int currentNightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        switch (currentNightMode) {
-            case Configuration.UI_MODE_NIGHT_NO:
-            case Configuration.UI_MODE_NIGHT_YES:
-                FastStyle fastStyle = new FastStyle();
-                fastStyle.setMainColor(getThemePrimaryColor(this));
-                fastSdk.setFastStyle(fastStyle);
-                break;
-            default:
-                break;
-        }
+
+        updateDayNightStyle(config);
+    }
+
+    private boolean isDarkMode() {
+        int nightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightMode == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    private void updateDayNightStyle(@NonNull Configuration config) {
+        int nightMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        FastStyle fastStyle = fastSdk.getFastStyle();
+        fastStyle.setDarkMode(nightMode == Configuration.UI_MODE_NIGHT_YES);
+        fastSdk.setFastStyle(fastStyle);
     }
 
     private static int getThemePrimaryColor(Context context) {
@@ -76,7 +95,6 @@ public class RoomActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setupFullScreen();
     }
 
     @Override
@@ -94,14 +112,9 @@ public class RoomActivity extends AppCompatActivity {
     }
 
     private void setupFullScreen() {
-        getSupportActionBar().hide();
-
         WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
         controller.hide(WindowInsetsCompat.Type.navigationBars());
         controller.hide(WindowInsetsCompat.Type.statusBars());
-        // Some oneplus, huawei devices rely on this line of code for full screen
         controller.setSystemBarsBehavior(BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 }

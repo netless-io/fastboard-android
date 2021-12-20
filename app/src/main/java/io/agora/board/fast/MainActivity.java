@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.herewhite.sdk.WhiteboardView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -12,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUi();
+
+        WhiteboardView.setWebContentsDebuggingEnabled(true);
     }
 
     private void setupUi() {

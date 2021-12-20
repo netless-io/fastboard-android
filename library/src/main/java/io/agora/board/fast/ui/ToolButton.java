@@ -9,14 +9,17 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
 public class ToolButton extends FrameLayout {
     private ImageView toolImage;
+    private ImageView toolExpand;
 
     public ToolButton(@NonNull Context context) {
         this(context, null);
@@ -34,9 +37,16 @@ public class ToolButton extends FrameLayout {
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_tool_button, this, true);
         toolImage = root.findViewById(R.id.tool_button_image);
+        toolExpand = root.findViewById(R.id.tool_button_expand);
     }
 
     public void setApplianceItem(ApplianceItem item) {
         toolImage.setImageResource(item.icon);
+    }
+
+    public void setFastStyle(FastStyle fastStyle) {
+        toolImage.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
+        toolExpand.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
+        this.setBackground(ResourceFetcher.get().getButtonBackground(fastStyle.isDarkMode()));
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fast_default_exit_title">退出?</string>
+    <string name="fast_default_exit_room_message">加入房间失败，退出重试</string>
+    <string name="fast_default_exit_player_message">加入回放失败，退出重试</string>
+    <string name="fast_default_exit_ok">了解</string>
+
+    <string name="fast_loading">加载中…</string>
+</resources>

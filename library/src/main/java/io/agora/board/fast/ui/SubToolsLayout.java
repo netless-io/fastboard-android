@@ -7,13 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.FastStyle;
 
@@ -87,6 +88,7 @@ public class SubToolsLayout extends LinearLayout {
 
     public void setColor(Integer color) {
         colorAdapter.setCurrentColor(color);
+        strokeSeeker.setSeekerBarColor(color);
     }
 
     public void setStrokeWidth(int width) {
@@ -94,7 +96,7 @@ public class SubToolsLayout extends LinearLayout {
     }
 
     public void setFastStyle(FastStyle style) {
-        strokeSeeker.setMainColor(style.getMainColor());
-        colorAdapter.setMainColor(style.getMainColor());
+        this.setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
+        colorAdapter.setStyle(style);
     }
 }

@@ -53,7 +53,7 @@
             android:layout_alignTop="@id/tool_button"
             android:layout_marginEnd="@dimen/fast_default_layout_margin"
             android:layout_toStartOf="@id/tool_button"
-            android:background="@drawable/shape_border_round_4_white_bg"
+            android:background="@drawable/fast_layout_round_4_bg"
             android:visibility="invisible"
             tools:visibility="visible" />
 
@@ -64,7 +64,7 @@
             android:layout_alignTop="@id/sub_tool_button"
             android:layout_marginEnd="@dimen/fast_default_layout_margin"
             android:layout_toStartOf="@id/sub_tool_button"
-            android:background="@drawable/shape_border_round_4_white_bg"
+            android:background="@drawable/fast_layout_round_4_bg"
             android:visibility="invisible"
             tools:visibility="visible" />
 
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="loading..."
+                android:text="@string/fast_loading"
                 android:textColor="#000000" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>

@@ -1,16 +1,19 @@
 package io.agora.board.fast.ui;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
@@ -19,6 +22,7 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
     private List<ApplianceItem> appliances;
 
     private ApplianceItem curAppliance;
+    private ColorStateList iconColor;
     private OnApplianceClickListener onApplianceClickListener;
 
     public ApplianceAdapter(List<ApplianceItem> appliances) {
@@ -37,6 +41,7 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
         ApplianceItem item = appliances.get(position);
 
         holder.appliance.setImageResource(item.icon);
+        holder.appliance.setImageTintList(iconColor);
         holder.appliance.setSelected(item == curAppliance);
         holder.itemView.setOnClickListener(v -> {
             if (item != ApplianceItem.OTHER_CLEAR) {
@@ -63,10 +68,19 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
         updateSelected();
     }
 
+    public void setStyle(FastStyle style) {
+        iconColor = ResourceFetcher.get().getIconColor(style.isDarkMode());
+        for (ViewHolder viewHolder : holdersCache) {
+            viewHolder.appliance.setBackground(ResourceFetcher.get().createApplianceBackground(style.isDarkMode()));
+        }
+        updateSelected();
+    }
+
     private void updateSelected() {
         for (ViewHolder viewHolder : holdersCache) {
             int position = viewHolder.getAdapterPosition();
             ApplianceItem item = appliances.get(position);
+            viewHolder.appliance.setImageTintList(iconColor);
             viewHolder.appliance.setSelected(item == curAppliance);
         }
     }

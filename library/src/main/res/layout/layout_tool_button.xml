@@ -12,6 +12,7 @@
         android:src="@drawable/fast_ic_tool_rectangle" />
 
     <ImageView
+        android:id="@+id/tool_button_expand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"

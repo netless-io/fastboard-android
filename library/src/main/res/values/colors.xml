@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="fast_default_main_color">#3381FF</color>
-    <color name="fast_default_vector_color">#FF00FF</color>
+    <color name="fast_default_vector_icon_color">#000000</color>
+
+    <color name="fast_default_layout_bg">#FFFFFF</color>
+
+    <color name="fast_dark_mode_bg">#000000</color>
+    <color name="fast_dark_mode_bg_selected">#20FFFFFF</color>
+    <color name="fast_dark_mode_border_bg">#E0FFFFFF</color>
+    <color name="fast_dark_mode_icon_color">#FFFFFF</color>
+
+    <color name="fast_light_mode_bg">#F9F9F9</color>
+    <color name="fast_light_mode_bg_selected">#20000000</color>
+    <color name="fast_light_mode_border_bg">#26000000</color>
+    <color name="fast_light_mode_icon_color">#000000</color>
+
+    <color name="fast_day_night_bg">@color/fast_light_mode_bg</color>
+    <color name="fast_day_night_bg_selected">@color/fast_light_mode_bg_selected</color>
+    <color name="fast_day_night_border_bg">@color/fast_light_mode_border_bg</color>
+    <color name="fast_day_night_icon_color">@color/fast_light_mode_icon_color</color>
 </resources>

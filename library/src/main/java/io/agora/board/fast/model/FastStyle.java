@@ -27,4 +27,11 @@ public class FastStyle {
     public boolean isDarkMode() {
         return darkMode;
     }
+
+    public FastStyle copy() {
+        FastStyle style = new FastStyle();
+        style.mainColor = mainColor;
+        style.darkMode = darkMode;
+        return style;
+    }
 }
