@@ -40,11 +40,11 @@ public class FastRoomOptions {
         return writable;
     }
 
-    public void setRoomParams(RoomParams roomParams) {
-        this.roomParams = roomParams;
-    }
-
     public RoomParams getRoomParams() {
         return roomParams;
+    }
+
+    public void setRoomParams(RoomParams roomParams) {
+        this.roomParams = roomParams;
     }
 }

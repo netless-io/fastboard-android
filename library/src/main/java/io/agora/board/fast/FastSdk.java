@@ -22,11 +22,6 @@ import io.agora.board.fast.model.FastStyle;
 public class FastSdk {
     final FastboardView fastBoardView;
     final FastContext fastContext;
-
-    WhiteSdk whiteSdk;
-    FastRoom fastRoom;
-    FastPlayer fastPlayer;
-
     private final CommonCallback commonCallback = new CommonCallback() {
         @Override
         public void throwError(Object args) {
@@ -49,6 +44,9 @@ public class FastSdk {
 
         }
     };
+    WhiteSdk whiteSdk;
+    FastRoom fastRoom;
+    FastPlayer fastPlayer;
 
     public FastSdk(FastboardView fastBoardView) {
         this.fastBoardView = fastBoardView;
@@ -105,15 +103,15 @@ public class FastSdk {
         fastContext.unregisterObserver(observer);
     }
 
-    public void setFastStyle(FastStyle style) {
-        fastContext.updateFastStyle(style);
-    }
-
     /**
      * @return return a copy of current fastStyle
      */
     public FastStyle getFastStyle() {
         return fastContext.getFastStyle().copy();
+    }
+
+    public void setFastStyle(FastStyle style) {
+        fastContext.updateFastStyle(style);
     }
 
     public FastContext getFastContext() {

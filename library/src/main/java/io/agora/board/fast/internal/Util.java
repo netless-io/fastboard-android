@@ -22,7 +22,7 @@ public class Util {
         Gson gson = new Gson();
         return gson.fromJson(gson.toJson(object), classOfT);
     }
-    
+
     public static Activity getActivity(Context context) {
         if (context == null) {
             return null;

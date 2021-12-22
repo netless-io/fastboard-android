@@ -35,7 +35,7 @@ public interface BoardStateObserver {
     default void onGlobalStyleChanged(FastStyle style) {
 
     }
-    
+
     default void onFastRoomCreated(FastRoom fastRoom) {
 
     }

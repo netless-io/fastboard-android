@@ -1,8 +1,9 @@
 package io.agora.board.fast.model;
 
+import androidx.annotation.DrawableRes;
+
 import com.herewhite.sdk.domain.Appliance;
 
-import androidx.annotation.DrawableRes;
 import io.agora.board.fast.library.R;
 
 /**

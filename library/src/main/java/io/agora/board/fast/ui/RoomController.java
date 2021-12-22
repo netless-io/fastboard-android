@@ -14,7 +14,7 @@ public interface RoomController {
     }
 
     default void attachRoom(FastRoom fastRoom) {
-        
+
     }
 
     default void updateFastStyle(FastStyle style) {

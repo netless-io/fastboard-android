@@ -21,6 +21,8 @@ import io.agora.board.fast.library.R;
  * @author fenglibin
  */
 public final class StrokeSeeker extends View {
+    private final RectF leftRect;
+    private final float leftLimit;
     private StrokeSeeker.OnStrokeChangedListener onStrokeChangedListener;
     private Paint indicatorPaint;
     private float indicatorWidth;
@@ -28,13 +30,11 @@ public final class StrokeSeeker extends View {
     private float offsetLeftX;
     private float offsetRightX;
     private float leftBarHeight;
-    private final RectF leftRect;
     private Paint leftPaint;
     private float rightBarHeight;
     private RectF rightRect;
     private Paint rightPaint;
     private Path seekerPath;
-    private final float leftLimit;
     private float currentX;
     private int baseY;
     private int minStroke;

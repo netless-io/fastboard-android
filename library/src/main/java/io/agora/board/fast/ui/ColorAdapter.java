@@ -1,6 +1,5 @@
 package io.agora.board.fast.ui;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +78,10 @@ public class ColorAdapter extends HolderCacheAdapter<ColorAdapter.ViewHolder> {
         }
     }
 
+    public interface OnColorClickListener {
+        void onColorClick(Integer color);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView colorDisplay;
 
@@ -86,9 +89,5 @@ public class ColorAdapter extends HolderCacheAdapter<ColorAdapter.ViewHolder> {
             super(itemView);
             colorDisplay = itemView.findViewById(R.id.color_display);
         }
-    }
-
-    public interface OnColorClickListener {
-        void onColorClick(Integer color);
     }
 }

@@ -22,33 +22,6 @@ public class FastRoom {
     private final RoomParams params;
 
     private Room room;
-
-    public FastRoom(FastSdk fastSdk, FastRoomOptions options) {
-        this.fastSdk = fastSdk;
-        this.fastContext = fastSdk.fastContext;
-        this.params = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
-        this.params.setWritable(options.isWritable());
-        this.params.setDisableNewPencil(false);
-
-        HashMap<String, String> styleMap = new HashMap<>();
-        styleMap.put("bottom", "30px");
-        styleMap.put("right", "44px");
-        styleMap.put("position", "fixed");
-        WindowParams windowParams = new WindowParams();
-        windowParams.setChessboard(true);
-        windowParams.setDebug(true);
-        windowParams.setCollectorStyles(styleMap);
-        this.params.setWindowParams(windowParams);
-    }
-
-    public void join() {
-        fastSdk.whiteSdk.joinRoom(params, roomListener, joinRoomPromise);
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
     private final Promise<Room> joinRoomPromise = new Promise<Room>() {
         @Override
         public void then(Room room) {
@@ -66,13 +39,6 @@ public class FastRoom {
             errorHandler.onJoinRoomError(new FastException(t.getMessage(), t));
         }
     };
-
-    private void updateWritable() {
-        if (room.getWritable()) {
-            room.disableSerialization(false);
-        }
-    }
-
     private RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
         private long canRedoSteps;
@@ -114,6 +80,38 @@ public class FastRoom {
 
         }
     };
+
+    public FastRoom(FastSdk fastSdk, FastRoomOptions options) {
+        this.fastSdk = fastSdk;
+        this.fastContext = fastSdk.fastContext;
+        this.params = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
+        this.params.setWritable(options.isWritable());
+        this.params.setDisableNewPencil(false);
+
+        HashMap<String, String> styleMap = new HashMap<>();
+        styleMap.put("bottom", "30px");
+        styleMap.put("right", "44px");
+        styleMap.put("position", "fixed");
+        WindowParams windowParams = new WindowParams();
+        windowParams.setChessboard(true);
+        windowParams.setDebug(true);
+        windowParams.setCollectorStyles(styleMap);
+        this.params.setWindowParams(windowParams);
+    }
+
+    public void join() {
+        fastSdk.whiteSdk.joinRoom(params, roomListener, joinRoomPromise);
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    private void updateWritable() {
+        if (room.getWritable()) {
+            room.disableSerialization(false);
+        }
+    }
 
     private void notifyRoomState(RoomState roomState) {
         if (roomState.getBroadcastState() != null) {

@@ -9,9 +9,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tools_recycler_view"
         android:layout_width="wrap_content"
-        android:scrollbars="none"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="4"
         tools:itemCount="12"

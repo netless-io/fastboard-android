@@ -17,12 +17,10 @@ import androidx.annotation.Nullable;
  */
 class ColorDrawable extends Drawable {
     private static final int DEFAULT_BOARDER_COLOR = Color.parseColor("#40000000");
-
-    private Paint mPaintColor;
-    private Paint mPaintBoarder;
     int mBorderWidth;
     int mBorderRadius;
-
+    private Paint mPaintColor;
+    private Paint mPaintBoarder;
     private RectF mRect;
 
     public ColorDrawable(int color, int borderWidth, int borderRadius) {

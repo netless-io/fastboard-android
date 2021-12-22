@@ -85,6 +85,10 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
         }
     }
 
+    public interface OnApplianceClickListener {
+        void onApplianceClick(ApplianceItem item);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView appliance;
 
@@ -92,9 +96,5 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
             super(itemView);
             appliance = itemView.findViewById(R.id.appliance);
         }
-    }
-
-    public interface OnApplianceClickListener {
-        void onApplianceClick(ApplianceItem item);
     }
 }

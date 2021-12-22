@@ -16,16 +16,6 @@ public class FastPlayer {
     private final FastSdk fastSdk;
     private final PlayerConfiguration playerConf;
     private Player player;
-
-    public FastPlayer(FastSdk sdk, FastPlayerOptions options) {
-        this.fastSdk = sdk;
-        this.playerConf = new PlayerConfiguration(options.getUuid(), options.getToken());
-    }
-
-    public void join() {
-        fastSdk.whiteSdk.createPlayer(playerConf, playerListener, playerPromise);
-    }
-
     private PlayerListener playerListener = new PlayerListener() {
         @Override
         public void onPhaseChanged(PlayerPhase phase) {
@@ -67,7 +57,6 @@ public class FastPlayer {
 
         }
     };
-
     private Promise<Player> playerPromise = new Promise<Player>() {
         @Override
         public void then(Player player) {
@@ -80,4 +69,13 @@ public class FastPlayer {
             errorHandler.onJoinPlayerError(new FastException(t.getMessage(), t));
         }
     };
+
+    public FastPlayer(FastSdk sdk, FastPlayerOptions options) {
+        this.fastSdk = sdk;
+        this.playerConf = new PlayerConfiguration(options.getUuid(), options.getToken());
+    }
+
+    public void join() {
+        fastSdk.whiteSdk.createPlayer(playerConf, playerListener, playerPromise);
+    }
 }

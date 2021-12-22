@@ -12,20 +12,20 @@ public class FastStyle {
     public FastStyle() {
     }
 
-    public void setMainColor(@ColorInt int color) {
-        this.mainColor = color;
-    }
-
     public int getMainColor() {
         return mainColor;
     }
 
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
+    public void setMainColor(@ColorInt int color) {
+        this.mainColor = color;
     }
 
     public boolean isDarkMode() {
         return darkMode;
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
     }
 
     public FastStyle copy() {

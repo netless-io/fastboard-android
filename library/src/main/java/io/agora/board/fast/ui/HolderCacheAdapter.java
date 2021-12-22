@@ -2,11 +2,11 @@ package io.agora.board.fast.ui;
 
 import android.view.ViewGroup;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class HolderCacheAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
