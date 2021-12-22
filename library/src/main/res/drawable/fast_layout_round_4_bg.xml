@@ -5,5 +5,5 @@
         android:width="1dp"
         android:color="@color/fast_day_night_border_bg" />
     <solid android:color="@color/fast_day_night_bg" />
-    <corners android:radius="8dp" />
+    <corners android:radius="4dp" />
 </shape>

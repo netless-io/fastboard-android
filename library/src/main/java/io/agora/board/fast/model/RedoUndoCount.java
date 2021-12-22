@@ -11,4 +11,12 @@ public class RedoUndoCount {
         this.redo = redoCount;
         this.undo = undoCount;
     }
+
+    public long getRedo() {
+        return redo;
+    }
+
+    public long getUndo() {
+        return undo;
+    }
 }

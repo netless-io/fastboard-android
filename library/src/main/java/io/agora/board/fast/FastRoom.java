@@ -55,6 +55,7 @@ public class FastRoom {
             FastLogger.info("join room success" + room.toString());
             FastRoom.this.room = room;
             notifyRoomState(room.getRoomState());
+            updateWritable();
         }
 
         @Override
@@ -65,6 +66,12 @@ public class FastRoom {
             errorHandler.onJoinRoomError(new FastException(t.getMessage(), t));
         }
     };
+
+    private void updateWritable() {
+        if (room.getWritable()) {
+            room.disableSerialization(false);
+        }
+    }
 
     private RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
@@ -92,13 +99,13 @@ public class FastRoom {
 
         @Override
         public void onCanUndoStepsUpdate(long canUndoSteps) {
-            canUndoSteps = canUndoSteps;
+            this.canUndoSteps = canUndoSteps;
             fastContext.notifyRedoUndoChanged(new RedoUndoCount(canRedoSteps, canUndoSteps));
         }
 
         @Override
         public void onCanRedoStepsUpdate(long canRedoSteps) {
-            canRedoSteps = canRedoSteps;
+            this.canRedoSteps = canRedoSteps;
             fastContext.notifyRedoUndoChanged(new RedoUndoCount(canRedoSteps, canUndoSteps));
         }
 

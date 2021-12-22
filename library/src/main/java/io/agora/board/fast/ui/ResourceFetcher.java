@@ -12,6 +12,8 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
 
 import io.agora.board.fast.library.R;
 
@@ -92,6 +94,32 @@ public class ResourceFetcher {
         return ColorStateList.valueOf(color);
     }
 
+    public ColorStateList getIconColor(boolean darkMode, boolean changeEnable) {
+        int color = color(darkMode
+                ? R.color.fast_dark_mode_icon_color
+                : R.color.fast_light_mode_icon_color
+        );
+        int colorDisable = color(darkMode
+                        ? R.color.fast_dark_mode_icon_color
+                        : R.color.fast_light_mode_icon_color
+                , R.dimen.fast_default_disable_alpha
+        );
+
+        int[][] states = new int[][]{
+                new int[]{-android.R.attr.state_enabled},
+                new int[]{-android.R.attr.state_pressed},
+                new int[]{},
+        };
+        int[] colors = new int[]{
+                changeEnable ? colorDisable : color,
+                color,
+                color
+        };
+
+        return new ColorStateList(states, colors);
+    }
+
+
     public Drawable createColorBackground(int mainColor) {
         GradientDrawable shape = new GradientDrawable();
         shape.setStroke(dimenPx(R.dimen.fast_bg_color_item_stroke_width), mainColor);
@@ -143,5 +171,10 @@ public class ResourceFetcher {
 
     private int color(@ColorRes int id) {
         return ContextCompat.getColor(context, id);
+    }
+
+    private int color(@ColorRes int id, @DimenRes int alphaId) {
+        float alphaF = ResourcesCompat.getFloat(context.getResources(), alphaId);
+        return ColorUtils.setAlphaComponent(color(id), (int) (alphaF * 255));
     }
 }

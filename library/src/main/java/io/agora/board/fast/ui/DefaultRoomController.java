@@ -16,6 +16,7 @@ import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.model.RedoUndoCount;
 
 public class DefaultRoomController extends RelativeLayout implements RoomController, BoardStateObserver {
     private ToolButton toolButton;
@@ -23,6 +24,7 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
 
     private SubToolButton subToolButton;
     private SubToolsLayout subToolsLayout;
+    private RedoUndoLayout redoUndoLayout;
 
     private View overlayView;
 
@@ -107,6 +109,19 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
             }
         });
 
+        redoUndoLayout = root.findViewById(R.id.redo_undo_layout);
+        redoUndoLayout.setOnRedoUndoClickListener(new RedoUndoLayout.OnRedoUndoClickListener() {
+            @Override
+            public void onUndoClick() {
+                fastRoom.getRoom().undo();
+            }
+
+            @Override
+            public void onRedoClick() {
+                fastRoom.getRoom().redo();
+            }
+        });
+
         overlayView.setOnClickListener(v ->
                 hideAllOverlay()
         );
@@ -151,6 +166,11 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
         subToolsLayout.setStrokeWidth((int) strokeWidth);
     }
 
+    @Override
+    public void onRedoUndoChanged(RedoUndoCount count) {
+        redoUndoLayout.updateRedoUndoCount(count);
+    }
+
     public void attachSdk(FastSdk fastSdk) {
         this.fastSdk = fastSdk;
         fastSdk.registerObserver(this);
@@ -168,5 +188,7 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
 
         toolButton.setFastStyle(fastStyle);
         toolsLayout.setFastStyle(fastStyle);
+
+        redoUndoLayout.setFastStyle(fastStyle);
     }
 }

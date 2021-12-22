@@ -58,4 +58,15 @@
         android:background="@drawable/fast_layout_round_4_bg"
         android:visibility="invisible"
         tools:visibility="visible" />
+
+    <io.agora.board.fast.ui.RedoUndoLayout
+        android:id="@+id/redo_undo_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/fast_default_layout_margin"
+        android:layout_marginTop="@dimen/fast_default_layout_margin"
+        android:layout_marginEnd="@dimen/fast_default_layout_margin"
+        android:layout_marginBottom="@dimen/fast_default_layout_margin" />
 </merge>
