@@ -27,11 +27,6 @@ public interface BoardStateObserver {
 
     }
 
-    /**
-     * 主题变更
-     *
-     * @param style
-     */
     default void onGlobalStyleChanged(FastStyle style) {
 
     }

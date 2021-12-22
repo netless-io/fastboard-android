@@ -16,7 +16,7 @@ public class FastPlayer {
     private final FastSdk fastSdk;
     private final PlayerConfiguration playerConf;
     private Player player;
-    private PlayerListener playerListener = new PlayerListener() {
+    private final PlayerListener playerListener = new PlayerListener() {
         @Override
         public void onPhaseChanged(PlayerPhase phase) {
 
@@ -57,7 +57,7 @@ public class FastPlayer {
 
         }
     };
-    private Promise<Player> playerPromise = new Promise<Player>() {
+    private final Promise<Player> playerPromise = new Promise<Player>() {
         @Override
         public void then(Player player) {
             FastPlayer.this.player = player;
@@ -77,5 +77,9 @@ public class FastPlayer {
 
     public void join() {
         fastSdk.whiteSdk.createPlayer(playerConf, playerListener, playerPromise);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

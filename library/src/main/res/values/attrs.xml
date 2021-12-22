@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="FastBoardView">
+    <declare-styleable name="FastboardView">
         <attr name="fbv_main_color" format="color" />
         <attr name="fbv_dark_mode" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="FastBoardTheme">
-        <attr name="fastBoardViewStyle" format="reference" />
+    <declare-styleable name="FastboardTheme">
+        <attr name="fastboardViewStyle" format="reference" />
     </declare-styleable>
 </resources>

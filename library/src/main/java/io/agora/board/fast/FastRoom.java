@@ -39,7 +39,7 @@ public class FastRoom {
             errorHandler.onJoinRoomError(new FastException(t.getMessage(), t));
         }
     };
-    private RoomListener roomListener = new RoomListener() {
+    private final RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
         private long canRedoSteps;
 

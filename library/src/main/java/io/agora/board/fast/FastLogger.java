@@ -14,7 +14,7 @@ class FastLogger {
     }
 
     static void error(String msg) {
-        Log.e(LOG_TAG, msg, null);
+        error(msg, null);
     }
 
     static void error(String msg, Throwable throwable) {
