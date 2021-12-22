@@ -8,9 +8,13 @@ import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
+import com.herewhite.sdk.domain.WindowParams;
+
+import java.util.HashMap;
 
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.model.FastRoomOptions;
+import io.agora.board.fast.model.RedoUndoCount;
 
 public class FastRoom {
     private final FastSdk fastSdk;
@@ -23,6 +27,18 @@ public class FastRoom {
         this.fastSdk = fastSdk;
         this.fastContext = fastSdk.fastContext;
         this.params = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
+        this.params.setWritable(options.isWritable());
+        this.params.setDisableNewPencil(false);
+
+        HashMap<String, String> styleMap = new HashMap<>();
+        styleMap.put("bottom", "30px");
+        styleMap.put("right", "44px");
+        styleMap.put("position", "fixed");
+        WindowParams windowParams = new WindowParams();
+        windowParams.setChessboard(true);
+        windowParams.setDebug(true);
+        windowParams.setCollectorStyles(styleMap);
+        this.params.setWindowParams(windowParams);
     }
 
     public void join() {
@@ -33,7 +49,7 @@ public class FastRoom {
         return room;
     }
 
-    private Promise<Room> joinRoomPromise = new Promise<Room>() {
+    private final Promise<Room> joinRoomPromise = new Promise<Room>() {
         @Override
         public void then(Room room) {
             FastLogger.info("join room success" + room.toString());
@@ -77,11 +93,13 @@ public class FastRoom {
         @Override
         public void onCanUndoStepsUpdate(long canUndoSteps) {
             canUndoSteps = canUndoSteps;
+            fastContext.notifyRedoUndoChanged(new RedoUndoCount(canRedoSteps, canUndoSteps));
         }
 
         @Override
         public void onCanRedoStepsUpdate(long canRedoSteps) {
             canRedoSteps = canRedoSteps;
+            fastContext.notifyRedoUndoChanged(new RedoUndoCount(canRedoSteps, canUndoSteps));
         }
 
         @Override

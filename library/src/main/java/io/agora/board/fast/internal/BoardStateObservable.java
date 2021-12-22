@@ -7,7 +7,9 @@ import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.RoomPhase;
 
 import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.model.RedoUndoCount;
 
 /**
  * @author fenglibin
@@ -31,9 +33,21 @@ public class BoardStateObservable extends Observable<BoardStateObserver> {
         }
     }
 
+    public void notifyRedoUndoChanged(RedoUndoCount count) {
+        for (int i = mObservers.size() - 1; i >= 0; i--) {
+            mObservers.get(i).onRedoUndoChanged(count);
+        }
+    }
+
     public void notifyGlobalStyleChanged(FastStyle fastStyle) {
         for (int i = mObservers.size() - 1; i >= 0; i--) {
             mObservers.get(i).onGlobalStyleChanged(fastStyle);
+        }
+    }
+
+    public void notifyFastRoomCreated(FastRoom fastRoom) {
+        for (int i = mObservers.size() - 1; i >= 0; i--) {
+            mObservers.get(i).onFastRoomCreated(fastRoom);
         }
     }
 }

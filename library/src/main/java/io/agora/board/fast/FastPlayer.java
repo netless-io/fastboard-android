@@ -77,7 +77,7 @@ public class FastPlayer {
         @Override
         public void catchEx(SDKError t) {
             FastErrorHandler errorHandler = fastSdk.fastContext.errorHandler;
-            errorHandler.onJoinRoomError(new FastException(t.getMessage(), t));
+            errorHandler.onJoinPlayerError(new FastException(t.getMessage(), t));
         }
     };
 }

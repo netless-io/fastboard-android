@@ -4,11 +4,11 @@ package io.agora.board.fast.model;
  * @author fenglibin
  */
 public class RedoUndoCount {
-    private final int redoCount;
-    private final int undoCount;
+    private final long redo;
+    private final long undo;
 
-    public RedoUndoCount(int redoCount, int undoCount) {
-        this.redoCount = redoCount;
-        this.undoCount = undoCount;
+    public RedoUndoCount(long redoCount, long undoCount) {
+        this.redo = redoCount;
+        this.undo = undoCount;
     }
 }

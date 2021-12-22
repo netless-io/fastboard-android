@@ -15,19 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.herewhite.sdk.WhiteboardView;
-import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.RoomPhase;
-import com.herewhite.sdk.domain.ShapeType;
 
 import io.agora.board.fast.library.R;
-import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.ResourceFetcher;
-import io.agora.board.fast.ui.SubToolButton;
-import io.agora.board.fast.ui.SubToolsLayout;
-import io.agora.board.fast.ui.ToolButton;
-import io.agora.board.fast.ui.ToolsLayout;
+import io.agora.board.fast.ui.RoomController;
 
 /**
  * @author fenglibin
@@ -35,15 +29,11 @@ import io.agora.board.fast.ui.ToolsLayout;
 public class FastboardView extends FrameLayout implements BoardStateObserver {
     FastSdk fastSdk;
     WhiteboardView whiteboardView;
+    @NonNull
+    RoomController roomController;
+
     FastContext fastContext = new FastContext();
 
-    private ToolButton toolButton;
-    private ToolsLayout toolsLayout;
-
-    private SubToolButton subToolButton;
-    private SubToolsLayout subToolsLayout;
-
-    private View overlayView;
     private View loadingView;
     private ProgressBar progressBar;
 
@@ -65,74 +55,9 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
     private void setupView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_board_view, this, true);
         whiteboardView = root.findViewById(R.id.real_white_board_view);
-        overlayView = root.findViewById(R.id.overlay_handle_view);
-        toolButton = root.findViewById(R.id.tool_button);
-        subToolButton = root.findViewById(R.id.sub_tool_button);
+        roomController = root.findViewById(R.id.default_room_controller);
+
         progressBar = root.findViewById(R.id.progress_bar_cyclic);
-
-        toolsLayout = root.findViewById(R.id.tools_layout);
-        toolsLayout.setOnApplianceClickListener(item -> {
-            if (item != ApplianceItem.OTHER_CLEAR) {
-                toolButton.setApplianceItem(item);
-                subToolButton.setApplianceItem(item);
-            }
-
-            hideAllOverlay();
-
-            if (item == ApplianceItem.OTHER_CLEAR) {
-                fastSdk.fastRoom.cleanScene();
-            } else {
-                fastSdk.fastRoom.setAppliance(item.appliance);
-            }
-        });
-
-        subToolsLayout = root.findViewById(R.id.sub_tools_layout);
-        subToolsLayout.setOnColorClickListener(color -> {
-            subToolButton.setColor(color);
-            subToolsLayout.setColor(color);
-
-            hideAllOverlay();
-
-            fastSdk.fastRoom.setColor(color);
-        });
-        subToolsLayout.setOnStrokeChangedListener(width ->
-                fastSdk.fastRoom.setStokeWidth(width)
-        );
-
-        toolButton.setOnClickListener(v -> {
-            boolean target = !toolButton.isSelected();
-            toolButton.setSelected(target);
-            toolsLayout.setShown(target);
-
-            subToolButton.setSelected(false);
-            subToolsLayout.setShown(false);
-
-            updateOverlay();
-        });
-
-        subToolButton.setOnSubToolClickListener(new SubToolButton.OnSubToolClickListener() {
-            @Override
-            public void onDeleteClick() {
-                fastSdk.fastRoom.getRoom().deleteOperation();
-            }
-
-            @Override
-            public void onColorClick() {
-                boolean target = !subToolButton.isSelected();
-                subToolButton.setSelected(target);
-                subToolsLayout.setShown(target);
-
-                toolButton.setSelected(false);
-                toolsLayout.setShown(false);
-
-                updateOverlay();
-            }
-        });
-
-        overlayView.setOnClickListener(v ->
-                hideAllOverlay()
-        );
-
         loadingView = root.findViewById(R.id.loading_layout);
         loadingView.setVisibility(VISIBLE);
     }
@@ -146,47 +71,9 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
         FastStyle fastStyle = new FastStyle();
         fastStyle.setMainColor(mainColor);
         fastStyle.setDarkMode(darkMode);
-
         fastContext.initFastStyle(fastStyle);
-    }
 
-    private void hideAllOverlay() {
-        if (toolButton.isSelected()) {
-            toolButton.setSelected(false);
-            toolsLayout.setShown(false);
-        }
-
-        if (subToolButton.isSelected()) {
-            subToolButton.setSelected(false);
-            subToolsLayout.setShown(false);
-        }
-
-        overlayView.setVisibility(GONE);
-    }
-
-    private void updateOverlay() {
-        boolean showOverlay = toolButton.isSelected() || subToolButton.isSelected();
-        overlayView.setVisibility(showOverlay ? VISIBLE : GONE);
-    }
-
-    @Override
-    public void onMemberStateChanged(MemberState memberState) {
-        updateAppliance(memberState.getCurrentApplianceName(), memberState.getShapeType());
-        updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
-    }
-
-    private void updateAppliance(String appliance, ShapeType shapeType) {
-        ApplianceItem item = ApplianceItem.of(appliance);
-        toolButton.setApplianceItem(item);
-        toolsLayout.setApplianceItem(item);
-        subToolButton.setApplianceItem(item);
-    }
-
-    private void updateStroke(int[] strokeColor, double strokeWidth) {
-        int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
-        subToolButton.setColor(color);
-        subToolsLayout.setColor(color);
-        subToolsLayout.setStrokeWidth((int) strokeWidth);
+        roomController.updateFastStyle(fastStyle);
     }
 
     @Override
@@ -209,18 +96,18 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
         updateStyle(fastStyle);
     }
 
+    @Override
+    public void onFastRoomCreated(FastRoom fastRoom) {
+        roomController.attachRoom(fastRoom);
+    }
+
     private void updateStyle(FastStyle fastStyle) {
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(fastStyle.getMainColor()));
-        subToolButton.setFastStyle(fastStyle);
-        subToolsLayout.setFastStyle(fastStyle);
-
-        toolButton.setFastStyle(fastStyle);
-        toolsLayout.setFastStyle(fastStyle);
-
         whiteboardView.setBackgroundColor(ContextCompat.getColor(
                 getContext(),
                 R.color.fast_day_night_bg
         ));
+        roomController.updateFastStyle(fastStyle);
     }
 
     public FastStyle getFastStyle() {
@@ -232,6 +119,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
             fastSdk = new FastSdk(this);
             fastSdk.initSdk(new FastSdkOptions(options.getAppId()));
             fastSdk.registerObserver(this);
+            roomController.attachSdk(fastSdk);
         }
         return fastSdk;
     }

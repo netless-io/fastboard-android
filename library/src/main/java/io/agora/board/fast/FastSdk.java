@@ -67,6 +67,11 @@ public class FastSdk {
         }
         fastRoom = new FastRoom(this, options);
         fastRoom.join();
+        fastContext.notifyFastRoomCreated(fastRoom);
+        return fastRoom;
+    }
+
+    public FastRoom getFastRoom() {
         return fastRoom;
     }
 
@@ -109,10 +114,6 @@ public class FastSdk {
      */
     public FastStyle getFastStyle() {
         return fastContext.getFastStyle().copy();
-    }
-
-    public void setDarkMode(boolean darkMode) {
-        fastContext.setDartMode(darkMode);
     }
 
     public FastContext getFastContext() {

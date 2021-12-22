@@ -9,15 +9,13 @@ import com.herewhite.sdk.domain.RoomPhase;
 import io.agora.board.fast.internal.BoardStateObservable;
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.model.RedoUndoCount;
 
 public class FastContext {
     @NonNull
     volatile FastErrorHandler errorHandler;
-
     BoardStateObservable observable = new BoardStateObservable();
-
     FastStyle fastStyle;
-    boolean darkMode;
 
     void initFastStyle(FastStyle fastStyle) {
         this.fastStyle = fastStyle;
@@ -25,7 +23,7 @@ public class FastContext {
 
     void updateFastStyle(FastStyle fastStyle) {
         this.fastStyle = fastStyle;
-        observable.notifyGlobalStyleChanged(fastStyle);
+        this.observable.notifyGlobalStyleChanged(fastStyle);
     }
 
     FastStyle getFastStyle() {
@@ -52,7 +50,11 @@ public class FastContext {
         observable.notifyMemberStateChanged(memberState);
     }
 
-    public void setDartMode(boolean darkMode) {
-        this.darkMode = darkMode;
+    public void notifyRedoUndoChanged(RedoUndoCount count) {
+        observable.notifyRedoUndoChanged(count);
+    }
+
+    public void notifyFastRoomCreated(FastRoom fastRoom) {
+        observable.notifyFastRoomCreated(fastRoom);
     }
 }

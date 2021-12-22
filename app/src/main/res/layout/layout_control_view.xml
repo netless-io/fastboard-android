@@ -5,7 +5,8 @@
 
     <ScrollView
         android:layout_width="200dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/fast_day_night_bg"
         android:paddingHorizontal="12dp">
 
         <FrameLayout

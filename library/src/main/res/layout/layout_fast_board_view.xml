@@ -10,86 +10,34 @@
         android:layout_height="match_parent"
         tools:background="#FFFFFF" />
 
-    <RelativeLayout
+    <io.agora.board.fast.ui.DefaultRoomController
+        android:id="@+id/default_room_controller"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/overlay_handle_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible" />
+    </io.agora.board.fast.ui.DefaultRoomController>
 
-        <View
-            android:id="@+id/guideline"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_centerVertical="true" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <io.agora.board.fast.ui.SubToolButton
-            android:id="@+id/sub_tool_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/guideline"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="-20dp"
-            android:layout_marginEnd="@dimen/fast_default_layout_margin"
-            android:background="@drawable/fast_bg_tool_button" />
+        <ProgressBar
+            android:id="@+id/progress_bar_cyclic"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:indeterminateTint="@color/fast_default_main_color"
+            android:visibility="visible" />
 
-        <io.agora.board.fast.ui.ToolButton
-            android:id="@+id/tool_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/sub_tool_button"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/fast_default_layout_margin"
-            android:layout_marginEnd="@dimen/fast_default_layout_margin"
-            android:background="@drawable/fast_bg_tool_button" />
-
-        <io.agora.board.fast.ui.ToolsLayout
-            android:id="@+id/tools_layout"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/tool_button"
-            android:layout_marginEnd="@dimen/fast_default_layout_margin"
-            android:layout_toStartOf="@id/tool_button"
-            android:background="@drawable/fast_layout_round_4_bg"
-            android:visibility="invisible"
-            tools:visibility="visible" />
-
-        <io.agora.board.fast.ui.SubToolsLayout
-            android:id="@+id/sub_tools_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/sub_tool_button"
-            android:layout_marginEnd="@dimen/fast_default_layout_margin"
-            android:layout_toStartOf="@id/sub_tool_button"
-            android:background="@drawable/fast_layout_round_4_bg"
-            android:visibility="invisible"
-            tools:visibility="visible" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/loading_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/progress_bar_cyclic"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:indeterminateTint="@color/fast_default_main_color"
-                android:visibility="visible" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="4dp"
-                android:text="@string/fast_loading"
-                android:textColor="#000000" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </RelativeLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:text="@string/fast_loading"
+            android:textColor="#000000" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </merge>
