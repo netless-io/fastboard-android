@@ -119,6 +119,14 @@ public class ResourceFetcher {
         return new ColorStateList(states, colors);
     }
 
+    public ColorStateList getTextColor(boolean darkMode) {
+        int color = color(darkMode
+                ? R.color.fast_dark_mode_text_on_bg
+                : R.color.fast_light_mode_text_on_bg
+        );
+        return ColorStateList.valueOf(color);
+    }
+
 
     public Drawable createColorBackground(int mainColor) {
         GradientDrawable shape = new GradientDrawable();

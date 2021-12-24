@@ -8,9 +8,7 @@ import com.herewhite.sdk.domain.SDKError;
 
 import org.json.JSONObject;
 
-import io.agora.board.fast.internal.DefaultErrorHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
-import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
@@ -51,7 +49,6 @@ public class FastSdk {
     public FastSdk(FastboardView fastBoardView) {
         this.fastBoardView = fastBoardView;
         this.fastContext = fastBoardView.fastContext;
-        this.fastContext.errorHandler = new DefaultErrorHandler(Util.getActivity(fastBoardView.getContext()));
     }
 
     void initSdk(FastSdkOptions options) {

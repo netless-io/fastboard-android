@@ -9,14 +9,18 @@
     <color name="fast_dark_mode_bg_selected">#20FFFFFF</color>
     <color name="fast_dark_mode_border_bg">#E0FFFFFF</color>
     <color name="fast_dark_mode_icon_color">#FFFFFF</color>
+    <color name="fast_dark_mode_text_on_bg">#F9F9F9</color>
 
     <color name="fast_light_mode_bg">#F9F9F9</color>
     <color name="fast_light_mode_bg_selected">#20000000</color>
     <color name="fast_light_mode_border_bg">#26000000</color>
     <color name="fast_light_mode_icon_color">#000000</color>
+    <color name="fast_light_mode_text_on_bg">#5D5D5D</color>
 
     <color name="fast_day_night_bg">@color/fast_light_mode_bg</color>
     <color name="fast_day_night_bg_selected">@color/fast_light_mode_bg_selected</color>
     <color name="fast_day_night_border_bg">@color/fast_light_mode_border_bg</color>
     <color name="fast_day_night_icon_color">@color/fast_light_mode_icon_color</color>
+    <color name="fast_day_night_text_on_bg">@color/fast_light_mode_text_on_bg</color>
+
 </resources>

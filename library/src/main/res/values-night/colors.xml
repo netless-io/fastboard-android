@@ -4,4 +4,5 @@
     <color name="fast_day_night_bg_selected">@color/fast_dark_mode_bg_selected</color>
     <color name="fast_day_night_border_bg">@color/fast_dark_mode_border_bg</color>
     <color name="fast_day_night_icon_color">@color/fast_dark_mode_icon_color</color>
+    <color name="fast_day_night_text_on_bg">@color/fast_dark_mode_text_on_bg</color>
 </resources>

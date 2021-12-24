@@ -16,7 +16,6 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Objects;
 
-import io.agora.board.fast.internal.DefaultErrorHandler;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
@@ -49,9 +48,6 @@ public class RoomActivity extends AppCompatActivity {
         // join room
         FastRoomOptions roomOptions = new FastRoomOptions(Constants.SIMPLE_ROOM_UUID, Constants.SIMPLE_ROOM_TOKEN, Constants.SIMPLE_UID);
         fastSdk.joinRoom(roomOptions);
-
-        // set error handler
-        fastSdk.setErrorHandler(new DefaultErrorHandler(this));
 
         // global style change
         FastStyle fastStyle = fastSdk.getFastStyle();

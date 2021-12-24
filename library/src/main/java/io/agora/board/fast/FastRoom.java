@@ -121,6 +121,10 @@ public class FastRoom {
         if (roomState.getMemberState() != null) {
             fastContext.notifyMemberStateChanged(roomState.getMemberState());
         }
+
+        if (roomState.getSceneState() != null) {
+            fastContext.notifySceneStateChanged(roomState.getSceneState());
+        }
     }
 
     public void setColor(Integer color) {

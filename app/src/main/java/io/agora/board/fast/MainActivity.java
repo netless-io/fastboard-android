@@ -2,10 +2,9 @@ package io.agora.board.fast;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.herewhite.sdk.WhiteboardView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupUi();
 
-        WhiteboardView.setWebContentsDebuggingEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(true);
     }
 
     private void setupUi() {

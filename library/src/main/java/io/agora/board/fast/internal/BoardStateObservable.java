@@ -5,6 +5,7 @@ import android.database.Observable;
 import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.RoomPhase;
+import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.BoardStateObserver;
 import io.agora.board.fast.FastRoom;
@@ -26,6 +27,13 @@ public class BoardStateObservable extends Observable<BoardStateObserver> {
             mObservers.get(i).onBroadcastStateChanged(broadcastState);
         }
     }
+
+    public void notifySceneStateChanged(SceneState sceneState) {
+        for (int i = mObservers.size() - 1; i >= 0; i--) {
+            mObservers.get(i).onSceneStateChanged(sceneState);
+        }
+    }
+
 
     public void notifyRoomPhaseChanged(RoomPhase roomPhase) {
         for (int i = mObservers.size() - 1; i >= 0; i--) {

@@ -20,22 +20,20 @@ import com.herewhite.sdk.domain.RoomPhase;
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.ui.ResourceFetcher;
 import io.agora.board.fast.ui.RoomController;
 
 /**
  * @author fenglibin
  */
 public class FastboardView extends FrameLayout implements BoardStateObserver {
-    FastSdk fastSdk;
     WhiteboardView whiteboardView;
     @NonNull
     RoomController roomController;
-
-    FastContext fastContext = new FastContext();
-
     private View loadingView;
     private ProgressBar progressBar;
+
+    FastContext fastContext;
+    FastSdk fastSdk;
 
     public FastboardView(@NonNull Context context) {
         this(context, null);
@@ -47,15 +45,19 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
 
     public FastboardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ResourceFetcher.get().init(context);
+        setupFastContext(context);
         setupView(context);
         setupStyle(context, attrs, defStyleAttr);
+    }
+
+    private void setupFastContext(@NonNull Context context) {
+        fastContext = new FastContext(context);
     }
 
     private void setupView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_board_view, this, true);
         whiteboardView = root.findViewById(R.id.real_white_board_view);
-        roomController = root.findViewById(R.id.default_room_controller);
+        roomController = root.findViewById(R.id.fast_room_controller);
 
         progressBar = root.findViewById(R.id.progress_bar_cyclic);
         loadingView = root.findViewById(R.id.loading_layout);
@@ -96,11 +98,6 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
         updateStyle(fastStyle);
     }
 
-    @Override
-    public void onFastRoomCreated(FastRoom fastRoom) {
-        roomController.attachRoom(fastRoom);
-    }
-
     private void updateStyle(FastStyle fastStyle) {
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(fastStyle.getMainColor()));
         whiteboardView.setBackgroundColor(ContextCompat.getColor(
@@ -118,9 +115,13 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
         if (fastSdk == null) {
             fastSdk = new FastSdk(this);
             fastSdk.initSdk(new FastSdkOptions(options.getAppId()));
-            fastSdk.registerObserver(this);
-            roomController.attachSdk(fastSdk);
+            onFastSdkCreated();
         }
         return fastSdk;
+    }
+
+    private void onFastSdkCreated() {
+        fastSdk.registerObserver(this);
+        roomController.attachSdk(fastSdk);
     }
 }

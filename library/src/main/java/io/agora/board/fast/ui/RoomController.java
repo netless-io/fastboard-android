@@ -1,6 +1,5 @@
 package io.agora.board.fast.ui;
 
-import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.model.FastStyle;
 
@@ -10,10 +9,6 @@ import io.agora.board.fast.model.FastStyle;
 public interface RoomController {
 
     default void attachSdk(FastSdk fastSdk) {
-
-    }
-
-    default void attachRoom(FastRoom fastRoom) {
 
     }
 

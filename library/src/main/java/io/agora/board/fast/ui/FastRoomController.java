@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.ShapeType;
@@ -18,34 +19,35 @@ import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
 
-public class DefaultRoomController extends RelativeLayout implements RoomController, BoardStateObserver {
+public class FastRoomController extends RelativeLayout implements RoomController, BoardStateObserver {
     private ToolButton toolButton;
     private ToolsLayout toolsLayout;
 
     private SubToolButton subToolButton;
     private SubToolsLayout subToolsLayout;
     private RedoUndoLayout redoUndoLayout;
+    private ScenesLayout scenesLayout;
 
     private View overlayView;
 
     private FastSdk fastSdk;
     private FastRoom fastRoom;
 
-    public DefaultRoomController(Context context) {
+    public FastRoomController(Context context) {
         this(context, null);
     }
 
-    public DefaultRoomController(Context context, AttributeSet attrs) {
+    public FastRoomController(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DefaultRoomController(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FastRoomController(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupView(context);
     }
 
     private void setupView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_default_room_controller, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_room_controller, this, true);
 
         overlayView = root.findViewById(R.id.overlay_handle_view);
         toolButton = root.findViewById(R.id.tool_button);
@@ -75,6 +77,7 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
 
             fastRoom.setColor(color);
         });
+
         subToolsLayout.setOnStrokeChangedListener(width ->
                 fastRoom.setStokeWidth(width)
         );
@@ -121,6 +124,8 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
                 fastRoom.getRoom().redo();
             }
         });
+
+        scenesLayout = root.findViewById(R.id.scenes_layout);
 
         overlayView.setOnClickListener(v ->
                 hideAllOverlay()
@@ -171,14 +176,16 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
         redoUndoLayout.updateRedoUndoCount(count);
     }
 
-    public void attachSdk(FastSdk fastSdk) {
-        this.fastSdk = fastSdk;
-        fastSdk.registerObserver(this);
-    }
-
     @Override
     public void onFastRoomCreated(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
+    }
+
+    @Override
+    public void attachSdk(FastSdk fastSdk) {
+        this.fastSdk = fastSdk;
+        fastSdk.registerObserver(this);
+        scenesLayout.setFastSdk(fastSdk);
     }
 
     @Override
@@ -190,5 +197,6 @@ public class DefaultRoomController extends RelativeLayout implements RoomControl
         toolsLayout.setFastStyle(fastStyle);
 
         redoUndoLayout.setFastStyle(fastStyle);
+        scenesLayout.setFastStyle(fastStyle);
     }
 }

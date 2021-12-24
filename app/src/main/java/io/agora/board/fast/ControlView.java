@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.herewhite.sdk.domain.SceneState;
+
 public class ControlView extends FrameLayout {
     private FastSdk fastSdk;
 
@@ -36,6 +38,15 @@ public class ControlView extends FrameLayout {
                 activity.getDelegate().setLocalNightMode(
                         isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
                 );
+            }
+        });
+
+        root.findViewById(R.id.clear_scenes).setOnClickListener(v -> {
+            if (fastSdk != null) {
+                SceneState sceneState = fastSdk.getFastRoom().getRoom().getRoomState().getSceneState();
+                String scenePath = sceneState.getScenePath();
+                String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
+                fastSdk.getFastRoom().getRoom().removeScenes(dir);
             }
         });
     }

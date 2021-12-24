@@ -10,12 +10,10 @@
         android:layout_height="match_parent"
         tools:background="#FFFFFF" />
 
-    <io.agora.board.fast.ui.DefaultRoomController
-        android:id="@+id/default_room_controller"
+    <io.agora.board.fast.ui.FastRoomController
+        android:id="@+id/fast_room_controller"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </io.agora.board.fast.ui.DefaultRoomController>
+        android:layout_height="match_parent" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/loading_layout"

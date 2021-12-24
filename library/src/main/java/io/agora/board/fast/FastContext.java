@@ -1,21 +1,35 @@
 package io.agora.board.fast;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.RoomPhase;
+import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.internal.BoardStateObservable;
+import io.agora.board.fast.internal.DefaultErrorHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
+import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.ui.ResourceFetcher;
 
 public class FastContext {
     @NonNull
     volatile FastErrorHandler errorHandler;
+    @NonNull
+    volatile ResourceFetcher resourceFetcher;
     BoardStateObservable observable = new BoardStateObservable();
     FastStyle fastStyle;
+
+    public FastContext(Context context) {
+        this.resourceFetcher = ResourceFetcher.get();
+        this.resourceFetcher.init(context);
+        this.errorHandler = new DefaultErrorHandler(Util.getActivity(context));
+    }
 
     void initFastStyle(FastStyle fastStyle) {
         this.fastStyle = fastStyle;
@@ -48,6 +62,10 @@ public class FastContext {
 
     public void notifyMemberStateChanged(MemberState memberState) {
         observable.notifyMemberStateChanged(memberState);
+    }
+
+    public void notifySceneStateChanged(SceneState sceneState) {
+        observable.notifySceneStateChanged(sceneState);
     }
 
     public void notifyRedoUndoChanged(RedoUndoCount count) {
