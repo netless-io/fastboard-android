@@ -18,11 +18,12 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHolder> {
+public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.ViewHolder> {
     private List<ApplianceItem> appliances;
 
     private ApplianceItem curAppliance;
     private ColorStateList iconColor;
+    private boolean isDarkMode;
     private OnApplianceClickListener onApplianceClickListener;
 
     public ApplianceAdapter(List<ApplianceItem> appliances) {
@@ -31,7 +32,7 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onChildCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tools_appliance, parent, false);
         return new ViewHolder(root);
     }
@@ -43,6 +44,7 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
         holder.appliance.setImageResource(item.icon);
         holder.appliance.setImageTintList(iconColor);
         holder.appliance.setSelected(item == curAppliance);
+        holder.appliance.setBackground(ResourceFetcher.get().createApplianceBackground(isDarkMode));
         holder.itemView.setOnClickListener(v -> {
             if (item != ApplianceItem.OTHER_CLEAR) {
                 curAppliance = item;
@@ -50,7 +52,7 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
             if (onApplianceClickListener != null) {
                 onApplianceClickListener.onApplianceClick(item);
             }
-            updateSelected();
+            updateUI();
         });
     }
 
@@ -65,24 +67,17 @@ public class ApplianceAdapter extends HolderCacheAdapter<ApplianceAdapter.ViewHo
 
     public void setApplianceItem(ApplianceItem appliance) {
         curAppliance = appliance;
-        updateSelected();
+        updateUI();
     }
 
     public void setStyle(FastStyle style) {
         iconColor = ResourceFetcher.get().getIconColor(style.isDarkMode());
-        for (ViewHolder viewHolder : holdersCache) {
-            viewHolder.appliance.setBackground(ResourceFetcher.get().createApplianceBackground(style.isDarkMode()));
-        }
-        updateSelected();
+        isDarkMode = style.isDarkMode();
+        updateUI();
     }
 
-    private void updateSelected() {
-        for (ViewHolder viewHolder : holdersCache) {
-            int position = viewHolder.getAdapterPosition();
-            ApplianceItem item = appliances.get(position);
-            viewHolder.appliance.setImageTintList(iconColor);
-            viewHolder.appliance.setSelected(item == curAppliance);
-        }
+    private void updateUI() {
+        notifyDataSetChanged();
     }
 
     public interface OnApplianceClickListener {

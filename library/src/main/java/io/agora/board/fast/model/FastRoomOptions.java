@@ -22,6 +22,9 @@ public class FastRoomOptions {
         this.token = token;
         this.uid = uid;
         this.writable = writable;
+
+        this.roomParams = new RoomParams(uuid, token, uid);
+        this.roomParams.setWritable(writable);
     }
 
     public String getUuid() {

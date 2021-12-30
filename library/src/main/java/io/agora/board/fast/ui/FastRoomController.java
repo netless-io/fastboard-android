@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.ShapeType;

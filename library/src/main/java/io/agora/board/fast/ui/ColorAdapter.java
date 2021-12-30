@@ -16,7 +16,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ColorAdapter extends HolderCacheAdapter<ColorAdapter.ViewHolder> {
+public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
     private List<Integer> colors;
     private int curColor;
     private int mainColor;
@@ -26,8 +26,9 @@ public class ColorAdapter extends HolderCacheAdapter<ColorAdapter.ViewHolder> {
         this.colors = colors;
     }
 
+    @NonNull
     @Override
-    ViewHolder onChildCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sub_tool_color, parent, false);
         return new ViewHolder(root);
     }
@@ -41,10 +42,12 @@ public class ColorAdapter extends HolderCacheAdapter<ColorAdapter.ViewHolder> {
         viewHolder.colorDisplay.setSelected(color == curColor);
         viewHolder.itemView.setOnClickListener(v -> {
             curColor = color;
+            
             if (onColorClickListener != null) {
                 onColorClickListener.onColorClick(color);
             }
-            updateSelected();
+
+            notifyDataSetChanged();
         });
     }
 
@@ -59,23 +62,14 @@ public class ColorAdapter extends HolderCacheAdapter<ColorAdapter.ViewHolder> {
 
     public void setCurrentColor(Integer color) {
         curColor = color;
-        updateSelected();
+
+        notifyDataSetChanged();
     }
 
     public void setStyle(FastStyle style) {
         this.mainColor = style.getMainColor();
-        for (ViewHolder viewHolder : holdersCache) {
-            viewHolder.colorDisplay.setBackground(ResourceFetcher.get().createColorBackground(mainColor));
-        }
-        updateSelected();
-    }
 
-    private void updateSelected() {
-        for (ViewHolder viewHolder : holdersCache) {
-            int position = viewHolder.getAdapterPosition();
-            int color = colors.get(position);
-            viewHolder.colorDisplay.setSelected(color == curColor);
-        }
+        notifyDataSetChanged();
     }
 
     public interface OnColorClickListener {

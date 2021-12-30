@@ -84,19 +84,20 @@ public class FastRoom {
     public FastRoom(FastSdk fastSdk, FastRoomOptions options) {
         this.fastSdk = fastSdk;
         this.fastContext = fastSdk.fastContext;
-        this.params = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
-        this.params.setWritable(options.isWritable());
+        this.params = options.getRoomParams();
         this.params.setDisableNewPencil(false);
 
-        HashMap<String, String> styleMap = new HashMap<>();
-        styleMap.put("bottom", "30px");
-        styleMap.put("right", "44px");
-        styleMap.put("position", "fixed");
-        WindowParams windowParams = new WindowParams();
-        windowParams.setChessboard(true);
-        windowParams.setDebug(true);
-        windowParams.setCollectorStyles(styleMap);
-        this.params.setWindowParams(windowParams);
+        if (params.getWindowParams() == null) {
+            HashMap<String, String> styleMap = new HashMap<>();
+            styleMap.put("bottom", "30px");
+            styleMap.put("right", "44px");
+            styleMap.put("position", "fixed");
+            WindowParams windowParams = new WindowParams();
+            windowParams.setChessboard(false);
+            windowParams.setDebug(true);
+            windowParams.setCollectorStyles(styleMap);
+            this.params.setWindowParams(windowParams);
+        }
     }
 
     public void join() {

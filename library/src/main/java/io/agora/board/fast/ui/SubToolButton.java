@@ -29,7 +29,7 @@ public class SubToolButton extends FrameLayout {
     private int color;
     private OnSubToolClickListener onSubToolClickListener;
 
-    private OnClickListener localOnClickListener = v -> {
+    private OnClickListener onClickListener = v -> {
         if (onSubToolClickListener != null) {
             switch (type) {
                 case TYPE_DELETE:
@@ -62,7 +62,7 @@ public class SubToolButton extends FrameLayout {
         subToolImage = root.findViewById(R.id.sub_tool_button_image);
         subToolExpand = root.findViewById(R.id.sub_tool_expand);
 
-        setOnClickListener(localOnClickListener);
+        setOnClickListener(onClickListener);
         updateUi();
     }
 
