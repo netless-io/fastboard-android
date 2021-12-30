@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Objects;
 
+import io.agora.board.fast.misc.Repository;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
@@ -26,6 +27,7 @@ import io.agora.board.fast.model.FastStyle;
 public class RoomActivity extends AppCompatActivity {
 
     private FastSdk fastSdk;
+    private Repository repository = Repository.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,10 @@ public class RoomActivity extends AppCompatActivity {
         fastSdk = fastBoardView.obtainFastSdk(fastSdkOptions);
 
         // join room
-        FastRoomOptions roomOptions = new FastRoomOptions(Constants.SIMPLE_ROOM_UUID, Constants.SIMPLE_ROOM_TOKEN, Constants.SIMPLE_UID);
+        FastRoomOptions roomOptions = new FastRoomOptions(
+                Constants.SIMPLE_ROOM_UUID,
+                Constants.SIMPLE_ROOM_TOKEN,
+                repository.getUserId());
         fastSdk.joinRoom(roomOptions);
 
         // global style change
