@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
@@ -17,20 +20,23 @@ import io.agora.board.fast.model.RedoUndoCount;
 /**
  * @author fenglibin
  */
-public class RedoUndoLayout extends LinearLayoutCompat {
+public class RedoUndoLayout extends LinearLayoutCompat implements BoardStateObserver, RoomController {
     private ImageView redoImage;
     private ImageView undoImage;
-    private OnRedoUndoClickListener onRedoUndoClickListener;
+
+    private FastRoom fastRoom;
 
     private OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (onRedoUndoClickListener != null) {
-                if (v == redoImage) {
-                    onRedoUndoClickListener.onRedoClick();
-                } else if (v == undoImage) {
-                    onRedoUndoClickListener.onUndoClick();
-                }
+            if (fastRoom == null) {
+                return;
+            }
+
+            if (v == redoImage) {
+                fastRoom.getRoom().redo();
+            } else if (v == undoImage) {
+                fastRoom.getRoom().undo();
             }
         }
     };
@@ -71,19 +77,20 @@ public class RedoUndoLayout extends LinearLayoutCompat {
         undoImage.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode(), true));
         redoImage.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode(), true));
     }
+    
+    @Override
+    public void attachSdk(FastSdk fastSdk) {
+        fastSdk.registerObserver(this);
+    }
 
-    public void updateRedoUndoCount(RedoUndoCount count) {
+    @Override
+    public void onFastRoomCreated(FastRoom fastRoom) {
+        this.fastRoom = fastRoom;
+    }
+
+    @Override
+    public void onRedoUndoChanged(RedoUndoCount count) {
         undoImage.setEnabled(count.getUndo() > 0);
         redoImage.setEnabled(count.getRedo() > 0);
-    }
-
-    public void setOnRedoUndoClickListener(OnRedoUndoClickListener listener) {
-        this.onRedoUndoClickListener = listener;
-    }
-
-    public interface OnRedoUndoClickListener {
-        void onUndoClick();
-
-        void onRedoClick();
     }
 }

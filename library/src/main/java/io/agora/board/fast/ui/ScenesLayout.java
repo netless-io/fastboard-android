@@ -18,23 +18,22 @@ import com.herewhite.sdk.domain.SceneState;
 import io.agora.board.fast.BoardStateObserver;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
-import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.library.R;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
-public class ScenesLayout extends LinearLayout implements BoardStateObserver {
+public class ScenesLayout extends LinearLayout implements BoardStateObserver, RoomController {
     private ImageView scenePrev;
     private ImageView sceneNext;
     private ImageView sceneAdd;
     private TextView sceneIndicator;
 
-    private FastRoom fastRoom;
     private int sceneIndex;
     private int sceneSize;
     private String scenePath;
+    private FastRoom fastRoom;
 
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
@@ -104,12 +103,13 @@ public class ScenesLayout extends LinearLayout implements BoardStateObserver {
         return getVisibility() == VISIBLE;
     }
 
-    public void setFastSdk(FastSdk fastSdk) {
+    @Override
+    public void attachSdk(FastSdk fastSdk) {
         fastSdk.registerObserver(this);
     }
 
     public void setFastStyle(FastStyle fastStyle) {
-        this.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
+        setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         sceneNext.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode(), true));
         scenePrev.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode(), true));
         sceneAdd.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
@@ -131,8 +131,6 @@ public class ScenesLayout extends LinearLayout implements BoardStateObserver {
         sceneIndicator.setText(sceneNo + "/" + sceneSize);
         sceneNext.setEnabled(sceneNo < sceneSize);
         scenePrev.setEnabled(sceneIndex > 0);
-
-        Util.getActivity(getContext()).findViewById(R.id.fast_room_controller).forceLayout();
     }
 
     @Override

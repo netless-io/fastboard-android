@@ -5,62 +5,8 @@
     android:layout_height="match_parent"
     tools:parentTag="android.widget.RelativeLayout">
 
-    <View
-        android:id="@+id/overlay_handle_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
-
-    <View
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_centerVertical="true" />
-
-    <io.agora.board.fast.ui.SubToolButton
-        android:id="@+id/sub_tool_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/guideline"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-20dp"
-        android:layout_marginEnd="@dimen/fast_default_layout_margin"
-        android:background="@drawable/fast_bg_tool_button" />
-
-    <io.agora.board.fast.ui.ToolButton
-        android:id="@+id/tool_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/sub_tool_button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/fast_default_layout_margin"
-        android:layout_marginEnd="@dimen/fast_default_layout_margin"
-        android:background="@drawable/fast_bg_tool_button" />
-
-    <io.agora.board.fast.ui.ToolsLayout
-        android:id="@+id/tools_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/tool_button"
-        android:layout_marginEnd="@dimen/fast_default_layout_margin"
-        android:layout_toStartOf="@id/tool_button"
-        android:background="@drawable/fast_layout_round_4_bg"
-        android:visibility="invisible"
-        tools:visibility="visible" />
-
-    <io.agora.board.fast.ui.SubToolsLayout
-        android:id="@+id/sub_tools_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/sub_tool_button"
-        android:layout_marginEnd="@dimen/fast_default_layout_margin"
-        android:layout_toStartOf="@id/sub_tool_button"
-        android:background="@drawable/fast_layout_round_4_bg"
-        android:visibility="invisible"
-        tools:visibility="visible" />
-
     <io.agora.board.fast.ui.RedoUndoLayout
-        android:id="@+id/redo_undo_layout"
+        android:id="@id/fast_redo_undo_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -68,11 +14,16 @@
         android:layout_margin="@dimen/fast_default_layout_margin" />
 
     <io.agora.board.fast.ui.ScenesLayout
-        android:id="@+id/scenes_layout"
+        android:id="@id/fast_scenes_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/fast_default_layout_margin"
         android:background="@drawable/fast_layout_round_4_bg" />
+
+    <io.agora.board.fast.ui.ToolboxLayout
+        android:id="@id/fast_toolbox_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </merge>

@@ -29,18 +29,19 @@ public class SubToolButton extends FrameLayout {
     private int color;
     private OnSubToolClickListener onSubToolClickListener;
 
-    private OnClickListener onClickListener = v -> {
-        if (onSubToolClickListener != null) {
-            switch (type) {
-                case TYPE_DELETE:
-                    onSubToolClickListener.onDeleteClick();
-                    break;
-                case TYPE_COLOR:
-                    onSubToolClickListener.onColorClick();
-                    break;
-                default:
-                    break;
-            }
+    private final OnClickListener onClickListener = v -> {
+        if (onSubToolClickListener == null) {
+            return;
+        }
+        switch (type) {
+            case TYPE_DELETE:
+                onSubToolClickListener.onDeleteClick();
+                break;
+            case TYPE_COLOR:
+                onSubToolClickListener.onColorClick();
+                break;
+            default:
+                break;
         }
     };
 
@@ -114,9 +115,9 @@ public class SubToolButton extends FrameLayout {
     }
 
     public void setFastStyle(FastStyle style) {
+        setBackground(ResourceFetcher.get().getButtonBackground(style.isDarkMode()));
         subToolImage.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));
         subToolExpand.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));
-        this.setBackground(ResourceFetcher.get().getButtonBackground(style.isDarkMode()));
     }
 
     public interface OnSubToolClickListener {
