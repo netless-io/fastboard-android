@@ -52,7 +52,8 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
             if (onApplianceClickListener != null) {
                 onApplianceClickListener.onApplianceClick(item);
             }
-            updateUI();
+
+            notifyDataSetChanged();
         });
     }
 
@@ -67,16 +68,14 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
 
     public void setApplianceItem(ApplianceItem appliance) {
         curAppliance = appliance;
-        updateUI();
+
+        notifyDataSetChanged();
     }
 
     public void setStyle(FastStyle style) {
         iconColor = ResourceFetcher.get().getIconColor(style.isDarkMode());
         isDarkMode = style.isDarkMode();
-        updateUI();
-    }
 
-    private void updateUI() {
         notifyDataSetChanged();
     }
 

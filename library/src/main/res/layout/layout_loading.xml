@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/fast_day_night_bg"
     android:gravity="center"
-    tools:orientation="vertical"
+    tools:orientation="horizontal"
     tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
 
     <ProgressBar
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
         android:text="@string/fast_loading"
         android:textColor="@color/fast_day_night_text_on_bg" />
 </merge>

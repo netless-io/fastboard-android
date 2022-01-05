@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +19,7 @@
         android:layout_centerVertical="true" />
 
     <io.agora.board.fast.ui.SubToolButton
-        android:id="@+id/sub_tool_button"
+        android:id="@+id/toolbox_sub_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_below="@id/guideline"
@@ -31,7 +32,7 @@
         android:id="@+id/tool_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@id/sub_tool_button"
+        android:layout_below="@id/toolbox_sub_button"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/fast_default_layout_margin"
         android:layout_marginEnd="@dimen/fast_default_layout_margin"
@@ -52,10 +53,13 @@
         android:id="@+id/sub_tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/sub_tool_button"
+        android:layout_alignTop="@id/toolbox_sub_button"
         android:layout_marginEnd="@dimen/fast_default_layout_margin"
-        android:layout_toStartOf="@id/sub_tool_button"
+        android:layout_toStartOf="@id/toolbox_sub_button"
         android:background="@drawable/fast_layout_round_4_bg"
         android:visibility="gone"
+        app:divider="@drawable/fast_divider"
+        app:dividerPadding="8dp"
+        app:showDividers="middle"
         tools:visibility="visible" />
 </merge>

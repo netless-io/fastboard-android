@@ -3,6 +3,7 @@ package io.agora.board.fast.internal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.res.Configuration;
 
 import com.google.gson.Gson;
 
@@ -34,5 +35,10 @@ public class Util {
             }
         }
         return null;
+    }
+
+    public static boolean isTablet(Context context) {
+        Configuration configuration = context.getResources().getConfiguration();
+        return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <View
+        android:id="@+id/overlay_handle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/toolbox_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/fast_default_layout_margin"
+        android:layout_marginTop="@dimen/fast_default_layout_margin"
+        android:layout_marginEnd="@dimen/fast_default_layout_margin"
+        android:layout_marginBottom="@dimen/fast_default_layout_margin"
+        android:background="@drawable/fast_layout_round_4_bg"
+        android:padding="4dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="8"
+        tools:listitem="@layout/item_tools_appliance" />
+
+    <io.agora.board.fast.ui.DeleteButton
+        android:id="@+id/toolbox_sub_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@id/toolbox_recycler_view"
+        android:layout_margin="@dimen/fast_default_layout_margin"
+        android:background="@drawable/fast_bg_tool_button"
+        android:src="@drawable/fast_ic_tool_delete" />
+
+    <io.agora.board.fast.ui.SubToolsLayout
+        android:id="@+id/sub_tools_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/toolbox_recycler_view"
+        android:layout_toRightOf="@id/toolbox_recycler_view"
+        android:background="@drawable/fast_layout_round_4_bg"
+        android:visibility="gone"
+        app:divider="@drawable/fast_divider"
+        app:dividerPadding="8dp"
+        app:showDividers="middle"
+        tools:visibility="visible" />
+</merge>

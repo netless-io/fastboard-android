@@ -8,12 +8,4 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:src="@drawable/fast_ic_tool_delete" />
-
-    <ImageView
-        android:id="@+id/sub_tool_expand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="8dp"
-        android:src="@drawable/fast_ic_tool_expandable" />
 </merge>

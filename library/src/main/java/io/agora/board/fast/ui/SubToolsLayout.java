@@ -5,23 +5,55 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.library.R;
+import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
-public class SubToolsLayout extends LinearLayout {
+public class SubToolsLayout extends LinearLayoutCompat {
+    @IntDef({TYPE_PHONE, TYPE_TEXT, TYPE_PENCIL, TYPE_TABLET_SHAPE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Type {
+    }
+
+    static final int SHOW_MASK = 0xFF000000;
+    static final int SHOW_TOOLS = 0x01000000;
+    static final int SHOW_SEEKER = 0x02000000;
+    static final int SHOW_COLORS = 0x04000000;
+
+    public static final int TYPE_PHONE = 1 | SHOW_SEEKER | SHOW_COLORS;
+    public static final int TYPE_TEXT = 2 | SHOW_COLORS;
+    public static final int TYPE_PENCIL = 3 | SHOW_SEEKER | SHOW_COLORS;
+    public static final int TYPE_TABLET_SHAPE = 4 | SHOW_TOOLS | SHOW_SEEKER | SHOW_COLORS;
+
+    private static final List<ApplianceItem> DEFAULT_TOOLS = new ArrayList<ApplianceItem>() {
+        {
+            add(ApplianceItem.RECTANGLE);
+            add(ApplianceItem.ELLIPSE);
+            add(ApplianceItem.STRAIGHT);
+            add(ApplianceItem.ARROW);
+            add(ApplianceItem.PENTAGRAM);
+            add(ApplianceItem.RHOMBUS);
+            add(ApplianceItem.BUBBLE);
+            add(ApplianceItem.TRIANGLE);
+        }
+    };
+
     private static final List<Integer> DEFAULT_COLORS = new ArrayList<Integer>() {
         {
             add(Color.parseColor("#EC3455"));
@@ -34,6 +66,9 @@ public class SubToolsLayout extends LinearLayout {
             add(Color.parseColor("#6D7278"));
         }
     };
+
+    private RecyclerView toolsExtRecyclerView;
+    private ApplianceAdapter toolsExtAdapter;
 
     private RecyclerView colorsRecyclerView;
     private ColorAdapter colorAdapter;
@@ -56,8 +91,13 @@ public class SubToolsLayout extends LinearLayout {
 
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_sub_tools, this, true);
+        toolsExtRecyclerView = root.findViewById(R.id.tools_ext_recycler_view);
         colorsRecyclerView = root.findViewById(R.id.colors_recycler_view);
         strokeSeeker = root.findViewById(R.id.stroke_seeker);
+
+        toolsExtAdapter = new ApplianceAdapter(DEFAULT_TOOLS);
+        toolsExtRecyclerView.setAdapter(toolsExtAdapter);
+        toolsExtRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
         colorAdapter = new ColorAdapter(DEFAULT_COLORS);
         colorsRecyclerView.setAdapter(colorAdapter);
@@ -70,6 +110,10 @@ public class SubToolsLayout extends LinearLayout {
         });
     }
 
+    public void setOnApplianceClickListener(ApplianceAdapter.OnApplianceClickListener onApplianceClickListener) {
+        toolsExtAdapter.setOnApplianceClickListener(onApplianceClickListener);
+    }
+
     public void setOnColorClickListener(ColorAdapter.OnColorClickListener onColorClickListener) {
         colorAdapter.setOnColorClickListener(onColorClickListener);
     }
@@ -79,7 +123,7 @@ public class SubToolsLayout extends LinearLayout {
     }
 
     public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : INVISIBLE);
+        setVisibility(shown ? VISIBLE : GONE);
     }
 
     public boolean shown() {
@@ -95,8 +139,21 @@ public class SubToolsLayout extends LinearLayout {
         strokeSeeker.setStrokeWidth(width);
     }
 
+    public void setApplianceItem(ApplianceItem applianceItem) {
+        toolsExtAdapter.setApplianceItem(applianceItem);
+    }
+
     public void setFastStyle(FastStyle style) {
-        this.setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
+        setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
         colorAdapter.setStyle(style);
+        toolsExtAdapter.setStyle(style);
+    }
+
+    public void setType(@Type int type) {
+        int showFlag = type & SHOW_MASK;
+
+        toolsExtRecyclerView.setVisibility((showFlag & SHOW_TOOLS) > 0 ? VISIBLE : GONE);
+        strokeSeeker.setVisibility((showFlag & SHOW_SEEKER) > 0 ? VISIBLE : GONE);
+        colorsRecyclerView.setVisibility((showFlag & SHOW_COLORS) > 0 ? VISIBLE : GONE);
     }
 }

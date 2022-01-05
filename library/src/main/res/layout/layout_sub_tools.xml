@@ -4,8 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:divider="@drawable/fast_divider"
+    app:dividerPadding="8dp"
+    app:showDividers="middle"
     tools:orientation="vertical"
-    tools:parentTag="LinearLayout">
+    tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tools_ext_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:itemCount="8"
+        tools:listitem="@layout/item_tools_appliance" />
 
     <io.agora.board.fast.ui.StrokeSeeker
         android:id="@+id/stroke_seeker"
@@ -14,13 +28,6 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="120dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="8dp"
-        android:background="#DBE1EA" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/colors_recycler_view"

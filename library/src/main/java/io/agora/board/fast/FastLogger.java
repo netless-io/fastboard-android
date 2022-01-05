@@ -13,6 +13,10 @@ class FastLogger {
         Log.i(LOG_TAG, msg);
     }
 
+    static void warn(String msg) {
+        Log.w(LOG_TAG, msg);
+    }
+
     static void error(String msg) {
         error(msg, null);
     }

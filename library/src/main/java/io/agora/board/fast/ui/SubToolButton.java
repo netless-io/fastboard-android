@@ -60,7 +60,7 @@ public class SubToolButton extends FrameLayout {
 
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_sub_tool_button, this, true);
-        subToolImage = root.findViewById(R.id.sub_tool_button_image);
+        subToolImage = root.findViewById(R.id.delete);
         subToolExpand = root.findViewById(R.id.sub_tool_expand);
 
         setOnClickListener(onClickListener);

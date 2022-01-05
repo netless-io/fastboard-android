@@ -13,6 +13,7 @@ import com.herewhite.sdk.domain.WindowParams;
 import java.util.HashMap;
 
 import io.agora.board.fast.internal.FastErrorHandler;
+import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.RedoUndoCount;
 
@@ -50,12 +51,12 @@ public class FastRoom {
 
         @Override
         public void onDisconnectWithError(Exception e) {
-
+            FastLogger.warn("receive disconnect error from js " + e.getMessage());
         }
 
         @Override
         public void onKickedWithReason(String reason) {
-
+            FastLogger.warn("receive kicked from js with reason " + reason);
         }
 
         @Override
@@ -77,7 +78,7 @@ public class FastRoom {
 
         @Override
         public void onCatchErrorWhenAppendFrame(long userId, Exception error) {
-
+            FastLogger.warn("receive frame error js userId:" + userId + " error:" + error.getMessage());
         }
     };
 
@@ -138,9 +139,9 @@ public class FastRoom {
         getRoom().setMemberState(memberState);
     }
 
-    public void setAppliance(String appliance) {
+    public void setAppliance(ApplianceItem item) {
         MemberState memberState = new MemberState();
-        memberState.setCurrentApplianceName(appliance);
+        memberState.setCurrentApplianceName(item.appliance, item.shapeType);
         getRoom().setMemberState(memberState);
     }
 
