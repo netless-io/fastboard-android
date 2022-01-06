@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoomActivity"
+    tools:context=".cases.RoomActivity"
     tools:ignore="MissingDefaultResource">
 
     <io.agora.board.fast.FastboardView
@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <io.agora.board.fast.ControlView
+    <io.agora.board.fast.sample.ControlView
         android:id="@+id/control_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="16dp" />
 </FrameLayout>

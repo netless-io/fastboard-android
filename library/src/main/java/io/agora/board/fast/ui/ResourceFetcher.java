@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 
 public class ResourceFetcher {
     private static ResourceFetcher instance;

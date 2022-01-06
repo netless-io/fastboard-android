@@ -15,7 +15,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 
 /**
  * @author fenglibin

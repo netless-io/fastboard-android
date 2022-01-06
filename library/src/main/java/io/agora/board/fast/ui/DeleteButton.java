@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 

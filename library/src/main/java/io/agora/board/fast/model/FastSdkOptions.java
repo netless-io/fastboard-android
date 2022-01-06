@@ -12,6 +12,8 @@ public class FastSdkOptions {
 
     public FastSdkOptions(String appId) {
         this.appId = appId;
+
+        configuration = new WhiteSdkConfiguration(appId);
     }
 
     public String getAppId() {

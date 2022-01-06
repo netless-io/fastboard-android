@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 

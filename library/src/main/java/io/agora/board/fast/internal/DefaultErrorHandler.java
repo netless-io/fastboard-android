@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import io.agora.board.fast.FastException;
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 
 public class DefaultErrorHandler implements FastErrorHandler {
     private final Activity activity;

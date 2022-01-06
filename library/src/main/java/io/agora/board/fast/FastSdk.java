@@ -52,7 +52,7 @@ public class FastSdk {
     }
 
     void initSdk(FastSdkOptions options) {
-        WhiteSdkConfiguration conf = new WhiteSdkConfiguration(options.getAppId(), true);
+        WhiteSdkConfiguration conf = options.getConfiguration();
         whiteSdk = new WhiteSdk(fastBoardView.whiteboardView, fastBoardView.getContext(), conf, commonCallback);
     }
 

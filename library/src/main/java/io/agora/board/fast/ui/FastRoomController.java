@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import io.agora.board.fast.FastSdk;
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
 
 /**

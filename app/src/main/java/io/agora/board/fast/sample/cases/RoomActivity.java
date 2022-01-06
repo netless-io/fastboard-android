@@ -1,4 +1,4 @@
-package io.agora.board.fast;
+package io.agora.board.fast.sample.cases;
 
 import static androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE;
 
@@ -16,10 +16,15 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Objects;
 
-import io.agora.board.fast.misc.Repository;
+import io.agora.board.fast.FastSdk;
+import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.sample.Constants;
+import io.agora.board.fast.sample.ControlView;
+import io.agora.board.fast.sample.R;
+import io.agora.board.fast.sample.misc.Repository;
 
 /**
  * @author fenglibin

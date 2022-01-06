@@ -1,4 +1,4 @@
-package io.agora.board.fast;
+package io.agora.board.fast.sample;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.herewhite.sdk.domain.SceneState;
+
+import io.agora.board.fast.FastSdk;
 
 public class ControlView extends FrameLayout {
     private FastSdk fastSdk;

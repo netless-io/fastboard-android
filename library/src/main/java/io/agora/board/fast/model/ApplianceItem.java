@@ -5,7 +5,7 @@ import androidx.annotation.DrawableRes;
 import com.herewhite.sdk.domain.Appliance;
 import com.herewhite.sdk.domain.ShapeType;
 
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 
 /**
  * @author fenglibin

@@ -72,7 +72,7 @@ public class FastPlayer {
 
     public FastPlayer(FastSdk sdk, FastPlayerOptions options) {
         this.fastSdk = sdk;
-        this.playerConf = new PlayerConfiguration(options.getUuid(), options.getToken());
+        this.playerConf = options.getPlayerConfiguration();
     }
 
     public void join() {

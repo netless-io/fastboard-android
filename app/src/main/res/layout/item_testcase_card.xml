@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/theme"
+            style="@style/TextSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Get Started" />
+
+        <TextView
+            android:id="@+id/describe"
+            style="@style/TextBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="Start with a simple" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/live"
+        style="@style/TextCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="12dp"
+        android:drawableStart="@drawable/main_dot"
+        android:drawablePadding="2dp"
+        android:text="Live" />
+</androidx.cardview.widget.CardView>

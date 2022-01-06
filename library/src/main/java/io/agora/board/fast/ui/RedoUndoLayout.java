@@ -13,7 +13,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import io.agora.board.fast.BoardStateObserver;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
 

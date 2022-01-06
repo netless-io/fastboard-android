@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import io.agora.board.fast.BoardStateObserver;
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
 
 /**

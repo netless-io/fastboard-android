@@ -10,4 +10,25 @@
         <item name="fbv_main_color">#FF00FF</item>
         <item name="fbv_dark_mode">false</item>
     </style>
+
+    <style name="TextTitle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextSubtitle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBody" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextCaption" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>

@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.RoomPhase;
 
-import io.agora.board.fast.library.R;
+import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.LoadingLayout;

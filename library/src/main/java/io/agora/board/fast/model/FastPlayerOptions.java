@@ -14,6 +14,7 @@ public class FastPlayerOptions {
     public FastPlayerOptions(String uuid, String token) {
         this.uuid = uuid;
         this.token = token;
+        playerConfiguration = new PlayerConfiguration(uuid, token);
     }
 
     public PlayerConfiguration getPlayerConfiguration() {
