@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="DarkFastBoardView">
+    <style name="DarkFastboardView">
         <item name="fbv_main_color">#FF0000</item>
         <item name="fbv_dark_mode">true</item>
     </style>
 
-    <style name="LightFastBoardView">
+    <style name="LightFastboardView">
         <item name="fbv_main_color">#FF00FF</item>
         <item name="fbv_dark_mode">false</item>
     </style>

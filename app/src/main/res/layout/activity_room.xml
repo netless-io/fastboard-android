@@ -7,7 +7,7 @@
     tools:ignore="MissingDefaultResource">
 
     <io.agora.board.fast.FastboardView
-        android:id="@+id/fast_board_view"
+        android:id="@+id/fastboard_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

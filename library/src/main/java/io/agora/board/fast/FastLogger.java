@@ -3,7 +3,7 @@ package io.agora.board.fast;
 import android.util.Log;
 
 class FastLogger {
-    private final static String LOG_TAG = "FastWhiteSdk";
+    private final static String LOG_TAG = "Fastboard";
 
     static void debug(String msg) {
         Log.d(LOG_TAG, msg);

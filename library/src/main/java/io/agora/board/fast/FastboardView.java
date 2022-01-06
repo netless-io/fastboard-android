@@ -60,7 +60,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
     }
 
     private void setupStyle(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FastboardView, defStyleAttr, R.style.DefaultFastBoardView);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FastboardView, defStyleAttr, R.style.DefaultFastboardView);
         int mainColor = a.getColor(R.styleable.FastboardView_fbv_main_color, Color.parseColor("#3381FF"));
         boolean darkMode = a.getBoolean(R.styleable.FastboardView_fbv_dark_mode, false);
         a.recycle();

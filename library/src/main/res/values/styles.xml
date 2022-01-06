@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="DefaultFastBoardView">
+    <style name="DefaultFastboardView">
         <item name="fbv_main_color">#3381FF</item>
         <item name="fbv_dark_mode">false</item>
     </style>

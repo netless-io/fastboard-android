@@ -55,15 +55,15 @@ public class RoomActivity extends AppCompatActivity {
     }
 
     private void setupFastBoard() {
-        FastboardView fastBoardView = findViewById(R.id.fast_board_view);
+        FastboardView fastboardView = findViewById(R.id.fastboard_view);
         // create fastSdk
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SIMPLE_APP_ID);
-        fastSdk = fastBoardView.obtainFastSdk(fastSdkOptions);
+        fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
 
         // join room
         FastRoomOptions roomOptions = new FastRoomOptions(
-                Constants.SIMPLE_ROOM_UUID,
-                Constants.SIMPLE_ROOM_TOKEN,
+                getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
+                getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
                 repository.getUserId());
         fastSdk.joinRoom(roomOptions);
 
@@ -74,7 +74,7 @@ public class RoomActivity extends AppCompatActivity {
         fastSdk.setFastStyle(fastStyle);
 
         // change ui
-        FastUiSettings uiSettings = fastBoardView.getUiSettings();
+        FastUiSettings uiSettings = fastboardView.getUiSettings();
         uiSettings.setToolboxGravity(Gravity.RIGHT);
     }
 
