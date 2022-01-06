@@ -5,5 +5,5 @@
     <string name="fast_default_exit_player_message">加入回放失败，退出重试</string>
     <string name="fast_default_exit_ok">了解</string>
 
-    <string name="fast_loading">加载中…</string>
+    <string name="fast_loading_text">加载中…</string>
 </resources>

@@ -18,7 +18,7 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class FastSdk {
-    final FastboardView fastBoardView;
+    final FastboardView fastboardView;
     final FastContext fastContext;
     private final CommonCallback commonCallback = new CommonCallback() {
         @Override
@@ -47,13 +47,13 @@ public class FastSdk {
     FastPlayer fastPlayer;
 
     public FastSdk(FastboardView fastBoardView) {
-        this.fastBoardView = fastBoardView;
+        this.fastboardView = fastBoardView;
         this.fastContext = fastBoardView.fastContext;
     }
 
     void initSdk(FastSdkOptions options) {
         WhiteSdkConfiguration conf = options.getConfiguration();
-        whiteSdk = new WhiteSdk(fastBoardView.whiteboardView, fastBoardView.getContext(), conf, commonCallback);
+        whiteSdk = new WhiteSdk(fastboardView.whiteboardView, fastboardView.getContext(), conf, commonCallback);
     }
 
     public FastRoom joinRoom(FastRoomOptions options) {
@@ -80,7 +80,7 @@ public class FastSdk {
     }
 
     public void destroy() {
-        WhiteboardView whiteboardView = fastBoardView.whiteboardView;
+        WhiteboardView whiteboardView = fastboardView.whiteboardView;
         whiteboardView.removeAllViews();
         whiteboardView.destroy();
     }

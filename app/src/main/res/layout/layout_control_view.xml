@@ -6,6 +6,7 @@
     <ScrollView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/shape_debug_bg"
         android:paddingHorizontal="12dp">
 
@@ -22,7 +23,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
-                    android:text="切换 DarkMode" />
+                    android:text="@string/switch_dark_mode" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/dark_mode_switch"
@@ -39,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
-                    android:text="删除 scenes" />
+                    android:text="@string/delete_scenes" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/clear_scenes"

@@ -5,8 +5,10 @@ import static android.view.View.VISIBLE;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.herewhite.sdk.domain.ShapeType;
 
@@ -23,12 +25,11 @@ class ToolboxPhone implements ToolboxImpl {
     private SubToolButton subToolButton;
     private SubToolsLayout subToolsLayout;
 
-    private Context context;
     private FastRoom fastRoom;
 
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
-        this.context = toolboxLayout.getContext();
+        Context context = toolboxLayout.getContext();
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox, toolboxLayout, true);
         overlayView = root.findViewById(R.id.overlay_handle_view);
@@ -144,5 +145,39 @@ class ToolboxPhone implements ToolboxImpl {
         subToolButton.setColor(color);
         subToolsLayout.setColor(color);
         subToolsLayout.setStrokeWidth((int) strokeWidth);
+    }
+
+    @Override
+    public void setLayoutGravity(int gravity) {
+        boolean isLeft = (gravity & Gravity.LEFT) == Gravity.LEFT;
+        boolean isRight = (gravity & Gravity.RIGHT) == Gravity.RIGHT;
+
+        if (isLeft) {
+            RelativeLayout.LayoutParams toolBtnLp = (RelativeLayout.LayoutParams) toolButton.getLayoutParams();
+            toolBtnLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            toolBtnLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+
+            RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolsLayout.getLayoutParams();
+            toolsLp.removeRule(RelativeLayout.LEFT_OF);
+            toolsLp.addRule(RelativeLayout.RIGHT_OF, toolButton.getId());
+
+            RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) subToolsLayout.getLayoutParams();
+            subToolsLp.removeRule(RelativeLayout.LEFT_OF);
+            subToolsLp.addRule(RelativeLayout.RIGHT_OF, subToolButton.getId());
+        }
+
+        if (isRight) {
+            RelativeLayout.LayoutParams toolBtnLp = (RelativeLayout.LayoutParams) toolButton.getLayoutParams();
+            toolBtnLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            toolBtnLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+            RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolsLayout.getLayoutParams();
+            toolsLp.removeRule(RelativeLayout.RIGHT_OF);
+            toolsLp.addRule(RelativeLayout.LEFT_OF, toolButton.getId());
+
+            RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) subToolsLayout.getLayoutParams();
+            subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
+            subToolsLp.addRule(RelativeLayout.LEFT_OF, subToolButton.getId());
+        }
     }
 }

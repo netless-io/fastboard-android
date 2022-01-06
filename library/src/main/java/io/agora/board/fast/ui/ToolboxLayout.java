@@ -49,6 +49,10 @@ public class ToolboxLayout extends RelativeLayout implements BoardStateObserver,
         return getVisibility() == VISIBLE;
     }
 
+    public void setLayoutGravity(int gravity) {
+        IMPL.setLayoutGravity(gravity);
+    }
+
     @Override
     public void attachSdk(FastSdk fastSdk) {
         fastSdk.registerObserver(this);

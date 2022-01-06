@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:background="@drawable/fast_layout_round_4_bg"
+    tools:background="@drawable/fast_bg_layout_round"
     tools:orientation="horizontal"
     tools:parentTag="android.widget.LinearLayout">
 
     <ImageView
         android:id="@+id/tool_scene_prev"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:padding="4dp"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
+        android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_scene_prev" />
 
     <TextView
@@ -26,16 +26,16 @@
 
     <ImageView
         android:id="@+id/tool_scene_next"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:padding="4dp"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
+        android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_scene_next" />
 
     <ImageView
         android:id="@+id/tool_scene_add"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="-2dp"
-        android:padding="4dp"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
+        android:layout_marginStart="@dimen/fast_gap_0_5"
+        android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_scene_add" />
 </merge>

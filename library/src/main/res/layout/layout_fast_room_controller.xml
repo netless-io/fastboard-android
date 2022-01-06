@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/fast_default_layout_margin"
-        android:background="@drawable/fast_layout_round_4_bg" />
+        android:background="@drawable/fast_bg_layout_round" />
 
     <io.agora.board.fast.ui.ToolboxLayout
         android:id="@id/fast_toolbox_layout"

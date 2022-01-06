@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="fast_default_main_color">#3381FF</color>
-    <color name="fast_default_vector_icon_color">#000000</color>
+    <color name="fast_default_icon_color">#000000</color>
 
     <color name="fast_default_layout_bg">#FFFFFF</color>
 

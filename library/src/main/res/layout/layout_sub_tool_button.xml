@@ -4,9 +4,10 @@
 
     <ImageView
         android:id="@+id/delete"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/fast_default_button_icon_size"
+        android:layout_height="@dimen/fast_default_button_icon_size"
         android:layout_gravity="center"
+        android:contentDescription="@null"
         android:src="@drawable/fast_ic_tool_delete" />
 
     <ImageView
@@ -14,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/fast_gap_2"
+        android:contentDescription="@null"
         android:src="@drawable/fast_ic_tool_expandable" />
 </merge>

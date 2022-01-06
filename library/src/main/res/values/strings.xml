@@ -5,5 +5,5 @@
     <string name="fast_default_exit_player_message">join player error, click and reenter</string>
     <string name="fast_default_exit_ok">OK</string>
 
-    <string name="fast_loading">loading…</string>
+    <string name="fast_loading_text">loading…</string>
 </resources>

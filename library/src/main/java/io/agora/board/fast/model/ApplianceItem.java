@@ -21,7 +21,6 @@ public enum ApplianceItem {
     LASER_POINTER(R.drawable.fast_ic_tool_raser, Appliance.LASER_POINTER),
     ARROW(R.drawable.fast_ic_tool_arrow, Appliance.ARROW),
     STRAIGHT(R.drawable.fast_ic_tool_straight, Appliance.STRAIGHT),
-    // HAND(R.drawable.ic_toolbox_hand_selector, Appliance.HAND),
 
     PENTAGRAM(R.drawable.fast_ic_shape_pentagram, Appliance.SHAPE, ShapeType.Pentagram),
     RHOMBUS(R.drawable.fast_ic_shape_rhombus, Appliance.SHAPE, ShapeType.Rhombus),

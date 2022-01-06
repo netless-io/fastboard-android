@@ -15,9 +15,9 @@ import androidx.core.content.ContextCompat;
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.RoomPhase;
 
-import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.ui.FastUiSettings;
 import io.agora.board.fast.ui.LoadingLayout;
 import io.agora.board.fast.ui.RoomController;
 
@@ -31,6 +31,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
 
     FastContext fastContext;
     FastSdk fastSdk;
+    FastUiSettings fastUiSettings;
 
     public FastboardView(@NonNull Context context) {
         this(context, null);
@@ -52,7 +53,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
     }
 
     private void setupView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_board_view, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fastboard_view, this, true);
         whiteboardView = root.findViewById(R.id.white_board_view);
         roomController = root.findViewById(R.id.fast_room_controller);
         loadingLayout = root.findViewById(R.id.fast_loading_layout);
@@ -118,5 +119,12 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
     private void onFastSdkCreated() {
         fastSdk.registerObserver(this);
         roomController.attachSdk(fastSdk);
+    }
+
+    public FastUiSettings getUiSettings() {
+        if (fastUiSettings == null) {
+            fastUiSettings = new FastUiSettings(this);
+        }
+        return fastUiSettings;
     }
 }

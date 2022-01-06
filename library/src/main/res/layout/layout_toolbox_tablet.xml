@@ -13,27 +13,28 @@
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/toolbox_recycler_view"
+        android:id="@+id/tools_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/fast_default_layout_margin"
         android:layout_marginTop="@dimen/fast_default_layout_margin"
         android:layout_marginEnd="@dimen/fast_default_layout_margin"
         android:layout_marginBottom="@dimen/fast_default_layout_margin"
-        android:background="@drawable/fast_layout_round_4_bg"
-        android:padding="4dp"
+        android:background="@drawable/fast_bg_layout_round"
+        android:padding="@dimen/fast_gap_1"
+        android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="8"
         tools:listitem="@layout/item_tools_appliance" />
 
     <io.agora.board.fast.ui.DeleteButton
         android:id="@+id/toolbox_sub_delete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@id/toolbox_recycler_view"
-        android:layout_margin="@dimen/fast_default_layout_margin"
+        android:layout_width="@dimen/fast_default_button_size_large"
+        android:layout_height="@dimen/fast_default_button_size_large"
+        android:layout_above="@id/tools_recycler_view"
+        android:layout_alignStart="@id/tools_recycler_view"
+        android:layout_alignRight="@id/tools_recycler_view"
         android:background="@drawable/fast_bg_tool_button"
         android:src="@drawable/fast_ic_tool_delete" />
 
@@ -41,12 +42,12 @@
         android:id="@+id/sub_tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/toolbox_recycler_view"
-        android:layout_toRightOf="@id/toolbox_recycler_view"
-        android:background="@drawable/fast_layout_round_4_bg"
+        android:layout_alignTop="@id/tools_recycler_view"
+        android:layout_toRightOf="@id/tools_recycler_view"
+        android:background="@drawable/fast_bg_layout_round"
         android:visibility="gone"
         app:divider="@drawable/fast_divider"
-        app:dividerPadding="8dp"
+        app:dividerPadding="@dimen/fast_gap_2"
         app:showDividers="middle"
         tools:visibility="visible" />
 </merge>

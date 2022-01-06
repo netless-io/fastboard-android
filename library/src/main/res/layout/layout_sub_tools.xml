@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:divider="@drawable/fast_divider"
-    app:dividerPadding="8dp"
+    app:dividerPadding="@dimen/fast_gap_2"
     app:showDividers="middle"
     tools:orientation="vertical"
     tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
@@ -14,7 +14,7 @@
         android:id="@+id/tools_ext_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/fast_gap_1"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="4"
@@ -23,17 +23,17 @@
 
     <io.agora.board.fast.ui.StrokeSeeker
         android:id="@+id/stroke_seeker"
-        android:layout_width="120dp"
-        android:layout_height="20dp"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_width="@dimen/fast_default_seekbar_width"
+        android:layout_height="@dimen/fast_default_seekbar_height"
+        android:layout_marginHorizontal="@dimen/fast_gap_2"
+        android:layout_marginTop="@dimen/fast_gap_2"
+        android:layout_marginBottom="@dimen/fast_gap_2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/colors_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/fast_gap_1"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="4"
         tools:itemCount="12"

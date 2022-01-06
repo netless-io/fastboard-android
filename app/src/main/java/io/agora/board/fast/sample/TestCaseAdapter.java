@@ -51,6 +51,10 @@ public class TestCaseAdapter extends RecyclerView.Adapter<TestCaseAdapter.ViewHo
         this.onItemClickListener = onItemClickListener;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(TestCase testCase);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView theme;
         public TextView desc;
@@ -62,9 +66,5 @@ public class TestCaseAdapter extends RecyclerView.Adapter<TestCaseAdapter.ViewHo
             desc = itemView.findViewById(R.id.describe);
             live = itemView.findViewById(R.id.live);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(TestCase testCase);
     }
 }

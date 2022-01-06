@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="fast_gap_0_5">2dp</dimen>
+    <dimen name="fast_gap_1">4dp</dimen>
+    <dimen name="fast_gap_2">8dp</dimen>
+    <dimen name="fast_gap_3">12dp</dimen>
+
+    <dimen name="fast_default_button_size">32dp</dimen>
+    <dimen name="fast_default_button_size_large">40dp</dimen>
+    <dimen name="fast_default_button_icon_size">24dp</dimen>
+    <dimen name="fast_default_button_gap">4dp</dimen>
     <dimen name="fast_default_layout_margin">12dp</dimen>
-    <dimen name="fast_default_view_padding">8dp</dimen>
+
+    <dimen name="fast_default_seekbar_width">120dp</dimen>
+    <dimen name="fast_default_seekbar_height">20dp</dimen>
 
     <dimen name="fast_color_border_width">1dp</dimen>
     <dimen name="fast_color_border_radius">4dp</dimen>
 
     <dimen name="fast_bg_color_item_radius">4dp</dimen>
     <dimen name="fast_bg_color_item_stroke_width">1dp</dimen>
-
 
     <dimen name="fast_default_disable_alpha" format="float">0.2</dimen>
 </resources>

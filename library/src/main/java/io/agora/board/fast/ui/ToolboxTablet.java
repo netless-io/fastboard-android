@@ -5,8 +5,11 @@ import static android.view.View.VISIBLE;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,15 +45,13 @@ class ToolboxTablet implements ToolboxImpl {
     private DeleteButton toolboxDelete;
     private SubToolsLayout subToolsLayout;
 
-    private Context context;
-
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
-        this.context = toolboxLayout.getContext();
+        Context context = toolboxLayout.getContext();
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_tablet, toolboxLayout, true);
         overlayView = root.findViewById(R.id.overlay_handle_view);
-        toolsRecyclerView = root.findViewById(R.id.toolbox_recycler_view);
+        toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
         subToolsLayout = root.findViewById(R.id.sub_tools_layout);
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);
 
@@ -155,6 +156,32 @@ class ToolboxTablet implements ToolboxImpl {
         int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
         subToolsLayout.setColor(color);
         subToolsLayout.setStrokeWidth((int) strokeWidth);
+    }
+
+    @Override
+    public void setLayoutGravity(int gravity) {
+        boolean isLeft = (gravity & Gravity.LEFT) == Gravity.LEFT;
+        boolean isRight = (gravity & Gravity.RIGHT) == Gravity.RIGHT;
+
+        if (isLeft) {
+            LayoutParams toolsLp = (LayoutParams) toolsRecyclerView.getLayoutParams();
+            toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            toolsLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+
+            LayoutParams subToolsLp = (LayoutParams) subToolsLayout.getLayoutParams();
+            subToolsLp.removeRule(RelativeLayout.LEFT_OF);
+            subToolsLp.addRule(RelativeLayout.RIGHT_OF, toolsRecyclerView.getId());
+        }
+
+        if (isRight) {
+            LayoutParams toolsLp = (LayoutParams) toolsRecyclerView.getLayoutParams();
+            toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            toolsLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+            LayoutParams subToolsLp = (LayoutParams) subToolsLayout.getLayoutParams();
+            subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
+            subToolsLp.addRule(RelativeLayout.LEFT_OF, toolsRecyclerView.getId());
+        }
     }
 
     private void hideAllOverlay() {

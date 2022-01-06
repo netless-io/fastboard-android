@@ -15,4 +15,6 @@ public interface ToolboxImpl {
     void updateAppliance(String appliance, ShapeType shapeType);
 
     void updateStroke(int[] strokeColor, double strokeWidth);
+
+    void setLayoutGravity(int gravity);
 }

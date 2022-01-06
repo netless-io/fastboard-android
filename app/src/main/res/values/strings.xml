@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FastWhiteboard</string>
+    <string name="app_name" translatable="false">Fastboard</string>
+    <string name="switch_dark_mode" translatable="false">Switch DarkMode</string>
+    <string name="delete_scenes" translatable="false">Delete Scenes</string>
 </resources>

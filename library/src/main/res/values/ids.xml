@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item type="id" name="fast_room_controller" />
+
     <item type="id" name="fast_redo_undo_layout" />
     <item type="id" name="fast_scenes_layout" />
     <item type="id" name="fast_toolbox_layout" />

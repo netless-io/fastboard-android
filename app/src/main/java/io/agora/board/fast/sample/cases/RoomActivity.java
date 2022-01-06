@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.ControlView;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.misc.Repository;
+import io.agora.board.fast.ui.FastUiSettings;
 
 /**
  * @author fenglibin
@@ -33,6 +35,12 @@ public class RoomActivity extends AppCompatActivity {
 
     private FastSdk fastSdk;
     private Repository repository = Repository.get();
+
+    private static int getThemePrimaryColor(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
+        return typedValue.data;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,10 @@ public class RoomActivity extends AppCompatActivity {
         fastStyle.setDarkMode(isDarkMode());
         fastStyle.setMainColor(getThemePrimaryColor(this));
         fastSdk.setFastStyle(fastStyle);
+
+        // change ui
+        FastUiSettings uiSettings = fastBoardView.getUiSettings();
+        uiSettings.setToolboxGravity(Gravity.RIGHT);
     }
 
     private void setupController() {
@@ -89,12 +101,6 @@ public class RoomActivity extends AppCompatActivity {
         FastStyle fastStyle = fastSdk.getFastStyle();
         fastStyle.setDarkMode(nightMode == Configuration.UI_MODE_NIGHT_YES);
         fastSdk.setFastStyle(fastStyle);
-    }
-
-    private static int getThemePrimaryColor(Context context) {
-        TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
-        return typedValue.data;
     }
 
     @Override
