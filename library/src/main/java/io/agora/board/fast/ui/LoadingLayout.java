@@ -36,7 +36,7 @@ public class LoadingLayout extends LinearLayoutCompat implements BoardStateObser
     }
 
     private void setupView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_loading, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.fast_layout_loading, this, true);
 
         progressBar = root.findViewById(R.id.loading_progress_bar);
     }
@@ -50,7 +50,6 @@ public class LoadingLayout extends LinearLayoutCompat implements BoardStateObser
     }
 
     public void updateFastStyle(FastStyle fastStyle) {
-        this.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(fastStyle.getMainColor()));
     }
 }

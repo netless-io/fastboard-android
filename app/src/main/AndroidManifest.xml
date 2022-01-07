@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fastboard">
         <activity
+            android:name=".cases.GetStartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cases.drawsth.DrawSthActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,4 +30,5 @@
             android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
     </application>
+
 </manifest>

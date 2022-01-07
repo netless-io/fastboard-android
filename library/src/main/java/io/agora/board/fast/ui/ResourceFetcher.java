@@ -37,7 +37,7 @@ public class ResourceFetcher {
     public Drawable getLayoutBackground(boolean darkMode) {
         GradientDrawable drawable = new GradientDrawable();
         if (darkMode) {
-            drawable.setStroke(dp2px(1), color(R.color.fast_dark_mode_border_bg));
+            drawable.setStroke(dp2px(1f), color(R.color.fast_dark_mode_border_bg));
             drawable.setColor(color(R.color.fast_dark_mode_bg));
         } else {
             drawable.setStroke(dp2px(1f), color(R.color.fast_light_mode_border_bg));

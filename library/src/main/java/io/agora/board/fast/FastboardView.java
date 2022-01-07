@@ -50,11 +50,12 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
 
     private void setupFastContext(@NonNull Context context) {
         fastContext = new FastContext(context);
+        fastContext.registerObserver(this);
     }
 
     private void setupView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_fastboard_view, this, true);
-        whiteboardView = root.findViewById(R.id.white_board_view);
+        whiteboardView = root.findViewById(R.id.fast_whiteboard_view);
         roomController = root.findViewById(R.id.fast_room_controller);
         loadingLayout = root.findViewById(R.id.fast_loading_layout);
     }
@@ -95,10 +96,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
     }
 
     private void updateStyle(FastStyle fastStyle) {
-        whiteboardView.setBackgroundColor(ContextCompat.getColor(
-                getContext(),
-                R.color.fast_day_night_bg
-        ));
+        whiteboardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.fast_day_night_bg));
         roomController.updateFastStyle(fastStyle);
         loadingLayout.updateFastStyle(fastStyle);
     }
@@ -111,14 +109,21 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
         if (fastSdk == null) {
             fastSdk = new FastSdk(this);
             fastSdk.initSdk(new FastSdkOptions(options.getAppId()));
-            onFastSdkCreated();
+            fastContext.notifyFastSdkCreated(fastSdk);
         }
         return fastSdk;
     }
 
-    private void onFastSdkCreated() {
-        fastSdk.registerObserver(this);
+    @Override
+    public void onFastSdkCreated(FastSdk fastSdk) {
         roomController.attachSdk(fastSdk);
+    }
+
+    public void setRoomController(RoomController roomController) {
+        this.roomController = roomController;
+        if (fastSdk != null) {
+            roomController.attachSdk(fastSdk);
+        }
     }
 
     public FastUiSettings getUiSettings() {

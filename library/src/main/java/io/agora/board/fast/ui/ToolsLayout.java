@@ -68,8 +68,12 @@ public class ToolsLayout extends FrameLayout {
         applianceAdapter.setApplianceItem(item);
     }
 
+    public void setAppliances(List<ApplianceItem> items) {
+        applianceAdapter.setAppliances(items);
+    }
+
     public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : INVISIBLE);
+        setVisibility(shown ? VISIBLE : GONE);
     }
 
     public boolean shown() {
@@ -77,7 +81,7 @@ public class ToolsLayout extends FrameLayout {
     }
 
     public void setFastStyle(FastStyle fastStyle) {
-        this.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
+        setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         applianceAdapter.setStyle(fastStyle);
     }
 }

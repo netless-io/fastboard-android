@@ -4,17 +4,17 @@
     android:layout_height="match_parent">
 
     <com.herewhite.sdk.WhiteboardView
-        android:id="@+id/white_board_view"
+        android:id="@id/fast_whiteboard_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <io.agora.board.fast.ui.FastRoomController
-        android:id="@+id/fast_room_controller"
+        android:id="@id/fast_room_controller"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <io.agora.board.fast.ui.LoadingLayout
-        android:id="@+id/fast_loading_layout"
+        android:id="@id/fast_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/fast_day_night_bg"

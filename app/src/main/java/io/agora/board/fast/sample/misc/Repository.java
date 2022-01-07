@@ -7,9 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.sample.Constants;
+import io.agora.board.fast.sample.cases.GetStartActivity;
+import io.agora.board.fast.sample.cases.drawsth.DrawSthActivity;
 
 /**
- * provider mock data
+ * a singleton class to provider mock data
+ *
+ * @author fenglibin
  */
 public class Repository {
     private static Repository instance;
@@ -36,11 +40,21 @@ public class Repository {
 
     public List<TestCase> getTestCases() {
         ArrayList<TestCase> result = new ArrayList<>();
-        result.add(new TestCase(
-                "Get Started",
-                "start fastboard with a simple",
-                new TestCase.RoomInfo(Constants.SIMPLE_ROOM_UUID, Constants.SIMPLE_ROOM_TOKEN, true)
-        ));
+        result.add(
+                new TestCase(
+                        "Get Started",
+                        "Start fastboard with a sample",
+                        GetStartActivity.class,
+                        new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+                ));
+
+        result.add(
+                new TestCase(
+                        "Draw Something",
+                        "Use fastboard in case with several people",
+                        DrawSthActivity.class,
+                        new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+                ));
         return result;
     }
 }

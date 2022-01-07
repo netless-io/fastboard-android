@@ -24,6 +24,8 @@ public class FastContext {
     volatile ResourceFetcher resourceFetcher;
     BoardStateObservable observable = new BoardStateObservable();
     FastStyle fastStyle;
+    FastRoom fastRoom;
+    FastSdk fastSdk;
 
     public FastContext(Context context) {
         this.resourceFetcher = ResourceFetcher.get();
@@ -46,6 +48,9 @@ public class FastContext {
 
     public void registerObserver(BoardStateObserver observer) {
         observable.registerObserver(observer);
+        if (fastRoom != null) {
+            observer.onFastRoomCreated(fastRoom);
+        }
     }
 
     public void unregisterObserver(BoardStateObserver observer) {
@@ -73,6 +78,12 @@ public class FastContext {
     }
 
     public void notifyFastRoomCreated(FastRoom fastRoom) {
+        this.fastRoom = fastRoom;
         observable.notifyFastRoomCreated(fastRoom);
+    }
+
+    public void notifyFastSdkCreated(FastSdk fastSdk) {
+        this.fastSdk = fastSdk;
+        observable.notifyFastSdkCreated(fastSdk);
     }
 }

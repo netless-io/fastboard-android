@@ -79,6 +79,12 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
         notifyDataSetChanged();
     }
 
+    public void setAppliances(List<ApplianceItem> items) {
+        appliances = items;
+
+        notifyDataSetChanged();
+    }
+
     public interface OnApplianceClickListener {
         void onApplianceClick(ApplianceItem item);
     }

@@ -131,7 +131,7 @@ public class SubToolsLayout extends LinearLayoutCompat {
     }
 
     public void setColor(Integer color) {
-        colorAdapter.setCurrentColor(color);
+        colorAdapter.setColor(color);
         strokeSeeker.setSeekerBarColor(color);
     }
 

@@ -9,6 +9,7 @@ import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.BoardStateObserver;
 import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
 
@@ -50,6 +51,12 @@ public class BoardStateObservable extends Observable<BoardStateObserver> {
     public void notifyGlobalStyleChanged(FastStyle fastStyle) {
         for (int i = mObservers.size() - 1; i >= 0; i--) {
             mObservers.get(i).onGlobalStyleChanged(fastStyle);
+        }
+    }
+
+    public void notifyFastSdkCreated(FastSdk fastSdk) {
+        for (int i = mObservers.size() - 1; i >= 0; i--) {
+            mObservers.get(i).onFastSdkCreated(fastSdk);
         }
     }
 

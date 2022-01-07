@@ -39,4 +39,8 @@ public interface BoardStateObserver {
     default void onFastRoomCreated(FastRoom fastRoom) {
 
     }
+
+    default void onFastSdkCreated(FastSdk fastSdk) {
+
+    }
 }

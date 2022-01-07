@@ -42,7 +42,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         viewHolder.colorDisplay.setSelected(color == curColor);
         viewHolder.itemView.setOnClickListener(v -> {
             curColor = color;
-            
+
             if (onColorClickListener != null) {
                 onColorClickListener.onColorClick(color);
             }
@@ -60,7 +60,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         this.onColorClickListener = onColorClickListener;
     }
 
-    public void setCurrentColor(Integer color) {
+    public void setColor(Integer color) {
         curColor = color;
 
         notifyDataSetChanged();
