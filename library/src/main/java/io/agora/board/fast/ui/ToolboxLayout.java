@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.herewhite.sdk.domain.MemberState;
 
-import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastListener;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.internal.Util;
@@ -18,8 +18,8 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ToolboxLayout extends RelativeLayout implements BoardStateObserver, RoomController {
-    private ToolboxImpl IMPL;
+public class ToolboxLayout extends RelativeLayout implements FastListener, RoomController {
+    private Toolbox IMPL;
 
     public ToolboxLayout(@NonNull Context context) {
         this(context, null);
@@ -55,7 +55,7 @@ public class ToolboxLayout extends RelativeLayout implements BoardStateObserver,
 
     @Override
     public void attachSdk(FastSdk fastSdk) {
-        fastSdk.registerObserver(this);
+        fastSdk.addListener(this);
     }
 
     public void setFastStyle(FastStyle fastStyle) {

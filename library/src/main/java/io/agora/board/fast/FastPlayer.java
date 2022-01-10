@@ -8,7 +8,6 @@ import com.herewhite.sdk.domain.PlayerState;
 import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.SDKError;
 
-import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.model.FastPlayerOptions;
 
 public class FastPlayer {
@@ -65,8 +64,7 @@ public class FastPlayer {
 
         @Override
         public void catchEx(SDKError t) {
-            FastErrorHandler errorHandler = fastSdk.fastContext.errorHandler;
-            errorHandler.onJoinPlayerError(new FastException(t.getMessage(), t));
+            fastSdk.fastContext.notifyFastError(FastException.createSdk(t.getMessage()));
         }
     };
 

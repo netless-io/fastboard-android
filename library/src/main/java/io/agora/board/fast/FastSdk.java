@@ -20,6 +20,11 @@ import io.agora.board.fast.model.FastStyle;
 public class FastSdk {
     final FastboardView fastboardView;
     final FastContext fastContext;
+
+    WhiteSdk whiteSdk;
+    FastRoom fastRoom;
+    FastPlayer fastPlayer;
+
     private final CommonCallback commonCallback = new CommonCallback() {
         @Override
         public void throwError(Object args) {
@@ -33,8 +38,7 @@ public class FastSdk {
 
         @Override
         public void sdkSetupFail(SDKError error) {
-            FastErrorHandler errorHandler = fastContext.errorHandler;
-            errorHandler.onJoinRoomError(new FastException(error.getMessage(), error));
+            fastContext.notifyFastError(FastException.createSdk(error.getMessage()));
         }
 
         @Override
@@ -42,23 +46,24 @@ public class FastSdk {
 
         }
     };
-    WhiteSdk whiteSdk;
-    FastRoom fastRoom;
-    FastPlayer fastPlayer;
 
-    public FastSdk(FastboardView fastBoardView) {
-        this.fastboardView = fastBoardView;
-        this.fastContext = fastBoardView.fastContext;
+    public FastSdk(FastboardView fastboardView) {
+        this.fastboardView = fastboardView;
+        this.fastContext = fastboardView.fastContext;
     }
 
     void initSdk(FastSdkOptions options) {
         WhiteSdkConfiguration conf = options.getConfiguration();
         whiteSdk = new WhiteSdk(fastboardView.whiteboardView, fastboardView.getContext(), conf, commonCallback);
+
+        if (options.isUseErrorHandler()) {
+            fastContext.enableDefaultErrorHandler();
+        }
     }
 
     public FastRoom joinRoom(FastRoomOptions options) {
         if (whiteSdk == null) {
-            throw new FastException("sdk not init, call initSdk first");
+            throw FastException.createSdk("sdk not init, call initSdk first");
         }
         fastRoom = new FastRoom(this, options);
         fastRoom.join();
@@ -72,7 +77,7 @@ public class FastSdk {
 
     public FastPlayer joinPlayer(FastPlayerOptions options) {
         if (whiteSdk == null) {
-            throw new FastException("sdk not init, call initSdk first");
+            throw FastException.createSdk("sdk not init, call initSdk first");
         }
         fastPlayer = new FastPlayer(this, options);
         fastPlayer.join();
@@ -85,19 +90,12 @@ public class FastSdk {
         whiteboardView.destroy();
     }
 
-    public void setErrorHandler(FastErrorHandler errorHandler) {
-        if (errorHandler == null) {
-            throw new FastException("The errorHandler is null.");
-        }
-        fastContext.errorHandler = errorHandler;
+    public void addListener(FastListener listener) {
+        fastContext.addListener(listener);
     }
 
-    public void registerObserver(BoardStateObserver observer) {
-        fastContext.registerObserver(observer);
-    }
-
-    public void unregisterObserver(BoardStateObserver observer) {
-        fastContext.unregisterObserver(observer);
+    public void removeListener(FastListener listener) {
+        fastContext.removeListener(listener);
     }
 
     /**

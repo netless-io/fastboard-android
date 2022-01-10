@@ -11,7 +11,7 @@ import io.agora.board.fast.model.RedoUndoCount;
 /**
  * @author fenglibin
  */
-public interface BoardStateObserver {
+public interface FastListener {
     default void onSceneStateChanged(SceneState sceneState) {
 
     }
@@ -32,7 +32,7 @@ public interface BoardStateObserver {
 
     }
 
-    default void onGlobalStyleChanged(FastStyle style) {
+    default void onFastStyleChanged(FastStyle style) {
 
     }
 
@@ -41,6 +41,10 @@ public interface BoardStateObserver {
     }
 
     default void onFastSdkCreated(FastSdk fastSdk) {
+
+    }
+
+    default void onFastError(FastException error) {
 
     }
 }

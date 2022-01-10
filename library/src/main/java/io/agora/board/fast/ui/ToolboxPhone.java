@@ -17,7 +17,7 @@ import io.agora.board.fast.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
-class ToolboxPhone implements ToolboxImpl {
+class ToolboxPhone implements Toolbox {
     private View overlayView;
 
     private ToolButton toolButton;

@@ -69,7 +69,7 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
     }
 
     public void updateSubTool(int key, ApplianceItem applianceItem) {
-        List<ToolboxItem> target = new ArrayList(items);
+        List<ToolboxItem> target = new ArrayList<>(items);
         for (ToolboxItem toolboxItem : target) {
             if (key == toolboxItem.key) {
                 toolboxItem.applianceItem = applianceItem;

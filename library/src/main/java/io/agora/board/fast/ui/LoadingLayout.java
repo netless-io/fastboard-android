@@ -11,14 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastListener;
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
-public class LoadingLayout extends LinearLayoutCompat implements BoardStateObserver {
+public class LoadingLayout extends LinearLayoutCompat implements FastListener {
     private ProgressBar progressBar;
 
     public LoadingLayout(@NonNull Context context) {

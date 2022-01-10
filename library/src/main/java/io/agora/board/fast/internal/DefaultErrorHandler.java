@@ -22,7 +22,21 @@ public class DefaultErrorHandler implements FastErrorHandler {
     }
 
     @Override
-    public void onJoinRoomError(FastException e) {
+    public void handleError(FastException e) {
+        if (e.getType() == FastException.TYPE_SDK) {
+
+        }
+
+        if (e.getType() == FastException.TYPE_ROOM) {
+            handleRoomError(e);
+        }
+
+        if (e.getType() == FastException.TYPE_PLAYER) {
+            handlePlayerError(e);
+        }
+    }
+
+    public void handleRoomError(FastException e) {
         if (activity == null) {
             return;
         }
@@ -34,8 +48,7 @@ public class DefaultErrorHandler implements FastErrorHandler {
         );
     }
 
-    @Override
-    public void onJoinPlayerError(FastException e) {
+    public void handlePlayerError(FastException e) {
         if (activity == null) {
             return;
         }

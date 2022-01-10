@@ -5,7 +5,7 @@ import com.herewhite.sdk.domain.ShapeType;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.model.FastStyle;
 
-public interface ToolboxImpl {
+public interface Toolbox {
     void setupView(ToolboxLayout toolboxLayout);
 
     void setFastRoom(FastRoom fastRoom);

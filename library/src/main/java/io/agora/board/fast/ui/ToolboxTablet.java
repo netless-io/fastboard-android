@@ -24,7 +24,7 @@ import io.agora.board.fast.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
-class ToolboxTablet implements ToolboxImpl {
+class ToolboxTablet implements Toolbox {
     private static final List<ToolboxItem> TOOLBOX_ITEMS = new ArrayList<ToolboxItem>() {
         {
             add(new ToolboxItem(ToolboxItem.KEY_CLICK, ApplianceItem.CLICKER, false));

@@ -35,9 +35,7 @@ public class FastRoom {
         @Override
         public void catchEx(SDKError t) {
             FastLogger.error("join room error", t);
-
-            FastErrorHandler errorHandler = fastContext.errorHandler;
-            errorHandler.onJoinRoomError(new FastException(t.getMessage(), t));
+            fastContext.notifyFastError(FastException.createRoom(t.getMessage(), t));
         }
     };
     private final RoomListener roomListener = new RoomListener() {

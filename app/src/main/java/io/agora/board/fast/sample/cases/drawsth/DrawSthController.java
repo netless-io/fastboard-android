@@ -17,7 +17,7 @@ import com.herewhite.sdk.domain.ShapeType;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastListener;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.model.ApplianceItem;
@@ -30,7 +30,7 @@ import io.agora.board.fast.ui.SubToolsLayout;
 import io.agora.board.fast.ui.ToolButton;
 import io.agora.board.fast.ui.ToolsLayout;
 
-public class DrawSthController extends LinearLayoutCompat implements RoomController, BoardStateObserver {
+public class DrawSthController extends LinearLayoutCompat implements RoomController, FastListener {
     private static final List<ApplianceItem> DRAW_STH_APPLIANCES = new ArrayList<ApplianceItem>() {
         {
             add(ApplianceItem.PENCIL);
@@ -109,7 +109,6 @@ public class DrawSthController extends LinearLayoutCompat implements RoomControl
             subToolButton.setApplianceItem(item);
 
             fastRoom.setAppliance(item);
-
             updateOverlay(SHOW_NO);
         });
         subToolsLayout = root.findViewById(R.id.sub_tools_layout);
@@ -129,7 +128,7 @@ public class DrawSthController extends LinearLayoutCompat implements RoomControl
 
     @Override
     public void attachSdk(FastSdk fastSdk) {
-        fastSdk.registerObserver(this);
+        fastSdk.addListener(this);
         redoUndoLayout.attachSdk(fastSdk);
     }
 

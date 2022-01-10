@@ -7,12 +7,12 @@ import com.herewhite.sdk.WhiteSdkConfiguration;
  */
 public class FastSdkOptions {
     private final String appId;
-
     private WhiteSdkConfiguration configuration;
+
+    private boolean useErrorHandler = false;
 
     public FastSdkOptions(String appId) {
         this.appId = appId;
-
         configuration = new WhiteSdkConfiguration(appId);
     }
 
@@ -26,5 +26,13 @@ public class FastSdkOptions {
 
     public void setConfiguration(WhiteSdkConfiguration configuration) {
         this.configuration = configuration;
+    }
+
+    public void setUseErrorHandler(boolean useErrorHandler) {
+        this.useErrorHandler = useErrorHandler;
+    }
+
+    public boolean isUseErrorHandler() {
+        return useErrorHandler;
     }
 }

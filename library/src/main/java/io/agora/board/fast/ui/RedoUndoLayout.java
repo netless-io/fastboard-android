@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastListener;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.R;
@@ -20,7 +20,7 @@ import io.agora.board.fast.model.RedoUndoCount;
 /**
  * @author fenglibin
  */
-public class RedoUndoLayout extends LinearLayoutCompat implements BoardStateObserver, RoomController {
+public class RedoUndoLayout extends LinearLayoutCompat implements FastListener, RoomController {
     private ImageView redoImage;
     private ImageView undoImage;
 
@@ -80,7 +80,7 @@ public class RedoUndoLayout extends LinearLayoutCompat implements BoardStateObse
     
     @Override
     public void attachSdk(FastSdk fastSdk) {
-        fastSdk.registerObserver(this);
+        fastSdk.addListener(this);
     }
 
     @Override

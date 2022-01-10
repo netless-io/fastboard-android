@@ -24,7 +24,7 @@ import io.agora.board.fast.ui.RoomController;
 /**
  * @author fenglibin
  */
-public class FastboardView extends FrameLayout implements BoardStateObserver {
+public class FastboardView extends FrameLayout implements FastListener {
     WhiteboardView whiteboardView;
     RoomController roomController;
     LoadingLayout loadingLayout;
@@ -50,7 +50,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
 
     private void setupFastContext(@NonNull Context context) {
         fastContext = new FastContext(context);
-        fastContext.registerObserver(this);
+        fastContext.addListener(this);
     }
 
     private void setupView(Context context) {
@@ -91,7 +91,7 @@ public class FastboardView extends FrameLayout implements BoardStateObserver {
     }
 
     @Override
-    public void onGlobalStyleChanged(FastStyle fastStyle) {
+    public void onFastStyleChanged(FastStyle fastStyle) {
         updateStyle(fastStyle);
     }
 

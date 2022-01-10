@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.SceneState;
 
-import io.agora.board.fast.BoardStateObserver;
+import io.agora.board.fast.FastListener;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.R;
@@ -24,7 +24,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ScenesLayout extends LinearLayout implements BoardStateObserver, RoomController {
+public class ScenesLayout extends LinearLayout implements FastListener, RoomController {
     private ImageView scenePrev;
     private ImageView sceneNext;
     private ImageView sceneAdd;
@@ -105,7 +105,7 @@ public class ScenesLayout extends LinearLayout implements BoardStateObserver, Ro
 
     @Override
     public void attachSdk(FastSdk fastSdk) {
-        fastSdk.registerObserver(this);
+        fastSdk.addListener(this);
     }
 
     public void setFastStyle(FastStyle fastStyle) {
