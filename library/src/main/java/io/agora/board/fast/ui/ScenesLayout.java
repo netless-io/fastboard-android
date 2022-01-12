@@ -46,6 +46,20 @@ public class ScenesLayout extends LinearLayout implements RoomController {
         }
     };
 
+    public ScenesLayout(@NonNull Context context) {
+        this(context, null);
+    }
+
+    public ScenesLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public ScenesLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        setOrientation(HORIZONTAL);
+        setupView(context);
+    }
+
     private void prevScene() {
         fastRoom.getRoom().setSceneIndex(sceneIndex - 1, null);
     }
@@ -61,20 +75,6 @@ public class ScenesLayout extends LinearLayout implements RoomController {
         Scene scene = new Scene();
         fastRoom.getRoom().putScenes(dir, new Scene[]{scene}, targetIndex);
         fastRoom.getRoom().setSceneIndex(targetIndex, null);
-    }
-
-    public ScenesLayout(@NonNull Context context) {
-        this(context, null);
-    }
-
-    public ScenesLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public ScenesLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setOrientation(HORIZONTAL);
-        setupView(context);
     }
 
     private void setupView(Context context) {

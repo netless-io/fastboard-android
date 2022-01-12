@@ -58,16 +58,16 @@ public class DrawSthController extends RoomControllerGroup {
         }
     };
 
+    public DrawSthController(ViewGroup root) {
+        super(root);
+    }
+
     private void triggerShown(int key) {
         if (overlayHandler.isShowing(key)) {
             overlayHandler.hide(key);
         } else {
             overlayHandler.show(key);
         }
-    }
-
-    public DrawSthController(ViewGroup root) {
-        super(root);
     }
 
     @Override

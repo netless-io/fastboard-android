@@ -20,11 +20,6 @@ import io.agora.board.fast.model.FastStyle;
  */
 public class FastSdk {
     final FastContext fastContext;
-
-    WhiteSdk whiteSdk;
-    FastRoom fastRoom;
-    FastPlayer fastPlayer;
-
     private final CommonCallback commonCallback = new CommonCallback() {
         @Override
         public void throwError(Object args) {
@@ -46,6 +41,9 @@ public class FastSdk {
 
         }
     };
+    WhiteSdk whiteSdk;
+    FastRoom fastRoom;
+    FastPlayer fastPlayer;
 
     public FastSdk(FastboardView fastboardView) {
         this.fastContext = fastboardView.fastContext;

@@ -21,25 +21,6 @@ public class FastRoom {
     private final FastSdk fastSdk;
     private final FastContext fastContext;
     private final RoomParams params;
-
-    private Room room;
-
-    private final Promise<Room> joinRoomPromise = new Promise<Room>() {
-        @Override
-        public void then(Room room) {
-            FastLogger.info("join room success" + room.toString());
-            FastRoom.this.room = room;
-            notifyRoomState(room.getRoomState());
-            updateWritable();
-        }
-
-        @Override
-        public void catchEx(SDKError t) {
-            FastLogger.error("join room error", t);
-            fastContext.notifyFastError(FastException.createRoom(t.getMessage(), t));
-        }
-    };
-
     private final RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
         private long canRedoSteps;
@@ -79,6 +60,22 @@ public class FastRoom {
         @Override
         public void onCatchErrorWhenAppendFrame(long userId, Exception error) {
             FastLogger.warn("receive frame error js userId:" + userId + " error:" + error.getMessage());
+        }
+    };
+    private Room room;
+    private final Promise<Room> joinRoomPromise = new Promise<Room>() {
+        @Override
+        public void then(Room room) {
+            FastLogger.info("join room success" + room.toString());
+            FastRoom.this.room = room;
+            notifyRoomState(room.getRoomState());
+            updateWritable();
+        }
+
+        @Override
+        public void catchEx(SDKError t) {
+            FastLogger.error("join room error", t);
+            fastContext.notifyFastError(FastException.createRoom(t.getMessage(), t));
         }
     };
 

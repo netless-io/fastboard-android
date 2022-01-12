@@ -8,17 +8,20 @@ import java.lang.annotation.RetentionPolicy;
 
 public class FastException extends RuntimeException {
 
-    @Documented
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({TYPE_SDK, TYPE_ROOM, TYPE_PLAYER})
-    public @interface Type {
-    }
-
     public static final int TYPE_SDK = 0;
     public static final int TYPE_ROOM = 1;
     public static final int TYPE_PLAYER = 2;
-
     private int type;
+
+    private FastException(@Type int type, String message) {
+        super(message);
+        this.type = type;
+    }
+
+    private FastException(@Type int type, String message, Throwable throwable) {
+        super(message, throwable);
+        this.type = type;
+    }
 
     public static FastException createSdk(String message) {
         return new FastException(TYPE_SDK, message);
@@ -32,17 +35,13 @@ public class FastException extends RuntimeException {
         return new FastException(TYPE_PLAYER, message, throwable);
     }
 
-    private FastException(@Type int type, String message) {
-        super(message);
-        this.type = type;
-    }
-
-    private FastException(@Type int type, String message, Throwable throwable) {
-        super(message, throwable);
-        this.type = type;
-    }
-
     public int getType() {
         return type;
+    }
+
+    @Documented
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({TYPE_SDK, TYPE_ROOM, TYPE_PLAYER})
+    public @interface Type {
     }
 }

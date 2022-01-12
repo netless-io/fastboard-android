@@ -28,7 +28,7 @@ public interface FastListener {
     }
 
     default void onOverlayChanged(int key) {
-        
+
     }
 
     default void onFastStyleChanged(FastStyle style) {

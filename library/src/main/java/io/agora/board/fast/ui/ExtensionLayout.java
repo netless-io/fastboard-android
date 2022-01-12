@@ -26,21 +26,14 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ExtensionLayout extends LinearLayoutCompat implements RoomController {
-    @IntDef({TYPE_PHONE, TYPE_TEXT, TYPE_PENCIL, TYPE_TABLET_SHAPE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Type {
-    }
-
     static final int SHOW_MASK = 0xFF000000;
     static final int SHOW_TOOLS = 0x01000000;
     static final int SHOW_SEEKER = 0x02000000;
     static final int SHOW_COLORS = 0x04000000;
-
     public static final int TYPE_PHONE = 1 | SHOW_SEEKER | SHOW_COLORS;
     public static final int TYPE_TEXT = 2 | SHOW_COLORS;
     public static final int TYPE_PENCIL = 3 | SHOW_SEEKER | SHOW_COLORS;
     public static final int TYPE_TABLET_SHAPE = 4 | SHOW_TOOLS | SHOW_SEEKER | SHOW_COLORS;
-
     private static final List<ApplianceItem> DEFAULT_TOOLS = new ArrayList<ApplianceItem>() {
         {
             add(ApplianceItem.RECTANGLE);
@@ -53,7 +46,6 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
             add(ApplianceItem.TRIANGLE);
         }
     };
-
     private static final List<Integer> DEFAULT_COLORS = new ArrayList<Integer>() {
         {
             add(Color.parseColor("#EC3455"));
@@ -66,13 +58,10 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
             add(Color.parseColor("#6D7278"));
         }
     };
-
     private RecyclerView toolsRecyclerView;
     private ApplianceAdapter toolsAdapter;
-
     private RecyclerView colorsRecyclerView;
     private ColorAdapter colorAdapter;
-
     private StrokeSeeker strokeSeeker;
 
     public ExtensionLayout(@NonNull Context context) {
@@ -162,5 +151,10 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     @Override
     public boolean isShowing() {
         return getVisibility() == VISIBLE;
+    }
+
+    @IntDef({TYPE_PHONE, TYPE_TEXT, TYPE_PENCIL, TYPE_TABLET_SHAPE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Type {
     }
 }

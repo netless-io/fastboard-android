@@ -10,10 +10,10 @@ import com.herewhite.sdk.domain.SceneState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.agora.board.fast.extension.ErrorHandler;
-import io.agora.board.fast.internal.FastOverlayHandler;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
+import io.agora.board.fast.internal.FastOverlayHandler;
 import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
@@ -75,12 +75,12 @@ public class FastContext {
         this.roomPhaseHandler = phaseHandler;
     }
 
-    public void setOverlayHandler(FastOverlayHandler fastOverlayHandler) {
-        this.overlayHandler = fastOverlayHandler;
-    }
-
     public OverlayHandler getOverlayHandler() {
         return overlayHandler;
+    }
+
+    public void setOverlayHandler(FastOverlayHandler fastOverlayHandler) {
+        this.overlayHandler = fastOverlayHandler;
     }
 
     void initFastStyle(FastStyle fastStyle) {

@@ -137,6 +137,10 @@ public class FastboardView extends FrameLayout implements FastListener {
         return fastUiSettings;
     }
 
+    public RoomControllerGroup getRootRoomController() {
+        return roomControllerGroup;
+    }
+
     public void setRootRoomController(RoomControllerGroup roomControllerGroup) {
         RoomControllerGroup oldGroup = this.roomControllerGroup;
         oldGroup.hide();
@@ -146,10 +150,6 @@ public class FastboardView extends FrameLayout implements FastListener {
         if (fastContext.fastRoom != null) {
             roomControllerGroup.setFastRoom(fastContext.fastRoom);
         }
-    }
-
-    public RoomControllerGroup getRootRoomController() {
-        return roomControllerGroup;
     }
 
     @Override

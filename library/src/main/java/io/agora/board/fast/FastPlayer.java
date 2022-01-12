@@ -14,7 +14,6 @@ public class FastPlayer {
 
     private final FastSdk fastSdk;
     private final PlayerConfiguration playerConf;
-    private Player player;
     private final PlayerListener playerListener = new PlayerListener() {
         @Override
         public void onPhaseChanged(PlayerPhase phase) {
@@ -56,6 +55,7 @@ public class FastPlayer {
 
         }
     };
+    private Player player;
     private final Promise<Player> playerPromise = new Promise<Player>() {
         @Override
         public void then(Player player) {
