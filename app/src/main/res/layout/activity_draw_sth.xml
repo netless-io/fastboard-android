@@ -40,7 +40,7 @@
                 android:layout_height="@dimen/fast_default_button_size" />
         </LinearLayout>
 
-        <io.agora.board.fast.sample.cases.drawsth.DrawSthController
+        <LinearLayout
             android:id="@+id/draw_sth_controller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

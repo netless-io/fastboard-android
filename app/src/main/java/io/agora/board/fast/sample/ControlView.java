@@ -43,7 +43,7 @@ public class ControlView extends FrameLayout {
             }
         });
 
-        root.findViewById(R.id.clear_scenes).setOnClickListener(v -> {
+        root.findViewById(R.id.eraserView).setOnClickListener(v -> {
             if (fastSdk != null) {
                 SceneState sceneState = fastSdk.getFastRoom().getRoom().getRoomState().getSceneState();
                 String scenePath = sceneState.getScenePath();

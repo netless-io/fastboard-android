@@ -11,15 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-import io.agora.board.fast.FastListener;
+import com.herewhite.sdk.domain.RoomPhase;
+
+import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
-public class LoadingLayout extends LinearLayoutCompat implements FastListener {
+public class LoadingLayout extends LinearLayoutCompat implements RoomController {
     private ProgressBar progressBar;
+
+    private FastRoom fastRoom;
 
     public LoadingLayout(@NonNull Context context) {
         this(context, null);
@@ -41,15 +45,48 @@ public class LoadingLayout extends LinearLayoutCompat implements FastListener {
         progressBar = root.findViewById(R.id.loading_progress_bar);
     }
 
-    public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : GONE);
+    @Override
+    public void setFastRoom(FastRoom fastRoom) {
+        this.fastRoom = fastRoom;
     }
 
-    public boolean shown() {
-        return getVisibility() == GONE;
+    @Override
+    public void updateFastStyle(FastStyle style) {
+        progressBar.setIndeterminateTintList(ColorStateList.valueOf(style.getMainColor()));
     }
 
-    public void updateFastStyle(FastStyle fastStyle) {
-        progressBar.setIndeterminateTintList(ColorStateList.valueOf(fastStyle.getMainColor()));
+    public void updateRoomPhase(RoomPhase roomPhase) {
+        switch (roomPhase) {
+            case connecting:
+            case reconnecting:
+                show();
+                break;
+            case connected:
+                hide();
+                break;
+            case disconnected:
+                showRetry();
+            default:
+                break;
+        }
+    }
+
+    private void showRetry() {
+
+    }
+
+    @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hide() {
+        setVisibility(GONE);
+    }
+
+    @Override
+    public boolean isShowing() {
+        return getVisibility() == VISIBLE;
     }
 }

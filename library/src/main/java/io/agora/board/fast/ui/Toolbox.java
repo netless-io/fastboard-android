@@ -16,5 +16,7 @@ public interface Toolbox {
 
     void updateStroke(int[] strokeColor, double strokeWidth);
 
+    void updateOverlayChanged(int key);
+
     void setLayoutGravity(int gravity);
 }

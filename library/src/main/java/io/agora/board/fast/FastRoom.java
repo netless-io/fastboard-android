@@ -12,7 +12,7 @@ import com.herewhite.sdk.domain.WindowParams;
 
 import java.util.HashMap;
 
-import io.agora.board.fast.internal.FastErrorHandler;
+import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.RedoUndoCount;
@@ -23,6 +23,7 @@ public class FastRoom {
     private final RoomParams params;
 
     private Room room;
+
     private final Promise<Room> joinRoomPromise = new Promise<Room>() {
         @Override
         public void then(Room room) {
@@ -38,6 +39,7 @@ public class FastRoom {
             fastContext.notifyFastError(FastException.createRoom(t.getMessage(), t));
         }
     };
+
     private final RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
         private long canRedoSteps;
@@ -105,6 +107,10 @@ public class FastRoom {
 
     public Room getRoom() {
         return room;
+    }
+
+    public OverlayHandler getOverlayHandler() {
+        return fastContext.getOverlayHandler();
     }
 
     private void updateWritable() {

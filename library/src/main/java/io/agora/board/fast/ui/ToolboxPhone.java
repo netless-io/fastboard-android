@@ -1,8 +1,5 @@
 package io.agora.board.fast.ui;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -14,25 +11,24 @@ import com.herewhite.sdk.domain.ShapeType;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
+import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
 class ToolboxPhone implements Toolbox {
-    private View overlayView;
-
     private ToolButton toolButton;
-    private ToolsLayout toolsLayout;
-    private SubToolButton subToolButton;
-    private SubToolsLayout subToolsLayout;
+    private ToolLayout toolsLayout;
+    private ExtensionButton subToolButton;
+    private ExtensionLayout extensionLayout;
 
     private FastRoom fastRoom;
+    private OverlayHandler overlayHandler;
 
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
         Context context = toolboxLayout.getContext();
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox, toolboxLayout, true);
-        overlayView = root.findViewById(R.id.overlay_handle_view);
         toolButton = root.findViewById(R.id.tool_button);
         subToolButton = root.findViewById(R.id.toolbox_sub_button);
         toolsLayout = root.findViewById(R.id.tools_layout);
@@ -41,41 +37,40 @@ class ToolboxPhone implements Toolbox {
                 fastRoom.cleanScene();
             } else {
                 fastRoom.setAppliance(item);
-
                 toolButton.setApplianceItem(item);
                 subToolButton.setApplianceItem(item);
             }
 
-            hideAllOverlay();
+            overlayHandler.hideAll();
         });
 
-        subToolsLayout = root.findViewById(R.id.sub_tools_layout);
-        subToolsLayout.setType(SubToolsLayout.TYPE_PHONE);
-        subToolsLayout.setOnColorClickListener(color -> {
+        extensionLayout = root.findViewById(R.id.sub_tools_layout);
+        extensionLayout.setType(ExtensionLayout.TYPE_PHONE);
+        extensionLayout.setOnColorClickListener(color -> {
             fastRoom.setColor(color);
 
             subToolButton.setColor(color);
-            subToolsLayout.setColor(color);
+            extensionLayout.setColor(color);
 
-            hideAllOverlay();
+            overlayHandler.hideAll();
         });
-
-        subToolsLayout.setOnStrokeChangedListener(width -> {
+        extensionLayout.setOnStrokeChangedListener(width -> {
             fastRoom.setStokeWidth(width);
         });
 
         toolButton.setOnClickListener(v -> {
-            boolean target = !toolButton.isSelected();
+            boolean target = !overlayHandler.isShowing(OverlayHandler.KEY_TOOL_LAYOUT);
+            if (target) {
+                overlayHandler.show(OverlayHandler.KEY_TOOL_LAYOUT);
+            } else {
+                overlayHandler.hide(OverlayHandler.KEY_TOOL_LAYOUT);
+            }
+
             toolButton.setSelected(target);
-            toolsLayout.setShown(target);
-
             subToolButton.setSelected(false);
-            subToolsLayout.setShown(false);
-
-            updateOverlay();
         });
 
-        subToolButton.setOnSubToolClickListener(new SubToolButton.OnSubToolClickListener() {
+        subToolButton.setOnSubToolClickListener(new ExtensionButton.OnSubToolClickListener() {
             @Override
             public void onDeleteClick() {
                 fastRoom.getRoom().deleteOperation();
@@ -83,50 +78,32 @@ class ToolboxPhone implements Toolbox {
 
             @Override
             public void onColorClick() {
-                boolean target = !subToolButton.isSelected();
+                boolean target = !overlayHandler.isShowing(OverlayHandler.KEY_TOOL_EXTENSION);
+
+                if (target) {
+                    overlayHandler.show(OverlayHandler.KEY_TOOL_EXTENSION);
+                } else {
+                    overlayHandler.hide(OverlayHandler.KEY_TOOL_EXTENSION);
+                }
+
                 subToolButton.setSelected(target);
-                subToolsLayout.setShown(target);
-
                 toolButton.setSelected(false);
-                toolsLayout.setShown(false);
-
-                updateOverlay();
             }
         });
-
-        overlayView.setOnClickListener(v ->
-                hideAllOverlay()
-        );
     }
 
     @Override
     public void setFastRoom(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
-    }
-
-    private void hideAllOverlay() {
-        if (toolButton.isSelected()) {
-            toolButton.setSelected(false);
-            toolsLayout.setShown(false);
-        }
-
-        if (subToolButton.isSelected()) {
-            subToolButton.setSelected(false);
-            subToolsLayout.setShown(false);
-        }
-
-        overlayView.setVisibility(GONE);
-    }
-
-    private void updateOverlay() {
-        boolean showOverlay = toolButton.isSelected() || subToolButton.isSelected();
-        overlayView.setVisibility(showOverlay ? VISIBLE : GONE);
+        this.overlayHandler = fastRoom.getOverlayHandler();
+        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_EXTENSION, extensionLayout);
+        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_LAYOUT, toolsLayout);
     }
 
     @Override
     public void setFastStyle(FastStyle fastStyle) {
         subToolButton.setFastStyle(fastStyle);
-        subToolsLayout.setFastStyle(fastStyle);
+        extensionLayout.setFastStyle(fastStyle);
         toolButton.setFastStyle(fastStyle);
         toolsLayout.setFastStyle(fastStyle);
     }
@@ -143,8 +120,14 @@ class ToolboxPhone implements Toolbox {
     public void updateStroke(int[] strokeColor, double strokeWidth) {
         int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
         subToolButton.setColor(color);
-        subToolsLayout.setColor(color);
-        subToolsLayout.setStrokeWidth((int) strokeWidth);
+        extensionLayout.setColor(color);
+        extensionLayout.setStrokeWidth((int) strokeWidth);
+    }
+
+    @Override
+    public void updateOverlayChanged(int key) {
+        toolButton.setSelected(key == OverlayHandler.KEY_TOOL_LAYOUT);
+        subToolButton.setSelected(key == OverlayHandler.KEY_TOOL_EXTENSION);
     }
 
     @Override
@@ -161,7 +144,7 @@ class ToolboxPhone implements Toolbox {
             toolsLp.removeRule(RelativeLayout.LEFT_OF);
             toolsLp.addRule(RelativeLayout.RIGHT_OF, toolButton.getId());
 
-            RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) subToolsLayout.getLayoutParams();
+            RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.LEFT_OF);
             subToolsLp.addRule(RelativeLayout.RIGHT_OF, subToolButton.getId());
         }
@@ -175,7 +158,7 @@ class ToolboxPhone implements Toolbox {
             toolsLp.removeRule(RelativeLayout.RIGHT_OF);
             toolsLp.addRule(RelativeLayout.LEFT_OF, toolButton.getId());
 
-            RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) subToolsLayout.getLayoutParams();
+            RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
             subToolsLp.addRule(RelativeLayout.LEFT_OF, subToolButton.getId());
         }

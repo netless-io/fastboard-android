@@ -21,7 +21,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ToolsLayout extends FrameLayout {
+public class ToolLayout extends FrameLayout implements RoomController {
     private static final List<ApplianceItem> PHONE_APPLIANCES = new ArrayList<ApplianceItem>() {
         {
             add(ApplianceItem.CLICKER);
@@ -38,15 +38,15 @@ public class ToolsLayout extends FrameLayout {
     private RecyclerView toolsRecyclerView;
     private ApplianceAdapter applianceAdapter;
 
-    public ToolsLayout(@NonNull Context context) {
+    public ToolLayout(@NonNull Context context) {
         this(context, null);
     }
 
-    public ToolsLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ToolLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ToolsLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ToolLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
@@ -72,16 +72,23 @@ public class ToolsLayout extends FrameLayout {
         applianceAdapter.setAppliances(items);
     }
 
-    public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : GONE);
-    }
-
-    public boolean shown() {
-        return getVisibility() == VISIBLE;
-    }
-
     public void setFastStyle(FastStyle fastStyle) {
         setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         applianceAdapter.setStyle(fastStyle);
+    }
+
+    @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hide() {
+        setVisibility(GONE);
+    }
+
+    @Override
+    public boolean isShowing() {
+        return getVisibility() == VISIBLE;
     }
 }

@@ -15,16 +15,14 @@ import androidx.annotation.Nullable;
 import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.SceneState;
 
-import io.agora.board.fast.FastListener;
 import io.agora.board.fast.FastRoom;
-import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
-public class ScenesLayout extends LinearLayout implements FastListener, RoomController {
+public class ScenesLayout extends LinearLayout implements RoomController {
     private ImageView scenePrev;
     private ImageView sceneNext;
     private ImageView sceneAdd;
@@ -38,10 +36,6 @@ public class ScenesLayout extends LinearLayout implements FastListener, RoomCont
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (fastRoom == null) {
-                return;
-            }
-
             if (v == scenePrev) {
                 prevScene();
             } else if (v == sceneNext) {
@@ -95,17 +89,9 @@ public class ScenesLayout extends LinearLayout implements FastListener, RoomCont
         sceneAdd.setOnClickListener(onClickListener);
     }
 
-    public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : INVISIBLE);
-    }
-
-    public boolean shown() {
-        return getVisibility() == VISIBLE;
-    }
-
     @Override
-    public void attachSdk(FastSdk fastSdk) {
-        fastSdk.addListener(this);
+    public void setFastRoom(FastRoom fastRoom) {
+        this.fastRoom = fastRoom;
     }
 
     public void setFastStyle(FastStyle fastStyle) {
@@ -117,7 +103,7 @@ public class ScenesLayout extends LinearLayout implements FastListener, RoomCont
     }
 
     @Override
-    public void onSceneStateChanged(SceneState sceneState) {
+    public void updateSceneState(SceneState sceneState) {
         sceneIndex = sceneState.getIndex();
         scenePath = sceneState.getScenePath();
         sceneSize = sceneState.getScenes().length;
@@ -131,10 +117,5 @@ public class ScenesLayout extends LinearLayout implements FastListener, RoomCont
         sceneIndicator.setText(sceneNo + "/" + sceneSize);
         sceneNext.setEnabled(sceneNo < sceneSize);
         scenePrev.setEnabled(sceneIndex > 0);
-    }
-
-    @Override
-    public void onFastRoomCreated(FastRoom fastRoom) {
-        this.fastRoom = fastRoom;
     }
 }

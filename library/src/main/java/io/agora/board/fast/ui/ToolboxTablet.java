@@ -1,8 +1,5 @@
 package io.agora.board.fast.ui;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -21,6 +18,7 @@ import java.util.List;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
+import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
@@ -38,21 +36,20 @@ class ToolboxTablet implements Toolbox {
     };
 
     private FastRoom fastRoom;
+    private OverlayHandler overlayHandler;
 
-    private View overlayView;
     private RecyclerView toolsRecyclerView;
     private ToolboxAdapter toolboxAdapter;
     private DeleteButton toolboxDelete;
-    private SubToolsLayout subToolsLayout;
+    private ExtensionLayout extensionLayout;
 
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
         Context context = toolboxLayout.getContext();
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_tablet, toolboxLayout, true);
-        overlayView = root.findViewById(R.id.overlay_handle_view);
         toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
-        subToolsLayout = root.findViewById(R.id.sub_tools_layout);
+        extensionLayout = root.findViewById(R.id.sub_tools_layout);
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);
 
         toolboxDelete.setOnClickListener(v -> {
@@ -66,38 +63,43 @@ class ToolboxTablet implements Toolbox {
         toolboxAdapter.setOnToolboxClickListener(new ToolboxAdapter.OnToolboxClickListener() {
             @Override
             public void onToolboxReClick(ToolboxItem item) {
-                if (subToolsLayout.shown()) {
-                    subToolsLayout.setShown(false);
+                if (overlayHandler.isShowing(OverlayHandler.KEY_TOOL_EXTENSION)) {
+                    overlayHandler.hide(OverlayHandler.KEY_TOOL_EXTENSION);
                     return;
                 }
+                showExtensionIfNeed(item.key);
+                setApplianceIfNeed(item);
+            }
+
+            private void setApplianceIfNeed(ToolboxItem item) {
                 switch (item.key) {
                     case ToolboxItem.KEY_CLICK:
                     case ToolboxItem.KEY_SELECTOR:
                     case ToolboxItem.KEY_ERASER:
                         fastRoom.setAppliance(item.applianceItem);
-                        subToolsLayout.setShown(false);
-                        break;
-                    case ToolboxItem.KEY_PENCIL:
-                        subToolsLayout.setType(SubToolsLayout.TYPE_PENCIL);
-                        subToolsLayout.setShown(true);
-                        break;
-                    case ToolboxItem.KEY_TEXT:
-                        subToolsLayout.setType(SubToolsLayout.TYPE_TEXT);
-                        subToolsLayout.setShown(true);
-                        break;
-                    case ToolboxItem.KEY_SHAPE:
-                        subToolsLayout.setType(SubToolsLayout.TYPE_TABLET_SHAPE);
-                        subToolsLayout.setShown(true);
-                        break;
-                    default:
                         break;
                 }
-                updateOverlay();
+            }
+
+            private void showExtensionIfNeed(int key) {
+                boolean showExtension = true;
+                if (key == ToolboxItem.KEY_PENCIL) {
+                    extensionLayout.setType(ExtensionLayout.TYPE_PENCIL);
+                } else if (key == ToolboxItem.KEY_TEXT) {
+                    extensionLayout.setType(ExtensionLayout.TYPE_PENCIL);
+                } else if (key == ToolboxItem.KEY_SHAPE) {
+                    extensionLayout.setType(ExtensionLayout.TYPE_TABLET_SHAPE);
+                } else {
+                    showExtension = false;
+                }
+                if (showExtension) {
+                    overlayHandler.show(OverlayHandler.KEY_TOOL_EXTENSION);
+                }
             }
 
             @Override
             public void onSwitchToolbox(ToolboxItem item, ToolboxItem oldItem) {
-                subToolsLayout.setShown(false);
+                overlayHandler.hide(OverlayHandler.KEY_TOOL_EXTENSION);
 
                 if (item.applianceItem == ApplianceItem.OTHER_CLEAR) {
                     fastRoom.cleanScene();
@@ -107,32 +109,26 @@ class ToolboxTablet implements Toolbox {
             }
         });
 
-        subToolsLayout.setOnStrokeChangedListener(width -> {
+        extensionLayout.setOnStrokeChangedListener(width -> {
             fastRoom.setStokeWidth(width);
-
-            subToolsLayout.setStrokeWidth(width);
         });
 
-        subToolsLayout.setOnColorClickListener(color -> {
+        extensionLayout.setOnColorClickListener(color -> {
             fastRoom.setColor(color);
-            subToolsLayout.setColor(color);
         });
 
-        subToolsLayout.setOnApplianceClickListener(item -> {
+        extensionLayout.setOnApplianceClickListener(item -> {
             fastRoom.setAppliance(item);
             toolboxAdapter.updateSubTool(ToolboxItem.KEY_SHAPE, item);
-            subToolsLayout.setShown(false);
-            updateOverlay();
+            overlayHandler.hide(OverlayHandler.KEY_TOOL_EXTENSION);
         });
-
-        overlayView.setOnClickListener(v ->
-                hideAllOverlay()
-        );
     }
 
     @Override
     public void setFastRoom(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
+        this.overlayHandler = fastRoom.getOverlayHandler();
+        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_EXTENSION, extensionLayout);
     }
 
     @Override
@@ -140,7 +136,7 @@ class ToolboxTablet implements Toolbox {
         toolsRecyclerView.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         toolboxAdapter.setStyle(fastStyle);
         toolboxDelete.setFastStyle(fastStyle);
-        subToolsLayout.setFastStyle(fastStyle);
+        extensionLayout.setFastStyle(fastStyle);
     }
 
     @Override
@@ -148,14 +144,19 @@ class ToolboxTablet implements Toolbox {
         ApplianceItem item = ApplianceItem.of(appliance, shapeType);
         toolboxAdapter.setApplianceItem(item);
         toolboxDelete.setApplianceItem(item);
-        subToolsLayout.setApplianceItem(item);
+        extensionLayout.setApplianceItem(item);
     }
 
     @Override
     public void updateStroke(int[] strokeColor, double strokeWidth) {
         int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
-        subToolsLayout.setColor(color);
-        subToolsLayout.setStrokeWidth((int) strokeWidth);
+        extensionLayout.setColor(color);
+        extensionLayout.setStrokeWidth((int) strokeWidth);
+    }
+
+    @Override
+    public void updateOverlayChanged(int key) {
+
     }
 
     @Override
@@ -168,7 +169,7 @@ class ToolboxTablet implements Toolbox {
             toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             toolsLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 
-            LayoutParams subToolsLp = (LayoutParams) subToolsLayout.getLayoutParams();
+            LayoutParams subToolsLp = (LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.LEFT_OF);
             subToolsLp.addRule(RelativeLayout.RIGHT_OF, toolsRecyclerView.getId());
         }
@@ -178,18 +179,9 @@ class ToolboxTablet implements Toolbox {
             toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
             toolsLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-            LayoutParams subToolsLp = (LayoutParams) subToolsLayout.getLayoutParams();
+            LayoutParams subToolsLp = (LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
             subToolsLp.addRule(RelativeLayout.LEFT_OF, toolsRecyclerView.getId());
         }
-    }
-
-    private void hideAllOverlay() {
-        subToolsLayout.setShown(false);
-        overlayView.setVisibility(GONE);
-    }
-
-    private void updateOverlay() {
-        overlayView.setVisibility(subToolsLayout.shown() ? VISIBLE : GONE);
     }
 }

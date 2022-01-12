@@ -8,7 +8,8 @@ import com.herewhite.sdk.domain.SDKError;
 
 import org.json.JSONObject;
 
-import io.agora.board.fast.internal.FastErrorHandler;
+import io.agora.board.fast.extension.ErrorHandler;
+import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
@@ -18,7 +19,6 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class FastSdk {
-    final FastboardView fastboardView;
     final FastContext fastContext;
 
     WhiteSdk whiteSdk;
@@ -48,26 +48,22 @@ public class FastSdk {
     };
 
     public FastSdk(FastboardView fastboardView) {
-        this.fastboardView = fastboardView;
         this.fastContext = fastboardView.fastContext;
     }
 
     void initSdk(FastSdkOptions options) {
-        WhiteSdkConfiguration conf = options.getConfiguration();
-        whiteSdk = new WhiteSdk(fastboardView.whiteboardView, fastboardView.getContext(), conf, commonCallback);
+        WhiteSdkConfiguration config = options.getConfiguration();
+        config.setUseMultiViews(true);
 
-        if (options.isUseErrorHandler()) {
-            fastContext.enableDefaultErrorHandler();
-        }
+        FastboardView fastboardView = fastContext.fastboardView;
+        whiteSdk = new WhiteSdk(fastboardView.whiteboardView, fastboardView.getContext(), config, commonCallback);
     }
 
     public FastRoom joinRoom(FastRoomOptions options) {
         if (whiteSdk == null) {
             throw FastException.createSdk("sdk not init, call initSdk first");
         }
-        fastRoom = new FastRoom(this, options);
-        fastRoom.join();
-        fastContext.notifyFastRoomCreated(fastRoom);
+        fastRoom = fastContext.joinRoom(options);
         return fastRoom;
     }
 
@@ -79,15 +75,20 @@ public class FastSdk {
         if (whiteSdk == null) {
             throw FastException.createSdk("sdk not init, call initSdk first");
         }
-        fastPlayer = new FastPlayer(this, options);
-        fastPlayer.join();
+        fastPlayer = fastContext.joinPlayer(options);
         return fastPlayer;
     }
 
-    public void destroy() {
-        WhiteboardView whiteboardView = fastboardView.whiteboardView;
-        whiteboardView.removeAllViews();
-        whiteboardView.destroy();
+    public FastPlayer getFastPlayer() {
+        return fastPlayer;
+    }
+
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        fastContext.setErrorHandler(errorHandler);
+    }
+
+    public void setRoomPhaseHandler(RoomPhaseHandler roomPhaseHandler) {
+        fastContext.setRoomPhaseHandler(roomPhaseHandler);
     }
 
     public void addListener(FastListener listener) {
@@ -109,7 +110,10 @@ public class FastSdk {
         fastContext.updateFastStyle(style);
     }
 
-    public FastContext getFastContext() {
-        return fastContext;
+    public void destroy() {
+        FastboardView fastboardView = fastContext.fastboardView;
+        WhiteboardView whiteboardView = fastboardView.whiteboardView;
+        whiteboardView.removeAllViews();
+        whiteboardView.destroy();
     }
 }

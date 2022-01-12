@@ -2,7 +2,6 @@ package io.agora.board.fast;
 
 import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
-import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.model.FastStyle;
@@ -24,12 +23,12 @@ public interface FastListener {
 
     }
 
-    default void onRoomPhaseChanged(RoomPhase roomPhase) {
+    default void onRedoUndoChanged(RedoUndoCount count) {
 
     }
 
-    default void onRedoUndoChanged(RedoUndoCount count) {
-
+    default void onOverlayChanged(int key) {
+        
     }
 
     default void onFastStyleChanged(FastStyle style) {

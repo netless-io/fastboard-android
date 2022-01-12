@@ -9,16 +9,14 @@ import androidx.annotation.Nullable;
 
 import com.herewhite.sdk.domain.MemberState;
 
-import io.agora.board.fast.FastListener;
 import io.agora.board.fast.FastRoom;
-import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
-public class ToolboxLayout extends RelativeLayout implements FastListener, RoomController {
+public class ToolboxLayout extends RelativeLayout implements RoomController {
     private Toolbox IMPL;
 
     public ToolboxLayout(@NonNull Context context) {
@@ -36,34 +34,26 @@ public class ToolboxLayout extends RelativeLayout implements FastListener, RoomC
     }
 
     @Override
-    public void onMemberStateChanged(MemberState memberState) {
+    public void updateMemberState(MemberState memberState) {
         IMPL.updateAppliance(memberState.getCurrentApplianceName(), memberState.getShapeType());
         IMPL.updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
     }
 
-    public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : GONE);
-    }
-
-    public boolean shown() {
-        return getVisibility() == VISIBLE;
-    }
-
-    public void setLayoutGravity(int gravity) {
-        IMPL.setLayoutGravity(gravity);
+    @Override
+    public void updateOverlayChanged(int key) {
+        IMPL.updateOverlayChanged(key);
     }
 
     @Override
-    public void attachSdk(FastSdk fastSdk) {
-        fastSdk.addListener(this);
+    public void setFastRoom(FastRoom fastRoom) {
+        IMPL.setFastRoom(fastRoom);
     }
 
     public void setFastStyle(FastStyle fastStyle) {
         IMPL.setFastStyle(fastStyle);
     }
 
-    @Override
-    public void onFastRoomCreated(FastRoom fastRoom) {
-        IMPL.setFastRoom(fastRoom);
+    public void setLayoutGravity(int gravity) {
+        IMPL.setLayoutGravity(gravity);
     }
 }

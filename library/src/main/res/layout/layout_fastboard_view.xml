@@ -8,7 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <io.agora.board.fast.ui.FastRoomController
+    <io.agora.board.fast.ui.OverlayLayout
+        android:id="@+id/fast_overlay_handle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <RelativeLayout
         android:id="@id/fast_room_controller"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

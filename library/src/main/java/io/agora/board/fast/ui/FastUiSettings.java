@@ -1,10 +1,5 @@
 package io.agora.board.fast.ui;
 
-import android.view.View;
-import android.widget.FrameLayout;
-
-import com.herewhite.sdk.WhiteboardView;
-
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.R;
 
@@ -27,17 +22,8 @@ public class FastUiSettings {
     /**
      * hide default controller
      */
-    public void hideRoomController() {
-        FastRoomController roomController = fastboardView.findViewById(R.id.fast_room_controller);
-        roomController.setVisibility(View.GONE);
-    }
-
-    /**
-     * @param ratio w / h
-     */
-    public void setWhiteboardRatio(float ratio) {
-        WhiteboardView whiteboardView = fastboardView.findViewById(R.id.fast_whiteboard_view);
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) whiteboardView.getLayoutParams();
-        lp.height = (int) (lp.width / ratio);
+    public void hideRoomControllerGroup() {
+        RoomControllerGroup rootRoomController = fastboardView.getRootRoomController();
+        rootRoomController.hide();
     }
 }

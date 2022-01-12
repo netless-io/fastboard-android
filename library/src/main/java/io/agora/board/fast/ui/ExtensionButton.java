@@ -17,7 +17,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class SubToolButton extends FrameLayout {
+public class ExtensionButton extends FrameLayout {
     private static final int TYPE_HIDE = 1;
     private static final int TYPE_DELETE = 2;
     private static final int TYPE_COLOR = 3;
@@ -45,15 +45,15 @@ public class SubToolButton extends FrameLayout {
         }
     };
 
-    public SubToolButton(@NonNull Context context) {
+    public ExtensionButton(@NonNull Context context) {
         this(context, null);
     }
 
-    public SubToolButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ExtensionButton(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SubToolButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ExtensionButton(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }

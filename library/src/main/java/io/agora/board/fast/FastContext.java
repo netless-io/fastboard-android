@@ -2,8 +2,6 @@ package io.agora.board.fast;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
 import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.RoomPhase;
@@ -11,35 +9,78 @@ import com.herewhite.sdk.domain.SceneState;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import io.agora.board.fast.internal.DefaultErrorHandler;
+import io.agora.board.fast.extension.ErrorHandler;
+import io.agora.board.fast.internal.FastOverlayHandler;
+import io.agora.board.fast.extension.OverlayHandler;
+import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.Util;
+import io.agora.board.fast.model.FastPlayerOptions;
+import io.agora.board.fast.model.FastRoomOptions;
+import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
 import io.agora.board.fast.ui.ResourceFetcher;
 
 public class FastContext {
-    volatile FastErrorHandler errorHandler;
-    @NonNull
-    volatile ResourceFetcher resourceFetcher;
-    FastStyle fastStyle;
-    FastRoom fastRoom;
+    final FastboardView fastboardView;
+    Context context;
     FastSdk fastSdk;
+    FastRoom fastRoom;
+    FastPlayer fastPlayer;
+    FastStyle fastStyle;
+
+    ErrorHandler errorHandler;
+    RoomPhaseHandler roomPhaseHandler;
+    FastOverlayHandler overlayHandler;
+    ResourceFetcher resourceFetcher;
     CopyOnWriteArrayList<FastListener> listeners = new CopyOnWriteArrayList<>();
 
-    public FastContext(Context context) {
+    public FastContext(FastboardView fastboardView) {
+        this.fastboardView = fastboardView;
+        this.context = fastboardView.getContext();
         this.resourceFetcher = ResourceFetcher.get();
         this.resourceFetcher.init(context);
-        this.errorHandler = new DefaultErrorHandler(Util.getActivity(context));
+        this.errorHandler = new FastErrorHandler(Util.getActivity(context));
     }
 
-    void enableDefaultErrorHandler() {
-        addListener(new FastListener() {
-            @Override
-            public void onFastError(FastException error) {
-                errorHandler.handleError(error);
-            }
-        });
+    public FastSdk obtainFastSdk(FastSdkOptions options) {
+        if (fastSdk == null) {
+            fastSdk = new FastSdk(fastboardView);
+            fastSdk.initSdk(new FastSdkOptions(options.getAppId()));
+            notifyFastSdkCreated(fastSdk);
+        }
+        return fastSdk;
+    }
+
+    public FastRoom joinRoom(FastRoomOptions options) {
+        fastRoom = new FastRoom(fastSdk, options);
+        fastRoom.join();
+        notifyFastRoomCreated(fastRoom);
+        return fastRoom;
+    }
+
+    public FastPlayer joinPlayer(FastPlayerOptions options) {
+        fastPlayer = new FastPlayer(fastSdk, options);
+        fastPlayer.join();
+        notifyFastPlayerCreated(fastPlayer);
+        return fastPlayer;
+    }
+
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
+    }
+
+    public void setRoomPhaseHandler(RoomPhaseHandler phaseHandler) {
+        this.roomPhaseHandler = phaseHandler;
+    }
+
+    public void setOverlayHandler(FastOverlayHandler fastOverlayHandler) {
+        this.overlayHandler = fastOverlayHandler;
+    }
+
+    public OverlayHandler getOverlayHandler() {
+        return overlayHandler;
     }
 
     void initFastStyle(FastStyle fastStyle) {
@@ -64,7 +105,7 @@ public class FastContext {
     }
 
     public void notifyRoomPhaseChanged(RoomPhase phase) {
-        notifyListeners(listener -> listener.onRoomPhaseChanged(phase));
+        roomPhaseHandler.handleRoomPhase(phase);
     }
 
     public void notifyBroadcastStateChanged(BroadcastState broadcastState) {
@@ -88,6 +129,10 @@ public class FastContext {
         notifyListeners(listener -> listener.onFastRoomCreated(fastRoom));
     }
 
+    public void notifyFastPlayerCreated(FastPlayer fastPlayer) {
+
+    }
+
     public void notifyFastSdkCreated(FastSdk fastSdk) {
         this.fastSdk = fastSdk;
         notifyListeners(listener -> listener.onFastSdkCreated(fastSdk));
@@ -95,6 +140,10 @@ public class FastContext {
 
     public void notifyFastError(FastException error) {
         notifyListeners(listener -> listener.onFastError(error));
+    }
+
+    public void notifyOverlayChanged(int key) {
+        notifyListeners(listener -> listener.onOverlayChanged(key));
     }
 
     private void notifyListeners(ListenerInvocation listenerInvocation) {

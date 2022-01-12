@@ -7,7 +7,7 @@
     android:paddingHorizontal="@dimen/fast_gap_2"
     tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
 
-    <io.agora.board.fast.ui.ToolsLayout
+    <io.agora.board.fast.ui.ToolLayout
         android:id="@+id/tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:background="@drawable/fast_bg_layout_round"
         android:visibility="gone" />
 
-    <io.agora.board.fast.ui.SubToolsLayout
+    <io.agora.board.fast.ui.ExtensionLayout
         android:id="@+id/sub_tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:padding="@dimen/fast_gap_1"
             android:src="@drawable/fast_ic_tool_pencil" />
 
-        <io.agora.board.fast.ui.SubToolButton
+        <io.agora.board.fast.ui.ExtensionButton
             android:id="@+id/colors_button"
             android:layout_width="@dimen/fast_default_button_size"
             android:layout_height="@dimen/fast_default_button_size"
@@ -51,7 +51,7 @@
             android:src="@drawable/fast_ic_tool_raser" />
 
         <ImageView
-            android:id="@+id/clear_scenes"
+            android:id="@+id/eraserView"
             android:layout_width="@dimen/fast_default_button_size"
             android:layout_height="@dimen/fast_default_button_size"
             android:padding="@dimen/fast_gap_1"

@@ -7,12 +7,6 @@
     tools:parentTag="android.widget.RelativeLayout">
 
     <View
-        android:id="@+id/overlay_handle_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <View
         android:id="@+id/guideline"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -27,7 +21,7 @@
         android:layout_margin="@dimen/fast_default_layout_margin"
         android:background="@drawable/fast_bg_tool_button" />
 
-    <io.agora.board.fast.ui.SubToolButton
+    <io.agora.board.fast.ui.ExtensionButton
         android:id="@+id/toolbox_sub_button"
         android:layout_width="@dimen/fast_default_button_size_large"
         android:layout_height="@dimen/fast_default_button_size_large"
@@ -36,7 +30,7 @@
         android:layout_alignRight="@id/tool_button"
         android:background="@drawable/fast_bg_tool_button" />
 
-    <io.agora.board.fast.ui.ToolsLayout
+    <io.agora.board.fast.ui.ToolLayout
         android:id="@+id/tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +40,7 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <io.agora.board.fast.ui.SubToolsLayout
+    <io.agora.board.fast.ui.ExtensionLayout
         android:id="@+id/sub_tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

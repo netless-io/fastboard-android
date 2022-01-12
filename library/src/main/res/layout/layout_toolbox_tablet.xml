@@ -7,7 +7,7 @@
     tools:parentTag="android.widget.RelativeLayout">
 
     <View
-        android:id="@+id/overlay_handle_view"
+        android:id="@+id/fast_overlay_handle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
@@ -38,7 +38,7 @@
         android:background="@drawable/fast_bg_tool_button"
         android:src="@drawable/fast_ic_tool_delete" />
 
-    <io.agora.board.fast.ui.SubToolsLayout
+    <io.agora.board.fast.ui.ExtensionLayout
         android:id="@+id/sub_tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

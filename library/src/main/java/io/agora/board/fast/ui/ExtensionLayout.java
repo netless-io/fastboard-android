@@ -25,7 +25,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class SubToolsLayout extends LinearLayoutCompat {
+public class ExtensionLayout extends LinearLayoutCompat implements RoomController {
     @IntDef({TYPE_PHONE, TYPE_TEXT, TYPE_PENCIL, TYPE_TABLET_SHAPE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
@@ -67,23 +67,23 @@ public class SubToolsLayout extends LinearLayoutCompat {
         }
     };
 
-    private RecyclerView toolsExtRecyclerView;
-    private ApplianceAdapter toolsExtAdapter;
+    private RecyclerView toolsRecyclerView;
+    private ApplianceAdapter toolsAdapter;
 
     private RecyclerView colorsRecyclerView;
     private ColorAdapter colorAdapter;
 
     private StrokeSeeker strokeSeeker;
 
-    public SubToolsLayout(@NonNull Context context) {
+    public ExtensionLayout(@NonNull Context context) {
         this(context, null);
     }
 
-    public SubToolsLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ExtensionLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SubToolsLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ExtensionLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(VERTICAL);
         initView(context);
@@ -91,13 +91,13 @@ public class SubToolsLayout extends LinearLayoutCompat {
 
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_sub_tools, this, true);
-        toolsExtRecyclerView = root.findViewById(R.id.tools_ext_recycler_view);
+        toolsRecyclerView = root.findViewById(R.id.tools_ext_recycler_view);
         colorsRecyclerView = root.findViewById(R.id.colors_recycler_view);
         strokeSeeker = root.findViewById(R.id.stroke_seeker);
 
-        toolsExtAdapter = new ApplianceAdapter(DEFAULT_TOOLS);
-        toolsExtRecyclerView.setAdapter(toolsExtAdapter);
-        toolsExtRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+        toolsAdapter = new ApplianceAdapter(DEFAULT_TOOLS);
+        toolsRecyclerView.setAdapter(toolsAdapter);
+        toolsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
         colorAdapter = new ColorAdapter(DEFAULT_COLORS);
         colorsRecyclerView.setAdapter(colorAdapter);
@@ -111,7 +111,7 @@ public class SubToolsLayout extends LinearLayoutCompat {
     }
 
     public void setOnApplianceClickListener(ApplianceAdapter.OnApplianceClickListener onApplianceClickListener) {
-        toolsExtAdapter.setOnApplianceClickListener(onApplianceClickListener);
+        toolsAdapter.setOnApplianceClickListener(onApplianceClickListener);
     }
 
     public void setOnColorClickListener(ColorAdapter.OnColorClickListener onColorClickListener) {
@@ -120,14 +120,6 @@ public class SubToolsLayout extends LinearLayoutCompat {
 
     public void setOnStrokeChangedListener(StrokeSeeker.OnStrokeChangedListener onStrokeChangedListener) {
         strokeSeeker.setOnStrokeChangedListener(onStrokeChangedListener);
-    }
-
-    public void setShown(boolean shown) {
-        setVisibility(shown ? VISIBLE : GONE);
-    }
-
-    public boolean shown() {
-        return getVisibility() == VISIBLE;
     }
 
     public void setColor(Integer color) {
@@ -140,20 +132,35 @@ public class SubToolsLayout extends LinearLayoutCompat {
     }
 
     public void setApplianceItem(ApplianceItem applianceItem) {
-        toolsExtAdapter.setApplianceItem(applianceItem);
+        toolsAdapter.setApplianceItem(applianceItem);
     }
 
     public void setFastStyle(FastStyle style) {
         setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
         colorAdapter.setStyle(style);
-        toolsExtAdapter.setStyle(style);
+        toolsAdapter.setStyle(style);
     }
 
     public void setType(@Type int type) {
         int showFlag = type & SHOW_MASK;
 
-        toolsExtRecyclerView.setVisibility((showFlag & SHOW_TOOLS) > 0 ? VISIBLE : GONE);
+        toolsRecyclerView.setVisibility((showFlag & SHOW_TOOLS) > 0 ? VISIBLE : GONE);
         strokeSeeker.setVisibility((showFlag & SHOW_SEEKER) > 0 ? VISIBLE : GONE);
         colorsRecyclerView.setVisibility((showFlag & SHOW_COLORS) > 0 ? VISIBLE : GONE);
+    }
+
+    @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hide() {
+        setVisibility(GONE);
+    }
+
+    @Override
+    public boolean isShowing() {
+        return getVisibility() == VISIBLE;
     }
 }
