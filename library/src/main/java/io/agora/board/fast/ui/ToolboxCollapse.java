@@ -15,7 +15,7 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
-class ToolboxPhone implements Toolbox {
+class ToolboxCollapse implements Toolbox {
     private ToolButton toolButton;
     private ToolLayout toolsLayout;
     private ExtensionButton subToolButton;

@@ -5,7 +5,7 @@ import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.model.FastRedoUndo;
 
 /**
  * @author fenglibin
@@ -23,7 +23,7 @@ public interface FastListener {
 
     }
 
-    default void onRedoUndoChanged(RedoUndoCount count) {
+    default void onRedoUndoChanged(FastRedoUndo count) {
 
     }
 

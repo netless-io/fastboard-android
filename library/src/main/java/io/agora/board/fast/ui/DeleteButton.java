@@ -42,7 +42,7 @@ public class DeleteButton extends FrameLayout {
         setVisibility(item == ApplianceItem.SELECTOR ? VISIBLE : INVISIBLE);
     }
 
-    public void setFastStyle(FastStyle style) {
+    public void updateFastStyle(FastStyle style) {
         setBackground(ResourceFetcher.get().getButtonBackground(style.isDarkMode()));
         delete.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));
     }

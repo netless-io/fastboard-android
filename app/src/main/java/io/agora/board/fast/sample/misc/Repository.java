@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.cases.GetStartActivity;
+import io.agora.board.fast.sample.cases.RoomActivity;
 import io.agora.board.fast.sample.cases.drawsth.DrawSthActivity;
 
 /**
@@ -60,6 +61,15 @@ public class Repository {
                         "Draw Something",
                         "Use fastboard in case with several people",
                         DrawSthActivity.class,
+                        new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+                ));
+
+
+        result.add(
+                new TestCase(
+                        "Main Room",
+                        "Test api by multiple api call",
+                        RoomActivity.class,
                         new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
                 ));
         return result;

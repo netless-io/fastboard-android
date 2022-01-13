@@ -21,7 +21,7 @@ import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.ui.FastRoomController;
 import io.agora.board.fast.ui.FastUiSettings;
 import io.agora.board.fast.ui.LoadingLayout;
@@ -31,7 +31,7 @@ import io.agora.board.fast.ui.RoomControllerGroup;
 /**
  * @author fenglibin
  */
-public class FastboardView extends FrameLayout implements FastListener {
+public class FastboardView extends FrameLayout {
     WhiteboardView whiteboardView;
     RoomControllerGroup roomControllerGroup;
 
@@ -50,7 +50,7 @@ public class FastboardView extends FrameLayout implements FastListener {
         }
 
         @Override
-        public void onRedoUndoChanged(RedoUndoCount count) {
+        public void onRedoUndoChanged(FastRedoUndo count) {
             roomControllerGroup.updateRedoUndo(count);
         }
 
@@ -61,6 +61,7 @@ public class FastboardView extends FrameLayout implements FastListener {
 
         @Override
         public void onFastStyleChanged(FastStyle style) {
+            whiteboardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.fast_day_night_bg));
             roomControllerGroup.updateFastStyle(style);
         }
 
@@ -116,15 +117,15 @@ public class FastboardView extends FrameLayout implements FastListener {
         FastStyle fastStyle = new FastStyle();
         fastStyle.setMainColor(mainColor);
         fastStyle.setDarkMode(darkMode);
-        fastContext.updateFastStyle(fastStyle);
+        fastContext.setFastStyle(fastStyle);
     }
 
     public FastStyle getFastStyle() {
         return fastContext.getFastStyle();
     }
 
-    public FastSdk obtainFastSdk(FastSdkOptions options) {
-        return fastContext.obtainFastSdk(options);
+    public FastSdk getFastSdk(FastSdkOptions options) {
+        return fastContext.getFastSdk(options);
     }
 
     public FastUiSettings getUiSettings() {
@@ -147,11 +148,5 @@ public class FastboardView extends FrameLayout implements FastListener {
         if (fastContext.fastRoom != null) {
             roomControllerGroup.setFastRoom(fastContext.fastRoom);
         }
-    }
-
-    @Override
-    public void onFastStyleChanged(FastStyle fastStyle) {
-        whiteboardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.fast_day_night_bg));
-        roomControllerGroup.updateFastStyle(fastStyle);
     }
 }

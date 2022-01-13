@@ -94,7 +94,8 @@ public class ScenesLayout extends LinearLayout implements RoomController {
         this.fastRoom = fastRoom;
     }
 
-    public void setFastStyle(FastStyle fastStyle) {
+    @Override
+    public void updateFastStyle(FastStyle fastStyle) {
         setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         sceneNext.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode(), true));
         scenePrev.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode(), true));

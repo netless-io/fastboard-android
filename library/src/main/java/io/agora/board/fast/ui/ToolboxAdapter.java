@@ -87,7 +87,7 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public void setStyle(FastStyle style) {
+    public void updateFastStyle(FastStyle style) {
         iconColor = ResourceFetcher.get().getIconColor(style.isDarkMode());
         isDarkMode = style.isDarkMode();
 

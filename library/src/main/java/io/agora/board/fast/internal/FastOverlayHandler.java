@@ -12,6 +12,6 @@ public class FastOverlayHandler implements OverlayHandler {
 
     @Override
     public void handleOverlayChanged(int key) {
-        fastContext.handleOverlayChanged(key);
+        fastContext.notifyOverlayChanged(key);
     }
 }

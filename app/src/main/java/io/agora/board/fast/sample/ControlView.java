@@ -17,6 +17,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastSdk;
+import io.agora.board.fast.ui.FastUiSettings;
 
 public class ControlView extends FrameLayout {
     private FastSdk fastSdk;
@@ -33,8 +34,8 @@ public class ControlView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         View root = LayoutInflater.from(context).inflate(R.layout.layout_control_view, this, true);
 
-        SwitchCompat switchButton = root.findViewById(R.id.dark_mode_switch);
-        switchButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        SwitchCompat darkModeSwitch = root.findViewById(R.id.dark_mode_switch);
+        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (fastSdk != null) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity(context);
                 activity.getDelegate().setLocalNightMode(
@@ -50,6 +51,12 @@ public class ControlView extends FrameLayout {
                 String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
                 fastSdk.getFastRoom().getRoom().removeScenes(dir);
             }
+        });
+
+        SwitchCompat toolboxSwitch = root.findViewById(R.id.toolbox_mode_switch);
+        toolboxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
+            uiSettings.setToolboxExpand(isChecked);
         });
     }
 

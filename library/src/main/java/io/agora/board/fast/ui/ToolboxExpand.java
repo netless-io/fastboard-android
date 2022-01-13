@@ -22,7 +22,9 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
-class ToolboxTablet implements Toolbox {
+class ToolboxExpand implements Toolbox {
+    private final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXTENSION;
+
     private static final List<ToolboxItem> TOOLBOX_ITEMS = new ArrayList<ToolboxItem>() {
         {
             add(new ToolboxItem(ToolboxItem.KEY_CLICK, ApplianceItem.CLICKER, false));
@@ -63,8 +65,8 @@ class ToolboxTablet implements Toolbox {
         toolboxAdapter.setOnToolboxClickListener(new ToolboxAdapter.OnToolboxClickListener() {
             @Override
             public void onToolboxReClick(ToolboxItem item) {
-                if (overlayManager.isShowing(OverlayManager.KEY_TOOL_EXTENSION)) {
-                    overlayManager.hide(OverlayManager.KEY_TOOL_EXTENSION);
+                if (overlayManager.isShowing(OVERLAY_EXT_LAYOUT)) {
+                    overlayManager.hide(OVERLAY_EXT_LAYOUT);
                     return;
                 }
                 showExtensionIfNeed(item.key);
@@ -93,13 +95,13 @@ class ToolboxTablet implements Toolbox {
                     showExtension = false;
                 }
                 if (showExtension) {
-                    overlayManager.show(OverlayManager.KEY_TOOL_EXTENSION);
+                    overlayManager.show(OVERLAY_EXT_LAYOUT);
                 }
             }
 
             @Override
             public void onSwitchToolbox(ToolboxItem item, ToolboxItem oldItem) {
-                overlayManager.hide(OverlayManager.KEY_TOOL_EXTENSION);
+                overlayManager.hide(OVERLAY_EXT_LAYOUT);
 
                 if (item.applianceItem == ApplianceItem.OTHER_CLEAR) {
                     fastRoom.cleanScene();
@@ -120,7 +122,7 @@ class ToolboxTablet implements Toolbox {
         extensionLayout.setOnApplianceClickListener(item -> {
             fastRoom.setAppliance(item);
             toolboxAdapter.updateSubTool(ToolboxItem.KEY_SHAPE, item);
-            overlayManager.hide(OverlayManager.KEY_TOOL_EXTENSION);
+            overlayManager.hide(OVERLAY_EXT_LAYOUT);
         });
     }
 
@@ -128,14 +130,14 @@ class ToolboxTablet implements Toolbox {
     public void setFastRoom(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
         this.overlayManager = fastRoom.getOverlayManager();
-        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_EXTENSION, extensionLayout);
+        this.overlayManager.addOverlay(OVERLAY_EXT_LAYOUT, extensionLayout);
     }
 
     @Override
     public void updateFastStyle(FastStyle fastStyle) {
         toolsRecyclerView.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
-        toolboxAdapter.setStyle(fastStyle);
-        toolboxDelete.setFastStyle(fastStyle);
+        toolboxAdapter.updateFastStyle(fastStyle);
+        toolboxDelete.updateFastStyle(fastStyle);
         extensionLayout.updateFastStyle(fastStyle);
     }
 

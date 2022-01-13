@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.model.FastRedoUndo;
 
 public abstract class RoomControllerGroup implements RoomController {
 
@@ -56,7 +56,7 @@ public abstract class RoomControllerGroup implements RoomController {
         }
     }
 
-    public void updateRedoUndo(RedoUndoCount count) {
+    public void updateRedoUndo(FastRedoUndo count) {
         for (RoomController controller : controllers) {
             controller.updateRedoUndo(count);
         }

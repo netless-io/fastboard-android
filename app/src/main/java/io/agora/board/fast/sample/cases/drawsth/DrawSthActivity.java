@@ -28,7 +28,7 @@ public class DrawSthActivity extends BaseActivity {
         FastboardView fastboardView = findViewById(R.id.fastboard_view);
 
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SAMPLE_APP_ID);
-        FastSdk fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
+        FastSdk fastSdk = fastboardView.getFastSdk(fastSdkOptions);
 
         FastRoomOptions roomOptions = new FastRoomOptions(
                 getIntent().getStringExtra(Constants.KEY_ROOM_UUID),

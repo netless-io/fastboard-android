@@ -101,7 +101,7 @@ public final class StrokeSeeker extends View {
         this.seekerPath.arcTo(this.rightRect, 270.0F, 180.0F);
         this.seekerPath.lineTo(this.offsetLeftX, (float) this.baseY + this.leftBarHeight / (float) 2);
         this.seekerPath.arcTo(this.leftRect, 90.0F, 180.0F);
-        this.setStrokeWidth(this.currentStrokeWidth);
+        this.currentX = (float) (currentStrokeWidth - this.minStroke) / (float) this.rangeSize() * (this.getRightLimit() - this.leftLimit) + this.leftLimit;
     }
 
     @Override
@@ -162,6 +162,9 @@ public final class StrokeSeeker extends View {
     }
 
     public final void setStrokeWidth(int strokeWidth) {
+        if (strokeWidth == currentStrokeWidth) {
+            return;
+        }
         this.currentStrokeWidth = Math.max(strokeWidth, minStroke);
         this.currentX = (float) (currentStrokeWidth - this.minStroke) / (float) this.rangeSize() * (this.getRightLimit() - this.leftLimit) + this.leftLimit;
         this.invalidate();

@@ -19,6 +19,11 @@ public class FastUiSettings {
         toolbox.setLayoutGravity(gravity);
     }
 
+    public void setToolboxExpand(boolean expand) {
+        ToolboxLayout toolboxLayout = fastboardView.findViewById(R.id.fast_toolbox_layout);
+        toolboxLayout.setLayoutMode(expand);
+    }
+
     /**
      * hide default controller
      */

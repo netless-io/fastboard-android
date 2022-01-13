@@ -32,7 +32,7 @@ public class GetStartActivity extends BaseActivity {
         FastboardView fastboardView = findViewById(R.id.fastboard_view);
         // step 2: obtain fastSdk
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SAMPLE_APP_ID);
-        FastSdk fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
+        FastSdk fastSdk = fastboardView.getFastSdk(fastSdkOptions);
 
         // step 3: join room
         FastRoomOptions roomOptions = new FastRoomOptions(

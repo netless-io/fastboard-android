@@ -9,6 +9,8 @@ import com.herewhite.sdk.domain.SDKError;
 import org.json.JSONObject;
 
 import io.agora.board.fast.extension.ErrorHandler;
+import io.agora.board.fast.extension.OverlayHandler;
+import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
@@ -81,12 +83,28 @@ public class FastSdk {
         return fastPlayer;
     }
 
+    public FastboardView getFastboardView() {
+        return fastContext.getFastboardView();
+    }
+
     public void setErrorHandler(ErrorHandler errorHandler) {
         fastContext.setErrorHandler(errorHandler);
     }
 
     public void setRoomPhaseHandler(RoomPhaseHandler roomPhaseHandler) {
         fastContext.setRoomPhaseHandler(roomPhaseHandler);
+    }
+
+    public void setOverlayHandler(OverlayHandler overlayHandler) {
+        fastContext.setOverlayHandler(overlayHandler);
+    }
+
+    public void setOverlayManager(OverlayManager overlayManager) {
+        fastContext.setOverlayManager(overlayManager);
+    }
+
+    public OverlayManager getOverlayManger() {
+        return fastContext.getOverlayManger();
     }
 
     public void addListener(FastListener listener) {
@@ -105,7 +123,7 @@ public class FastSdk {
     }
 
     public void setFastStyle(FastStyle style) {
-        fastContext.updateFastStyle(style);
+        fastContext.setFastStyle(style);
     }
 
     public void destroy() {

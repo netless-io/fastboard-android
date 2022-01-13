@@ -1,7 +1,5 @@
 package io.agora.board.fast.internal;
 
-import android.view.View;
-
 import com.herewhite.sdk.domain.RoomPhase;
 
 import io.agora.board.fast.extension.RoomPhaseHandler;
@@ -13,7 +11,7 @@ public class FastRoomPhaseHandler implements RoomPhaseHandler {
 
     public FastRoomPhaseHandler(LoadingLayout loadingLayout) {
         this.loadingLayout = loadingLayout;
-        this.loadingLayout.setVisibility(View.VISIBLE);
+        this.loadingLayout.hide();
     }
 
     @Override

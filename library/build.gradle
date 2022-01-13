@@ -35,6 +35,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    api 'com.github.netless-io:whiteboard-android:6e110e81ce5ac0ea3212d77a10bae77fc1d6a53a'
+    api 'com.github.netless-io:whiteboard-android:2757b012c42f094717e52c83cf6868004e39d082'
     implementation 'com.google.code.gson:gson:2.8.6'
 }

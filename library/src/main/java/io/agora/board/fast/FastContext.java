@@ -20,7 +20,7 @@ import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.ui.ResourceFetcher;
 
 public class FastContext {
@@ -47,7 +47,11 @@ public class FastContext {
         this.overlayHandler = new FastOverlayHandler(this);
     }
 
-    public FastSdk obtainFastSdk(FastSdkOptions options) {
+    public FastboardView getFastboardView() {
+        return fastboardView;
+    }
+
+    public FastSdk getFastSdk(FastSdkOptions options) {
         if (fastSdk == null) {
             fastSdk = new FastSdk(fastboardView);
             fastSdk.initSdk(new FastSdkOptions(options.getAppId()));
@@ -90,11 +94,7 @@ public class FastContext {
         return overlayManager;
     }
 
-    void initFastStyle(FastStyle fastStyle) {
-        this.fastStyle = fastStyle;
-    }
-
-    void updateFastStyle(FastStyle fastStyle) {
+    void setFastStyle(FastStyle fastStyle) {
         this.fastStyle = fastStyle;
         notifyListeners(listener -> listener.onFastStyleChanged(fastStyle));
     }
@@ -131,7 +131,7 @@ public class FastContext {
         notifyListeners(listener -> listener.onSceneStateChanged(sceneState));
     }
 
-    public void notifyRedoUndoChanged(RedoUndoCount count) {
+    public void notifyRedoUndoChanged(FastRedoUndo count) {
         notifyListeners(listener -> listener.onRedoUndoChanged(count));
     }
 

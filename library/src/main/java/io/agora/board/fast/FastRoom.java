@@ -9,13 +9,13 @@ import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
 import com.herewhite.sdk.domain.WindowParams;
-
-import java.util.HashMap;
+import com.herewhite.sdk.domain.WindowPrefersColorScheme;
+import com.herewhite.sdk.internal.Logger;
 
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastRoomOptions;
-import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.model.FastRedoUndo;
 
 public class FastRoom {
     private final FastSdk fastSdk;
@@ -48,13 +48,13 @@ public class FastRoom {
         @Override
         public void onCanUndoStepsUpdate(long canUndoSteps) {
             this.canUndoSteps = canUndoSteps;
-            fastContext.notifyRedoUndoChanged(new RedoUndoCount(canRedoSteps, canUndoSteps));
+            fastContext.notifyRedoUndoChanged(new FastRedoUndo(canRedoSteps, canUndoSteps));
         }
 
         @Override
         public void onCanRedoStepsUpdate(long canRedoSteps) {
             this.canRedoSteps = canRedoSteps;
-            fastContext.notifyRedoUndoChanged(new RedoUndoCount(canRedoSteps, canUndoSteps));
+            fastContext.notifyRedoUndoChanged(new FastRedoUndo(canRedoSteps, canUndoSteps));
         }
 
         @Override
@@ -84,17 +84,9 @@ public class FastRoom {
         this.fastContext = fastSdk.fastContext;
         this.params = options.getRoomParams();
         this.params.setDisableNewPencil(false);
-
-        if (params.getWindowParams() == null) {
-            HashMap<String, String> styleMap = new HashMap<>();
-            styleMap.put("bottom", "30px");
-            styleMap.put("right", "44px");
-            styleMap.put("position", "fixed");
-            WindowParams windowParams = new WindowParams();
-            windowParams.setChessboard(false);
-            windowParams.setDebug(true);
-            windowParams.setCollectorStyles(styleMap);
-            this.params.setWindowParams(windowParams);
+        WindowParams windowParams = params.getWindowParams();
+        if (windowParams != null) {
+            windowParams.setPrefersColorScheme(fastContext.getFastStyle().isDarkMode() ? WindowPrefersColorScheme.Dark : WindowPrefersColorScheme.Light);
         }
     }
 
@@ -131,6 +123,10 @@ public class FastRoom {
     }
 
     public void setColor(Integer color) {
+        if (getRoom() == null) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
         MemberState memberState = new MemberState();
         memberState.setStrokeColor(new int[]{
                 color >> 16 & 0xff,
@@ -141,18 +137,55 @@ public class FastRoom {
     }
 
     public void setAppliance(ApplianceItem item) {
+        if (getRoom() == null) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
         MemberState memberState = new MemberState();
         memberState.setCurrentApplianceName(item.appliance, item.shapeType);
         getRoom().setMemberState(memberState);
     }
 
     public void setStokeWidth(int width) {
+        if (getRoom() == null) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
         MemberState memberState = new MemberState();
         memberState.setStrokeWidth(width);
         getRoom().setMemberState(memberState);
     }
 
     public void cleanScene() {
+        if (getRoom() == null) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
         getRoom().cleanScene(true);
+    }
+
+    public void setWritable(boolean writable) {
+        if (getRoom() == null) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
+        room.setWritable(writable, new Promise<Boolean>() {
+            @Override
+            public void then(Boolean result) {
+                Logger.info("set writable result " + result);
+                if (result) {
+                    room.disableSerialization(false);
+                }
+            }
+
+            @Override
+            public void catchEx(SDKError t) {
+                Logger.error("set writable error", t);
+            }
+        });
     }
 }

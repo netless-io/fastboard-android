@@ -36,7 +36,8 @@
         android:layout_alignStart="@id/tools_recycler_view"
         android:layout_alignRight="@id/tools_recycler_view"
         android:background="@drawable/fast_bg_tool_button"
-        android:src="@drawable/fast_ic_tool_delete" />
+        android:src="@drawable/fast_ic_tool_delete"
+        android:visibility="gone" />
 
     <io.agora.board.fast.ui.ExtensionLayout
         android:id="@+id/sub_tools_layout"

@@ -18,6 +18,9 @@ import io.agora.board.fast.model.FastStyle;
  */
 public class ToolboxLayout extends RelativeLayout implements RoomController {
     private Toolbox IMPL;
+    private FastRoom fastRoom;
+    private FastStyle fastStyle;
+    private int gravity;
 
     public ToolboxLayout(@NonNull Context context) {
         this(context, null);
@@ -29,7 +32,7 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
 
     public ToolboxLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        IMPL = Util.isTablet(context) ? new ToolboxTablet() : new ToolboxPhone();
+        IMPL = Util.isTablet(context) ? new ToolboxExpand() : new ToolboxCollapse();
         IMPL.setupView(this);
     }
 
@@ -46,14 +49,30 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
 
     @Override
     public void setFastRoom(FastRoom fastRoom) {
+        this.fastRoom = fastRoom;
         IMPL.setFastRoom(fastRoom);
     }
 
-    public void setFastStyle(FastStyle fastStyle) {
+    @Override
+    public void updateFastStyle(FastStyle fastStyle) {
+        this.fastStyle = fastStyle;
         IMPL.updateFastStyle(fastStyle);
     }
 
     public void setLayoutGravity(int gravity) {
+        this.gravity = gravity;
         IMPL.setLayoutGravity(gravity);
+    }
+
+    public void setLayoutMode(boolean expand) {
+        removeAllViews();
+
+        IMPL = expand ? new ToolboxExpand() : new ToolboxCollapse();
+        IMPL.setupView(this);
+        IMPL.setFastRoom(fastRoom);
+        IMPL.updateFastStyle(fastStyle);
+        IMPL.setLayoutGravity(gravity);
+
+        updateMemberState(fastRoom.getRoom().getRoomState().getMemberState());
     }
 }

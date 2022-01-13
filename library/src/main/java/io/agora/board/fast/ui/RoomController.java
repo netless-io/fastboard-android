@@ -6,7 +6,7 @@ import com.herewhite.sdk.domain.SceneState;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.FastVisiable;
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.model.RedoUndoCount;
+import io.agora.board.fast.model.FastRedoUndo;
 
 /**
  * support user customized views
@@ -25,7 +25,7 @@ public interface RoomController extends FastVisiable {
 
     }
 
-    default void updateRedoUndo(RedoUndoCount count) {
+    default void updateRedoUndo(FastRedoUndo count) {
 
     }
 
