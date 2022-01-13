@@ -12,7 +12,7 @@ import com.herewhite.sdk.domain.WindowParams;
 
 import java.util.HashMap;
 
-import io.agora.board.fast.extension.OverlayHandler;
+import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.RedoUndoCount;
@@ -106,8 +106,8 @@ public class FastRoom {
         return room;
     }
 
-    public OverlayHandler getOverlayHandler() {
-        return fastContext.getOverlayHandler();
+    public OverlayManager getOverlayManager() {
+        return fastContext.getOverlayManger();
     }
 
     private void updateWritable() {

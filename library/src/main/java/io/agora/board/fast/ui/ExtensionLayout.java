@@ -13,6 +13,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.herewhite.sdk.domain.MemberState;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -124,18 +126,21 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
         toolsAdapter.setApplianceItem(applianceItem);
     }
 
-    public void setFastStyle(FastStyle style) {
+    @Override
+    public void updateMemberState(MemberState memberState) {
+        updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
+    }
+
+    private void updateStroke(int[] strokeColor, double strokeWidth) {
+        int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
+        this.setColor(color);
+    }
+
+    @Override
+    public void updateFastStyle(FastStyle style) {
         setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
         colorAdapter.setStyle(style);
         toolsAdapter.setStyle(style);
-    }
-
-    public void setType(@Type int type) {
-        int showFlag = type & SHOW_MASK;
-
-        toolsRecyclerView.setVisibility((showFlag & SHOW_TOOLS) > 0 ? VISIBLE : GONE);
-        strokeSeeker.setVisibility((showFlag & SHOW_SEEKER) > 0 ? VISIBLE : GONE);
-        colorsRecyclerView.setVisibility((showFlag & SHOW_COLORS) > 0 ? VISIBLE : GONE);
     }
 
     @Override
@@ -151,6 +156,14 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     @Override
     public boolean isShowing() {
         return getVisibility() == VISIBLE;
+    }
+
+    public void setType(@Type int type) {
+        int showFlag = type & SHOW_MASK;
+
+        toolsRecyclerView.setVisibility((showFlag & SHOW_TOOLS) > 0 ? VISIBLE : GONE);
+        strokeSeeker.setVisibility((showFlag & SHOW_SEEKER) > 0 ? VISIBLE : GONE);
+        colorsRecyclerView.setVisibility((showFlag & SHOW_COLORS) > 0 ? VISIBLE : GONE);
     }
 
     @IntDef({TYPE_PHONE, TYPE_TEXT, TYPE_PENCIL, TYPE_TABLET_SHAPE})

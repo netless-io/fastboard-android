@@ -10,7 +10,7 @@ public interface Toolbox {
 
     void setFastRoom(FastRoom fastRoom);
 
-    void setFastStyle(FastStyle fastStyle);
+    void updateFastStyle(FastStyle fastStyle);
 
     void updateAppliance(String appliance, ShapeType shapeType);
 

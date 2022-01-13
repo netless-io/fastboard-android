@@ -17,7 +17,7 @@ import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.SceneState;
 
-import io.agora.board.fast.internal.FastOverlayHandler;
+import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
@@ -95,17 +95,16 @@ public class FastboardView extends FrameLayout implements FastListener {
         whiteboardView = root.findViewById(R.id.fast_whiteboard_view);
 
         ViewGroup container = root.findViewById(R.id.fast_room_controller);
+        LoadingLayout loadingLayout = root.findViewById(R.id.fast_loading_layout);
+        OverlayLayout overlayLayout = root.findViewById(R.id.fast_overlay_handle_view);
+
         roomControllerGroup = new FastRoomController(container);
         roomControllerGroup.setupView();
-
-        LoadingLayout loadingLayout = root.findViewById(R.id.fast_loading_layout);
         roomControllerGroup.addController(loadingLayout);
+        roomControllerGroup.addController(overlayLayout);
 
         fastContext.setRoomPhaseHandler(new FastRoomPhaseHandler(loadingLayout));
-
-        OverlayLayout overlayLayout = root.findViewById(R.id.fast_overlay_handle_view);
-        roomControllerGroup.addController(overlayLayout);
-        fastContext.setOverlayHandler(new FastOverlayHandler(fastContext, overlayLayout));
+        fastContext.setOverlayManager(new FastOverlayManager(fastContext, overlayLayout));
     }
 
     private void setupStyle(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -117,9 +116,7 @@ public class FastboardView extends FrameLayout implements FastListener {
         FastStyle fastStyle = new FastStyle();
         fastStyle.setMainColor(mainColor);
         fastStyle.setDarkMode(darkMode);
-        fastContext.initFastStyle(fastStyle);
-
-        roomControllerGroup.updateFastStyle(fastStyle);
+        fastContext.updateFastStyle(fastStyle);
     }
 
     public FastStyle getFastStyle() {

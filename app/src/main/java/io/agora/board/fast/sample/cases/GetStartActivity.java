@@ -15,9 +15,7 @@ import io.agora.board.fast.sample.cases.base.BaseActivity;
 import io.agora.board.fast.sample.misc.Repository;
 
 public class GetStartActivity extends BaseActivity {
-
-    private FastSdk fastSdk;
-    private Repository repository = Repository.get();
+    private final Repository repository = Repository.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class GetStartActivity extends BaseActivity {
         FastboardView fastboardView = findViewById(R.id.fastboard_view);
         // step 2: obtain fastSdk
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SAMPLE_APP_ID);
-        fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
+        FastSdk fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
 
         // step 3: join room
         FastRoomOptions roomOptions = new FastRoomOptions(

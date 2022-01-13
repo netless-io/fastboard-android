@@ -1,6 +1,8 @@
 package io.agora.board.fast.sample.misc;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 
 import java.util.ArrayList;
@@ -38,6 +40,11 @@ public class Repository {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
+    public void getRemoteData(int delay, Callback callback) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> callback.onSuccess(new Object()), delay);
+    }
+
     public List<TestCase> getTestCases() {
         ArrayList<TestCase> result = new ArrayList<>();
         result.add(
@@ -56,5 +63,11 @@ public class Repository {
                         new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
                 ));
         return result;
+    }
+
+    interface Callback {
+        void onSuccess(Object object);
+
+        void onFailure(Exception e);
     }
 }

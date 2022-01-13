@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.OverlayHandler;
+import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
@@ -32,7 +33,8 @@ public class FastContext {
 
     ErrorHandler errorHandler;
     RoomPhaseHandler roomPhaseHandler;
-    FastOverlayHandler overlayHandler;
+    OverlayHandler overlayHandler;
+    OverlayManager overlayManager;
     ResourceFetcher resourceFetcher;
     CopyOnWriteArrayList<FastListener> listeners = new CopyOnWriteArrayList<>();
 
@@ -42,6 +44,7 @@ public class FastContext {
         this.resourceFetcher = ResourceFetcher.get();
         this.resourceFetcher.init(context);
         this.errorHandler = new FastErrorHandler(Util.getActivity(context));
+        this.overlayHandler = new FastOverlayHandler(this);
     }
 
     public FastSdk obtainFastSdk(FastSdkOptions options) {
@@ -75,12 +78,16 @@ public class FastContext {
         this.roomPhaseHandler = phaseHandler;
     }
 
-    public OverlayHandler getOverlayHandler() {
-        return overlayHandler;
+    public void setOverlayHandler(OverlayHandler overlayHandler) {
+        this.overlayHandler = overlayHandler;
     }
 
-    public void setOverlayHandler(FastOverlayHandler fastOverlayHandler) {
-        this.overlayHandler = fastOverlayHandler;
+    public void setOverlayManager(OverlayManager overlayManager) {
+        this.overlayManager = overlayManager;
+    }
+
+    public OverlayManager getOverlayManger() {
+        return overlayManager;
     }
 
     void initFastStyle(FastStyle fastStyle) {
@@ -102,6 +109,10 @@ public class FastContext {
 
     public void removeListener(FastListener listener) {
         listeners.remove(listener);
+    }
+
+    public void handleOverlayChanged(int key) {
+        overlayHandler.handleOverlayChanged(key);
     }
 
     public void notifyRoomPhaseChanged(RoomPhase phase) {

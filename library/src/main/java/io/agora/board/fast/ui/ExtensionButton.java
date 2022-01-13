@@ -1,6 +1,7 @@
 package io.agora.board.fast.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.herewhite.sdk.domain.MemberState;
+
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
@@ -17,7 +20,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ExtensionButton extends FrameLayout {
+public class ExtensionButton extends FrameLayout implements RoomController {
     private static final int TYPE_HIDE = 1;
     private static final int TYPE_DELETE = 2;
     private static final int TYPE_COLOR = 3;
@@ -114,7 +117,18 @@ public class ExtensionButton extends FrameLayout {
         updateUi();
     }
 
-    public void setFastStyle(FastStyle style) {
+    @Override
+    public void updateMemberState(MemberState memberState) {
+        updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
+    }
+
+    private void updateStroke(int[] strokeColor, double strokeWidth) {
+        int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
+        this.setColor(color);
+    }
+
+    @Override
+    public void updateFastStyle(FastStyle style) {
         setBackground(ResourceFetcher.get().getButtonBackground(style.isDarkMode()));
         subToolImage.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));
         subToolExpand.setImageTintList(ResourceFetcher.get().getIconColor(style.isDarkMode()));

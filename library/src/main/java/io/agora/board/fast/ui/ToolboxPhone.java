@@ -11,7 +11,7 @@ import com.herewhite.sdk.domain.ShapeType;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
-import io.agora.board.fast.extension.OverlayHandler;
+import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
 
@@ -22,7 +22,7 @@ class ToolboxPhone implements Toolbox {
     private ExtensionLayout extensionLayout;
 
     private FastRoom fastRoom;
-    private OverlayHandler overlayHandler;
+    private OverlayManager overlayManager;
 
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
@@ -37,11 +37,11 @@ class ToolboxPhone implements Toolbox {
                 fastRoom.cleanScene();
             } else {
                 fastRoom.setAppliance(item);
-                toolButton.setApplianceItem(item);
+                toolButton.updateAppliance(item);
                 subToolButton.setApplianceItem(item);
             }
 
-            overlayHandler.hideAll();
+            overlayManager.hideAll();
         });
 
         extensionLayout = root.findViewById(R.id.sub_tools_layout);
@@ -52,18 +52,18 @@ class ToolboxPhone implements Toolbox {
             subToolButton.setColor(color);
             extensionLayout.setColor(color);
 
-            overlayHandler.hideAll();
+            overlayManager.hideAll();
         });
         extensionLayout.setOnStrokeChangedListener(width -> {
             fastRoom.setStokeWidth(width);
         });
 
         toolButton.setOnClickListener(v -> {
-            boolean target = !overlayHandler.isShowing(OverlayHandler.KEY_TOOL_LAYOUT);
+            boolean target = !overlayManager.isShowing(OverlayManager.KEY_TOOL_LAYOUT);
             if (target) {
-                overlayHandler.show(OverlayHandler.KEY_TOOL_LAYOUT);
+                overlayManager.show(OverlayManager.KEY_TOOL_LAYOUT);
             } else {
-                overlayHandler.hide(OverlayHandler.KEY_TOOL_LAYOUT);
+                overlayManager.hide(OverlayManager.KEY_TOOL_LAYOUT);
             }
 
             toolButton.setSelected(target);
@@ -78,12 +78,12 @@ class ToolboxPhone implements Toolbox {
 
             @Override
             public void onColorClick() {
-                boolean target = !overlayHandler.isShowing(OverlayHandler.KEY_TOOL_EXTENSION);
+                boolean target = !overlayManager.isShowing(OverlayManager.KEY_TOOL_EXTENSION);
 
                 if (target) {
-                    overlayHandler.show(OverlayHandler.KEY_TOOL_EXTENSION);
+                    overlayManager.show(OverlayManager.KEY_TOOL_EXTENSION);
                 } else {
-                    overlayHandler.hide(OverlayHandler.KEY_TOOL_EXTENSION);
+                    overlayManager.hide(OverlayManager.KEY_TOOL_EXTENSION);
                 }
 
                 subToolButton.setSelected(target);
@@ -95,23 +95,23 @@ class ToolboxPhone implements Toolbox {
     @Override
     public void setFastRoom(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
-        this.overlayHandler = fastRoom.getOverlayHandler();
-        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_EXTENSION, extensionLayout);
-        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_LAYOUT, toolsLayout);
+        this.overlayManager = fastRoom.getOverlayManager();
+        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_EXTENSION, extensionLayout);
+        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_LAYOUT, toolsLayout);
     }
 
     @Override
-    public void setFastStyle(FastStyle fastStyle) {
-        subToolButton.setFastStyle(fastStyle);
-        extensionLayout.setFastStyle(fastStyle);
-        toolButton.setFastStyle(fastStyle);
-        toolsLayout.setFastStyle(fastStyle);
+    public void updateFastStyle(FastStyle fastStyle) {
+        subToolButton.updateFastStyle(fastStyle);
+        extensionLayout.updateFastStyle(fastStyle);
+        toolButton.updateFastStyle(fastStyle);
+        toolsLayout.updateFastStyle(fastStyle);
     }
 
     @Override
     public void updateAppliance(String appliance, ShapeType shapeType) {
         ApplianceItem item = ApplianceItem.of(appliance, shapeType);
-        toolButton.setApplianceItem(item);
+        toolButton.updateAppliance(item);
         toolsLayout.setApplianceItem(item);
         subToolButton.setApplianceItem(item);
     }
@@ -126,8 +126,8 @@ class ToolboxPhone implements Toolbox {
 
     @Override
     public void updateOverlayChanged(int key) {
-        toolButton.setSelected(key == OverlayHandler.KEY_TOOL_LAYOUT);
-        subToolButton.setSelected(key == OverlayHandler.KEY_TOOL_EXTENSION);
+        toolButton.setSelected(key == OverlayManager.KEY_TOOL_LAYOUT);
+        subToolButton.setSelected(key == OverlayManager.KEY_TOOL_EXTENSION);
     }
 
     @Override

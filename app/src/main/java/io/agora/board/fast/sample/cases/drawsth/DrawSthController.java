@@ -1,19 +1,15 @@
 package io.agora.board.fast.sample.cases.drawsth;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.herewhite.sdk.domain.MemberState;
-import com.herewhite.sdk.domain.ShapeType;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.FastRoom;
-import io.agora.board.fast.extension.OverlayHandler;
+import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.ui.ExtensionButton;
@@ -34,26 +30,25 @@ public class DrawSthController extends RoomControllerGroup {
     };
 
     private FastRoom fastRoom;
-    private OverlayHandler overlayHandler;
+    private OverlayManager overlayManager;
 
     private ImageView eraserView;
-    private RedoUndoLayout redoUndoLayout;
     private ToolButton toolButton;
-    private ToolLayout toolsLayout;
-
-    private ExtensionButton subToolButton;
+    private ToolLayout toolLayout;
+    private ExtensionButton extensionButton;
     private ExtensionLayout extensionLayout;
+    private RedoUndoLayout redoUndoLayout;
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (v == toolButton) {
-                triggerShown(OverlayHandler.KEY_TOOL_LAYOUT);
-            } else if (v == subToolButton) {
-                triggerShown(OverlayHandler.KEY_TOOL_EXTENSION);
+                triggerShown(OverlayManager.KEY_TOOL_LAYOUT);
+            } else if (v == extensionButton) {
+                triggerShown(OverlayManager.KEY_TOOL_EXTENSION);
             } else if (v == eraserView) {
                 fastRoom.setAppliance(ApplianceItem.ERASER);
-                overlayHandler.hideAll();
+                overlayManager.hideAll();
             }
         }
     };
@@ -63,10 +58,10 @@ public class DrawSthController extends RoomControllerGroup {
     }
 
     private void triggerShown(int key) {
-        if (overlayHandler.isShowing(key)) {
-            overlayHandler.hide(key);
+        if (overlayManager.isShowing(key)) {
+            overlayManager.hide(key);
         } else {
-            overlayHandler.show(key);
+            overlayManager.show(key);
         }
     }
 
@@ -74,35 +69,33 @@ public class DrawSthController extends RoomControllerGroup {
     public void setupView() {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_draw_sth_controller, this.root, true);
         toolButton = root.findViewById(R.id.tools_button);
-        subToolButton = root.findViewById(R.id.colors_button);
-        eraserView = root.findViewById(R.id.eraserView);
+        extensionButton = root.findViewById(R.id.colors_button);
         redoUndoLayout = root.findViewById(R.id.redo_undo_layout);
+        eraserView = root.findViewById(R.id.eraserView);
 
-        toolsLayout = root.findViewById(R.id.tools_layout);
-        toolsLayout.setAppliances(DRAW_STH_APPLIANCES);
-        toolsLayout.setOnApplianceClickListener(item -> {
-            toolButton.setApplianceItem(item);
-            subToolButton.setApplianceItem(item);
-
+        toolLayout = root.findViewById(R.id.tools_layout);
+        toolLayout.setAppliances(DRAW_STH_APPLIANCES);
+        toolLayout.setOnApplianceClickListener(item -> {
             fastRoom.setAppliance(item);
 
-            overlayHandler.hideAll();
+            overlayManager.hideAll();
         });
         extensionLayout = root.findViewById(R.id.sub_tools_layout);
         extensionLayout.setType(ExtensionLayout.TYPE_TEXT);
         extensionLayout.setOnColorClickListener(color -> {
-            subToolButton.setColor(color);
-            extensionLayout.setColor(color);
-
             fastRoom.setColor(color);
-            overlayHandler.hideAll();
+            overlayManager.hideAll();
         });
 
         toolButton.setOnClickListener(onClickListener);
-        subToolButton.setOnClickListener(onClickListener);
+        extensionButton.setOnClickListener(onClickListener);
         eraserView.setOnClickListener(onClickListener);
 
         addController(redoUndoLayout);
+        addController(toolButton);
+        addController(toolLayout);
+        addController(extensionButton);
+        addController(extensionLayout);
     }
 
     @Override
@@ -110,28 +103,8 @@ public class DrawSthController extends RoomControllerGroup {
         super.setFastRoom(fastRoom);
 
         this.fastRoom = fastRoom;
-        this.overlayHandler = fastRoom.getOverlayHandler();
-        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_LAYOUT, toolsLayout);
-        this.overlayHandler.addOverlay(OverlayHandler.KEY_TOOL_EXTENSION, extensionLayout);
-    }
-
-    @Override
-    public void updateMemberState(MemberState memberState) {
-        super.updateMemberState(memberState);
-
-        updateAppliance(memberState.getCurrentApplianceName(), memberState.getShapeType());
-        updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
-    }
-
-    public void updateAppliance(String appliance, ShapeType shapeType) {
-        ApplianceItem item = ApplianceItem.of(appliance, shapeType);
-        toolButton.setApplianceItem(item);
-        toolsLayout.setApplianceItem(item);
-    }
-
-    public void updateStroke(int[] strokeColor, double strokeWidth) {
-        int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
-        subToolButton.setColor(color);
-        extensionLayout.setColor(color);
+        this.overlayManager = fastRoom.getOverlayManager();
+        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_LAYOUT, toolLayout);
+        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_EXTENSION, extensionLayout);
     }
 }

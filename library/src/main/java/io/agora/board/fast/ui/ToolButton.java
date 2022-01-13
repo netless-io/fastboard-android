@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.herewhite.sdk.domain.MemberState;
+
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastStyle;
@@ -17,7 +19,7 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ToolButton extends FrameLayout {
+public class ToolButton extends FrameLayout implements RoomController {
     private ImageView toolImage;
     private ImageView toolExpand;
 
@@ -40,13 +42,20 @@ public class ToolButton extends FrameLayout {
         toolExpand = root.findViewById(R.id.tool_button_expand);
     }
 
-    public void setApplianceItem(ApplianceItem item) {
-        toolImage.setImageResource(item.icon);
+    @Override
+    public void updateMemberState(MemberState memberState) {
+        ApplianceItem item = ApplianceItem.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
+        updateAppliance(item);
     }
 
-    public void setFastStyle(FastStyle fastStyle) {
+    @Override
+    public void updateFastStyle(FastStyle fastStyle) {
         toolImage.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
         toolExpand.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
         this.setBackground(ResourceFetcher.get().getButtonBackground(fastStyle.isDarkMode()));
+    }
+
+    public void updateAppliance(ApplianceItem item) {
+        toolImage.setImageResource(item.icon);
     }
 }

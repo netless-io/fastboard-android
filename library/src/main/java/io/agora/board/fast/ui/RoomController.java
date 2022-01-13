@@ -4,13 +4,14 @@ import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.extension.FastVisiable;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.RedoUndoCount;
 
 /**
  * support user customized views
  */
-public interface RoomController {
+public interface RoomController extends FastVisiable {
 
     default void setFastRoom(FastRoom fastRoom) {
 
@@ -36,14 +37,17 @@ public interface RoomController {
 
     }
 
+    @Override
     default void show() {
 
     }
 
+    @Override
     default void hide() {
 
     }
 
+    @Override
     default boolean isShowing() {
         return false;
     }

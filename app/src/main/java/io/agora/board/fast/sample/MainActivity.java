@@ -23,10 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupUi() {
         testcaseRv = findViewById(R.id.testcase_rv);
         adapter = new TestCaseAdapter(Repository.get().getTestCases());
+        adapter.setOnItemClickListener(this::startTestCase);
         testcaseRv.setAdapter(adapter);
-        adapter.setOnItemClickListener(testCase -> {
-            startTestCase(testCase);
-        });
     }
 
     private void startTestCase(TestCase testCase) {

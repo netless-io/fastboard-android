@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.herewhite.sdk.domain.MemberState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +74,14 @@ public class ToolLayout extends FrameLayout implements RoomController {
         applianceAdapter.setAppliances(items);
     }
 
-    public void setFastStyle(FastStyle fastStyle) {
+    @Override
+    public void updateMemberState(MemberState memberState) {
+        ApplianceItem item = ApplianceItem.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
+        applianceAdapter.setApplianceItem(item);
+    }
+
+    @Override
+    public void updateFastStyle(FastStyle fastStyle) {
         setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         applianceAdapter.setStyle(fastStyle);
     }

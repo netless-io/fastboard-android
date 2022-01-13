@@ -50,7 +50,7 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
     }
 
     public void setFastStyle(FastStyle fastStyle) {
-        IMPL.setFastStyle(fastStyle);
+        IMPL.updateFastStyle(fastStyle);
     }
 
     public void setLayoutGravity(int gravity) {

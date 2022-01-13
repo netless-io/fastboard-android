@@ -13,10 +13,7 @@ import io.agora.board.fast.sample.cases.base.BaseActivity;
 import io.agora.board.fast.sample.misc.Repository;
 
 public class DrawSthActivity extends BaseActivity {
-
-    private FastboardView fastboardView;
-    private FastSdk fastSdk;
-    private Repository repository = Repository.get();
+    private final Repository repository = Repository.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +25,10 @@ public class DrawSthActivity extends BaseActivity {
     }
 
     private void setupFastboard() {
-        fastboardView = findViewById(R.id.fastboard_view);
+        FastboardView fastboardView = findViewById(R.id.fastboard_view);
 
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SAMPLE_APP_ID);
-        fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
+        FastSdk fastSdk = fastboardView.obtainFastSdk(fastSdkOptions);
 
         FastRoomOptions roomOptions = new FastRoomOptions(
                 getIntent().getStringExtra(Constants.KEY_ROOM_UUID),

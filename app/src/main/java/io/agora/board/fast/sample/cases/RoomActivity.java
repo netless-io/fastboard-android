@@ -26,8 +26,8 @@ import io.agora.board.fast.ui.FastUiSettings;
  */
 public class RoomActivity extends BaseActivity {
 
+    private final Repository repository = Repository.get();
     private FastSdk fastSdk;
-    private Repository repository = Repository.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,6 @@ public class RoomActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setupFastboard();
-
-        Utils.setupDevTools(this, fastSdk);
     }
 
     private void setupFastboard() {
@@ -63,6 +61,9 @@ public class RoomActivity extends BaseActivity {
         // change ui
         FastUiSettings uiSettings = fastboardView.getUiSettings();
         uiSettings.setToolboxGravity(Gravity.RIGHT);
+
+        // dev tools display
+        Utils.setupDevTools(this, fastSdk);
     }
 
     @Override
