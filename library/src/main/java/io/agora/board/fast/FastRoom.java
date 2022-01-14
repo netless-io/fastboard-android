@@ -12,7 +12,10 @@ import com.herewhite.sdk.domain.WindowParams;
 import com.herewhite.sdk.domain.WindowPrefersColorScheme;
 import com.herewhite.sdk.internal.Logger;
 
+import java.util.HashMap;
+
 import io.agora.board.fast.extension.OverlayManager;
+import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.model.ApplianceItem;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastRedoUndo;
@@ -82,12 +85,7 @@ public class FastRoom {
     public FastRoom(FastSdk fastSdk, FastRoomOptions options) {
         this.fastSdk = fastSdk;
         this.fastContext = fastSdk.fastContext;
-        this.params = options.getRoomParams();
-        this.params.setDisableNewPencil(false);
-        WindowParams windowParams = params.getWindowParams();
-        if (windowParams != null) {
-            windowParams.setPrefersColorScheme(fastContext.getFastStyle().isDarkMode() ? WindowPrefersColorScheme.Dark : WindowPrefersColorScheme.Light);
-        }
+        this.params = FastConvertor.convertRoomOptions(options);
     }
 
     public void join() {

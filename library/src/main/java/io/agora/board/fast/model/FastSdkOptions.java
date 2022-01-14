@@ -11,19 +11,17 @@ public class FastSdkOptions {
 
     public FastSdkOptions(String appId) {
         this.appId = appId;
-
-        configuration = new WhiteSdkConfiguration(appId);
     }
 
     public String getAppId() {
         return appId;
     }
 
-    public WhiteSdkConfiguration getConfiguration() {
-        return configuration;
-    }
-
     public void setConfiguration(WhiteSdkConfiguration configuration) {
         this.configuration = configuration;
+    }
+
+    public WhiteSdkConfiguration getConfiguration() {
+        return configuration;
     }
 }

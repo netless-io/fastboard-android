@@ -9,20 +9,13 @@ public class FastPlayerOptions {
     private final String uuid;
     private final String token;
 
+    private FastRegion fastRegion = FastRegion.CN_HZ;
+
     private PlayerConfiguration playerConfiguration;
 
     public FastPlayerOptions(String uuid, String token) {
         this.uuid = uuid;
         this.token = token;
-        playerConfiguration = new PlayerConfiguration(uuid, token);
-    }
-
-    public PlayerConfiguration getPlayerConfiguration() {
-        return playerConfiguration;
-    }
-
-    public void setPlayerConfiguration(PlayerConfiguration playerConfiguration) {
-        this.playerConfiguration = playerConfiguration;
     }
 
     public String getUuid() {
@@ -31,5 +24,21 @@ public class FastPlayerOptions {
 
     public String getToken() {
         return token;
+    }
+
+    public FastRegion getFastRegion() {
+        return fastRegion;
+    }
+
+    public void setFastRegion(FastRegion fastRegion) {
+        this.fastRegion = fastRegion;
+    }
+
+    public void setPlayerConfiguration(PlayerConfiguration playerConfiguration) {
+        this.playerConfiguration = playerConfiguration;
+    }
+
+    public PlayerConfiguration getPlayerConfiguration() {
+        return playerConfiguration;
     }
 }

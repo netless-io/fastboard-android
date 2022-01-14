@@ -54,7 +54,7 @@ public class FastContext {
     public FastSdk getFastSdk(FastSdkOptions options) {
         if (fastSdk == null) {
             fastSdk = new FastSdk(fastboardView);
-            fastSdk.initSdk(new FastSdkOptions(options.getAppId()));
+            fastSdk.initSdk(options);
             notifyFastSdkCreated(fastSdk);
         }
         return fastSdk;

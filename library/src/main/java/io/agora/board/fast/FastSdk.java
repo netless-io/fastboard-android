@@ -12,6 +12,7 @@ import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.RoomPhaseHandler;
+import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
@@ -55,11 +56,8 @@ public class FastSdk {
     }
 
     void initSdk(FastSdkOptions options) {
-        WhiteSdkConfiguration config = options.getConfiguration();
-        config.setUseMultiViews(true);
-
-        FastboardView fastboardView = fastContext.fastboardView;
-        whiteSdk = new WhiteSdk(fastboardView.whiteboardView, fastboardView.getContext(), config, commonCallback);
+        WhiteSdkConfiguration config = FastConvertor.convertSdkOptions(options);
+        whiteSdk = new WhiteSdk(fastContext.fastboardView.whiteboardView, fastContext.context, config, commonCallback);
     }
 
     public FastRoom joinRoom(FastRoomOptions options) {

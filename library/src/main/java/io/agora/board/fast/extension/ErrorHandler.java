@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import io.agora.board.fast.FastException;
 
 /**
- * @author fenglibin
+ * A ErrorHandler is a class enable caller to redefine handle of board cause error
  */
 public interface ErrorHandler {
     void handleError(@NotNull FastException e);

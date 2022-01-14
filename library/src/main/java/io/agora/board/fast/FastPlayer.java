@@ -8,6 +8,7 @@ import com.herewhite.sdk.domain.PlayerState;
 import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.SDKError;
 
+import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.model.FastPlayerOptions;
 
 public class FastPlayer {
@@ -70,7 +71,7 @@ public class FastPlayer {
 
     public FastPlayer(FastSdk sdk, FastPlayerOptions options) {
         this.fastSdk = sdk;
-        this.playerConf = options.getPlayerConfiguration();
+        this.playerConf = FastConvertor.convertPlayerOptions(options);
     }
 
     public void join() {

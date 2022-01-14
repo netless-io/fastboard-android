@@ -11,6 +11,8 @@ public class FastRoomOptions {
     private final String uid;
     private final boolean writable;
 
+    private FastRegion fastRegion = FastRegion.CN_HZ;
+
     private RoomParams roomParams;
 
     public FastRoomOptions(String uuid, String token, String uid) {
@@ -22,9 +24,6 @@ public class FastRoomOptions {
         this.token = token;
         this.uid = uid;
         this.writable = writable;
-
-        this.roomParams = new RoomParams(uuid, token, uid);
-        this.roomParams.setWritable(writable);
     }
 
     public String getUuid() {
@@ -41,6 +40,14 @@ public class FastRoomOptions {
 
     public boolean isWritable() {
         return writable;
+    }
+
+    public FastRegion getFastRegion() {
+        return fastRegion;
+    }
+
+    public void setFastRegion(FastRegion fastRegion) {
+        this.fastRegion = fastRegion;
     }
 
     public RoomParams getRoomParams() {
