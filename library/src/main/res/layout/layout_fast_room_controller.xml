@@ -3,22 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:parentTag="android.widget.RelativeLayout">
+    tools:parentTag="android.widget.FrameLayout">
 
     <io.agora.board.fast.ui.RedoUndoLayout
         android:id="@id/fast_redo_undo_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="start|bottom"
         android:layout_margin="@dimen/fast_default_layout_margin" />
 
     <io.agora.board.fast.ui.ScenesLayout
         android:id="@id/fast_scenes_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="@dimen/fast_default_layout_margin"
         android:background="@drawable/fast_bg_layout_round" />
 

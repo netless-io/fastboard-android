@@ -15,7 +15,7 @@ import io.agora.board.fast.model.FastStyle;
 
 class ToolboxCollapse implements Toolbox {
     private ToolButton toolButton;
-    private ToolLayout toolsLayout;
+    private ToolLayout toolLayout;
     private ExtensionButton extensionButton;
     private ExtensionLayout extensionLayout;
 
@@ -29,8 +29,8 @@ class ToolboxCollapse implements Toolbox {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox, toolboxLayout, true);
         toolButton = root.findViewById(R.id.tool_button);
         extensionButton = root.findViewById(R.id.toolbox_sub_button);
-        toolsLayout = root.findViewById(R.id.tool_layout);
-        toolsLayout.setOnApplianceClickListener(item -> {
+        toolLayout = root.findViewById(R.id.tool_layout);
+        toolLayout.setOnApplianceClickListener(item -> {
             if (item == FastAppliance.OTHER_CLEAR) {
                 fastRoom.cleanScene();
             } else {
@@ -95,7 +95,7 @@ class ToolboxCollapse implements Toolbox {
         this.fastRoom = fastRoom;
         this.overlayManager = fastRoom.getOverlayManager();
         this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_EXTENSION, extensionLayout);
-        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_LAYOUT, toolsLayout);
+        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_LAYOUT, toolLayout);
     }
 
     @Override
@@ -103,13 +103,13 @@ class ToolboxCollapse implements Toolbox {
         extensionButton.updateFastStyle(fastStyle);
         extensionLayout.updateFastStyle(fastStyle);
         toolButton.updateFastStyle(fastStyle);
-        toolsLayout.updateFastStyle(fastStyle);
+        toolLayout.updateFastStyle(fastStyle);
     }
 
     @Override
     public void updateAppliance(FastAppliance fastAppliance) {
         toolButton.updateAppliance(fastAppliance);
-        toolsLayout.setAppliance(fastAppliance);
+        toolLayout.setAppliance(fastAppliance);
         extensionButton.setAppliance(fastAppliance);
     }
 
@@ -137,7 +137,7 @@ class ToolboxCollapse implements Toolbox {
             toolBtnLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             toolBtnLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 
-            RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolsLayout.getLayoutParams();
+            RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolLayout.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.LEFT_OF);
             toolsLp.addRule(RelativeLayout.RIGHT_OF, toolButton.getId());
 
@@ -151,7 +151,7 @@ class ToolboxCollapse implements Toolbox {
             toolBtnLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
             toolBtnLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-            RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolsLayout.getLayoutParams();
+            RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolLayout.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.RIGHT_OF);
             toolsLp.addRule(RelativeLayout.LEFT_OF, toolButton.getId());
 

@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@id/fast_room_controller"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
