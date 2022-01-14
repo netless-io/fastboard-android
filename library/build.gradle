@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -37,4 +38,17 @@ dependencies {
 
     api 'com.github.netless-io:whiteboard-android:2757b012c42f094717e52c83cf6868004e39d082'
     implementation 'com.google.code.gson:gson:2.8.6'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.netless-io'
+                artifactId = 'fastboard-android'
+            }
+        }
+    }
 }
