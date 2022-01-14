@@ -9,16 +9,91 @@ Fastboard 旨在降低 api 数量，降低接入成本。其被寄予以下特�
 * 可配置的
 
 ## 环境配置
+### 最低支持版本
+- Android SDK Version >= 21
+- Android Tools Build >= 4.1.0
 
-## 开始
 
-此节展示如何快速接入 Fastboard
+### build.gradle 配置
+
+```groovy
+// project build
+allprojects {
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+// app build
+android {
+    // ...
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation "com.github.netless-io:fastboard-android:1.0.0"
+}
+```
+## 快速接入
+
+Fastboard 默认存在 UI，支持默认的异常，事件处理。理想情况下，新用户只需做有限的配置即可以顺利接入白板。
+具体实例可参看 [GetStartActivity](app/src/main/java/io/agora/board/fast/sample/cases/GetStartActivity.java)
+
+### 设置布局
+```xml
+<OuterLayout>
+    <!-- ... -->
+    <io.agora.board.fast.FastboardView
+        android:id="@+id/fastboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</OuterLayout>
+```
+### 加入房间
+```java
+private void setupFastboard() {
+    // step 1
+    FastboardView fastboardView = findViewById(R.id.fastboard_view);
+    // step 2: get fastSdk
+    FastSdkOptions fastSdkOptions = new FastSdkOptions(USER_APP_ID);
+    FastSdk fastSdk = fastboardView.getFastSdk(fastSdkOptions);
+
+    // step 3: join room
+    FastRoomOptions roomOptions = new FastRoomOptions(
+            roomUUID,
+            roomToken,
+            uid);
+    fastSdk.joinRoom(roomOptions);
+}
+```
+## 可配置
+### 主题设置
 
 ```java
 // code placeholder
 ```
 
-## 使用场景
+### 状态监听
+```java
+// code placeholder
+```
+
+### 错误处理
+```java
+// code placeholder
+```
+
+### 自定义UI及布局
+
+```java
+// code placeholder
+```
+
+## 场景化
 
 ### 你画我猜型
 
@@ -45,48 +120,11 @@ Fastboard 旨在降低 api 数量，降低接入成本。其被寄予以下特�
 ```
 
 ### 通用应用型
-
 此场景的特点为：
 
 * 用户界面全支持，依赖适当可定制。
 * 结合实时视频场景。
 * 依赖一定程度状态同步。
-
-```java
-// code placeholder
-```
-
-### 游戏场景
-
-此场景的特点为：
-
-* 依赖状态同步及帧同步
-
-```java
-// code placeholder
-```
-
-## 接口扩展
-
-### 主题配置
-
-```java
-// code placeholder
-```
-
-### 自定义异常处理
-
-```java
-// code placeholder
-```
-
-### 自定义UI及布局
-
-```java
-// code placeholder
-```
-
-### 状态监听
 
 ```java
 // code placeholder
