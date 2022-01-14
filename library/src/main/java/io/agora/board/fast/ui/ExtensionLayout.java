@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
@@ -36,16 +36,16 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     public static final int TYPE_TEXT = 2 | SHOW_COLORS;
     public static final int TYPE_PENCIL = 3 | SHOW_SEEKER | SHOW_COLORS;
     public static final int TYPE_TABLET_SHAPE = 4 | SHOW_TOOLS | SHOW_SEEKER | SHOW_COLORS;
-    private static final List<ApplianceItem> DEFAULT_TOOLS = new ArrayList<ApplianceItem>() {
+    private static final List<FastAppliance> DEFAULT_TOOLS = new ArrayList<FastAppliance>() {
         {
-            add(ApplianceItem.RECTANGLE);
-            add(ApplianceItem.ELLIPSE);
-            add(ApplianceItem.STRAIGHT);
-            add(ApplianceItem.ARROW);
-            add(ApplianceItem.PENTAGRAM);
-            add(ApplianceItem.RHOMBUS);
-            add(ApplianceItem.BUBBLE);
-            add(ApplianceItem.TRIANGLE);
+            add(FastAppliance.RECTANGLE);
+            add(FastAppliance.ELLIPSE);
+            add(FastAppliance.STRAIGHT);
+            add(FastAppliance.ARROW);
+            add(FastAppliance.PENTAGRAM);
+            add(FastAppliance.RHOMBUS);
+            add(FastAppliance.BUBBLE);
+            add(FastAppliance.TRIANGLE);
         }
     };
     private static final List<Integer> DEFAULT_COLORS = new ArrayList<Integer>() {
@@ -122,7 +122,7 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
         strokeSeeker.setStrokeWidth(width);
     }
 
-    public void setApplianceItem(ApplianceItem applianceItem) {
+    public void setApplianceItem(FastAppliance applianceItem) {
         toolsAdapter.setApplianceItem(applianceItem);
     }
 

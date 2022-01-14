@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
@@ -22,7 +22,7 @@ import io.agora.board.fast.model.FastStyle;
 public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHolder> {
     private List<ToolboxItem> items;
 
-    private ApplianceItem curAppliance;
+    private FastAppliance curAppliance;
     private ColorStateList iconColor;
     private boolean isDarkMode;
     private OnToolboxClickListener onToolboxClickListener;
@@ -42,9 +42,9 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ToolboxItem item = items.get(position);
 
-        holder.appliance.setImageResource(item.applianceItem.icon);
+        holder.appliance.setImageResource(ResourceFetcher.get().getApplianceIcon(item.appliance));
         holder.appliance.setImageTintList(iconColor);
-        holder.appliance.setSelected(item.applianceItem == curAppliance);
+        holder.appliance.setSelected(item.appliance == curAppliance);
         holder.appliance.setBackground(ResourceFetcher.get().createApplianceBackground(isDarkMode));
 
         holder.expand.setVisibility(item.expandable ? View.VISIBLE : View.GONE);
@@ -55,7 +55,7 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
                 return;
             }
 
-            if (curAppliance == item.applianceItem) {
+            if (curAppliance == item.appliance) {
                 onToolboxClickListener.onToolboxReClick(item);
             } else {
                 onToolboxClickListener.onSwitchToolbox(item, null);
@@ -68,11 +68,17 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
         return items.size();
     }
 
-    public void updateSubTool(int key, ApplianceItem applianceItem) {
+    /**
+     * TODO here It's confusing, key is a place for multiple appliance.
+     *
+     * @param key
+     * @param appliance
+     */
+    public void updateToolAppliance(int key, FastAppliance appliance) {
         List<ToolboxItem> target = new ArrayList<>(items);
         for (ToolboxItem toolboxItem : target) {
             if (key == toolboxItem.key) {
-                toolboxItem.applianceItem = applianceItem;
+                toolboxItem.appliance = appliance;
                 break;
             }
         }
@@ -81,7 +87,7 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public void setApplianceItem(ApplianceItem appliance) {
+    public void setAppliance(FastAppliance appliance) {
         curAppliance = appliance;
 
         notifyDataSetChanged();

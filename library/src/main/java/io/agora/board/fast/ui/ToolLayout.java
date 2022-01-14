@@ -17,23 +17,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
 public class ToolLayout extends FrameLayout implements RoomController {
-    private static final List<ApplianceItem> PHONE_APPLIANCES = new ArrayList<ApplianceItem>() {
+    private static final List<FastAppliance> PHONE_APPLIANCES = new ArrayList<FastAppliance>() {
         {
-            add(ApplianceItem.CLICKER);
-            add(ApplianceItem.SELECTOR);
-            add(ApplianceItem.PENCIL);
-            add(ApplianceItem.ERASER);
-            add(ApplianceItem.ARROW);
-            add(ApplianceItem.RECTANGLE);
-            add(ApplianceItem.ELLIPSE);
-            add(ApplianceItem.OTHER_CLEAR);
+            add(FastAppliance.CLICKER);
+            add(FastAppliance.SELECTOR);
+            add(FastAppliance.PENCIL);
+            add(FastAppliance.ERASER);
+            add(FastAppliance.ARROW);
+            add(FastAppliance.RECTANGLE);
+            add(FastAppliance.ELLIPSE);
+            add(FastAppliance.OTHER_CLEAR);
         }
     };
 
@@ -66,17 +66,17 @@ public class ToolLayout extends FrameLayout implements RoomController {
         applianceAdapter.setOnApplianceClickListener(onApplianceClickListener);
     }
 
-    public void setApplianceItem(ApplianceItem item) {
-        applianceAdapter.setApplianceItem(item);
+    public void setAppliance(FastAppliance appliance) {
+        applianceAdapter.setApplianceItem(appliance);
     }
 
-    public void setAppliances(List<ApplianceItem> items) {
-        applianceAdapter.setAppliances(items);
+    public void setAppliances(List<FastAppliance> appliance) {
+        applianceAdapter.setAppliances(appliance);
     }
 
     @Override
     public void updateMemberState(MemberState memberState) {
-        ApplianceItem item = ApplianceItem.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
+        FastAppliance item = FastAppliance.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
         applianceAdapter.setApplianceItem(item);
     }
 

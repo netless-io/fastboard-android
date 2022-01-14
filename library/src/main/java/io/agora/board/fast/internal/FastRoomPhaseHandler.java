@@ -16,6 +16,18 @@ public class FastRoomPhaseHandler implements RoomPhaseHandler {
 
     @Override
     public void handleRoomPhase(RoomPhase roomPhase) {
-        loadingLayout.updateRoomPhase(roomPhase);
+        switch (roomPhase) {
+            case connecting:
+            case reconnecting:
+                loadingLayout.show();
+                break;
+            case connected:
+                loadingLayout.hide();
+                break;
+            case disconnected:
+                loadingLayout.showRetry();
+            default:
+                break;
+        }
     }
 }

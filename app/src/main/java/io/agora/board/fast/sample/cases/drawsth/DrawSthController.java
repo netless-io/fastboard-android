@@ -10,7 +10,7 @@ import java.util.List;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.OverlayManager;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.ui.ExtensionButton;
 import io.agora.board.fast.ui.ExtensionLayout;
@@ -20,12 +20,12 @@ import io.agora.board.fast.ui.ToolButton;
 import io.agora.board.fast.ui.ToolLayout;
 
 public class DrawSthController extends RoomControllerGroup {
-    private static final List<ApplianceItem> DRAW_STH_APPLIANCES = new ArrayList<ApplianceItem>() {
+    private static final List<FastAppliance> DRAW_STH_APPLIANCES = new ArrayList<FastAppliance>() {
         {
-            add(ApplianceItem.PENCIL);
-            add(ApplianceItem.RECTANGLE);
-            add(ApplianceItem.ELLIPSE);
-            add(ApplianceItem.STRAIGHT);
+            add(FastAppliance.PENCIL);
+            add(FastAppliance.RECTANGLE);
+            add(FastAppliance.ELLIPSE);
+            add(FastAppliance.STRAIGHT);
         }
     };
 
@@ -47,7 +47,7 @@ public class DrawSthController extends RoomControllerGroup {
             } else if (v == extensionButton) {
                 triggerShown(OverlayManager.KEY_TOOL_EXTENSION);
             } else if (v == eraserView) {
-                fastRoom.setAppliance(ApplianceItem.ERASER);
+                fastRoom.setAppliance(FastAppliance.ERASER);
                 overlayManager.hideAll();
             }
         }
@@ -73,14 +73,14 @@ public class DrawSthController extends RoomControllerGroup {
         redoUndoLayout = root.findViewById(R.id.redo_undo_layout);
         eraserView = root.findViewById(R.id.eraserView);
 
-        toolLayout = root.findViewById(R.id.tools_layout);
+        toolLayout = root.findViewById(R.id.tool_layout);
         toolLayout.setAppliances(DRAW_STH_APPLIANCES);
         toolLayout.setOnApplianceClickListener(item -> {
             fastRoom.setAppliance(item);
 
             overlayManager.hideAll();
         });
-        extensionLayout = root.findViewById(R.id.sub_tools_layout);
+        extensionLayout = root.findViewById(R.id.extension_layout);
         extensionLayout.setType(ExtensionLayout.TYPE_TEXT);
         extensionLayout.setOnColorClickListener(color -> {
             fastRoom.setColor(color);
@@ -88,8 +88,8 @@ public class DrawSthController extends RoomControllerGroup {
         });
 
         toolButton.setOnClickListener(onClickListener);
-        extensionButton.setOnClickListener(onClickListener);
         eraserView.setOnClickListener(onClickListener);
+        extensionButton.setOnClickListener(onClickListener);
 
         addController(redoUndoLayout);
         addController(toolButton);

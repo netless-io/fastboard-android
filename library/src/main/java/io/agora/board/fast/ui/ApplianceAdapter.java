@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
  */
 public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.ViewHolder> {
-    private List<ApplianceItem> appliances;
+    private List<FastAppliance> appliances;
 
-    private ApplianceItem curAppliance;
+    private FastAppliance curAppliance;
     private ColorStateList iconColor;
     private boolean isDarkMode;
     private OnApplianceClickListener onApplianceClickListener;
 
-    public ApplianceAdapter(List<ApplianceItem> appliances) {
+    public ApplianceAdapter(List<FastAppliance> appliances) {
         this.appliances = appliances;
     }
 
@@ -39,14 +39,14 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ApplianceItem item = appliances.get(position);
+        FastAppliance item = appliances.get(position);
 
-        holder.appliance.setImageResource(item.icon);
+        holder.appliance.setImageResource(ResourceFetcher.get().getApplianceIcon(item));
         holder.appliance.setImageTintList(iconColor);
         holder.appliance.setSelected(item == curAppliance);
         holder.appliance.setBackground(ResourceFetcher.get().createApplianceBackground(isDarkMode));
         holder.itemView.setOnClickListener(v -> {
-            if (item != ApplianceItem.OTHER_CLEAR) {
+            if (item != FastAppliance.OTHER_CLEAR) {
                 curAppliance = item;
             }
             if (onApplianceClickListener != null) {
@@ -66,7 +66,7 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
         this.onApplianceClickListener = onApplianceClickListener;
     }
 
-    public void setApplianceItem(ApplianceItem appliance) {
+    public void setApplianceItem(FastAppliance appliance) {
         curAppliance = appliance;
 
         notifyDataSetChanged();
@@ -79,14 +79,14 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
         notifyDataSetChanged();
     }
 
-    public void setAppliances(List<ApplianceItem> items) {
+    public void setAppliances(List<FastAppliance> items) {
         appliances = items;
 
         notifyDataSetChanged();
     }
 
     public interface OnApplianceClickListener {
-        void onApplianceClick(ApplianceItem item);
+        void onApplianceClick(FastAppliance item);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -8,27 +8,24 @@
     tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
 
     <io.agora.board.fast.ui.ToolLayout
-        android:id="@+id/tools_layout"
+        android:id="@+id/tool_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/custom_toolbox"
+        android:layout_marginBottom="@dimen/fast_gap_2"
         android:background="@drawable/fast_bg_layout_round"
         android:visibility="gone" />
 
     <io.agora.board.fast.ui.ExtensionLayout
-        android:id="@+id/sub_tools_layout"
+        android:id="@+id/extension_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/custom_toolbox"
         android:layout_marginStart="@dimen/fast_default_button_size"
         android:layout_marginLeft="@dimen/fast_default_button_size"
+        android:layout_marginBottom="@dimen/fast_gap_2"
         android:background="@drawable/fast_bg_layout_round"
         android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/fast_divider" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/custom_toolbox"
@@ -47,15 +44,14 @@
             android:id="@+id/colors_button"
             android:layout_width="@dimen/fast_default_button_size"
             android:layout_height="@dimen/fast_default_button_size"
-            android:padding="@dimen/fast_gap_1"
-            android:src="@drawable/fast_ic_tool_raser" />
+            android:padding="@dimen/fast_gap_1" />
 
         <ImageView
             android:id="@+id/eraserView"
             android:layout_width="@dimen/fast_default_button_size"
             android:layout_height="@dimen/fast_default_button_size"
             android:padding="@dimen/fast_gap_1"
-            android:src="@drawable/fast_ic_tool_clear" />
+            android:src="@drawable/fast_ic_tool_eraser" />
 
         <View
             android:layout_width="0dp"

@@ -55,23 +55,7 @@ public class LoadingLayout extends LinearLayoutCompat implements RoomController 
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(style.getMainColor()));
     }
 
-    public void updateRoomPhase(RoomPhase roomPhase) {
-        switch (roomPhase) {
-            case connecting:
-            case reconnecting:
-                show();
-                break;
-            case connected:
-                hide();
-                break;
-            case disconnected:
-                showRetry();
-            default:
-                break;
-        }
-    }
-
-    private void showRetry() {
+    public void showRetry() {
 
     }
 

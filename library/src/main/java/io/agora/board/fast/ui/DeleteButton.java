@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
@@ -38,8 +38,8 @@ public class DeleteButton extends FrameLayout {
         delete = root.findViewById(R.id.delete);
     }
 
-    public void setApplianceItem(ApplianceItem item) {
-        setVisibility(item == ApplianceItem.SELECTOR ? VISIBLE : INVISIBLE);
+    public void setAppliance(FastAppliance fastAppliance) {
+        setVisibility(fastAppliance == FastAppliance.SELECTOR ? VISIBLE : INVISIBLE);
     }
 
     public void updateFastStyle(FastStyle style) {

@@ -7,18 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.herewhite.sdk.domain.ShapeType;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
 import io.agora.board.fast.extension.OverlayManager;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 class ToolboxCollapse implements Toolbox {
     private ToolButton toolButton;
     private ToolLayout toolsLayout;
-    private ExtensionButton subToolButton;
+    private ExtensionButton extensionButton;
     private ExtensionLayout extensionLayout;
 
     private FastRoom fastRoom;
@@ -30,26 +28,26 @@ class ToolboxCollapse implements Toolbox {
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox, toolboxLayout, true);
         toolButton = root.findViewById(R.id.tool_button);
-        subToolButton = root.findViewById(R.id.toolbox_sub_button);
-        toolsLayout = root.findViewById(R.id.tools_layout);
+        extensionButton = root.findViewById(R.id.toolbox_sub_button);
+        toolsLayout = root.findViewById(R.id.tool_layout);
         toolsLayout.setOnApplianceClickListener(item -> {
-            if (item == ApplianceItem.OTHER_CLEAR) {
+            if (item == FastAppliance.OTHER_CLEAR) {
                 fastRoom.cleanScene();
             } else {
                 fastRoom.setAppliance(item);
                 toolButton.updateAppliance(item);
-                subToolButton.setApplianceItem(item);
+                extensionButton.setAppliance(item);
             }
 
             overlayManager.hideAll();
         });
 
-        extensionLayout = root.findViewById(R.id.sub_tools_layout);
+        extensionLayout = root.findViewById(R.id.extension_layout);
         extensionLayout.setType(ExtensionLayout.TYPE_PHONE);
         extensionLayout.setOnColorClickListener(color -> {
             fastRoom.setColor(color);
 
-            subToolButton.setColor(color);
+            extensionButton.setColor(color);
             extensionLayout.setColor(color);
 
             overlayManager.hideAll();
@@ -67,10 +65,10 @@ class ToolboxCollapse implements Toolbox {
             }
 
             toolButton.setSelected(target);
-            subToolButton.setSelected(false);
+            extensionButton.setSelected(false);
         });
 
-        subToolButton.setOnSubToolClickListener(new ExtensionButton.OnSubToolClickListener() {
+        extensionButton.setOnSubToolClickListener(new ExtensionButton.OnSubToolClickListener() {
             @Override
             public void onDeleteClick() {
                 fastRoom.getRoom().deleteOperation();
@@ -86,7 +84,7 @@ class ToolboxCollapse implements Toolbox {
                     overlayManager.hide(OverlayManager.KEY_TOOL_EXTENSION);
                 }
 
-                subToolButton.setSelected(target);
+                extensionButton.setSelected(target);
                 toolButton.setSelected(false);
             }
         });
@@ -102,24 +100,23 @@ class ToolboxCollapse implements Toolbox {
 
     @Override
     public void updateFastStyle(FastStyle fastStyle) {
-        subToolButton.updateFastStyle(fastStyle);
+        extensionButton.updateFastStyle(fastStyle);
         extensionLayout.updateFastStyle(fastStyle);
         toolButton.updateFastStyle(fastStyle);
         toolsLayout.updateFastStyle(fastStyle);
     }
 
     @Override
-    public void updateAppliance(String appliance, ShapeType shapeType) {
-        ApplianceItem item = ApplianceItem.of(appliance, shapeType);
-        toolButton.updateAppliance(item);
-        toolsLayout.setApplianceItem(item);
-        subToolButton.setApplianceItem(item);
+    public void updateAppliance(FastAppliance fastAppliance) {
+        toolButton.updateAppliance(fastAppliance);
+        toolsLayout.setAppliance(fastAppliance);
+        extensionButton.setAppliance(fastAppliance);
     }
 
     @Override
     public void updateStroke(int[] strokeColor, double strokeWidth) {
         int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
-        subToolButton.setColor(color);
+        extensionButton.setColor(color);
         extensionLayout.setColor(color);
         extensionLayout.setStrokeWidth((int) strokeWidth);
     }
@@ -127,7 +124,7 @@ class ToolboxCollapse implements Toolbox {
     @Override
     public void updateOverlayChanged(int key) {
         toolButton.setSelected(key == OverlayManager.KEY_TOOL_LAYOUT);
-        subToolButton.setSelected(key == OverlayManager.KEY_TOOL_EXTENSION);
+        extensionButton.setSelected(key == OverlayManager.KEY_TOOL_EXTENSION);
     }
 
     @Override
@@ -146,7 +143,7 @@ class ToolboxCollapse implements Toolbox {
 
             RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.LEFT_OF);
-            subToolsLp.addRule(RelativeLayout.RIGHT_OF, subToolButton.getId());
+            subToolsLp.addRule(RelativeLayout.RIGHT_OF, extensionButton.getId());
         }
 
         if (isRight) {
@@ -160,7 +157,7 @@ class ToolboxCollapse implements Toolbox {
 
             RelativeLayout.LayoutParams subToolsLp = (RelativeLayout.LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
-            subToolsLp.addRule(RelativeLayout.LEFT_OF, subToolButton.getId());
+            subToolsLp.addRule(RelativeLayout.LEFT_OF, extensionButton.getId());
         }
     }
 }

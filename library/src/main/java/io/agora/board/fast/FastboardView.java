@@ -147,6 +147,7 @@ public class FastboardView extends FrameLayout {
         this.roomControllerGroup = roomControllerGroup;
         if (fastContext.fastRoom != null) {
             roomControllerGroup.setFastRoom(fastContext.fastRoom);
+            roomControllerGroup.updateFastStyle(fastContext.fastStyle);
         }
     }
 }

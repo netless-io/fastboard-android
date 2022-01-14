@@ -11,15 +11,13 @@ import android.widget.RelativeLayout.LayoutParams;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.herewhite.sdk.domain.ShapeType;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
 import io.agora.board.fast.extension.OverlayManager;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 class ToolboxExpand implements Toolbox {
@@ -27,13 +25,13 @@ class ToolboxExpand implements Toolbox {
 
     private static final List<ToolboxItem> TOOLBOX_ITEMS = new ArrayList<ToolboxItem>() {
         {
-            add(new ToolboxItem(ToolboxItem.KEY_CLICK, ApplianceItem.CLICKER, false));
-            add(new ToolboxItem(ToolboxItem.KEY_SELECTOR, ApplianceItem.SELECTOR, false));
-            add(new ToolboxItem(ToolboxItem.KEY_PENCIL, ApplianceItem.PENCIL, true));
-            add(new ToolboxItem(ToolboxItem.KEY_TEXT, ApplianceItem.TEXT, true));
-            add(new ToolboxItem(ToolboxItem.KEY_ERASER, ApplianceItem.ERASER, false));
-            add(new ToolboxItem(ToolboxItem.KEY_SHAPE, ApplianceItem.RECTANGLE, true));
-            add(new ToolboxItem(ToolboxItem.KEY_CLEAR, ApplianceItem.OTHER_CLEAR, false));
+            add(new ToolboxItem(ToolboxItem.KEY_CLICK, FastAppliance.CLICKER, false));
+            add(new ToolboxItem(ToolboxItem.KEY_SELECTOR, FastAppliance.SELECTOR, false));
+            add(new ToolboxItem(ToolboxItem.KEY_PENCIL, FastAppliance.PENCIL, true));
+            add(new ToolboxItem(ToolboxItem.KEY_TEXT, FastAppliance.TEXT, true));
+            add(new ToolboxItem(ToolboxItem.KEY_ERASER, FastAppliance.ERASER, false));
+            add(new ToolboxItem(ToolboxItem.KEY_SHAPE, FastAppliance.RECTANGLE, true));
+            add(new ToolboxItem(ToolboxItem.KEY_CLEAR, FastAppliance.OTHER_CLEAR, false));
         }
     };
 
@@ -51,7 +49,7 @@ class ToolboxExpand implements Toolbox {
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_tablet, toolboxLayout, true);
         toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
-        extensionLayout = root.findViewById(R.id.sub_tools_layout);
+        extensionLayout = root.findViewById(R.id.extension_layout);
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);
 
         toolboxDelete.setOnClickListener(v -> {
@@ -78,7 +76,7 @@ class ToolboxExpand implements Toolbox {
                     case ToolboxItem.KEY_CLICK:
                     case ToolboxItem.KEY_SELECTOR:
                     case ToolboxItem.KEY_ERASER:
-                        fastRoom.setAppliance(item.applianceItem);
+                        fastRoom.setAppliance(item.appliance);
                         break;
                 }
             }
@@ -103,10 +101,10 @@ class ToolboxExpand implements Toolbox {
             public void onSwitchToolbox(ToolboxItem item, ToolboxItem oldItem) {
                 overlayManager.hide(OVERLAY_EXT_LAYOUT);
 
-                if (item.applianceItem == ApplianceItem.OTHER_CLEAR) {
+                if (item.appliance == FastAppliance.OTHER_CLEAR) {
                     fastRoom.cleanScene();
                 } else {
-                    fastRoom.setAppliance(item.applianceItem);
+                    fastRoom.setAppliance(item.appliance);
                 }
             }
         });
@@ -121,7 +119,7 @@ class ToolboxExpand implements Toolbox {
 
         extensionLayout.setOnApplianceClickListener(item -> {
             fastRoom.setAppliance(item);
-            toolboxAdapter.updateSubTool(ToolboxItem.KEY_SHAPE, item);
+            toolboxAdapter.updateToolAppliance(ToolboxItem.KEY_SHAPE, item);
             overlayManager.hide(OVERLAY_EXT_LAYOUT);
         });
     }
@@ -142,11 +140,10 @@ class ToolboxExpand implements Toolbox {
     }
 
     @Override
-    public void updateAppliance(String appliance, ShapeType shapeType) {
-        ApplianceItem item = ApplianceItem.of(appliance, shapeType);
-        toolboxAdapter.setApplianceItem(item);
-        toolboxDelete.setApplianceItem(item);
-        extensionLayout.setApplianceItem(item);
+    public void updateAppliance(FastAppliance fastAppliance) {
+        toolboxAdapter.setAppliance(fastAppliance);
+        toolboxDelete.setAppliance(fastAppliance);
+        extensionLayout.setApplianceItem(fastAppliance);
     }
 
     @Override

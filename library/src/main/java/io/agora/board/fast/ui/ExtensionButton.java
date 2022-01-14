@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import com.herewhite.sdk.domain.MemberState;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
@@ -70,13 +70,13 @@ public class ExtensionButton extends FrameLayout implements RoomController {
         updateUi();
     }
 
-    public void setApplianceItem(ApplianceItem item) {
-        changeTypeByAppliance(item);
+    public void setAppliance(FastAppliance fastAppliance) {
+        changeTypeByAppliance(fastAppliance);
         updateUi();
     }
 
-    private void changeTypeByAppliance(ApplianceItem item) {
-        switch (item) {
+    private void changeTypeByAppliance(FastAppliance fastAppliance) {
+        switch (fastAppliance) {
             case SELECTOR:
                 type = TYPE_DELETE;
                 break;
@@ -120,6 +120,7 @@ public class ExtensionButton extends FrameLayout implements RoomController {
     @Override
     public void updateMemberState(MemberState memberState) {
         updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
+        setAppliance(FastAppliance.of(memberState.getCurrentApplianceName(), memberState.getShapeType()));
     }
 
     private void updateStroke(int[] strokeColor, double strokeWidth) {

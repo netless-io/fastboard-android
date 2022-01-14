@@ -8,17 +8,13 @@ import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
-import com.herewhite.sdk.domain.WindowParams;
-import com.herewhite.sdk.domain.WindowPrefersColorScheme;
 import com.herewhite.sdk.internal.Logger;
-
-import java.util.HashMap;
 
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.internal.FastConvertor;
-import io.agora.board.fast.model.ApplianceItem;
-import io.agora.board.fast.model.FastRoomOptions;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastRoomOptions;
 
 public class FastRoom {
     private final FastSdk fastSdk;
@@ -90,6 +86,8 @@ public class FastRoom {
 
     public void join() {
         fastSdk.whiteSdk.joinRoom(params, roomListener, joinRoomPromise);
+        // workaround, white sdk do not notify RoomPhase.connecting
+        fastContext.notifyRoomPhaseChanged(RoomPhase.connecting);
     }
 
     public Room getRoom() {
@@ -134,14 +132,14 @@ public class FastRoom {
         getRoom().setMemberState(memberState);
     }
 
-    public void setAppliance(ApplianceItem item) {
+    public void setAppliance(FastAppliance fastAppliance) {
         if (getRoom() == null) {
             FastLogger.warn("call fast room before join..");
             return;
         }
 
         MemberState memberState = new MemberState();
-        memberState.setCurrentApplianceName(item.appliance, item.shapeType);
+        memberState.setCurrentApplianceName(fastAppliance.appliance, fastAppliance.shapeType);
         getRoom().setMemberState(memberState);
     }
 

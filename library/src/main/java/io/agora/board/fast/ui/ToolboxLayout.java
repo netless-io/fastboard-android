@@ -11,6 +11,7 @@ import com.herewhite.sdk.domain.MemberState;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.internal.Util;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
@@ -38,7 +39,8 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
 
     @Override
     public void updateMemberState(MemberState memberState) {
-        IMPL.updateAppliance(memberState.getCurrentApplianceName(), memberState.getShapeType());
+        FastAppliance appliance = FastAppliance.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
+        IMPL.updateAppliance(appliance);
         IMPL.updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
     }
 

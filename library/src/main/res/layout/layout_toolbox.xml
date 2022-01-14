@@ -31,7 +31,7 @@
         android:background="@drawable/fast_bg_tool_button" />
 
     <io.agora.board.fast.ui.ToolLayout
-        android:id="@+id/tools_layout"
+        android:id="@+id/tool_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tool_button"
@@ -41,7 +41,7 @@
         tools:visibility="visible" />
 
     <io.agora.board.fast.ui.ExtensionLayout
-        android:id="@+id/sub_tools_layout"
+        android:id="@+id/extension_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/toolbox_sub_button"

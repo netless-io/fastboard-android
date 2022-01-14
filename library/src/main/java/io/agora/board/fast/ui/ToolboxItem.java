@@ -1,6 +1,6 @@
 package io.agora.board.fast.ui;
 
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 
 /**
  * Tablet toolbox model
@@ -18,16 +18,16 @@ class ToolboxItem {
     static final int KEY_APP = 7;
 
     int key;
-    ApplianceItem applianceItem;
+    FastAppliance appliance;
     boolean expandable;
 
-    public ToolboxItem(int key, ApplianceItem applianceItem) {
+    public ToolboxItem(int key, FastAppliance applianceItem) {
         this(key, applianceItem, false);
     }
 
-    public ToolboxItem(int key, ApplianceItem applianceItem, boolean expandable) {
+    public ToolboxItem(int key, FastAppliance appliance, boolean expandable) {
         this.key = key;
-        this.applianceItem = applianceItem;
+        this.appliance = appliance;
         this.expandable = expandable;
     }
 }

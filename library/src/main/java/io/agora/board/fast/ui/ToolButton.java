@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import com.herewhite.sdk.domain.MemberState;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.ApplianceItem;
+import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 /**
@@ -44,18 +44,18 @@ public class ToolButton extends FrameLayout implements RoomController {
 
     @Override
     public void updateMemberState(MemberState memberState) {
-        ApplianceItem item = ApplianceItem.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
+        FastAppliance item = FastAppliance.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
         updateAppliance(item);
     }
 
     @Override
     public void updateFastStyle(FastStyle fastStyle) {
+        setBackground(ResourceFetcher.get().getButtonBackground(fastStyle.isDarkMode()));
         toolImage.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
         toolExpand.setImageTintList(ResourceFetcher.get().getIconColor(fastStyle.isDarkMode()));
-        this.setBackground(ResourceFetcher.get().getButtonBackground(fastStyle.isDarkMode()));
     }
 
-    public void updateAppliance(ApplianceItem item) {
-        toolImage.setImageResource(item.icon);
+    public void updateAppliance(FastAppliance fastAppliance) {
+        toolImage.setImageResource(ResourceFetcher.get().getApplianceIcon(fastAppliance));
     }
 }
