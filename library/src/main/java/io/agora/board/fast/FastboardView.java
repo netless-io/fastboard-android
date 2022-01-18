@@ -49,6 +49,11 @@ public class FastboardView extends FrameLayout {
         }
 
         @Override
+        public void onWindowBoxStateChanged(String windowBoxState) {
+            roomControllerGroup.updateWindowBoxState(windowBoxState);
+        }
+
+        @Override
         public void onRedoUndoChanged(FastRedoUndo count) {
             roomControllerGroup.updateRedoUndo(count);
         }

@@ -26,7 +26,7 @@ class ToolboxCollapse implements Toolbox {
     public void setupView(ToolboxLayout toolboxLayout) {
         Context context = toolboxLayout.getContext();
 
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox, toolboxLayout, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_collapse, toolboxLayout, true);
         toolButton = root.findViewById(R.id.tool_button);
         extensionButton = root.findViewById(R.id.toolbox_sub_button);
         toolLayout = root.findViewById(R.id.tool_layout);

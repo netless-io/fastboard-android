@@ -81,7 +81,7 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     }
 
     private void initView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_sub_tools, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_extension_layout, this, true);
         toolsRecyclerView = root.findViewById(R.id.tools_ext_recycler_view);
         colorsRecyclerView = root.findViewById(R.id.colors_recycler_view);
         strokeSeeker = root.findViewById(R.id.stroke_seeker);

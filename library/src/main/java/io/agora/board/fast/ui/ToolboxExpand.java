@@ -47,7 +47,7 @@ class ToolboxExpand implements Toolbox {
     public void setupView(ToolboxLayout toolboxLayout) {
         Context context = toolboxLayout.getContext();
 
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_tablet, toolboxLayout, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_expand, toolboxLayout, true);
         toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
         extensionLayout = root.findViewById(R.id.extension_layout);
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);

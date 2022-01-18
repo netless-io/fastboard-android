@@ -4,8 +4,8 @@ import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.SceneState;
 
-import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
@@ -20,6 +20,10 @@ public interface FastListener {
     }
 
     default void onBroadcastStateChanged(BroadcastState broadcastState) {
+
+    }
+
+    default void onWindowBoxStateChanged(String windowBoxState) {
 
     }
 

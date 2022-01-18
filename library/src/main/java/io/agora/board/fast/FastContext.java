@@ -131,6 +131,10 @@ public class FastContext {
         notifyListeners(listener -> listener.onSceneStateChanged(sceneState));
     }
 
+    public void notifyWindowBoxStateChanged(String windowBoxState) {
+        notifyListeners(listener -> listener.onWindowBoxStateChanged(windowBoxState));
+    }
+
     public void notifyRedoUndoChanged(FastRedoUndo count) {
         notifyListeners(listener -> listener.onRedoUndoChanged(count));
     }

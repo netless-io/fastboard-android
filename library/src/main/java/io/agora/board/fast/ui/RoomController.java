@@ -25,6 +25,10 @@ public interface RoomController extends FastVisiable {
 
     }
 
+    default void updateWindowBoxState(String windowBoxState) {
+
+    }
+
     default void updateRedoUndo(FastRedoUndo count) {
 
     }

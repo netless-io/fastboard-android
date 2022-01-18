@@ -12,8 +12,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * @author fenglibin
@@ -74,5 +74,20 @@ public class RedoUndoLayout extends LinearLayoutCompat implements RoomController
     public void updateRedoUndo(FastRedoUndo count) {
         undoImage.setEnabled(count.getUndo() > 0);
         redoImage.setEnabled(count.getRedo() > 0);
+    }
+
+    @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hide() {
+        setVisibility(GONE);
+    }
+
+    @Override
+    public boolean isShowing() {
+        return getVisibility() == VISIBLE;
     }
 }

@@ -10,8 +10,8 @@ import com.herewhite.sdk.domain.SceneState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.agora.board.fast.FastRoom;
-import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastStyle;
 
 public abstract class RoomControllerGroup implements RoomController {
 
@@ -53,6 +53,13 @@ public abstract class RoomControllerGroup implements RoomController {
     public void updateMemberState(MemberState memberState) {
         for (RoomController controller : controllers) {
             controller.updateMemberState(memberState);
+        }
+    }
+
+    @Override
+    public void updateWindowBoxState(String windowBoxState) {
+        for (RoomController controller : controllers) {
+            controller.updateWindowBoxState(windowBoxState);
         }
     }
 

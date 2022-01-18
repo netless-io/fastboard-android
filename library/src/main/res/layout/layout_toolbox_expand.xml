@@ -6,23 +6,14 @@
     android:layout_height="match_parent"
     tools:parentTag="android.widget.RelativeLayout">
 
-    <View
-        android:id="@+id/fast_overlay_handle_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tools_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/fast_default_layout_margin"
-        android:layout_marginTop="@dimen/fast_default_layout_margin"
-        android:layout_marginEnd="@dimen/fast_default_layout_margin"
-        android:layout_marginBottom="@dimen/fast_default_layout_margin"
+        android:layout_margin="@dimen/fast_default_layout_margin"
         android:background="@drawable/fast_bg_layout_round"
-        android:padding="@dimen/fast_gap_1"
+        android:padding="0dp"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="8"

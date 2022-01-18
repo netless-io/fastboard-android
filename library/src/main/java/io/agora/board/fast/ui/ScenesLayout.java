@@ -119,4 +119,19 @@ public class ScenesLayout extends LinearLayout implements RoomController {
         sceneNext.setEnabled(sceneNo < sceneSize);
         scenePrev.setEnabled(sceneIndex > 0);
     }
+
+    @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hide() {
+        setVisibility(GONE);
+    }
+
+    @Override
+    public boolean isShowing() {
+        return getVisibility() == VISIBLE;
+    }
 }
