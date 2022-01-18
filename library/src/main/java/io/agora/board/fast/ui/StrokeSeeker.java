@@ -21,8 +21,8 @@ import io.agora.board.fast.R;
  * @author fenglibin
  */
 public final class StrokeSeeker extends View {
-    private final RectF leftRect;
-    private final float leftLimit;
+    private RectF leftRect;
+    private float leftLimit;
     private StrokeSeeker.OnStrokeChangedListener onStrokeChangedListener;
     private Paint indicatorPaint;
     private float indicatorWidth;
@@ -52,21 +52,16 @@ public final class StrokeSeeker extends View {
     public StrokeSeeker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.indicatorPaint = new Paint();
-        this.indicatorWidth = this.dp2px(2);
-        this.indicatorHeight = this.dp2px(16);
-        this.offsetLeftX = this.dp2px(2);
-        this.offsetRightX = this.dp2px(8);
-        this.leftBarHeight = this.dp2px(2);
+        changeHeight(this.dp2px(20));
+
         this.leftRect = new RectF();
         this.leftPaint = new Paint();
-        this.rightBarHeight = this.dp2px(12);
+
         this.rightRect = new RectF();
         this.rightPaint = new Paint();
         this.seekerPath = new Path();
-        this.leftLimit = this.offsetLeftX - this.leftBarHeight / (float) 2;
-        this.currentX = this.leftLimit;
-        this.minStroke = 12;
-        this.maxStroke = 24;
+        this.minStroke = 4;
+        this.maxStroke = 8;
         this.currentStrokeWidth = -1;
         this.indicatorPaint.setAntiAlias(true);
         this.indicatorPaint.setStrokeWidth(this.indicatorWidth);
@@ -75,6 +70,18 @@ public final class StrokeSeeker extends View {
         this.leftPaint.setColor(ContextCompat.getColor(context, R.color.fast_default_main_color));
         this.rightPaint.setAntiAlias(true);
         this.rightPaint.setColor(Color.parseColor("#F3F6F9"));
+    }
+
+    private void changeHeight(int height) {
+        this.baseY = height / 2;
+        this.indicatorWidth = height * 2f / 20;
+        this.indicatorHeight = height * 16f / 20;
+        this.offsetLeftX = height * 2f / 20;
+        this.offsetRightX = height * 8f / 20;
+        this.leftBarHeight = height * 2f / 20;
+        this.rightBarHeight = height * 12f / 20;
+        this.leftLimit = offsetLeftX - this.leftBarHeight / (float) 2;
+        this.currentX = leftLimit;
     }
 
     private int dp2px(float dpVal) {
@@ -92,7 +99,7 @@ public final class StrokeSeeker extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        this.baseY = this.getHeight() / 2;
+        changeHeight(getHeight());
         this.leftRect.set(this.offsetLeftX - this.leftBarHeight, (float) this.baseY - this.leftBarHeight / (float) 2, this.offsetLeftX + this.leftBarHeight / (float) 2, (float) this.baseY + this.leftBarHeight / (float) 2);
         this.rightRect.set((float) this.getWidth() - this.offsetRightX - this.rightBarHeight / (float) 2, (float) this.baseY - this.rightBarHeight / (float) 2, (float) this.getWidth() - this.offsetRightX + this.rightBarHeight / (float) 2, (float) this.baseY + this.rightBarHeight / (float) 2);
         this.seekerPath.reset();
@@ -116,12 +123,6 @@ public final class StrokeSeeker extends View {
         canvas.drawPath(this.seekerPath, this.leftPaint);
         canvas.restore();
         canvas.drawLine(this.currentX, (float) this.baseY - this.indicatorHeight / (float) 2, this.currentX, (float) this.baseY + this.indicatorHeight / (float) 2, this.indicatorPaint);
-    }
-
-    private float currentBarHeight() {
-        float wa = (float) this.getWidth() - this.offsetLeftX - this.offsetRightX;
-        float wp = this.currentX - this.offsetLeftX;
-        return (this.rightBarHeight - this.leftBarHeight) * wp / wa + this.leftBarHeight;
     }
 
     @Override
