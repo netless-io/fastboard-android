@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.herewhite.sdk.domain.SceneState;
@@ -38,9 +39,7 @@ public class ControlView extends FrameLayout {
         darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (fastSdk != null) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity(context);
-                activity.getDelegate().setLocalNightMode(
-                        isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
-                );
+                activity.getDelegate().setLocalNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
             }
         });
 
@@ -56,7 +55,13 @@ public class ControlView extends FrameLayout {
         SwitchCompat toolboxSwitch = root.findViewById(R.id.toolbox_mode_switch);
         toolboxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
-            uiSettings.setToolboxExpand(isChecked);
+            uiSettings.setToolboxExpand(!isChecked);
+        });
+
+        SwitchCompat redoUndoSwitch = root.findViewById(R.id.redo_undo_orientation_switch);
+        redoUndoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
+            uiSettings.setRedoUndoOrientation(isChecked ? LinearLayoutCompat.VERTICAL : LinearLayoutCompat.HORIZONTAL);
         });
     }
 

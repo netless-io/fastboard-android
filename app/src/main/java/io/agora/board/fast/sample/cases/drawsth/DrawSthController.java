@@ -8,9 +8,6 @@ import android.widget.ImageView;
 
 import com.herewhite.sdk.domain.MemberState;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.FastAppliance;
@@ -23,15 +20,6 @@ import io.agora.board.fast.ui.ResourceFetcher;
 import io.agora.board.fast.ui.RoomControllerGroup;
 
 public class DrawSthController extends RoomControllerGroup {
-    private static final List<FastAppliance> DRAW_STH_APPLIANCES = new ArrayList<FastAppliance>() {
-        {
-            add(FastAppliance.PENCIL);
-            add(FastAppliance.RECTANGLE);
-            add(FastAppliance.ELLIPSE);
-            add(FastAppliance.STRAIGHT);
-        }
-    };
-
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
 

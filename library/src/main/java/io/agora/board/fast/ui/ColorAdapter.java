@@ -41,13 +41,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         viewHolder.colorDisplay.setImageDrawable(ResourceFetcher.get().getColorDrawable(color));
         viewHolder.colorDisplay.setSelected(color == curColor);
         viewHolder.itemView.setOnClickListener(v -> {
-            curColor = color;
-
             if (onColorClickListener != null) {
                 onColorClickListener.onColorClick(color);
             }
-
-            notifyDataSetChanged();
         });
     }
 

@@ -21,8 +21,8 @@
 
     <io.agora.board.fast.ui.DeleteButton
         android:id="@+id/toolbox_sub_delete"
-        android:layout_width="@dimen/fast_default_button_size_large"
-        android:layout_height="@dimen/fast_default_button_size_large"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
         android:layout_above="@id/tools_recycler_view"
         android:layout_alignStart="@id/tools_recycler_view"
         android:layout_alignRight="@id/tools_recycler_view"

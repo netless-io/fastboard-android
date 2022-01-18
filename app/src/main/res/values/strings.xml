@@ -3,4 +3,5 @@
     <string name="switch_dark_mode" translatable="false">Switch DarkMode</string>
     <string name="delete_scenes" translatable="false">Delete Scenes</string>
     <string name="change_toolbox" translatable="false" tools:ignore="ExtraTranslation">Change Toolbox</string>
+    <string name="change_redo_undo" translatable="false" tools:ignore="ExtraTranslation">Change RedoUndo</string>
 </resources>

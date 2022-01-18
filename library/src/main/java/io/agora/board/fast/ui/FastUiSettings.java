@@ -1,5 +1,7 @@
 package io.agora.board.fast.ui;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
+
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.R;
 
@@ -22,6 +24,11 @@ public class FastUiSettings {
     public void setToolboxExpand(boolean expand) {
         ToolboxLayout toolboxLayout = fastboardView.findViewById(R.id.fast_toolbox_layout);
         toolboxLayout.setLayoutMode(expand);
+    }
+
+    public void setRedoUndoOrientation(@LinearLayoutCompat.OrientationMode int orientation) {
+        RedoUndoLayout redoUndoLayout = fastboardView.findViewById(R.id.fast_redo_undo_layout);
+        redoUndoLayout.setOrientation(orientation);
     }
 
     /**
