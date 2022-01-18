@@ -47,6 +47,8 @@ public class FastConvertor {
             windowParams.setDebug(true);
             windowParams.setCollectorStyles(styleMap);
             windowParams.setPrefersColorScheme(WindowPrefersColorScheme.Auto);
+
+            result.setWindowParams(windowParams);
         }
         return result;
     }

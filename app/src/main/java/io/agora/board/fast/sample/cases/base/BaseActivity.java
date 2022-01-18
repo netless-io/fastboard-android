@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.sample.misc.Utils;
+
 public class BaseActivity extends AppCompatActivity {
 
     @Override

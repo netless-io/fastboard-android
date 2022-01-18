@@ -2,7 +2,6 @@ package io.agora.board.fast;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,7 +109,7 @@ public class FastboardView extends FrameLayout {
 
     private void setupStyle(Context context, AttributeSet attrs, int defStyleAttr) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FastboardView, defStyleAttr, R.style.DefaultFastboardView);
-        int mainColor = a.getColor(R.styleable.FastboardView_fbv_main_color, Color.parseColor("#3381FF"));
+        int mainColor = a.getColor(R.styleable.FastboardView_fbv_main_color, ContextCompat.getColor(context, R.color.fast_default_main_color));
         boolean darkMode = a.getBoolean(R.styleable.FastboardView_fbv_dark_mode, false);
         a.recycle();
 
