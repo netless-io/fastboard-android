@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fast_default_button_gap"
+        android:layout_margin="@dimen/fast_gap_1_5"
         android:contentDescription="@null"
         android:src="@drawable/fast_ic_tool_expandable" />
 </FrameLayout>

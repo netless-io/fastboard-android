@@ -45,12 +45,11 @@ public class RedoUndoLayout extends LinearLayoutCompat implements RoomController
 
     public RedoUndoLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setOrientation(HORIZONTAL);
         setupView(context);
     }
 
     private void setupView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_undo_redo, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_undo_redo, this, true);
         undoImage = root.findViewById(R.id.tool_undo);
         redoImage = root.findViewById(R.id.tool_redo);
 

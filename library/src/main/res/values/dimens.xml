@@ -2,6 +2,7 @@
 <resources>
     <dimen name="fast_gap_0_5">2dp</dimen>
     <dimen name="fast_gap_1">4dp</dimen>
+    <dimen name="fast_gap_1_5">6dp</dimen>
     <dimen name="fast_gap_2">8dp</dimen>
     <dimen name="fast_gap_3">12dp</dimen>
 

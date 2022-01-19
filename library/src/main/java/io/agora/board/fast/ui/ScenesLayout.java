@@ -78,7 +78,7 @@ public class ScenesLayout extends LinearLayout implements RoomController {
     }
 
     private void setupView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_scenes, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_scenes, this, true);
         scenePrev = root.findViewById(R.id.tool_scene_prev);
         sceneNext = root.findViewById(R.id.tool_scene_next);
         sceneAdd = root.findViewById(R.id.tool_scene_add);

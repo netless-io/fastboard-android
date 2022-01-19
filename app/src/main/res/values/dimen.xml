@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="room_class_button_size">32dp</dimen>
+    <dimen name="room_class_button_padding_size">4dp</dimen>
+</resources>

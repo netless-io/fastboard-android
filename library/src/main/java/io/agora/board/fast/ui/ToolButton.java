@@ -37,7 +37,7 @@ public class ToolButton extends FrameLayout implements RoomController {
     }
 
     private void initView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_tool_button, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_tool_button, this, true);
         toolImage = root.findViewById(R.id.tool_button_image);
         toolExpand = root.findViewById(R.id.tool_button_expand);
     }

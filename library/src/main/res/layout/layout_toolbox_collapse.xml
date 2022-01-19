@@ -14,8 +14,8 @@
 
     <io.agora.board.fast.ui.ToolButton
         android:id="@+id/tool_button"
-        android:layout_width="@dimen/fast_default_button_size_large"
-        android:layout_height="@dimen/fast_default_button_size_large"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
         android:layout_below="@id/guideline"
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/fast_default_layout_margin"
@@ -23,8 +23,8 @@
 
     <io.agora.board.fast.ui.ExtensionButton
         android:id="@+id/toolbox_sub_button"
-        android:layout_width="@dimen/fast_default_button_size_large"
-        android:layout_height="@dimen/fast_default_button_size_large"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
         android:layout_above="@id/tool_button"
         android:layout_alignLeft="@id/tool_button"
         android:layout_alignRight="@id/tool_button"

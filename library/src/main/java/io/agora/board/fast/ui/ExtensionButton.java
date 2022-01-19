@@ -62,7 +62,7 @@ public class ExtensionButton extends FrameLayout implements RoomController {
     }
 
     private void initView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_sub_tool_button, this, true);
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_extension_button, this, true);
         subToolImage = root.findViewById(R.id.delete);
         subToolExpand = root.findViewById(R.id.sub_tool_expand);
 

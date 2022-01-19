@@ -31,6 +31,10 @@
             android:name=".cases.RoomActivity"
             android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".cases.flat.FlatRoomActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
     </application>
 
 </manifest>

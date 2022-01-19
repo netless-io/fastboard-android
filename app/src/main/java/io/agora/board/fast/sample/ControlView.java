@@ -43,13 +43,11 @@ public class ControlView extends FrameLayout {
             }
         });
 
-        root.findViewById(R.id.eraser_view).setOnClickListener(v -> {
-            if (fastSdk != null) {
-                SceneState sceneState = fastSdk.getFastRoom().getRoom().getRoomState().getSceneState();
-                String scenePath = sceneState.getScenePath();
-                String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
-                fastSdk.getFastRoom().getRoom().removeScenes(dir);
-            }
+        root.findViewById(R.id.clear).setOnClickListener(v -> {
+            SceneState sceneState = fastSdk.getFastRoom().getRoom().getRoomState().getSceneState();
+            String scenePath = sceneState.getScenePath();
+            String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
+            fastSdk.getFastRoom().getRoom().removeScenes(dir);
         });
 
         SwitchCompat toolboxSwitch = root.findViewById(R.id.toolbox_mode_switch);

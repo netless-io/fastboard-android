@@ -5,8 +5,8 @@ import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.FastVisiable;
-import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastStyle;
 
 /**
  * support user customized views

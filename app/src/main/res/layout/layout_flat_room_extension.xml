@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/room_class_button_size"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sample_flat_layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ext_tools"
+        android:layout_width="@dimen/room_class_button_size"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/room_ctrl_tool"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/roomStart"
+                android:layout_width="@dimen/room_class_button_size"
+                android:layout_height="@dimen/room_class_button_size"
+                android:padding="@dimen/room_class_button_padding_size"
+                android:src="@drawable/ic_toolbox_ext_state_idle" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size">
+
+            <ImageView
+                android:id="@+id/message"
+                android:layout_width="@dimen/room_class_button_size"
+                android:layout_height="@dimen/room_class_button_size"
+                android:padding="@dimen/room_class_button_padding_size"
+                android:src="@drawable/ic_toolbox_ext_message" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/cloudservice"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:padding="@dimen/room_class_button_padding_size"
+            android:src="@drawable/ic_toolbox_ext_cloudservice" />
+
+        <FrameLayout
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size">
+
+            <ImageView
+                android:id="@+id/userlist"
+                android:layout_width="@dimen/room_class_button_size"
+                android:layout_height="@dimen/room_class_button_size"
+                android:padding="@dimen/room_class_button_padding_size"
+                android:src="@drawable/ic_toolbox_ext_userlist" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/invite"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:padding="@dimen/room_class_button_padding_size"
+            android:src="@drawable/ic_toolbox_ext_invite" />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:padding="@dimen/room_class_button_padding_size"
+            android:src="@drawable/ic_toolbox_ext_setting" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/collapse"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:padding="@dimen/room_class_button_padding_size"
+            android:src="@drawable/ic_toolbox_ext_expanded" />
+
+        <ImageView
+            android:id="@+id/expand"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:padding="@dimen/room_class_button_padding_size"
+            android:src="@drawable/ic_toolbox_ext_collapsed"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

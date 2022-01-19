@@ -12,6 +12,7 @@ import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.cases.GetStartActivity;
 import io.agora.board.fast.sample.cases.RoomActivity;
 import io.agora.board.fast.sample.cases.drawsth.DrawSthActivity;
+import io.agora.board.fast.sample.cases.flat.FlatRoomActivity;
 
 /**
  * a singleton class to provider mock data
@@ -67,9 +68,17 @@ public class Repository {
 
         result.add(
                 new TestCase(
-                        "Main Room",
+                        "Main",
                         "Test api by multiple api call",
                         RoomActivity.class,
+                        new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+                ));
+
+        result.add(
+                new TestCase(
+                        "Flat Room",
+                        "Test flat ui",
+                        FlatRoomActivity.class,
                         new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
                 ));
         return result;
