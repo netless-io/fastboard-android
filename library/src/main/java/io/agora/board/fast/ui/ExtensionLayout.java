@@ -144,18 +144,8 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     }
 
     @Override
-    public void show() {
-        setVisibility(VISIBLE);
-    }
-
-    @Override
-    public void hide() {
-        setVisibility(GONE);
-    }
-
-    @Override
-    public boolean isShowing() {
-        return getVisibility() == VISIBLE;
+    public View getBindView() {
+        return this;
     }
 
     public void setType(@Type int type) {

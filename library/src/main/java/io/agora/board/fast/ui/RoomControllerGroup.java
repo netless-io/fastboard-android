@@ -83,17 +83,7 @@ public abstract class RoomControllerGroup implements RoomController {
     }
 
     @Override
-    public void show() {
-        root.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hide() {
-        root.setVisibility(View.GONE);
-    }
-
-    @Override
-    public boolean isShowing() {
-        return root.getVisibility() == View.VISIBLE;
+    public View getBindView() {
+        return root;
     }
 }

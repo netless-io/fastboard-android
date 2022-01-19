@@ -87,17 +87,7 @@ public class ToolLayout extends FrameLayout implements RoomController {
     }
 
     @Override
-    public void show() {
-        setVisibility(VISIBLE);
-    }
-
-    @Override
-    public void hide() {
-        setVisibility(GONE);
-    }
-
-    @Override
-    public boolean isShowing() {
-        return getVisibility() == VISIBLE;
+    public View getBindView() {
+        return this;
     }
 }

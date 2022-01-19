@@ -58,4 +58,9 @@ public class ToolButton extends FrameLayout implements RoomController {
     public void updateAppliance(FastAppliance fastAppliance) {
         toolImage.setImageResource(ResourceFetcher.get().getApplianceIcon(fastAppliance));
     }
+
+    @Override
+    public View getBindView() {
+        return this;
+    }
 }

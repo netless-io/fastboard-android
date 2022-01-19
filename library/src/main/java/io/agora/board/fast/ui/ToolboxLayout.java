@@ -2,6 +2,7 @@ package io.agora.board.fast.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -76,5 +77,10 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
         IMPL.setLayoutGravity(gravity);
 
         updateMemberState(fastRoom.getRoom().getRoomState().getMemberState());
+    }
+
+    @Override
+    public View getBindView() {
+        return this;
     }
 }

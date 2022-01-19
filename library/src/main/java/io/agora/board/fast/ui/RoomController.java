@@ -1,5 +1,7 @@
 package io.agora.board.fast.ui;
 
+import android.view.View;
+
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.SceneState;
 
@@ -43,16 +45,22 @@ public interface RoomController extends FastVisiable {
 
     @Override
     default void show() {
-
+        if (getBindView() != null) {
+            getBindView().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     default void hide() {
-
+        if (getBindView() != null) {
+            getBindView().setVisibility(View.GONE);
+        }
     }
 
     @Override
     default boolean isShowing() {
-        return false;
+        return getBindView() != null && getBindView().getVisibility() == View.VISIBLE;
     }
+
+    View getBindView();
 }
