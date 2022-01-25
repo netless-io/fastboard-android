@@ -16,10 +16,10 @@ public class FastRoomController extends RoomControllerGroup {
 
     public FastRoomController(ViewGroup root) {
         super(root);
+        setupView();
     }
 
-    @Override
-    public void setupView() {
+    private void setupView() {
         LayoutInflater.from(context).inflate(R.layout.layout_fast_room_controller, root, true);
 
         redoUndoLayout = root.findViewById(R.id.fast_redo_undo_layout);

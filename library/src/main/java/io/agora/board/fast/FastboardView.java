@@ -104,7 +104,6 @@ public class FastboardView extends FrameLayout {
         OverlayLayout overlayLayout = root.findViewById(R.id.fast_overlay_handle_view);
 
         roomControllerGroup = new FastRoomController(container);
-        roomControllerGroup.setupView();
         roomControllerGroup.addController(loadingLayout);
         roomControllerGroup.addController(overlayLayout);
 

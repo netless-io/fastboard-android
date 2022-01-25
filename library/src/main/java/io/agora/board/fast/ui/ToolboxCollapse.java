@@ -21,9 +21,11 @@ class ToolboxCollapse implements Toolbox {
 
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
+    private ToolboxLayout toolboxLayout;
 
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
+        this.toolboxLayout = toolboxLayout;
         Context context = toolboxLayout.getContext();
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_collapse, toolboxLayout, true);
@@ -159,5 +161,6 @@ class ToolboxCollapse implements Toolbox {
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
             subToolsLp.addRule(RelativeLayout.LEFT_OF, extensionButton.getId());
         }
+        toolboxLayout.requestLayout();
     }
 }

@@ -24,8 +24,6 @@ public abstract class RoomControllerGroup implements RoomController {
         this.context = container.getContext();
     }
 
-    abstract public void setupView();
-
     public void addController(RoomController controller) {
         controllers.addIfAbsent(controller);
     }

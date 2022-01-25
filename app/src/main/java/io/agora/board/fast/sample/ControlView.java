@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,7 +40,7 @@ public class ControlView extends FrameLayout {
         darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (fastSdk != null) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity(context);
-                activity.getDelegate().setLocalNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+                activity.getDelegate().setLocalNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
 
@@ -54,6 +55,12 @@ public class ControlView extends FrameLayout {
         toolboxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
             uiSettings.setToolboxExpand(!isChecked);
+        });
+
+        SwitchCompat toolboxGravitySwitch = root.findViewById(R.id.toolbox_gravity_switch);
+        toolboxGravitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
+            uiSettings.setToolboxGravity(isChecked ? Gravity.LEFT : Gravity.RIGHT);
         });
 
         SwitchCompat redoUndoSwitch = root.findViewById(R.id.redo_undo_orientation_switch);

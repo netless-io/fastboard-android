@@ -94,6 +94,10 @@ public class FastRoom {
         return room;
     }
 
+    public FastContext getFastContext() {
+        return fastContext;
+    }
+
     public OverlayManager getOverlayManager() {
         return fastContext.getOverlayManger();
     }

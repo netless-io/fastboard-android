@@ -45,7 +45,6 @@ public class FlatRoomActivity extends BaseActivity {
         fastSdk.joinRoom(roomOptions);
 
         FlatControllerGroup controller = new FlatControllerGroup(findViewById(R.id.flat_controller_layout));
-        controller.setupView();
         fastboardView.setRootRoomController(controller);
 
         updateFastStyle();

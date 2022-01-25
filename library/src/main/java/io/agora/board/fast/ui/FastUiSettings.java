@@ -1,5 +1,7 @@
 package io.agora.board.fast.ui;
 
+import android.view.View;
+
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import io.agora.board.fast.FastboardView;
@@ -31,11 +33,22 @@ public class FastUiSettings {
         redoUndoLayout.setOrientation(orientation);
     }
 
-    /**
-     * hide default controller
-     */
     public void hideRoomControllerGroup() {
         RoomControllerGroup rootRoomController = fastboardView.getRootRoomController();
         rootRoomController.hide();
+    }
+
+    public void showRoomControllerGroup() {
+        RoomControllerGroup rootRoomController = fastboardView.getRootRoomController();
+        rootRoomController.show();
+    }
+
+    public void hideRoomController(int... ids) {
+        for (int id : ids) {
+            View view = fastboardView.findViewById(id);
+            if (view instanceof RoomController) {
+                ((RoomController) view).hide();
+            }
+        }
     }
 }

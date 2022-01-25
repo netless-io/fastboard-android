@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import io.agora.board.fast.model.FastWindowBoxState;
 import io.agora.board.fast.sample.R;
+import io.agora.board.fast.sample.misc.Utils;
 import io.agora.board.fast.ui.RedoUndoLayout;
 import io.agora.board.fast.ui.RoomControllerGroup;
 import io.agora.board.fast.ui.ScenesLayout;
@@ -20,10 +21,10 @@ public class FlatControllerGroup extends RoomControllerGroup {
 
     public FlatControllerGroup(ViewGroup root) {
         super(root);
+        setupView();
     }
 
-    @Override
-    public void setupView() {
+    private void setupView() {
         LayoutInflater.from(context).inflate(R.layout.layout_flat_controller_group, root, true);
 
         redoUndoLayout = root.findViewById(R.id.redo_undo_layout);
@@ -33,11 +34,19 @@ public class FlatControllerGroup extends RoomControllerGroup {
         addController(redoUndoLayout);
         addController(scenesLayout);
         addController(toolboxLayout);
+
+        if (Utils.isPhone(context)) {
+            redoUndoLayout.hide();
+            scenesLayout.hide();
+        }
     }
 
     @Override
     public void updateWindowBoxState(String windowBoxState) {
         super.updateWindowBoxState(windowBoxState);
+        if (Utils.isPhone(context)) {
+            return;
+        }
         FastWindowBoxState boxState = FastWindowBoxState.of(windowBoxState);
         switch (boxState) {
             case Maximized:

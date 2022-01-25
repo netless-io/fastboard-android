@@ -28,10 +28,11 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ExtensionLayout extends LinearLayoutCompat implements RoomController {
-    static final int SHOW_MASK = 0xFF000000;
-    static final int SHOW_TOOLS = 0x01000000;
-    static final int SHOW_SEEKER = 0x02000000;
-    static final int SHOW_COLORS = 0x04000000;
+    static final int SHOW_MASK = 0xF000;
+    static final int SHOW_TOOLS = 0x1000;
+    static final int SHOW_SEEKER = 0x2000;
+    static final int SHOW_COLORS = 0x4000;
+
     public static final int TYPE_PHONE = 1 | SHOW_SEEKER | SHOW_COLORS;
     public static final int TYPE_TEXT = 2 | SHOW_COLORS;
     public static final int TYPE_PENCIL = 3 | SHOW_SEEKER | SHOW_COLORS;

@@ -42,7 +42,6 @@ public class DrawSthActivity extends BaseActivity {
         fastSdk.joinRoom(roomOptions);
 
         DrawSthController controller = new DrawSthController(findViewById(R.id.draw_sth_controller));
-        controller.setupView();
         fastboardView.setRootRoomController(controller);
 
         updateFastStyle();

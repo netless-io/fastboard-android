@@ -46,6 +46,7 @@ public class DrawSthController extends RoomControllerGroup {
 
     public DrawSthController(ViewGroup root) {
         super(root);
+        setupView();
     }
 
     private void triggerShown(int key) {
@@ -56,8 +57,7 @@ public class DrawSthController extends RoomControllerGroup {
         }
     }
 
-    @Override
-    public void setupView() {
+    private void setupView() {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_draw_sth_controller, this.root, true);
         pencilView = root.findViewById(R.id.pencil_view);
         eraserView = root.findViewById(R.id.eraser_view);

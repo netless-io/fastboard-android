@@ -38,6 +38,7 @@ class ToolboxExpand implements Toolbox {
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
 
+    private ToolboxLayout toolboxLayout;
     private RecyclerView toolsRecyclerView;
     private ToolboxAdapter toolboxAdapter;
     private DeleteButton toolboxDelete;
@@ -45,6 +46,7 @@ class ToolboxExpand implements Toolbox {
 
     @Override
     public void setupView(ToolboxLayout toolboxLayout) {
+        this.toolboxLayout = toolboxLayout;
         Context context = toolboxLayout.getContext();
 
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_expand, toolboxLayout, true);
@@ -182,5 +184,6 @@ class ToolboxExpand implements Toolbox {
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
             subToolsLp.addRule(RelativeLayout.LEFT_OF, toolsRecyclerView.getId());
         }
+        toolboxLayout.requestLayout();
     }
 }

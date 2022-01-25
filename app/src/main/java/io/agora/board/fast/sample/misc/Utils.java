@@ -32,4 +32,13 @@ public class Utils {
         } catch (Exception ignored) {
         }
     }
+
+    public static boolean isPhone(Context context) {
+        return !isTablet(context);
+    }
+
+    public static boolean isTablet(Context context) {
+        Configuration configuration = context.getResources().getConfiguration();
+        return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
 }
