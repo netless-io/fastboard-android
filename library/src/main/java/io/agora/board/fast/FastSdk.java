@@ -100,10 +100,6 @@ public class FastSdk {
         fastContext.setOverlayHandler(overlayHandler);
     }
 
-    public void setOverlayManager(OverlayManager overlayManager) {
-        fastContext.setOverlayManager(overlayManager);
-    }
-
     public OverlayManager getOverlayManger() {
         return fastContext.getOverlayManger();
     }
