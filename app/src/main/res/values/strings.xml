@@ -5,4 +5,6 @@
     <string name="change_toolbox" translatable="false" tools:ignore="ExtraTranslation">Toolbox Mode</string>
     <string name="change_toolbox_gravity" translatable="false" tools:ignore="ExtraTranslation">Toolbox Gravity</string>
     <string name="change_redo_undo" translatable="false" tools:ignore="ExtraTranslation">RedoUndo Mode</string>
+    <string name="change_width" translatable="false" tools:ignore="ExtraTranslation">width</string>
+    <string name="change_height" translatable="false" tools:ignore="ExtraTranslation">height</string>
 </resources>

@@ -7,10 +7,9 @@
     <dimen name="fast_gap_3">12dp</dimen>
 
     <dimen name="fast_default_button_size">32dp</dimen>
-    <dimen name="fast_default_button_size_large">40dp</dimen>
     <dimen name="fast_default_button_icon_size">24dp</dimen>
     <dimen name="fast_default_button_gap">4dp</dimen>
-    <dimen name="fast_default_layout_margin">12dp</dimen>
+    <dimen name="fast_default_layout_margin">8dp</dimen>
 
     <dimen name="fast_default_seekbar_width">120dp</dimen>
     <dimen name="fast_default_seekbar_height">20dp</dimen>

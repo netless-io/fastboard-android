@@ -7,18 +7,23 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastSdk;
+import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.ui.FastUiSettings;
 
 public class ControlView extends FrameLayout {
@@ -67,6 +72,67 @@ public class ControlView extends FrameLayout {
         redoUndoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
             uiSettings.setRedoUndoOrientation(isChecked ? LinearLayoutCompat.VERTICAL : LinearLayoutCompat.HORIZONTAL);
+        });
+
+        setupWHTest(root);
+    }
+
+    private void setupWHTest(View root) {
+        AppCompatSeekBar widthSeekBar = root.findViewById(R.id.change_width);
+        widthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    FastboardView fastboardView = fastSdk.getFastboardView();
+                    ViewGroup.LayoutParams layoutParams = fastboardView.getLayoutParams();
+                    layoutParams.width = progress;
+                    fastboardView.setLayoutParams(layoutParams);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        AppCompatSeekBar heightSeekbar = root.findViewById(R.id.change_height);
+        heightSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    FastboardView fastboardView = fastSdk.getFastboardView();
+                    ViewGroup.LayoutParams layoutParams = fastboardView.getLayoutParams();
+                    layoutParams.height = progress;
+                    fastboardView.setLayoutParams(layoutParams);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        View mainLayout = getActivity(getContext()).findViewById(R.id.main_layout);
+        ViewTreeObserver viewTreeObserver = mainLayout.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(() -> {
+            int height = mainLayout.getHeight();
+            int width = mainLayout.getWidth();
+            // widthSeekBar.setProgress(width);
+            widthSeekBar.setMax(width);
+            // heightSeekbar.setProgress(height);
+            heightSeekbar.setMax(height);
         });
     }
 

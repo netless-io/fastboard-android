@@ -5,10 +5,9 @@
 
     <ScrollView
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/shape_debug_bg"
-        android:maxHeight="300dp"
         android:paddingHorizontal="12dp">
 
         <LinearLayout
@@ -101,6 +100,44 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical" />
             </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:text="@string/change_width" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/change_width"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:text="@string/change_height" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/change_height"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_weight="1" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </merge>

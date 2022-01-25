@@ -36,6 +36,7 @@ public class FastboardView extends FrameLayout {
 
     FastContext fastContext;
     FastUiSettings fastUiSettings;
+    private float whiteboardRatio = 9.0f / 16;
 
     FastListener fastListener = new FastListener() {
         @Override
@@ -88,6 +89,24 @@ public class FastboardView extends FrameLayout {
         setupFastContext();
         setupView(context);
         setupStyle(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        post(() -> updateWhiteboardLayout(w, h, whiteboardRatio));
+    }
+
+    private void updateWhiteboardLayout(int w, int h, float ratio) {
+        FrameLayout.LayoutParams lps = (LayoutParams) whiteboardView.getLayoutParams();
+        if (h / ratio >= w) {
+            lps.height = (int) (w * ratio);
+            lps.width = w;
+        } else {
+            lps.height = h;
+            lps.width = (int) (h / ratio);
+        }
+        whiteboardView.setLayoutParams(lps);
     }
 
     private void setupFastContext() {
@@ -152,5 +171,10 @@ public class FastboardView extends FrameLayout {
             roomControllerGroup.setFastRoom(fastContext.fastRoom);
             roomControllerGroup.updateFastStyle(fastContext.fastStyle);
         }
+    }
+
+    public void setWhiteboardRatio(float ratio) {
+        this.whiteboardRatio = ratio;
+        updateWhiteboardLayout(getWidth(), getHeight(), ratio);
     }
 }
