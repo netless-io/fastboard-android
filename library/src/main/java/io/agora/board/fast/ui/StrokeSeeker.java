@@ -2,7 +2,6 @@ package io.agora.board.fast.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -41,6 +40,8 @@ public final class StrokeSeeker extends View {
     private int maxStroke;
     private int currentStrokeWidth;
 
+    private boolean seeking;
+
     public StrokeSeeker(@NonNull Context context) {
         this(context, null);
     }
@@ -69,7 +70,7 @@ public final class StrokeSeeker extends View {
         this.leftPaint.setAntiAlias(true);
         this.leftPaint.setColor(ContextCompat.getColor(context, R.color.fast_default_main_color));
         this.rightPaint.setAntiAlias(true);
-        this.rightPaint.setColor(Color.parseColor("#F3F6F9"));
+        this.rightPaint.setColor(ContextCompat.getColor(context, R.color.fast_day_night_divider_color));
     }
 
     private void changeHeight(int height) {
@@ -129,7 +130,15 @@ public final class StrokeSeeker extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                seeking = true;
+                this.updateCurrentX(event.getX());
+                break;
             case MotionEvent.ACTION_MOVE:
+                this.updateCurrentX(event.getX());
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                seeking = false;
                 this.updateCurrentX(event.getX());
                 break;
             default:
@@ -163,7 +172,7 @@ public final class StrokeSeeker extends View {
     }
 
     public final void setStrokeWidth(int strokeWidth) {
-        if (strokeWidth == currentStrokeWidth) {
+        if (seeking || strokeWidth == currentStrokeWidth) {
             return;
         }
         this.currentStrokeWidth = Math.max(strokeWidth, minStroke);

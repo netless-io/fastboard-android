@@ -1,7 +1,5 @@
 package io.agora.board.fast.ui;
 
-import com.herewhite.sdk.domain.ShapeType;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
