@@ -11,6 +11,14 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public interface FastListener {
+    default void onFastSdkCreated(FastSdk fastSdk) {
+
+    }
+
+    default void onFastStyleChanged(FastStyle style) {
+
+    }
+
     default void onSceneStateChanged(SceneState sceneState) {
 
     }
@@ -35,15 +43,11 @@ public interface FastListener {
 
     }
 
-    default void onFastStyleChanged(FastStyle style) {
-
-    }
-
     default void onFastRoomCreated(FastRoom fastRoom) {
 
     }
 
-    default void onFastSdkCreated(FastSdk fastSdk) {
+    default void onFastPlayerCreated(FastPlayer fastPlayer) {
 
     }
 

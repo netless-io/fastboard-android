@@ -12,15 +12,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
+import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
 import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastPlayerOptions;
+import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
-import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.ui.ResourceFetcher;
 
 public class FastContext {
@@ -103,6 +104,10 @@ public class FastContext {
         return fastStyle;
     }
 
+    public void setResourceImpl(ResourceImpl resourceImpl) {
+        resourceFetcher.setResourceImpl(resourceImpl);
+    }
+
     public void addListener(FastListener listener) {
         listeners.addIfAbsent(listener);
     }
@@ -145,7 +150,8 @@ public class FastContext {
     }
 
     public void notifyFastPlayerCreated(FastPlayer fastPlayer) {
-
+        this.fastPlayer = fastPlayer;
+        notifyListeners(listener -> listener.onFastPlayerCreated(fastPlayer));
     }
 
     public void notifyFastSdkCreated(FastSdk fastSdk) {
@@ -154,6 +160,7 @@ public class FastContext {
     }
 
     public void notifyFastError(FastException error) {
+        errorHandler.handleError(error);
         notifyListeners(listener -> listener.onFastError(error));
     }
 

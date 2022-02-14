@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 /**
  * @author fenglibin
  */
-class ColorDrawable extends Drawable {
+public class ColorDrawable extends Drawable {
     private static final int DEFAULT_BOARDER_COLOR = Color.parseColor("#40000000");
 
     private Paint mPaintColor;

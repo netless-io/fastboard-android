@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
+import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.model.FastPlayerOptions;
@@ -121,6 +122,10 @@ public class FastSdk {
 
     public void setFastStyle(FastStyle style) {
         fastContext.setFastStyle(style);
+    }
+
+    public void setResourceImpl(ResourceImpl resourceImpl) {
+        fastContext.setResourceImpl(resourceImpl);
     }
 
     public void destroy() {
