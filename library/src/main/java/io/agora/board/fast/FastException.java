@@ -7,41 +7,53 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class FastException extends RuntimeException {
+    @Documented
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({TYPE_SDK, TYPE_ROOM, TYPE_PLAYER})
+    public @interface Type {
+    }
 
     public static final int TYPE_SDK = 0;
     public static final int TYPE_ROOM = 1;
     public static final int TYPE_PLAYER = 2;
-    private int type;
 
-    private FastException(@Type int type, String message) {
+    public static final int SDK_ERROR = 100;
+    public static final int ROOM_JOIN_ERROR = 200;
+    public static final int ROOM_DISCONNECT_ERROR = 201;
+    public static final int PLAYER_JOIN_ERROR = 200;
+
+    private int type;
+    private int code;
+
+    private FastException(@Type int type, int code, String message) {
         super(message);
         this.type = type;
+        this.code = code;
     }
 
-    private FastException(@Type int type, String message, Throwable throwable) {
+    private FastException(@Type int type, int code, String message, Throwable throwable) {
         super(message, throwable);
         this.type = type;
+        this.code = code;
     }
 
     public static FastException createSdk(String message) {
-        return new FastException(TYPE_SDK, message);
+        return new FastException(TYPE_SDK, SDK_ERROR, message);
     }
 
-    public static FastException createRoom(String message, Throwable throwable) {
-        return new FastException(TYPE_ROOM, message, throwable);
+    public static FastException createRoom(int code, String message, Throwable throwable) {
+        return new FastException(TYPE_ROOM, code, message, throwable);
     }
 
-    public static FastException createPlayer(String message, Throwable throwable) {
-        return new FastException(TYPE_PLAYER, message, throwable);
+    public static FastException createPlayer(int code, String message, Throwable throwable) {
+        return new FastException(TYPE_PLAYER, code, message, throwable);
     }
 
     public int getType() {
         return type;
     }
 
-    @Documented
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({TYPE_SDK, TYPE_ROOM, TYPE_PLAYER})
-    public @interface Type {
+    public int getCode() {
+        return code;
     }
 }

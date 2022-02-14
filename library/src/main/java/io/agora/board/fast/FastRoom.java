@@ -1,5 +1,8 @@
 package io.agora.board.fast;
 
+import static io.agora.board.fast.FastException.ROOM_DISCONNECT_ERROR;
+import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
+
 import com.herewhite.sdk.Room;
 import com.herewhite.sdk.RoomListener;
 import com.herewhite.sdk.RoomParams;
@@ -32,6 +35,7 @@ public class FastRoom {
         @Override
         public void onDisconnectWithError(Exception e) {
             FastLogger.warn("receive disconnect error from js " + e.getMessage());
+            fastContext.notifyFastError(FastException.createRoom(ROOM_DISCONNECT_ERROR, e.getMessage(), e));
         }
 
         @Override
@@ -61,7 +65,9 @@ public class FastRoom {
             FastLogger.warn("receive frame error js userId:" + userId + " error:" + error.getMessage());
         }
     };
+    
     private Room room;
+
     private final Promise<Room> joinRoomPromise = new Promise<Room>() {
         @Override
         public void then(Room room) {
@@ -74,7 +80,7 @@ public class FastRoom {
         @Override
         public void catchEx(SDKError t) {
             FastLogger.error("join room error", t);
-            fastContext.notifyFastError(FastException.createRoom(t.getMessage(), t));
+            fastContext.notifyFastError(FastException.createRoom(ROOM_JOIN_ERROR, t.getMessage(), t));
         }
     };
 
