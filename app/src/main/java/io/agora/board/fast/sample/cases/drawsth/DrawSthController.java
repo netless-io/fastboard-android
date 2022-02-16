@@ -27,7 +27,6 @@ public class DrawSthController extends RoomControllerGroup {
     private ImageView pencilView;
     private ExtensionLayout colorsLayout;
     private ExtensionButton colorsButton;
-    private RedoUndoLayout redoUndoLayout;
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -62,7 +61,7 @@ public class DrawSthController extends RoomControllerGroup {
         pencilView = root.findViewById(R.id.pencil_view);
         eraserView = root.findViewById(R.id.eraser_view);
         colorsButton = root.findViewById(R.id.colors_button);
-        redoUndoLayout = root.findViewById(R.id.redo_undo_layout);
+        RedoUndoLayout redoUndoLayout = root.findViewById(R.id.redo_undo_layout);
 
         colorsLayout = root.findViewById(R.id.extension_layout);
         colorsLayout.setType(ExtensionLayout.TYPE_TEXT);

@@ -15,6 +15,8 @@ import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.sample.ControlView;
 
 public class Utils {
+    private static Gson gson = new Gson();
+
     public static int getThemePrimaryColor(Context context) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
@@ -46,8 +48,6 @@ public class Utils {
         Configuration configuration = context.getResources().getConfiguration();
         return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
-
-    private static Gson gson = new Gson();
 
     public static <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException {
         return gson.fromJson(json, classOfT);

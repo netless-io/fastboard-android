@@ -26,30 +26,6 @@ public class Repository {
     private static Repository instance;
 
     private Context context;
-
-    private Repository() {
-    }
-
-    public synchronized static Repository get() {
-        if (instance == null) {
-            instance = new Repository();
-        }
-        return instance;
-    }
-
-    public void init(Context context) {
-        this.context = context;
-    }
-
-    public String getUserId() {
-        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-    }
-
-    public void getRemoteData(int delay, Callback callback) {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(() -> callback.onSuccess(new Object()), delay);
-    }
-
     private String TEST_CLOUD_FILES_JSON = "" +
             "[" +
             "    {\n" +
@@ -86,6 +62,29 @@ public class Repository {
             "        \"height\": 512\n" +
             "    }\n" +
             "]";
+
+    private Repository() {
+    }
+
+    public synchronized static Repository get() {
+        if (instance == null) {
+            instance = new Repository();
+        }
+        return instance;
+    }
+
+    public void init(Context context) {
+        this.context = context;
+    }
+
+    public String getUserId() {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public void getRemoteData(int delay, Callback callback) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> callback.onSuccess(new Object()), delay);
+    }
 
     public List<CloudFile> getCloudFiles() {
         Type type = new TypeToken<ArrayList<CloudFile>>() {
