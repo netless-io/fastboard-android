@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="sample_gap_1">12dp</dimen>
+    <dimen name="sample_gap_2">24dp</dimen>
+    <dimen name="sample_gap_3">36dp</dimen>
+    <dimen name="sample_gap_4">48dp</dimen>
+    <dimen name="sample_gap_5">60dp</dimen>
+    <dimen name="sample_gap_6">72dp</dimen>
+    <dimen name="sample_gap_25">300dp</dimen>
+
     <dimen name="room_class_button_size">48dp</dimen>
     <dimen name="room_class_button_padding_size">6dp</dimen>
-
 </resources>

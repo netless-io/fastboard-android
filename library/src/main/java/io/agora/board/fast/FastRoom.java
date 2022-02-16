@@ -6,12 +6,15 @@ import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
 import com.herewhite.sdk.Room;
 import com.herewhite.sdk.RoomListener;
 import com.herewhite.sdk.RoomParams;
+import com.herewhite.sdk.domain.ImageInformation;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
 import com.herewhite.sdk.internal.Logger;
+
+import java.util.UUID;
 
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.internal.FastConvertor;
@@ -65,7 +68,7 @@ public class FastRoom {
             FastLogger.warn("receive frame error js userId:" + userId + " error:" + error.getMessage());
         }
     };
-    
+
     private Room room;
 
     private final Promise<Room> joinRoomPromise = new Promise<Room>() {
@@ -197,5 +200,17 @@ public class FastRoom {
                 Logger.error("set writable error", t);
             }
         });
+    }
+
+    public void insertImage(String url, int width, int height) {
+        String uuid = UUID.randomUUID().toString();
+        ImageInformation imageInfo = new ImageInformation();
+        imageInfo.setUuid(uuid);
+        imageInfo.setWidth(width);
+        imageInfo.setHeight(height);
+        imageInfo.setCenterX(0);
+        imageInfo.setCenterY(0);
+        getRoom().insertImage(imageInfo);
+        getRoom().completeImageUpload(uuid, url);
     }
 }

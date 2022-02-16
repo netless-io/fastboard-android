@@ -19,4 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:layout_marginHorizontal="@dimen/fast_default_layout_margin" />
+
+    <io.agora.board.fast.sample.cases.flat.CloudFilesController
+        android:id="@+id/cloud_files_controller"
+        android:layout_width="@dimen/sample_gap_25"
+        android:background="@drawable/sample_flat_layout_bg"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginHorizontal="@dimen/sample_gap_6" />
 </FrameLayout>

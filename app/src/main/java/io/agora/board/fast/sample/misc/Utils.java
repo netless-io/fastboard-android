@@ -6,6 +6,11 @@ import android.content.res.Configuration;
 import android.util.TypedValue;
 import android.widget.FrameLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import java.lang.reflect.Type;
+
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.sample.ControlView;
 
@@ -40,5 +45,15 @@ public class Utils {
     public static boolean isTablet(Context context) {
         Configuration configuration = context.getResources().getConfiguration();
         return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    private static Gson gson = new Gson();
+
+    public static <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException {
+        return gson.fromJson(json, classOfT);
+    }
+
+    public static <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
+        return gson.fromJson(json, typeOfT);
     }
 }

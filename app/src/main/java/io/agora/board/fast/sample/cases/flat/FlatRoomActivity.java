@@ -2,9 +2,11 @@ package io.agora.board.fast.sample.cases.flat;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.Objects;
 
+import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastSdk;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.FastRoomOptions;
@@ -19,7 +21,11 @@ import io.agora.board.fast.sample.misc.Utils;
 public class FlatRoomActivity extends BaseActivity {
     private final Repository repository = Repository.get();
 
+    private FastboardView fastboardView;
     private FastSdk fastSdk;
+    private FastRoom fastRoom;
+
+    private CloudFilesController cloudFilesController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +34,26 @@ public class FlatRoomActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        setupCloud();
         setupFastboard();
     }
 
+    private void setupCloud() {
+        cloudFilesController = findViewById(R.id.cloud_files_controller);
+        cloudFilesController.hide();
+
+        View cloudBtn = findViewById(R.id.cloud);
+        cloudBtn.setOnClickListener(v -> {
+            if (cloudFilesController.isShowing()) {
+                cloudFilesController.hide();
+            } else {
+                cloudFilesController.show();
+            }
+        });
+    }
+
     private void setupFastboard() {
-        FastboardView fastboardView = findViewById(R.id.fastboard_view);
+        fastboardView = findViewById(R.id.fastboard_view);
 
         FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SAMPLE_APP_ID);
         fastSdk = fastboardView.getFastSdk(fastSdkOptions);
@@ -42,9 +63,11 @@ public class FlatRoomActivity extends BaseActivity {
                 getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
                 repository.getUserId()
         );
-        fastSdk.joinRoom(roomOptions);
+        fastRoom = fastSdk.joinRoom(roomOptions);
 
         FlatControllerGroup controller = new FlatControllerGroup(findViewById(R.id.flat_controller_layout));
+        // it's a restriction that add controller before setRootRoomController
+        controller.addController(cloudFilesController);
         fastboardView.setRootRoomController(controller);
 
         updateFastStyle();

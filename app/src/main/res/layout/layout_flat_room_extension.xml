@@ -12,20 +12,6 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/room_ctrl_tool"
-            android:layout_width="@dimen/room_class_button_size"
-            android:layout_height="@dimen/room_class_button_size"
-            android:visibility="visible">
-
-            <ImageView
-                android:id="@+id/roomStart"
-                android:layout_width="@dimen/room_class_button_size"
-                android:layout_height="@dimen/room_class_button_size"
-                android:padding="@dimen/room_class_button_padding_size"
-                android:src="@drawable/ic_toolbox_ext_state_idle" />
-        </FrameLayout>
-
-        <FrameLayout
             android:layout_width="@dimen/room_class_button_size"
             android:layout_height="@dimen/room_class_button_size">
 
@@ -38,30 +24,11 @@
         </FrameLayout>
 
         <ImageView
-            android:id="@+id/cloudservice"
+            android:id="@+id/cloud"
             android:layout_width="@dimen/room_class_button_size"
             android:layout_height="@dimen/room_class_button_size"
             android:padding="@dimen/room_class_button_padding_size"
             android:src="@drawable/ic_toolbox_ext_cloudservice" />
-
-        <FrameLayout
-            android:layout_width="@dimen/room_class_button_size"
-            android:layout_height="@dimen/room_class_button_size">
-
-            <ImageView
-                android:id="@+id/userlist"
-                android:layout_width="@dimen/room_class_button_size"
-                android:layout_height="@dimen/room_class_button_size"
-                android:padding="@dimen/room_class_button_padding_size"
-                android:src="@drawable/ic_toolbox_ext_userlist" />
-        </FrameLayout>
-
-        <ImageView
-            android:id="@+id/invite"
-            android:layout_width="@dimen/room_class_button_size"
-            android:layout_height="@dimen/room_class_button_size"
-            android:padding="@dimen/room_class_button_padding_size"
-            android:src="@drawable/ic_toolbox_ext_invite" />
 
         <ImageView
             android:id="@+id/setting"
