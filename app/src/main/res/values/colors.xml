@@ -13,4 +13,6 @@
     <color name="secondaryTextColor">#000000</color>
 
     <color name="flat_icon_color_default">#000000</color>
+
+    <color name="ic_launcher_background">#FFFFFF</color>
 </resources>
