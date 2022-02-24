@@ -55,6 +55,7 @@ public class RedoUndoLayout extends LinearLayoutCompat implements RoomController
 
         undoImage.setOnClickListener(onClickListener);
         redoImage.setOnClickListener(onClickListener);
+        updateRedoUndo(new FastRedoUndo(0, 0));
     }
 
     @Override

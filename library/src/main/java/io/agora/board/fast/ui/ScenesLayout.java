@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastRoom;
@@ -30,7 +29,7 @@ public class ScenesLayout extends LinearLayout implements RoomController {
 
     private int sceneIndex;
     private int sceneSize;
-    private String scenePath;
+
     private FastRoom fastRoom;
 
     private final OnClickListener onClickListener = new OnClickListener() {
@@ -61,20 +60,16 @@ public class ScenesLayout extends LinearLayout implements RoomController {
     }
 
     private void prevScene() {
-        fastRoom.getRoom().setSceneIndex(sceneIndex - 1, null);
+        fastRoom.getRoom().prevPage(null);
     }
 
     private void nextScene() {
-        fastRoom.getRoom().setSceneIndex(sceneIndex + 1, null);
+        fastRoom.getRoom().nextPage(null);
     }
 
     private void addScene() {
-        String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
-        int targetIndex = sceneIndex + 1;
-
-        Scene scene = new Scene();
-        fastRoom.getRoom().putScenes(dir, new Scene[]{scene}, targetIndex);
-        fastRoom.getRoom().setSceneIndex(targetIndex, null);
+        fastRoom.getRoom().addPage(null, true);
+        fastRoom.getRoom().nextPage(null);
     }
 
     private void setupView(Context context) {
@@ -106,7 +101,6 @@ public class ScenesLayout extends LinearLayout implements RoomController {
     @Override
     public void updateSceneState(SceneState sceneState) {
         sceneIndex = sceneState.getIndex();
-        scenePath = sceneState.getScenePath();
         sceneSize = sceneState.getScenes().length;
 
         updateUI();
