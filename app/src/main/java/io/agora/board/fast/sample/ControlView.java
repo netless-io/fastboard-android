@@ -59,7 +59,7 @@ public class ControlView extends FrameLayout {
         SwitchCompat toolboxSwitch = root.findViewById(R.id.toolbox_mode_switch);
         toolboxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
-            uiSettings.setToolboxExpand(!isChecked);
+            uiSettings.setToolboxExpand(isChecked);
         });
 
         SwitchCompat toolboxGravitySwitch = root.findViewById(R.id.toolbox_gravity_switch);
