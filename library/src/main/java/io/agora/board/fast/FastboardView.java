@@ -16,11 +16,13 @@ import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.SceneState;
 
+import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.ui.ErrorHandleLayout;
 import io.agora.board.fast.ui.FastRoomController;
 import io.agora.board.fast.ui.FastUiSettings;
 import io.agora.board.fast.ui.LoadingLayout;
@@ -120,13 +122,16 @@ public class FastboardView extends FrameLayout {
 
         ViewGroup container = root.findViewById(R.id.fast_room_controller);
         LoadingLayout loadingLayout = root.findViewById(R.id.fast_loading_layout);
+        ErrorHandleLayout errorHandleLayout = root.findViewById(R.id.fast_error_handle_layout);
         OverlayLayout overlayLayout = root.findViewById(R.id.fast_overlay_handle_view);
 
         roomControllerGroup = new FastRoomController(container);
         roomControllerGroup.addController(loadingLayout);
+        roomControllerGroup.addController(errorHandleLayout);
         roomControllerGroup.addController(overlayLayout);
 
         fastContext.setRoomPhaseHandler(new FastRoomPhaseHandler(loadingLayout));
+        fastContext.setErrorHandler(new FastErrorHandler(errorHandleLayout));
         fastContext.setOverlayManager(new FastOverlayManager(fastContext, overlayLayout));
     }
 

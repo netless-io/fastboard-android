@@ -3,6 +3,7 @@
     <item name="fast_whiteboard_view" type="id" />
     <item name="fast_room_controller" type="id" />
     <item name="fast_loading_layout" type="id" />
+    <item name="fast_error_handle_layout" type="id" />
 
     <item name="fast_redo_undo_layout" type="id" />
     <item name="fast_scenes_layout" type="id" />

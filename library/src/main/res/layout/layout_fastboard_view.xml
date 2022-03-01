@@ -27,4 +27,12 @@
         android:background="@color/fast_day_night_bg"
         android:gravity="center"
         android:orientation="vertical" />
+
+    <io.agora.board.fast.ui.ErrorHandleLayout
+        android:id="@id/fast_error_handle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fast_day_night_bg"
+        android:gravity="center"
+        android:orientation="vertical" />
 </merge>

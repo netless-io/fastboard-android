@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fast_default_exit_title">Exit?</string>
-    <string name="fast_default_exit_room_message">join room error, click and reenter</string>
-    <string name="fast_default_exit_player_message">join player error, click and reenter</string>
+    <string name="fast_default_init_sdk_error">init sdk error, click and retry</string>
+    <string name="fast_default_room_error_message">join room error, click and retry</string>
+    <string name="fast_default_play_error_message">join player error, click and retry</string>
     <string name="fast_default_exit_ok">OK</string>
 
     <string name="fast_loading_text">loading…</string>
+    <string name="fast_retry">Retry</string>
 </resources>

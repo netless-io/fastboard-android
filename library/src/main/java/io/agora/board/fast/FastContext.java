@@ -44,7 +44,6 @@ public class FastContext {
         this.context = fastboardView.getContext();
         this.resourceFetcher = ResourceFetcher.get();
         this.resourceFetcher.init(context);
-        this.errorHandler = new FastErrorHandler(Util.getActivity(context));
         this.overlayHandler = new FastOverlayHandler(this);
     }
 

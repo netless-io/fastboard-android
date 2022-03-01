@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:background="@color/fast_day_night_bg"
+    tools:orientation="vertical"
+    tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat">
+
+    <TextView
+        android:id="@+id/fast_error_handle_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/fast_gap_1"
+        android:text="@string/fast_default_init_sdk_error"
+        android:textColor="@color/fast_day_night_text_on_bg"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/fast_error_handle_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/fast_bg_layout_round"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="@string/fast_retry"
+        android:textColor="@color/fast_day_night_text_on_bg"
+        android:textSize="14dp">
+    </TextView>
+</merge>
