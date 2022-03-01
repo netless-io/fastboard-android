@@ -14,13 +14,13 @@ import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.cases.base.BaseActivity;
 import io.agora.board.fast.sample.misc.Repository;
 
-public class GetStartActivity extends BaseActivity {
+public class QuickStartActivity extends BaseActivity {
     private final Repository repository = Repository.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_start);
+        setContentView(R.layout.activity_quick_start);
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 

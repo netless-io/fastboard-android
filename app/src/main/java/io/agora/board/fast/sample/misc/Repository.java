@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.sample.Constants;
-import io.agora.board.fast.sample.cases.GetStartActivity;
+import io.agora.board.fast.sample.cases.QuickStartActivity;
 import io.agora.board.fast.sample.cases.RoomActivity;
 import io.agora.board.fast.sample.cases.drawsth.DrawSthActivity;
 import io.agora.board.fast.sample.cases.flat.FlatRoomActivity;
@@ -96,9 +96,9 @@ public class Repository {
     public List<TestCase> getTestCases() {
         ArrayList<TestCase> result = new ArrayList<>();
         result.add(new TestCase(
-                "Get Started",
+                "Quick Start",
                 "Start fastboard with a sample",
-                GetStartActivity.class,
+                QuickStartActivity.class,
                 new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
         ));
 

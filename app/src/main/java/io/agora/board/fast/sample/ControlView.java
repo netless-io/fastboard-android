@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,9 @@ import io.agora.board.fast.ui.FastUiSettings;
 public class ControlView extends FrameLayout {
     private FastSdk fastSdk;
 
+    private View controllerLayout;
+    private ImageView handleView;
+
     public ControlView(@NonNull Context context) {
         this(context, null);
     }
@@ -40,6 +44,8 @@ public class ControlView extends FrameLayout {
     public ControlView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View root = LayoutInflater.from(context).inflate(R.layout.layout_control_view, this, true);
+        controllerLayout = root.findViewById(R.id.controller_layout);
+        handleView = findViewById(R.id.handle);
 
         SwitchCompat darkModeSwitch = root.findViewById(R.id.dark_mode_switch);
         darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -134,6 +140,22 @@ public class ControlView extends FrameLayout {
             // heightSeekbar.setProgress(height);
             heightSeekbar.setMax(height);
         });
+
+        ImageView handle = findViewById(R.id.handle);
+        handle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isVisiable = controllerLayout.getVisibility() == VISIBLE;
+                controllerLayout.setVisibility(isVisiable ? GONE : VISIBLE);
+                updateHandleView();
+            }
+        });
+        updateHandleView();
+    }
+
+    private void updateHandleView() {
+        boolean isVisiable = controllerLayout.getVisibility() == VISIBLE;
+        handleView.setImageResource(isVisiable ? R.drawable.ic_toolbox_ext_expanded : R.drawable.ic_toolbox_ext_collapsed);
     }
 
     public void attachFastSdk(FastSdk fastSdk) {

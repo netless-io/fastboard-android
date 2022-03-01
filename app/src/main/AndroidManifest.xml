@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fastboard">
         <activity
-            android:name=".cases.GetStartActivity"
+            android:name=".cases.QuickStartActivity"
             android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
