@@ -23,7 +23,7 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class FastSdk {
-    public static final String VERSION = "1.0.0-beta.3";
+    public static final String VERSION = "1.0.0";
 
     final FastContext fastContext;
 

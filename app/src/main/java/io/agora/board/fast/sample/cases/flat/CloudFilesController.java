@@ -2,6 +2,7 @@ package io.agora.board.fast.sample.cases.flat;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -11,17 +12,9 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.herewhite.sdk.ConverterCallbacks;
-import com.herewhite.sdk.converter.ConvertType;
-import com.herewhite.sdk.converter.ConverterV5;
-import com.herewhite.sdk.domain.ConversionInfo;
-import com.herewhite.sdk.domain.ConvertException;
-import com.herewhite.sdk.domain.ConvertedFiles;
-import com.herewhite.sdk.domain.WindowAppParam;
-
-import java.util.UUID;
-
 import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.extension.FastResult;
+import io.agora.board.fast.model.FastInsertDocParams;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.misc.CloudFile;
 import io.agora.board.fast.sample.misc.Repository;
@@ -63,11 +56,9 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
                     insertVideo(cloudFile);
                     break;
                 case "pptx":
-                    insertDynamicDoc(cloudFile);
-                    break;
                 case "ppt":
                 case "pdf":
-                    insertStaticDoc(cloudFile);
+                    insertDocs(cloudFile);
                     break;
             }
             hide();
@@ -82,41 +73,19 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
         fastRoom.insertVideo(cloudFile.name, cloudFile.url);
     }
 
-    private void insertDynamicDoc(CloudFile cloudFile) {
-        insertDocs(cloudFile, true);
-    }
+    private void insertDocs(CloudFile file) {
+        FastInsertDocParams params = new FastInsertDocParams(file.url, file.type, file.taskUUID, file.taskToken);
+        fastRoom.insertDocs(params, new FastResult<String>() {
+            @Override
+            public void onSuccess(String value) {
+                Log.i("CloudFilesController", "insert Docs success");
+            }
 
-    private void insertStaticDoc(CloudFile cloudFile) {
-        insertDocs(cloudFile, false);
-    }
-
-    private void insertDocs(CloudFile cloudFile, Boolean dynamic) {
-        ConverterV5 convert = new ConverterV5.Builder()
-                .setResource(cloudFile.url)
-                .setType(dynamic ? ConvertType.Dynamic : ConvertType.Static)
-                .setTaskUuid(cloudFile.taskUUID)
-                .setTaskToken(cloudFile.taskToken)
-                .setCallback(new ConverterCallbacks() {
-                    @Override
-                    public void onProgress(Double progress, ConversionInfo convertInfo) {
-                    }
-
-                    @Override
-                    public void onFinish(ConvertedFiles converted, ConversionInfo convertInfo) {
-                        WindowAppParam param = WindowAppParam.createSlideApp(generateUniqueDir(cloudFile.taskUUID), converted.getScenes(), cloudFile.name);
-                        fastRoom.getRoom().addApp(param, null);
-                    }
-
-                    private String generateUniqueDir(String taskUUID) {
-                        String uuid = UUID.randomUUID().toString();
-                        return String.format("/%s/%s", taskUUID, uuid);
-                    }
-
-                    @Override
-                    public void onFailure(ConvertException e) {
-                    }
-                }).build();
-        convert.startConvertTask();
+            @Override
+            public void onError(Exception exception) {
+                Log.i("CloudFilesController", "insert Docs fail");
+            }
+        });
     }
 
     @Override

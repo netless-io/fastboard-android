@@ -1,4 +1,7 @@
 # Change Log
+## [Version 1.0.0] - 2021-03-03
+- Update: update Samples
+- Update: update default ErrorHandle with ErrorHandleLayout
 
 ## [Version 1.0.0-beta.3] - 2021-02-16
 - New: add FastboardView.setWhiteboardRatio

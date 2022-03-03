@@ -3,9 +3,15 @@ package io.agora.board.fast;
 import static io.agora.board.fast.FastException.ROOM_DISCONNECT_ERROR;
 import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
 
+import com.herewhite.sdk.ConverterCallbacks;
 import com.herewhite.sdk.Room;
 import com.herewhite.sdk.RoomListener;
 import com.herewhite.sdk.RoomParams;
+import com.herewhite.sdk.converter.ConvertType;
+import com.herewhite.sdk.converter.ConverterV5;
+import com.herewhite.sdk.domain.ConversionInfo;
+import com.herewhite.sdk.domain.ConvertException;
+import com.herewhite.sdk.domain.ConvertedFiles;
 import com.herewhite.sdk.domain.ImageInformation;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.Promise;
@@ -17,9 +23,12 @@ import com.herewhite.sdk.internal.Logger;
 
 import java.util.UUID;
 
+import io.agora.board.fast.extension.FastResult;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.internal.FastConvertor;
+import io.agora.board.fast.internal.PromiseResultAdapter;
 import io.agora.board.fast.model.FastAppliance;
+import io.agora.board.fast.model.FastInsertDocParams;
 import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastRoomOptions;
 
@@ -100,6 +109,9 @@ public class FastRoom {
         fastContext.notifyRoomPhaseChanged(RoomPhase.connecting);
     }
 
+    /**
+     * @return
+     */
     public Room getRoom() {
         return room;
     }
@@ -263,5 +275,52 @@ public class FastRoom {
     public void insertVideo(String url, String title) {
         WindowAppParam param = WindowAppParam.createMediaPlayerApp(url, title);
         getRoom().addApp(param, null);
+    }
+
+    /**
+     * insert static or dynamic doc insert window
+     *
+     * @param params
+     * @param result
+     */
+    public void insertDocs(FastInsertDocParams params, FastResult<String> result) {
+        ConverterV5 convert = new ConverterV5.Builder()
+                .setResource(params.getResource())
+                .setType(isDynamicDoc(params.getFileType()) ? ConvertType.Dynamic : ConvertType.Static)
+                .setTaskUuid(params.getTaskUUID())
+                .setTaskToken(params.getTaskToken())
+                .setCallback(new ConverterCallbacks() {
+                    @Override
+                    public void onProgress(Double progress, ConversionInfo convertInfo) {
+                    }
+
+                    @Override
+                    public void onFinish(ConvertedFiles converted, ConversionInfo convertInfo) {
+                        WindowAppParam param = WindowAppParam.createSlideApp(generateUniqueDir(params.getTaskUUID()), converted.getScenes(), params.getTitle());
+                        getRoom().addApp(param, new PromiseResultAdapter<>(result));
+                    }
+
+                    private String generateUniqueDir(String taskUUID) {
+                        String uuid = UUID.randomUUID().toString();
+                        return String.format("/%s/%s", taskUUID, uuid);
+                    }
+
+                    @Override
+                    public void onFailure(ConvertException e) {
+                        if (result != null) {
+                            result.onError(e);
+                        }
+                    }
+                }).build();
+        convert.startConvertTask();
+    }
+
+    private boolean isDynamicDoc(String fileType) {
+        switch (fileType) {
+            case "pptx":
+                return true;
+            default:
+                return false;
+        }
     }
 }
