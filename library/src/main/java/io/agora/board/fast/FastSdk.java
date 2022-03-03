@@ -45,7 +45,7 @@ public class FastSdk {
 
         @Override
         public void onLogger(JSONObject object) {
-
+            FastLogger.info(object.toString());
         }
     };
     WhiteSdk whiteSdk;
@@ -133,5 +133,9 @@ public class FastSdk {
         WhiteboardView whiteboardView = fastboardView.whiteboardView;
         whiteboardView.removeAllViews();
         whiteboardView.destroy();
+    }
+
+    public String getVersion() {
+        return VERSION;
     }
 }

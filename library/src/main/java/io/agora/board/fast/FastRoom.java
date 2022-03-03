@@ -12,6 +12,7 @@ import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
+import com.herewhite.sdk.domain.WindowAppParam;
 import com.herewhite.sdk.internal.Logger;
 
 import java.util.UUID;
@@ -135,6 +136,11 @@ public class FastRoom {
         }
     }
 
+    /**
+     * set appliance color
+     *
+     * @param color color int as 0xFFFFFF
+     */
     public void setColor(Integer color) {
         if (getRoom() == null) {
             FastLogger.warn("call fast room before join..");
@@ -149,6 +155,11 @@ public class FastRoom {
         getRoom().setMemberState(memberState);
     }
 
+    /**
+     * set appliance
+     *
+     * @param fastAppliance
+     */
     public void setAppliance(FastAppliance fastAppliance) {
         if (getRoom() == null) {
             FastLogger.warn("call fast room before join..");
@@ -160,6 +171,11 @@ public class FastRoom {
         getRoom().setMemberState(memberState);
     }
 
+    /**
+     * set appliance stoke width
+     *
+     * @param width
+     */
     public void setStokeWidth(int width) {
         if (getRoom() == null) {
             FastLogger.warn("call fast room before join..");
@@ -180,6 +196,11 @@ public class FastRoom {
         getRoom().cleanScene(true);
     }
 
+    /**
+     * change room writable
+     *
+     * @param writable
+     */
     public void setWritable(boolean writable) {
         if (getRoom() == null) {
             FastLogger.warn("call fast room before join..");
@@ -202,6 +223,13 @@ public class FastRoom {
         });
     }
 
+    /**
+     * Insert Image
+     *
+     * @param url    image remote url
+     * @param width  image display width
+     * @param height image display width
+     */
     public void insertImage(String url, int width, int height) {
         String uuid = UUID.randomUUID().toString();
         ImageInformation imageInfo = new ImageInformation();
@@ -212,5 +240,16 @@ public class FastRoom {
         imageInfo.setCenterY(0);
         getRoom().insertImage(imageInfo);
         getRoom().completeImageUpload(uuid, url);
+    }
+
+    /**
+     * Insert Video
+     *
+     * @param title video app title
+     * @param url   video remote url
+     */
+    public void insertVideo(String title, String url) {
+        WindowAppParam param = WindowAppParam.createMediaPlayerApp(url, title);
+        getRoom().addApp(param, null);
     }
 }

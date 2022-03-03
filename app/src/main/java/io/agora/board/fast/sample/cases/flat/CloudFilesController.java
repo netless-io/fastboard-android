@@ -79,8 +79,7 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
     }
 
     private void insertVideo(CloudFile cloudFile) {
-        WindowAppParam param = WindowAppParam.createMediaPlayerApp(cloudFile.url, cloudFile.name);
-        fastRoom.getRoom().addApp(param, null);
+        fastRoom.insertVideo(cloudFile.name, cloudFile.url);
     }
 
     private void insertDynamicDoc(CloudFile cloudFile) {
