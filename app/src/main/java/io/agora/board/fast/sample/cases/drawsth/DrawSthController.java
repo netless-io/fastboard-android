@@ -66,7 +66,7 @@ public class DrawSthController extends RoomControllerGroup {
         colorsLayout = root.findViewById(R.id.extension_layout);
         colorsLayout.setType(ExtensionLayout.TYPE_TEXT);
         colorsLayout.setOnColorClickListener(color -> {
-            fastRoom.setColor(color);
+            fastRoom.setStrokeColor(color);
             overlayManager.hideAll();
         });
 

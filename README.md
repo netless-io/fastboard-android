@@ -65,10 +65,9 @@ private void setupFastboard() {
             roomUUID,
             roomToken,
             uid);
-    fastSdk.joinRoom(roomOptions);
+    FastRoom fastRoom = fastSdk.joinRoom(roomOptions);
 }
 ```
-
 ## Configuration
 ### Style
 

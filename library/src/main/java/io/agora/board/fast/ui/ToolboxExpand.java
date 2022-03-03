@@ -116,7 +116,7 @@ class ToolboxExpand implements Toolbox {
         });
 
         extensionLayout.setOnColorClickListener(color -> {
-            fastRoom.setColor(color);
+            fastRoom.setStrokeColor(color);
         });
 
         extensionLayout.setOnApplianceClickListener(item -> {

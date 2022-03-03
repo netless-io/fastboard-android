@@ -136,23 +136,16 @@ public class FastRoom {
         }
     }
 
-    /**
-     * set appliance color
-     *
-     * @param color color int as 0xFFFFFF
-     */
-    public void setColor(Integer color) {
-        if (getRoom() == null) {
-            FastLogger.warn("call fast room before join..");
-            return;
+    public void redo() {
+        if (getRoom() != null) {
+            getRoom().redo();
         }
-        MemberState memberState = new MemberState();
-        memberState.setStrokeColor(new int[]{
-                color >> 16 & 0xff,
-                color >> 8 & 0xff,
-                color & 0xff,
-        });
-        getRoom().setMemberState(memberState);
+    }
+
+    public void undo() {
+        if (getRoom() != null) {
+            getRoom().undo();
+        }
     }
 
     /**
@@ -184,6 +177,25 @@ public class FastRoom {
 
         MemberState memberState = new MemberState();
         memberState.setStrokeWidth(width);
+        getRoom().setMemberState(memberState);
+    }
+
+    /**
+     * set appliance color
+     *
+     * @param color color int as 0xFFFFFF
+     */
+    public void setStrokeColor(Integer color) {
+        if (getRoom() == null) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+        MemberState memberState = new MemberState();
+        memberState.setStrokeColor(new int[]{
+                color >> 16 & 0xff,
+                color >> 8 & 0xff,
+                color & 0xff,
+        });
         getRoom().setMemberState(memberState);
     }
 
@@ -245,10 +257,10 @@ public class FastRoom {
     /**
      * Insert Video
      *
-     * @param title video app title
      * @param url   video remote url
+     * @param title video app title
      */
-    public void insertVideo(String title, String url) {
+    public void insertVideo(String url, String title) {
         WindowAppParam param = WindowAppParam.createMediaPlayerApp(url, title);
         getRoom().addApp(param, null);
     }

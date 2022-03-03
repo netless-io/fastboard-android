@@ -47,7 +47,7 @@ class ToolboxCollapse implements Toolbox {
         extensionLayout = root.findViewById(R.id.extension_layout);
         extensionLayout.setType(ExtensionLayout.TYPE_PHONE);
         extensionLayout.setOnColorClickListener(color -> {
-            fastRoom.setColor(color);
+            fastRoom.setStrokeColor(color);
 
             extensionButton.setColor(color);
             extensionLayout.setColor(color);
