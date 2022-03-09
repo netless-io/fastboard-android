@@ -143,6 +143,10 @@ public class FastRoom {
             fastContext.notifySceneStateChanged(roomState.getSceneState());
         }
 
+        if (roomState.getPageState() != null) {
+            fastContext.notifyPageStateChanged(roomState.getPageState());
+        }
+
         if (roomState.getWindowBoxState() != null) {
             fastContext.notifyWindowBoxStateChanged(roomState.getWindowBoxState());
         }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.herewhite.sdk.domain.MemberState;
+import com.herewhite.sdk.domain.PageState;
 import com.herewhite.sdk.domain.SceneState;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -45,6 +46,12 @@ public abstract class RoomControllerGroup implements RoomController {
     public void updateSceneState(SceneState sceneState) {
         for (RoomController controller : controllers) {
             controller.updateSceneState(sceneState);
+        }
+    }
+
+    public void updatePageState(PageState pageState) {
+        for (RoomController controller : controllers) {
+            controller.updatePageState(pageState);
         }
     }
 

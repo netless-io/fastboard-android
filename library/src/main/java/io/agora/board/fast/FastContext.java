@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
+import com.herewhite.sdk.domain.PageState;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.SceneState;
 
@@ -133,6 +134,10 @@ public class FastContext {
 
     public void notifySceneStateChanged(SceneState sceneState) {
         notifyListeners(listener -> listener.onSceneStateChanged(sceneState));
+    }
+
+    public void notifyPageStateChanged(PageState pageState) {
+        notifyListeners(listener -> listener.onPageStateChanged(pageState));
     }
 
     public void notifyWindowBoxStateChanged(String windowBoxState) {

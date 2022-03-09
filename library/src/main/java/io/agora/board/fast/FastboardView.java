@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.MemberState;
+import com.herewhite.sdk.domain.PageState;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.internal.FastErrorHandler;
@@ -44,6 +45,11 @@ public class FastboardView extends FrameLayout {
         @Override
         public void onSceneStateChanged(SceneState sceneState) {
             roomControllerGroup.updateSceneState(sceneState);
+        }
+
+        @Override
+        public void onPageStateChanged(PageState pageState) {
+            roomControllerGroup.updatePageState(pageState);
         }
 
         @Override

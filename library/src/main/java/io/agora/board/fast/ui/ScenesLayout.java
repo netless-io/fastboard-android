@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.herewhite.sdk.domain.SceneState;
+import com.herewhite.sdk.domain.PageState;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
@@ -99,9 +99,9 @@ public class ScenesLayout extends LinearLayout implements RoomController {
     }
 
     @Override
-    public void updateSceneState(SceneState sceneState) {
-        sceneIndex = sceneState.getIndex();
-        sceneSize = sceneState.getScenes().length;
+    public void updatePageState(PageState pageState) {
+        sceneIndex = pageState.getIndex();
+        sceneSize = pageState.getLength();
 
         updateUI();
     }

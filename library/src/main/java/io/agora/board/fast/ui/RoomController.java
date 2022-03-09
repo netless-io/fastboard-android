@@ -3,6 +3,7 @@ package io.agora.board.fast.ui;
 import android.view.View;
 
 import com.herewhite.sdk.domain.MemberState;
+import com.herewhite.sdk.domain.PageState;
 import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastRoom;
@@ -20,6 +21,10 @@ public interface RoomController extends FastVisiable {
     }
 
     default void updateSceneState(SceneState sceneState) {
+
+    }
+
+    default void updatePageState(PageState pageState) {
 
     }
 
