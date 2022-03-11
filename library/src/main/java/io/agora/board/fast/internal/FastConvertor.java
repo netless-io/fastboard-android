@@ -11,14 +11,13 @@ import com.herewhite.sdk.domain.WindowPrefersColorScheme;
 
 import java.util.HashMap;
 
-import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRegion;
+import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 
 public class FastConvertor {
     public static WhiteSdkConfiguration convertSdkOptions(FastRoomOptions options) {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
-        // fast default config
         result.setUseMultiViews(true);
         return result;
     }

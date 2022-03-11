@@ -53,9 +53,9 @@ public class Fastboard {
         joinPlayer(options, null);
     }
 
-    public void joinPlayer(FastReplayOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
+    public void joinPlayer(FastReplayOptions options, OnReplayReadyCallback onReplayReadyCallback) {
         initSdkIfNeed(options.getSdkConfiguration());
-        fastContext.joinPlayer(options, onPlayerReadyCallback);
+        fastContext.joinPlayer(options, onReplayReadyCallback);
     }
 
     public FastReplay getFastPlayer() {

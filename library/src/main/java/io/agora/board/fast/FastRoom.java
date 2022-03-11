@@ -103,7 +103,7 @@ public class FastRoom {
         this(fastContext, options, null);
     }
 
-    public FastRoom(FastContext fastContext, FastRoomOptions options, OnRoomReadyCallback onRoomReadyCallback) {
+    public FastRoom(FastContext fastContext, FastRoomOptions options, @Nullable OnRoomReadyCallback onRoomReadyCallback) {
         this.fastContext = fastContext;
         this.fastRoomOptions = options;
         this.onRoomReadyCallback = onRoomReadyCallback;
@@ -153,13 +153,13 @@ public class FastRoom {
     }
 
     public void redo() {
-        if (getRoom() != null) {
+        if (isReady()) {
             getRoom().redo();
         }
     }
 
     public void undo() {
-        if (getRoom() != null) {
+        if (isReady()) {
             getRoom().undo();
         }
     }
@@ -170,11 +170,14 @@ public class FastRoom {
      * @param fastAppliance
      */
     public void setAppliance(FastAppliance fastAppliance) {
-        if (getRoom() == null) {
+        if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
         }
-
+        if (fastAppliance == FastAppliance.OTHER_CLEAR) {
+            cleanScene();
+            return;
+        }
         MemberState memberState = new MemberState();
         memberState.setCurrentApplianceName(fastAppliance.appliance, fastAppliance.shapeType);
         getRoom().setMemberState(memberState);
@@ -186,7 +189,7 @@ public class FastRoom {
      * @param width
      */
     public void setStokeWidth(int width) {
-        if (getRoom() == null) {
+        if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
         }
@@ -202,10 +205,11 @@ public class FastRoom {
      * @param color color int as 0xFFFFFF
      */
     public void setStrokeColor(Integer color) {
-        if (getRoom() == null) {
+        if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
         }
+
         MemberState memberState = new MemberState();
         memberState.setStrokeColor(new int[]{
                 color >> 16 & 0xff,
@@ -216,7 +220,7 @@ public class FastRoom {
     }
 
     public void cleanScene() {
-        if (getRoom() == null) {
+        if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
         }
@@ -230,7 +234,7 @@ public class FastRoom {
      * @param writable
      */
     public void setWritable(boolean writable) {
-        if (getRoom() == null) {
+        if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
         }
@@ -259,6 +263,11 @@ public class FastRoom {
      * @param height image display width
      */
     public void insertImage(String url, int width, int height) {
+        if (!isReady()) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
         String uuid = UUID.randomUUID().toString();
         ImageInformation imageInfo = new ImageInformation();
         imageInfo.setUuid(uuid);
@@ -277,6 +286,11 @@ public class FastRoom {
      * @param title video app title
      */
     public void insertVideo(String url, String title) {
+        if (!isReady()) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
         WindowAppParam param = WindowAppParam.createMediaPlayerApp(url, title);
         getRoom().addApp(param, null);
     }
@@ -288,6 +302,11 @@ public class FastRoom {
      * @param result
      */
     public void insertDocs(FastInsertDocParams params, @Nullable FastResult<String> result) {
+        if (!isReady()) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
         ConverterV5 convert = new ConverterV5.Builder()
                 .setResource(params.getResource())
                 .setType(isDynamicDoc(params.getFileType()) ? ConvertType.Dynamic : ConvertType.Static)

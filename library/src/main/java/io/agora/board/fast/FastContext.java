@@ -2,12 +2,10 @@ package io.agora.board.fast;
 
 import android.content.Context;
 
-import com.herewhite.sdk.domain.BroadcastState;
-import com.herewhite.sdk.domain.MemberState;
-import com.herewhite.sdk.domain.PageState;
+import androidx.annotation.Nullable;
+
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
-import com.herewhite.sdk.domain.SceneState;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -17,8 +15,8 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
-import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.ResourceFetcher;
@@ -57,12 +55,12 @@ public class FastContext {
         return fastboard;
     }
 
-    public void joinRoom(FastRoomOptions options, OnRoomReadyCallback onRoomReadyCallback) {
+    public void joinRoom(FastRoomOptions options, @Nullable OnRoomReadyCallback onRoomReadyCallback) {
         fastRoom = new FastRoom(this, options, onRoomReadyCallback);
         fastRoom.join();
     }
 
-    public void joinPlayer(FastReplayOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
+    public void joinPlayer(FastReplayOptions options, OnReplayReadyCallback onReplayReadyCallback) {
         fastReplay = new FastReplay(this, options);
         fastReplay.join();
     }

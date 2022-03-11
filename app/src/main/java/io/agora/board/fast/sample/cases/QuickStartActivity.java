@@ -31,14 +31,13 @@ public class QuickStartActivity extends BaseActivity {
         FastboardView fastboardView = findViewById(R.id.fastboard_view);
         // step 2: obtain fastboard
         Fastboard fastboard = fastboardView.getFastboard();
-
+        // step 3: join room
         FastRoomOptions roomOptions = new FastRoomOptions(
                 Constants.SAMPLE_APP_ID,
                 getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
                 getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
                 repository.getUserId()
         );
-        // step 3: join room
         fastboard.joinRoom(roomOptions, fastRoom -> {
 
         });
