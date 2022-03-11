@@ -156,10 +156,6 @@ public class FastboardView extends FrameLayout {
         return fastContext.getFastStyle();
     }
 
-//    public FastSdk getFastSdk(FastSdkOptions options) {
-//        return fastContext.getFastSdk(options);
-//    }
-
     public Fastboard getFastboard() {
         return fastContext.getFastboard();
     }

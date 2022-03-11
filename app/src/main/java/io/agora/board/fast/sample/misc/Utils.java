@@ -31,7 +31,7 @@ public class Utils {
     public static void setupDevTools(Activity activity, Fastboard fastboard) {
         try {
             ControlView controlView = new ControlView(activity);
-            controlView.attachFastSdk(fastboard);
+            controlView.attachFastboard(fastboard);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 
             FrameLayout layout = activity.getWindow().getDecorView().findViewById(android.R.id.content);

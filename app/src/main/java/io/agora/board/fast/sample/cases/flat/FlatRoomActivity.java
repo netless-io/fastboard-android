@@ -11,10 +11,12 @@ import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.OnRoomReadyCallback;
 import io.agora.board.fast.model.FastRoomOptions;
+import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.cases.base.BaseActivity;
 import io.agora.board.fast.sample.misc.Repository;
+import io.agora.board.fast.sample.misc.Utils;
 
 public class FlatRoomActivity extends BaseActivity {
     private final Repository repository = Repository.get();
@@ -84,9 +86,9 @@ public class FlatRoomActivity extends BaseActivity {
 
     protected void updateFastStyle() {
         // global style change
-//        FastStyle fastStyle = fastSdk.getFastStyle();
-//        fastStyle.setDarkMode(Utils.isDarkMode(this));
-//        fastStyle.setMainColor(Utils.getThemePrimaryColor(this));
-//        fastSdk.setFastStyle(fastStyle);
+        FastStyle fastStyle = fastboard.getFastStyle();
+        fastStyle.setDarkMode(Utils.isDarkMode(this));
+        fastStyle.setMainColor(Utils.getThemePrimaryColor(this));
+        fastboard.setFastStyle(fastStyle);
     }
 }

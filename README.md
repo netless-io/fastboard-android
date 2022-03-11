@@ -56,16 +56,19 @@ example can be found in [GetStartActivity](app/src/main/java/io/agora/board/fast
 private void setupFastboard() {
     // step 1
     FastboardView fastboardView = findViewById(R.id.fastboard_view);
-    // step 2: get fastSdk
-    FastSdkOptions fastSdkOptions = new FastSdkOptions(USER_APP_ID);
-    FastSdk fastSdk = fastboardView.getFastSdk(fastSdkOptions);
+    // step 2: obtain fastboard
+    Fastboard fastboard = fastboardView.getFastboard();
 
-    // step 3: join room
     FastRoomOptions roomOptions = new FastRoomOptions(
-            roomUUID,
-            roomToken,
-            uid);
-    FastRoom fastRoom = fastSdk.joinRoom(roomOptions);
+        USER_APP_ID,
+        roomUUID,
+        roomToken,
+        uid
+    );
+    // step 3: join room
+    fastboard.joinRoom(roomOptions, fastRoom -> {
+
+    });
 }
 ```
 ## Configuration

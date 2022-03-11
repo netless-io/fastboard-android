@@ -5,10 +5,8 @@ import android.os.Bundle;
 
 import java.util.Objects;
 
-import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
-import io.agora.board.fast.OnRoomReadyCallback;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.R;
@@ -41,11 +39,8 @@ public class QuickStartActivity extends BaseActivity {
                 repository.getUserId()
         );
         // step 3: join room
-        fastboard.joinRoom(roomOptions, new OnRoomReadyCallback() {
-            @Override
-            public void onRoomReady(FastRoom fastRoom) {
+        fastboard.joinRoom(roomOptions, fastRoom -> {
 
-            }
         });
     }
 

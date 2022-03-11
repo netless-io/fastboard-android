@@ -17,7 +17,7 @@ Cutting a Release
    ```
    sed -i "" \
    "s/VERSION = \".*\"/VERSION = \"$RELEASE_VERSION\"/g" \
-   "library/src/main/java/io/agora/board/fast/FastSdk.java"
+   "library/src/main/java/io/agora/board/fast/Fastboard.java"
    sed -i "" \
    "s/\"com.github.netless-io:\([^\:]*\):[^\"]*\"/\"com.github.netless-io:\1:$RELEASE_VERSION\"/g" \
    README.md README_zh_CN.md

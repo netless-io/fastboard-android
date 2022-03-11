@@ -158,7 +158,7 @@ public class ControlView extends FrameLayout {
         handleView.setImageResource(isVisiable ? R.drawable.ic_toolbox_ext_expanded : R.drawable.ic_toolbox_ext_collapsed);
     }
 
-    public void attachFastSdk(Fastboard fastboard) {
+    public void attachFastboard(Fastboard fastboard) {
         this.fastboard = fastboard;
     }
 
