@@ -1,9 +1,6 @@
 package io.agora.board.fast;
 
-import com.herewhite.sdk.domain.BroadcastState;
-import com.herewhite.sdk.domain.MemberState;
-import com.herewhite.sdk.domain.PageState;
-import com.herewhite.sdk.domain.SceneState;
+import com.herewhite.sdk.domain.RoomState;
 
 import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastStyle;
@@ -12,6 +9,14 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public interface FastListener {
+    default void onFastError(FastException error) {
+
+    }
+
+    default void onOverlayChanged(int key) {
+
+    }
+
     default void onRoomReadyChanged(FastRoom fastRoom) {
 
     }
@@ -20,23 +25,7 @@ public interface FastListener {
 
     }
 
-    default void onSceneStateChanged(SceneState sceneState) {
-
-    }
-
-    default void onPageStateChanged(PageState pageState) {
-
-    }
-
-    default void onMemberStateChanged(MemberState memberState) {
-
-    }
-
-    default void onBroadcastStateChanged(BroadcastState broadcastState) {
-
-    }
-
-    default void onWindowBoxStateChanged(String windowBoxState) {
+    default void onRoomStateChanged(RoomState state) {
 
     }
 
@@ -44,15 +33,7 @@ public interface FastListener {
 
     }
 
-    default void onOverlayChanged(int key) {
-
-    }
-
     default void onReplayReadyChanged(FastReplay fastReplay) {
-
-    }
-
-    default void onFastError(FastException error) {
 
     }
 }

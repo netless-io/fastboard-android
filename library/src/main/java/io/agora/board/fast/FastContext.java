@@ -6,6 +6,7 @@ import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.PageState;
 import com.herewhite.sdk.domain.RoomPhase;
+import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SceneState;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -115,24 +116,8 @@ public class FastContext {
         roomPhaseHandler.handleRoomPhase(phase);
     }
 
-    public void notifyBroadcastStateChanged(BroadcastState broadcastState) {
-        notifyListeners(listener -> listener.onBroadcastStateChanged(broadcastState));
-    }
-
-    public void notifyMemberStateChanged(MemberState memberState) {
-        notifyListeners(listener -> listener.onMemberStateChanged(memberState));
-    }
-
-    public void notifySceneStateChanged(SceneState sceneState) {
-        notifyListeners(listener -> listener.onSceneStateChanged(sceneState));
-    }
-
-    public void notifyPageStateChanged(PageState pageState) {
-        notifyListeners(listener -> listener.onPageStateChanged(pageState));
-    }
-
-    public void notifyWindowBoxStateChanged(String windowBoxState) {
-        notifyListeners(listener -> listener.onWindowBoxStateChanged(windowBoxState));
+    public void notifyRoomStateChanged(RoomState roomState) {
+        notifyListeners(listener -> listener.onRoomStateChanged(roomState));
     }
 
     public void notifyRedoUndoChanged(FastRedoUndo count) {

@@ -13,9 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.herewhite.sdk.WhiteboardView;
-import com.herewhite.sdk.domain.MemberState;
-import com.herewhite.sdk.domain.PageState;
-import com.herewhite.sdk.domain.SceneState;
+import com.herewhite.sdk.domain.RoomState;
 
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayManager;
@@ -40,23 +38,31 @@ public class FastboardView extends FrameLayout {
     FastUiSettings fastUiSettings;
     FastListener fastListener = new FastListener() {
         @Override
-        public void onSceneStateChanged(SceneState sceneState) {
-            roomControllerGroup.updateSceneState(sceneState);
+        public void onRoomReadyChanged(FastRoom fastRoom) {
+            roomControllerGroup.setFastRoom(fastRoom);
         }
 
         @Override
-        public void onPageStateChanged(PageState pageState) {
-            roomControllerGroup.updatePageState(pageState);
-        }
+        public void onRoomStateChanged(RoomState roomState) {
+            if (roomState.getBroadcastState() != null) {
+                roomControllerGroup.updateBroadcastState(roomState.getBroadcastState());
+            }
 
-        @Override
-        public void onMemberStateChanged(MemberState memberState) {
-            roomControllerGroup.updateMemberState(memberState);
-        }
+            if (roomState.getMemberState() != null) {
+                roomControllerGroup.updateMemberState(roomState.getMemberState());
+            }
 
-        @Override
-        public void onWindowBoxStateChanged(String windowBoxState) {
-            roomControllerGroup.updateWindowBoxState(windowBoxState);
+            if (roomState.getSceneState() != null) {
+                roomControllerGroup.updateSceneState(roomState.getSceneState());
+            }
+
+            if (roomState.getPageState() != null) {
+                roomControllerGroup.updatePageState(roomState.getPageState());
+            }
+
+            if (roomState.getWindowBoxState() != null) {
+                roomControllerGroup.updateWindowBoxState(roomState.getWindowBoxState());
+            }
         }
 
         @Override
@@ -73,11 +79,6 @@ public class FastboardView extends FrameLayout {
         public void onFastStyleChanged(FastStyle style) {
             whiteboardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.fast_day_night_bg));
             roomControllerGroup.updateFastStyle(style);
-        }
-
-        @Override
-        public void onRoomReadyChanged(FastRoom fastRoom) {
-            roomControllerGroup.setFastRoom(fastRoom);
         }
     };
     private float whiteboardRatio = 9.0f / 16;

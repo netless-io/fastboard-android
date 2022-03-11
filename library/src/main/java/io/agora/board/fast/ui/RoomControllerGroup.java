@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.herewhite.sdk.domain.BroadcastState;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.PageState;
 import com.herewhite.sdk.domain.SceneState;
@@ -52,6 +53,12 @@ public abstract class RoomControllerGroup implements RoomController {
     public void updatePageState(PageState pageState) {
         for (RoomController controller : controllers) {
             controller.updatePageState(pageState);
+        }
+    }
+
+    public void updateBroadcastState(BroadcastState broadcastState) {
+        for (RoomController controller : controllers) {
+            controller.updateBroadcastState(broadcastState);
         }
     }
 

@@ -142,25 +142,7 @@ public class FastRoom {
     }
 
     private void notifyRoomState(RoomState roomState) {
-        if (roomState.getBroadcastState() != null) {
-            fastContext.notifyBroadcastStateChanged(roomState.getBroadcastState());
-        }
-
-        if (roomState.getMemberState() != null) {
-            fastContext.notifyMemberStateChanged(roomState.getMemberState());
-        }
-
-        if (roomState.getSceneState() != null) {
-            fastContext.notifySceneStateChanged(roomState.getSceneState());
-        }
-
-        if (roomState.getPageState() != null) {
-            fastContext.notifyPageStateChanged(roomState.getPageState());
-        }
-
-        if (roomState.getWindowBoxState() != null) {
-            fastContext.notifyWindowBoxStateChanged(roomState.getWindowBoxState());
-        }
+        fastContext.notifyRoomStateChanged(roomState);
     }
 
     private void notifyRoomReady() {
