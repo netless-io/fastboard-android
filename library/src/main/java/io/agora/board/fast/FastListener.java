@@ -12,7 +12,7 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public interface FastListener {
-    default void onFastRoomCreated(FastRoom fastRoom) {
+    default void onRoomReadyChanged(FastRoom fastRoom) {
 
     }
 
@@ -48,7 +48,7 @@ public interface FastListener {
 
     }
 
-    default void onFastPlayerCreated(FastPlayer fastPlayer) {
+    default void onReplayReadyChanged(FastReplay fastReplay) {
 
     }
 

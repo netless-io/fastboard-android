@@ -11,7 +11,7 @@ import com.herewhite.sdk.domain.WindowPrefersColorScheme;
 
 import java.util.HashMap;
 
-import io.agora.board.fast.model.FastPlayerOptions;
+import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastRoomOptions;
 
@@ -23,7 +23,7 @@ public class FastConvertor {
         return result;
     }
 
-    public static WhiteSdkConfiguration convertSdkOptions(FastPlayerOptions options) {
+    public static WhiteSdkConfiguration convertSdkOptions(FastReplayOptions options) {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
         // fast default config
         result.setUseMultiViews(true);
@@ -42,7 +42,7 @@ public class FastConvertor {
         return result;
     }
 
-    public static PlayerConfiguration convertPlayerOptions(FastPlayerOptions options) {
+    public static PlayerConfiguration convertReplayOptions(FastReplayOptions options) {
         PlayerConfiguration result = new PlayerConfiguration(options.getUuid(), options.getToken());
         result.setRegion(convertRegion(options.getFastRegion()));
         result.setWindowParams(createWindowParams());

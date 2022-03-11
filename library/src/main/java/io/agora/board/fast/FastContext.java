@@ -16,7 +16,7 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
-import io.agora.board.fast.model.FastPlayerOptions;
+import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
@@ -27,7 +27,7 @@ public class FastContext {
     Context context;
     Fastboard fastboard;
     FastRoom fastRoom;
-    FastPlayer fastPlayer;
+    FastReplay fastReplay;
     FastStyle fastStyle;
 
     ErrorHandler errorHandler;
@@ -49,22 +49,6 @@ public class FastContext {
         return fastboardView;
     }
 
-//    public FastSdk getFastSdk(FastRoomOptions roomOptions) {
-//        if (fastSdk == null) {
-//            fastSdk = new FastSdk(fastboardView);
-//            fastSdk.initSdk(roomOptions);
-//        }
-//        return fastSdk;
-//    }
-//
-//    public FastSdk getFastSdk(FastPlayerOptions playerOptions) {
-//        if (fastSdk == null) {
-//            fastSdk = new FastSdk(fastboardView);
-//            fastSdk.initSdk(playerOptions);
-//        }
-//        return fastSdk;
-//    }
-
     public Fastboard getFastboard() {
         if (fastboard == null) {
             fastboard = new Fastboard(fastboardView);
@@ -77,9 +61,9 @@ public class FastContext {
         fastRoom.join();
     }
 
-    public void joinPlayer(FastPlayerOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
-        fastPlayer = new FastPlayer(this, options);
-        fastPlayer.join();
+    public void joinPlayer(FastReplayOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
+        fastReplay = new FastReplay(this, options);
+        fastReplay.join();
     }
 
     public void setErrorHandler(ErrorHandler errorHandler) {
@@ -155,14 +139,14 @@ public class FastContext {
         notifyListeners(listener -> listener.onRedoUndoChanged(count));
     }
 
-    public void notifyFastRoomCreated(FastRoom fastRoom) {
+    public void notifyRoomReadyChanged(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
-        notifyListeners(listener -> listener.onFastRoomCreated(fastRoom));
+        notifyListeners(listener -> listener.onRoomReadyChanged(fastRoom));
     }
 
-    public void notifyFastPlayerCreated(FastPlayer fastPlayer) {
-        this.fastPlayer = fastPlayer;
-        notifyListeners(listener -> listener.onFastPlayerCreated(fastPlayer));
+    public void notifyReplayReadyChanged(FastReplay fastReplay) {
+        this.fastReplay = fastReplay;
+        notifyListeners(listener -> listener.onReplayReadyChanged(fastReplay));
     }
 
     public void notifyFastError(FastException error) {

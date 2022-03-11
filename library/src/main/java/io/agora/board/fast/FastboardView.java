@@ -76,7 +76,7 @@ public class FastboardView extends FrameLayout {
         }
 
         @Override
-        public void onFastRoomCreated(FastRoom fastRoom) {
+        public void onRoomReadyChanged(FastRoom fastRoom) {
             roomControllerGroup.setFastRoom(fastRoom);
         }
     };

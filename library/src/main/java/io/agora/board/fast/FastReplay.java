@@ -7,12 +7,12 @@ import com.herewhite.sdk.domain.PlayerState;
 import com.herewhite.sdk.domain.Promise;
 import com.herewhite.sdk.domain.SDKError;
 
-import io.agora.board.fast.model.FastPlayerOptions;
+import io.agora.board.fast.model.FastReplayOptions;
 
-public class FastPlayer {
-
+public class FastReplay {
     private final FastContext fastContext;
-    private final FastPlayerOptions fastPlayerOptions;
+    private final FastReplayOptions fastReplayOptions;
+
     private final PlayerListener playerListener = new PlayerListener() {
         @Override
         public void onPhaseChanged(PlayerPhase phase) {
@@ -58,8 +58,8 @@ public class FastPlayer {
     private final Promise<Player> playerPromise = new Promise<Player>() {
         @Override
         public void then(Player player) {
-            FastPlayer.this.player = player;
-            fastContext.notifyFastPlayerCreated(FastPlayer.this);
+            FastReplay.this.player = player;
+            fastContext.notifyReplayReadyChanged(FastReplay.this);
         }
 
         @Override
@@ -68,14 +68,18 @@ public class FastPlayer {
         }
     };
 
-    public FastPlayer(FastContext fastContext, FastPlayerOptions options) {
+    public FastReplay(FastContext fastContext, FastReplayOptions options) {
         this.fastContext = fastContext;
-        this.fastPlayerOptions = options;
+        this.fastReplayOptions = options;
     }
 
     public void join() {
         Fastboard fastboard = fastContext.getFastboard();
-        fastboard.whiteSdk.createPlayer(fastPlayerOptions.getPlayerConfiguration(), playerListener, playerPromise);
+        fastboard.whiteSdk.createPlayer(fastReplayOptions.getPlayerConfiguration(), playerListener, playerPromise);
+    }
+
+    public boolean isReady() {
+        return player != null;
     }
 
     public Player getPlayer() {

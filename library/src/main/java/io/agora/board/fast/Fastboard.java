@@ -15,7 +15,7 @@ import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
-import io.agora.board.fast.model.FastPlayerOptions;
+import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
 
@@ -49,17 +49,17 @@ public class Fastboard {
         return fastContext.fastRoom;
     }
 
-    public void joinPlayer(FastPlayerOptions options) {
+    public void joinPlayer(FastReplayOptions options) {
         joinPlayer(options, null);
     }
 
-    public void joinPlayer(FastPlayerOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
+    public void joinPlayer(FastReplayOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
         initSdkIfNeed(options.getSdkConfiguration());
         fastContext.joinPlayer(options, onPlayerReadyCallback);
     }
 
-    public FastPlayer getFastPlayer() {
-        return fastContext.fastPlayer;
+    public FastReplay getFastPlayer() {
+        return fastContext.fastReplay;
     }
 
     public FastboardView getFastboardView() {

@@ -116,6 +116,10 @@ public class FastRoom {
         fastContext.notifyRoomPhaseChanged(RoomPhase.connecting);
     }
 
+    public boolean isReady() {
+        return room != null;
+    }
+
     /**
      * @return
      */
@@ -163,7 +167,7 @@ public class FastRoom {
         if (onRoomReadyCallback != null) {
             onRoomReadyCallback.onRoomReady(this);
         }
-        fastContext.notifyFastRoomCreated(this);
+        fastContext.notifyRoomReadyChanged(this);
     }
 
     public void redo() {

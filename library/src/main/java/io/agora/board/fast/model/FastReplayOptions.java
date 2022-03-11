@@ -8,7 +8,7 @@ import io.agora.board.fast.internal.FastConvertor;
 /**
  * @author fenglibin
  */
-public class FastPlayerOptions {
+public class FastReplayOptions {
     private final String appId;
     private final String uuid;
     private final String token;
@@ -19,7 +19,7 @@ public class FastPlayerOptions {
 
     private WhiteSdkConfiguration sdkConfiguration;
 
-    public FastPlayerOptions(String appId, String uuid, String token) {
+    public FastReplayOptions(String appId, String uuid, String token) {
         this.appId = appId;
         this.uuid = uuid;
         this.token = token;
@@ -49,7 +49,7 @@ public class FastPlayerOptions {
         if (playerConfiguration != null) {
             return playerConfiguration;
         }
-        return FastConvertor.convertPlayerOptions(this);
+        return FastConvertor.convertReplayOptions(this);
     }
 
     public void setPlayerConfiguration(PlayerConfiguration playerConfiguration) {
