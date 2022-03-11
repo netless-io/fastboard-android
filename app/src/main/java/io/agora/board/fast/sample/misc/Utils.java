@@ -11,7 +11,7 @@ import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
 
-import io.agora.board.fast.FastSdk;
+import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.sample.ControlView;
 
 public class Utils {
@@ -28,10 +28,10 @@ public class Utils {
         return nightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    public static void setupDevTools(Activity activity, FastSdk fastSdk) {
+    public static void setupDevTools(Activity activity, Fastboard fastboard) {
         try {
             ControlView controlView = new ControlView(activity);
-            controlView.attachFastSdk(fastSdk);
+            controlView.attachFastSdk(fastboard);
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 
             FrameLayout layout = activity.getWindow().getDecorView().findViewById(android.R.id.content);

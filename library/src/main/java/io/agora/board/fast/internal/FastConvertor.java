@@ -1,5 +1,7 @@
 package io.agora.board.fast.internal;
 
+import androidx.annotation.NonNull;
+
 import com.herewhite.sdk.RoomParams;
 import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.domain.PlayerConfiguration;
@@ -12,58 +14,40 @@ import java.util.HashMap;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastRoomOptions;
-import io.agora.board.fast.model.FastSdkOptions;
 
 public class FastConvertor {
-    public static WhiteSdkConfiguration convertSdkOptions(FastSdkOptions options) {
-        WhiteSdkConfiguration result;
-        if (options.getConfiguration() != null) {
-            result = options.getConfiguration();
-        } else {
-            result = new WhiteSdkConfiguration(options.getAppId());
-            result.setUseMultiViews(true);
-        }
+    public static WhiteSdkConfiguration convertSdkOptions(FastRoomOptions options) {
+        WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
+        // fast default config
+        result.setUseMultiViews(true);
+        return result;
+    }
+
+    public static WhiteSdkConfiguration convertSdkOptions(FastPlayerOptions options) {
+        WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
+        // fast default config
+        result.setUseMultiViews(true);
         return result;
     }
 
     public static RoomParams convertRoomOptions(FastRoomOptions options) {
-        RoomParams result;
-        if (options.getRoomParams() != null) {
-            result = options.getRoomParams();
-        } else {
-            result = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
-            result.setWritable(options.isWritable());
-            result.setRegion(convertRegion(options.getFastRegion()));
-        }
+        RoomParams result = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
+        result.setWritable(options.isWritable());
+        result.setRegion(convertRegion(options.getFastRegion()));
+
+        // fast default config
         result.setDisableNewPencil(false);
-        if (result.getWindowParams() == null) {
-            HashMap<String, String> styleMap = new HashMap<>();
-            styleMap.put("bottom", "30px");
-            styleMap.put("right", "44px");
-            styleMap.put("position", "fixed");
+        result.setWindowParams(createWindowParams());
 
-            WindowParams windowParams = new WindowParams();
-            windowParams.setChessboard(false);
-            windowParams.setDebug(true);
-            windowParams.setCollectorStyles(styleMap);
-            windowParams.setPrefersColorScheme(WindowPrefersColorScheme.Auto);
-
-            result.setWindowParams(windowParams);
-        }
         return result;
     }
 
     public static PlayerConfiguration convertPlayerOptions(FastPlayerOptions options) {
-        PlayerConfiguration result;
-        if (options.getPlayerConfiguration() != null) {
-            result = options.getPlayerConfiguration();
-        } else {
-            result = new PlayerConfiguration(options.getUuid(), options.getToken());
-            result.setRegion(convertRegion(options.getFastRegion()));
-        }
+        PlayerConfiguration result = new PlayerConfiguration(options.getUuid(), options.getToken());
+        result.setRegion(convertRegion(options.getFastRegion()));
+        result.setWindowParams(createWindowParams());
         return result;
     }
-
 
     private static Region convertRegion(FastRegion fastRegion) {
         switch (fastRegion) {
@@ -79,5 +63,19 @@ public class FastConvertor {
             default:
                 return Region.cn;
         }
+    }
+
+    @NonNull
+    private static WindowParams createWindowParams() {
+        HashMap<String, String> styleMap = new HashMap<>();
+        styleMap.put("bottom", "30px");
+        styleMap.put("right", "44px");
+        styleMap.put("position", "fixed");
+        WindowParams windowParams = new WindowParams();
+        windowParams.setChessboard(false);
+        windowParams.setDebug(true);
+        windowParams.setCollectorStyles(styleMap);
+        windowParams.setPrefersColorScheme(WindowPrefersColorScheme.Auto);
+        return windowParams;
     }
 }

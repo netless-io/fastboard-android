@@ -23,12 +23,12 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.herewhite.sdk.domain.SceneState;
 
-import io.agora.board.fast.FastSdk;
+import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.ui.FastUiSettings;
 
 public class ControlView extends FrameLayout {
-    private FastSdk fastSdk;
+    private Fastboard fastboard;
 
     private View controllerLayout;
     private ImageView handleView;
@@ -49,34 +49,34 @@ public class ControlView extends FrameLayout {
 
         SwitchCompat darkModeSwitch = root.findViewById(R.id.dark_mode_switch);
         darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (fastSdk != null) {
+            if (fastboard != null) {
                 AppCompatActivity activity = (AppCompatActivity) getActivity(context);
                 activity.getDelegate().setLocalNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
 
         root.findViewById(R.id.clear).setOnClickListener(v -> {
-            SceneState sceneState = fastSdk.getFastRoom().getRoom().getRoomState().getSceneState();
+            SceneState sceneState = fastboard.getFastRoom().getRoom().getRoomState().getSceneState();
             String scenePath = sceneState.getScenePath();
             String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
-            fastSdk.getFastRoom().getRoom().removeScenes(dir);
+            fastboard.getFastRoom().getRoom().removeScenes(dir);
         });
 
         SwitchCompat toolboxSwitch = root.findViewById(R.id.toolbox_mode_switch);
         toolboxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
+            FastUiSettings uiSettings = fastboard.getFastboardView().getUiSettings();
             uiSettings.setToolboxExpand(isChecked);
         });
 
         SwitchCompat toolboxGravitySwitch = root.findViewById(R.id.toolbox_gravity_switch);
         toolboxGravitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
+            FastUiSettings uiSettings = fastboard.getFastboardView().getUiSettings();
             uiSettings.setToolboxGravity(isChecked ? Gravity.LEFT : Gravity.RIGHT);
         });
 
         SwitchCompat redoUndoSwitch = root.findViewById(R.id.redo_undo_orientation_switch);
         redoUndoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            FastUiSettings uiSettings = fastSdk.getFastboardView().getUiSettings();
+            FastUiSettings uiSettings = fastboard.getFastboardView().getUiSettings();
             uiSettings.setRedoUndoOrientation(isChecked ? LinearLayoutCompat.VERTICAL : LinearLayoutCompat.HORIZONTAL);
         });
 
@@ -89,7 +89,7 @@ public class ControlView extends FrameLayout {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    FastboardView fastboardView = fastSdk.getFastboardView();
+                    FastboardView fastboardView = fastboard.getFastboardView();
                     ViewGroup.LayoutParams layoutParams = fastboardView.getLayoutParams();
                     layoutParams.width = progress;
                     fastboardView.setLayoutParams(layoutParams);
@@ -112,7 +112,7 @@ public class ControlView extends FrameLayout {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    FastboardView fastboardView = fastSdk.getFastboardView();
+                    FastboardView fastboardView = fastboard.getFastboardView();
                     ViewGroup.LayoutParams layoutParams = fastboardView.getLayoutParams();
                     layoutParams.height = progress;
                     fastboardView.setLayoutParams(layoutParams);
@@ -158,8 +158,8 @@ public class ControlView extends FrameLayout {
         handleView.setImageResource(isVisiable ? R.drawable.ic_toolbox_ext_expanded : R.drawable.ic_toolbox_ext_collapsed);
     }
 
-    public void attachFastSdk(FastSdk fastSdk) {
-        this.fastSdk = fastSdk;
+    public void attachFastSdk(Fastboard fastboard) {
+        this.fastboard = fastboard;
     }
 
     private Activity getActivity(Context context) {

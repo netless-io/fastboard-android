@@ -1,5 +1,7 @@
 package io.agora.board.fast;
 
+import androidx.annotation.Nullable;
+
 import com.herewhite.sdk.CommonCallback;
 import com.herewhite.sdk.WhiteSdk;
 import com.herewhite.sdk.WhiteSdkConfiguration;
@@ -13,76 +15,51 @@ import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
-import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRoomOptions;
-import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
 
-/**
- * @author fenglibin
- */
-public class FastSdk {
+public class Fastboard {
     public static final String VERSION = "1.0.0";
 
-    final FastContext fastContext;
-
-    private final CommonCallback commonCallback = new CommonCallback() {
-        @Override
-        public void throwError(Object args) {
-
-        }
-
-        @Override
-        public void onMessage(JSONObject object) {
-
-        }
-
-        @Override
-        public void sdkSetupFail(SDKError error) {
-            fastContext.notifyFastError(FastException.createSdk(error.getMessage()));
-        }
-
-        @Override
-        public void onLogger(JSONObject object) {
-            FastLogger.info(object.toString());
-        }
-    };
+    private final FastContext fastContext;
     WhiteSdk whiteSdk;
-    FastRoom fastRoom;
-    FastPlayer fastPlayer;
 
-    public FastSdk(FastboardView fastboardView) {
+    public Fastboard(FastboardView fastboardView) {
         this.fastContext = fastboardView.fastContext;
     }
 
-    void initSdk(FastSdkOptions options) {
-        WhiteSdkConfiguration config = FastConvertor.convertSdkOptions(options);
-        whiteSdk = new WhiteSdk(fastContext.fastboardView.whiteboardView, fastContext.context, config, commonCallback);
+    private void initSdkIfNeed(WhiteSdkConfiguration config) {
+        if (whiteSdk == null) {
+            WhiteboardView whiteboardView = fastContext.fastboardView.whiteboardView;
+            whiteSdk = new WhiteSdk(whiteboardView, fastContext.context, config, commonCallback);
+        }
     }
 
-    public FastRoom joinRoom(FastRoomOptions options) {
-        if (whiteSdk == null) {
-            throw FastException.createSdk("sdk not init, call initSdk first");
-        }
-        fastRoom = fastContext.joinRoom(options);
-        return fastRoom;
+    public void joinRoom(FastRoomOptions roomOptions) {
+        joinRoom(roomOptions, null);
+    }
+
+    public void joinRoom(FastRoomOptions roomOptions, @Nullable OnRoomReadyCallback onRoomReadyCallback) {
+        initSdkIfNeed(roomOptions.getSdkConfiguration());
+        fastContext.joinRoom(roomOptions, onRoomReadyCallback);
     }
 
     public FastRoom getFastRoom() {
-        return fastRoom;
+        return fastContext.fastRoom;
     }
 
-    public FastPlayer joinPlayer(FastPlayerOptions options) {
-        if (whiteSdk == null) {
-            throw FastException.createSdk("sdk not init, call initSdk first");
-        }
-        fastPlayer = fastContext.joinPlayer(options);
-        return fastPlayer;
+    public void joinPlayer(FastPlayerOptions options) {
+        joinPlayer(options, null);
+    }
+
+    public void joinPlayer(FastPlayerOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
+        initSdkIfNeed(options.getSdkConfiguration());
+        fastContext.joinPlayer(options, onPlayerReadyCallback);
     }
 
     public FastPlayer getFastPlayer() {
-        return fastPlayer;
+        return fastContext.fastPlayer;
     }
 
     public FastboardView getFastboardView() {
@@ -138,4 +115,26 @@ public class FastSdk {
     public String getVersion() {
         return VERSION;
     }
+
+    private final CommonCallback commonCallback = new CommonCallback() {
+        @Override
+        public void throwError(Object args) {
+
+        }
+
+        @Override
+        public void onMessage(JSONObject object) {
+
+        }
+
+        @Override
+        public void sdkSetupFail(SDKError error) {
+            fastContext.notifyFastError(FastException.createSdk(error.getMessage()));
+        }
+
+        @Override
+        public void onLogger(JSONObject object) {
+            FastLogger.info(object.toString());
+        }
+    };
 }

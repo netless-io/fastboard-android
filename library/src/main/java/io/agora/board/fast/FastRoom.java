@@ -3,10 +3,11 @@ package io.agora.board.fast;
 import static io.agora.board.fast.FastException.ROOM_DISCONNECT_ERROR;
 import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
 
+import androidx.annotation.Nullable;
+
 import com.herewhite.sdk.ConverterCallbacks;
 import com.herewhite.sdk.Room;
 import com.herewhite.sdk.RoomListener;
-import com.herewhite.sdk.RoomParams;
 import com.herewhite.sdk.converter.ConvertType;
 import com.herewhite.sdk.converter.ConverterV5;
 import com.herewhite.sdk.domain.ConversionInfo;
@@ -25,7 +26,6 @@ import java.util.UUID;
 
 import io.agora.board.fast.extension.FastResult;
 import io.agora.board.fast.extension.OverlayManager;
-import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.internal.PromiseResultAdapter;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastInsertDocParams;
@@ -33,9 +33,10 @@ import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastRoomOptions;
 
 public class FastRoom {
-    private final FastSdk fastSdk;
     private final FastContext fastContext;
-    private final RoomParams params;
+    private final FastRoomOptions fastRoomOptions;
+    private final OnRoomReadyCallback onRoomReadyCallback;
+
     private final RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
         private long canRedoSteps;
@@ -88,6 +89,7 @@ public class FastRoom {
             FastRoom.this.room = room;
             notifyRoomState(room.getRoomState());
             updateWritable();
+            notifyRoomReady();
         }
 
         @Override
@@ -97,14 +99,19 @@ public class FastRoom {
         }
     };
 
-    public FastRoom(FastSdk fastSdk, FastRoomOptions options) {
-        this.fastSdk = fastSdk;
-        this.fastContext = fastSdk.fastContext;
-        this.params = FastConvertor.convertRoomOptions(options);
+    public FastRoom(FastContext fastContext, FastRoomOptions options) {
+        this(fastContext, options, null);
+    }
+
+    public FastRoom(FastContext fastContext, FastRoomOptions options, OnRoomReadyCallback onRoomReadyCallback) {
+        this.fastContext = fastContext;
+        this.fastRoomOptions = options;
+        this.onRoomReadyCallback = onRoomReadyCallback;
     }
 
     public void join() {
-        fastSdk.whiteSdk.joinRoom(params, roomListener, joinRoomPromise);
+        Fastboard fastboard = fastContext.getFastboard();
+        fastboard.whiteSdk.joinRoom(fastRoomOptions.getRoomParams(), roomListener, joinRoomPromise);
         // workaround, white sdk do not notify RoomPhase.connecting
         fastContext.notifyRoomPhaseChanged(RoomPhase.connecting);
     }
@@ -150,6 +157,13 @@ public class FastRoom {
         if (roomState.getWindowBoxState() != null) {
             fastContext.notifyWindowBoxStateChanged(roomState.getWindowBoxState());
         }
+    }
+
+    private void notifyRoomReady() {
+        if (onRoomReadyCallback != null) {
+            onRoomReadyCallback.onRoomReady(this);
+        }
+        fastContext.notifyFastRoomCreated(this);
     }
 
     public void redo() {
@@ -287,7 +301,7 @@ public class FastRoom {
      * @param params
      * @param result
      */
-    public void insertDocs(FastInsertDocParams params, FastResult<String> result) {
+    public void insertDocs(FastInsertDocParams params, @Nullable FastResult<String> result) {
         ConverterV5 convert = new ConverterV5.Builder()
                 .setResource(params.getResource())
                 .setType(isDynamicDoc(params.getFileType()) ? ConvertType.Dynamic : ConvertType.Static)

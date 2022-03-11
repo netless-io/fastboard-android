@@ -21,8 +21,6 @@ import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 class ToolboxExpand implements Toolbox {
-    private final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXTENSION;
-
     private static final List<ToolboxItem> TOOLBOX_ITEMS = new ArrayList<ToolboxItem>() {
         {
             add(new ToolboxItem(ToolboxItem.KEY_CLICK, FastAppliance.CLICKER, false));
@@ -34,7 +32,7 @@ class ToolboxExpand implements Toolbox {
             add(new ToolboxItem(ToolboxItem.KEY_CLEAR, FastAppliance.OTHER_CLEAR, false));
         }
     };
-
+    private final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXTENSION;
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
 

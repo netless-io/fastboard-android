@@ -24,10 +24,6 @@ import io.agora.board.fast.ui.ColorDrawable;
 public class ResourceImpl {
     private static HashMap<FastAppliance, Integer> iconMap;
 
-    protected Context context;
-    // fast color drawable cache
-    private SparseArray<ColorDrawable> drawables = new SparseArray<>();
-
     static {
         iconMap = new HashMap<>();
         iconMap.put(FastAppliance.CLICKER, R.drawable.fast_ic_tool_clicker);
@@ -46,6 +42,10 @@ public class ResourceImpl {
         iconMap.put(FastAppliance.BUBBLE, R.drawable.fast_ic_shape_speechballoon);
         iconMap.put(FastAppliance.OTHER_CLEAR, R.drawable.fast_ic_tool_clear);
     }
+
+    protected Context context;
+    // fast color drawable cache
+    private SparseArray<ColorDrawable> drawables = new SparseArray<>();
 
     public void init(Context context) {
         this.context = context;

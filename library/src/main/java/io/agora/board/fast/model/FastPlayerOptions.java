@@ -1,11 +1,15 @@
 package io.agora.board.fast.model;
 
+import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.domain.PlayerConfiguration;
+
+import io.agora.board.fast.internal.FastConvertor;
 
 /**
  * @author fenglibin
  */
 public class FastPlayerOptions {
+    private final String appId;
     private final String uuid;
     private final String token;
 
@@ -13,9 +17,16 @@ public class FastPlayerOptions {
 
     private PlayerConfiguration playerConfiguration;
 
-    public FastPlayerOptions(String uuid, String token) {
+    private WhiteSdkConfiguration sdkConfiguration;
+
+    public FastPlayerOptions(String appId, String uuid, String token) {
+        this.appId = appId;
         this.uuid = uuid;
         this.token = token;
+    }
+
+    public String getAppId() {
+        return appId;
     }
 
     public String getUuid() {
@@ -34,11 +45,25 @@ public class FastPlayerOptions {
         this.fastRegion = fastRegion;
     }
 
+    public PlayerConfiguration getPlayerConfiguration() {
+        if (playerConfiguration != null) {
+            return playerConfiguration;
+        }
+        return FastConvertor.convertPlayerOptions(this);
+    }
+
     public void setPlayerConfiguration(PlayerConfiguration playerConfiguration) {
         this.playerConfiguration = playerConfiguration;
     }
 
-    public PlayerConfiguration getPlayerConfiguration() {
-        return playerConfiguration;
+    public WhiteSdkConfiguration getSdkConfiguration() {
+        if (sdkConfiguration != null) {
+            return sdkConfiguration;
+        }
+        return FastConvertor.convertSdkOptions(this);
+    }
+
+    public void setSdkConfiguration(WhiteSdkConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 }

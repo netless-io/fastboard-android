@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
-import com.herewhite.sdk.domain.RoomPhase;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;

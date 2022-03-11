@@ -11,15 +11,15 @@ public class ResourceFetcher {
     private static ResourceFetcher instance;
     private ResourceImpl resourceImpl;
 
+    private ResourceFetcher() {
+        resourceImpl = new ResourceImpl();
+    }
+
     public static synchronized ResourceFetcher get() {
         if (instance == null) {
             instance = new ResourceFetcher();
         }
         return instance;
-    }
-
-    private ResourceFetcher() {
-        resourceImpl = new ResourceImpl();
     }
 
     public void init(Context context) {

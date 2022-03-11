@@ -15,20 +15,17 @@ import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
-import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
-import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastPlayerOptions;
 import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastRoomOptions;
-import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.ResourceFetcher;
 
 public class FastContext {
     final FastboardView fastboardView;
     Context context;
-    FastSdk fastSdk;
+    Fastboard fastboard;
     FastRoom fastRoom;
     FastPlayer fastPlayer;
     FastStyle fastStyle;
@@ -52,27 +49,37 @@ public class FastContext {
         return fastboardView;
     }
 
-    public FastSdk getFastSdk(FastSdkOptions options) {
-        if (fastSdk == null) {
-            fastSdk = new FastSdk(fastboardView);
-            fastSdk.initSdk(options);
-            notifyFastSdkCreated(fastSdk);
+//    public FastSdk getFastSdk(FastRoomOptions roomOptions) {
+//        if (fastSdk == null) {
+//            fastSdk = new FastSdk(fastboardView);
+//            fastSdk.initSdk(roomOptions);
+//        }
+//        return fastSdk;
+//    }
+//
+//    public FastSdk getFastSdk(FastPlayerOptions playerOptions) {
+//        if (fastSdk == null) {
+//            fastSdk = new FastSdk(fastboardView);
+//            fastSdk.initSdk(playerOptions);
+//        }
+//        return fastSdk;
+//    }
+
+    public Fastboard getFastboard() {
+        if (fastboard == null) {
+            fastboard = new Fastboard(fastboardView);
         }
-        return fastSdk;
+        return fastboard;
     }
 
-    public FastRoom joinRoom(FastRoomOptions options) {
-        fastRoom = new FastRoom(fastSdk, options);
+    public void joinRoom(FastRoomOptions options, OnRoomReadyCallback onRoomReadyCallback) {
+        fastRoom = new FastRoom(this, options, onRoomReadyCallback);
         fastRoom.join();
-        notifyFastRoomCreated(fastRoom);
-        return fastRoom;
     }
 
-    public FastPlayer joinPlayer(FastPlayerOptions options) {
-        fastPlayer = new FastPlayer(fastSdk, options);
+    public void joinPlayer(FastPlayerOptions options, OnPlayerReadyCallback onPlayerReadyCallback) {
+        fastPlayer = new FastPlayer(this, options);
         fastPlayer.join();
-        notifyFastPlayerCreated(fastPlayer);
-        return fastPlayer;
     }
 
     public void setErrorHandler(ErrorHandler errorHandler) {
@@ -95,13 +102,13 @@ public class FastContext {
         return overlayManager;
     }
 
+    FastStyle getFastStyle() {
+        return fastStyle;
+    }
+
     void setFastStyle(FastStyle fastStyle) {
         this.fastStyle = fastStyle;
         notifyListeners(listener -> listener.onFastStyleChanged(fastStyle));
-    }
-
-    FastStyle getFastStyle() {
-        return fastStyle;
     }
 
     public void setResourceImpl(ResourceImpl resourceImpl) {
@@ -156,11 +163,6 @@ public class FastContext {
     public void notifyFastPlayerCreated(FastPlayer fastPlayer) {
         this.fastPlayer = fastPlayer;
         notifyListeners(listener -> listener.onFastPlayerCreated(fastPlayer));
-    }
-
-    public void notifyFastSdkCreated(FastSdk fastSdk) {
-        this.fastSdk = fastSdk;
-        notifyListeners(listener -> listener.onFastSdkCreated(fastSdk));
     }
 
     public void notifyFastError(FastException error) {

@@ -12,7 +12,7 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public interface FastListener {
-    default void onFastSdkCreated(FastSdk fastSdk) {
+    default void onFastRoomCreated(FastRoom fastRoom) {
 
     }
 
@@ -27,7 +27,6 @@ public interface FastListener {
     default void onPageStateChanged(PageState pageState) {
 
     }
-
 
     default void onMemberStateChanged(MemberState memberState) {
 
@@ -46,10 +45,6 @@ public interface FastListener {
     }
 
     default void onOverlayChanged(int key) {
-
-    }
-
-    default void onFastRoomCreated(FastRoom fastRoom) {
 
     }
 

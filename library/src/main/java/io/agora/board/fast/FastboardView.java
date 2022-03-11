@@ -21,7 +21,6 @@ import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.model.FastRedoUndo;
-import io.agora.board.fast.model.FastSdkOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.ErrorHandleLayout;
 import io.agora.board.fast.ui.FastRoomController;
@@ -39,8 +38,6 @@ public class FastboardView extends FrameLayout {
 
     FastContext fastContext;
     FastUiSettings fastUiSettings;
-    private float whiteboardRatio = 9.0f / 16;
-
     FastListener fastListener = new FastListener() {
         @Override
         public void onSceneStateChanged(SceneState sceneState) {
@@ -83,6 +80,7 @@ public class FastboardView extends FrameLayout {
             roomControllerGroup.setFastRoom(fastRoom);
         }
     };
+    private float whiteboardRatio = 9.0f / 16;
 
     public FastboardView(@NonNull Context context) {
         this(context, null);
@@ -157,8 +155,12 @@ public class FastboardView extends FrameLayout {
         return fastContext.getFastStyle();
     }
 
-    public FastSdk getFastSdk(FastSdkOptions options) {
-        return fastContext.getFastSdk(options);
+//    public FastSdk getFastSdk(FastSdkOptions options) {
+//        return fastContext.getFastSdk(options);
+//    }
+
+    public Fastboard getFastboard() {
+        return fastContext.getFastboard();
     }
 
     public FastUiSettings getUiSettings() {

@@ -7,22 +7,20 @@ import android.view.View;
 import java.util.Objects;
 
 import io.agora.board.fast.FastRoom;
-import io.agora.board.fast.FastSdk;
+import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
+import io.agora.board.fast.OnRoomReadyCallback;
 import io.agora.board.fast.model.FastRoomOptions;
-import io.agora.board.fast.model.FastSdkOptions;
-import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.cases.base.BaseActivity;
 import io.agora.board.fast.sample.misc.Repository;
-import io.agora.board.fast.sample.misc.Utils;
 
 public class FlatRoomActivity extends BaseActivity {
     private final Repository repository = Repository.get();
 
     private FastboardView fastboardView;
-    private FastSdk fastSdk;
+    private Fastboard fastboard;
     private FastRoom fastRoom;
 
     private CloudFilesController cloudFilesController;
@@ -54,16 +52,21 @@ public class FlatRoomActivity extends BaseActivity {
 
     private void setupFastboard() {
         fastboardView = findViewById(R.id.fastboard_view);
-
-        FastSdkOptions fastSdkOptions = new FastSdkOptions(Constants.SAMPLE_APP_ID);
-        fastSdk = fastboardView.getFastSdk(fastSdkOptions);
+        fastboard = fastboardView.getFastboard();
 
         FastRoomOptions roomOptions = new FastRoomOptions(
+                Constants.SAMPLE_APP_ID,
                 getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
                 getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
                 repository.getUserId()
         );
-        fastRoom = fastSdk.joinRoom(roomOptions);
+
+        fastboard.joinRoom(roomOptions, new OnRoomReadyCallback() {
+            @Override
+            public void onRoomReady(FastRoom fastRoom) {
+                FlatRoomActivity.this.fastRoom = fastRoom;
+            }
+        });
 
         FlatControllerGroup controller = new FlatControllerGroup(findViewById(R.id.flat_controller_layout));
         // it's a restriction that add controller before setRootRoomController
@@ -81,9 +84,9 @@ public class FlatRoomActivity extends BaseActivity {
 
     protected void updateFastStyle() {
         // global style change
-        FastStyle fastStyle = fastSdk.getFastStyle();
-        fastStyle.setDarkMode(Utils.isDarkMode(this));
-        fastStyle.setMainColor(Utils.getThemePrimaryColor(this));
-        fastSdk.setFastStyle(fastStyle);
+//        FastStyle fastStyle = fastSdk.getFastStyle();
+//        fastStyle.setDarkMode(Utils.isDarkMode(this));
+//        fastStyle.setMainColor(Utils.getThemePrimaryColor(this));
+//        fastSdk.setFastStyle(fastStyle);
     }
 }
