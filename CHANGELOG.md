@@ -1,9 +1,15 @@
 # Change Log
-## [Version 1.0.0] - 2021-03-03
+
+## [Version 1.0.0-beta.4] - 2021-03-11
+
 - Update: update Samples
 - Update: update default ErrorHandle with ErrorHandleLayout
+- Update: replace FastSdk with Fastboard
+- Update: redefine all Player to Replay
+- Update: combine FastListener RoomState apis
 
 ## [Version 1.0.0-beta.3] - 2021-02-16
+
 - New: add FastboardView.setWhiteboardRatio
 - New: add ResourceImpl for configuration
 
