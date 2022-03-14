@@ -1,5 +1,10 @@
 # Change Log
 
+## [Version 1.0.0-beta.5] - 2021-03-14
+
+- Update: update `FastRoomOptions.fastRegion` required
+- Update: remove `FastInsertDocParams.resource`
+
 ## [Version 1.0.0-beta.4] - 2021-03-11
 
 - Update: update Samples

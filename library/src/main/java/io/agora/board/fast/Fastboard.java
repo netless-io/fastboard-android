@@ -20,7 +20,7 @@ import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
 
 public class Fastboard {
-    public static final String VERSION = "1.0.0-beta.4";
+    public static final String VERSION = "1.0.0-beta.5";
 
     private final FastContext fastContext;
     WhiteSdk whiteSdk;
