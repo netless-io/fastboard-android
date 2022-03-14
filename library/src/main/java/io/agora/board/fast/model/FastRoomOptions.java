@@ -15,20 +15,21 @@ public class FastRoomOptions {
     private final String uid;
     private final boolean writable;
 
-    private FastRegion fastRegion = FastRegion.CN_HZ;
+    private final FastRegion fastRegion;
 
     private RoomParams roomParams;
     private WhiteSdkConfiguration sdkConfiguration;
 
-    public FastRoomOptions(String appId, String uuid, String token, String uid) {
-        this(appId, uuid, token, uid, true);
+    public FastRoomOptions(String appId, String uuid, String token, String uid, FastRegion fastRegion) {
+        this(appId, uuid, token, uid, fastRegion, true);
     }
 
-    public FastRoomOptions(String appId, String uuid, String token, String uid, boolean writable) {
+    public FastRoomOptions(String appId, String uuid, String token, String uid, FastRegion fastRegion, boolean writable) {
         this.appId = appId;
         this.uuid = uuid;
         this.token = token;
         this.uid = uid;
+        this.fastRegion = fastRegion;
         this.writable = writable;
     }
 
@@ -54,10 +55,6 @@ public class FastRoomOptions {
 
     public FastRegion getFastRegion() {
         return fastRegion;
-    }
-
-    public void setFastRegion(FastRegion fastRegion) {
-        this.fastRegion = fastRegion;
     }
 
     public RoomParams getRoomParams() {

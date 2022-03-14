@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
+import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.R;
@@ -36,7 +37,8 @@ public class QuickStartActivity extends BaseActivity {
                 Constants.SAMPLE_APP_ID,
                 getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
                 getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
-                repository.getUserId()
+                repository.getUserId(),
+                FastRegion.CN_HZ
         );
         fastboard.joinRoom(roomOptions, fastRoom -> {
 

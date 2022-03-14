@@ -65,7 +65,8 @@ private void setupFastboard() {
         USER_APP_ID,
         roomUUID,
         roomToken,
-        uid
+        uid,
+        FastRegion.CN_HZ
     );
     // step 3: join room
     fastboard.joinRoom(roomOptions, fastRoom -> {
