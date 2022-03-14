@@ -1,5 +1,7 @@
 package io.agora.board.fast.model;
 
+import androidx.annotation.Nullable;
+
 public class FastInsertDocParams {
     /**
      * file extensions
@@ -23,10 +25,15 @@ public class FastInsertDocParams {
     private String title;
 
     public FastInsertDocParams(String resource, String fileType, String taskUUID, String taskToken) {
+        this(resource, fileType, taskUUID, taskToken, null);
+    }
+
+    public FastInsertDocParams(String resource, String fileType, String taskUUID, String taskToken, @Nullable String title) {
         this.resource = resource;
         this.fileType = fileType;
         this.taskUUID = taskUUID;
         this.taskToken = taskToken;
+        this.title = title;
     }
 
     public String getFileType() {
