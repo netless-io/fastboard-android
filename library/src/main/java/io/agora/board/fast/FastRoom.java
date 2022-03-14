@@ -308,7 +308,7 @@ public class FastRoom {
         }
 
         ConverterV5 convert = new ConverterV5.Builder()
-                .setResource(params.getResource())
+                .setResource("")
                 .setType(isDynamicDoc(params.getFileType()) ? ConvertType.Dynamic : ConvertType.Static)
                 .setTaskUuid(params.getTaskUUID())
                 .setTaskToken(params.getTaskToken())

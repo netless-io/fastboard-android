@@ -4,14 +4,6 @@ import androidx.annotation.Nullable;
 
 public class FastInsertDocParams {
     /**
-     * file extensions
-     */
-    private String fileType;
-    /**
-     * file remote url
-     */
-    private String resource;
-    /**
      * file convert taskUUID
      */
     private String taskUUID;
@@ -20,16 +12,19 @@ public class FastInsertDocParams {
      */
     private String taskToken;
     /**
+     * file extensions
+     */
+    private String fileType;
+    /**
      * app display title
      */
     private String title;
 
-    public FastInsertDocParams(String resource, String fileType, String taskUUID, String taskToken) {
-        this(resource, fileType, taskUUID, taskToken, null);
+    public FastInsertDocParams(String taskUUID, String taskToken, String fileType) {
+        this(fileType, taskUUID, taskToken, null);
     }
 
-    public FastInsertDocParams(String resource, String fileType, String taskUUID, String taskToken, @Nullable String title) {
-        this.resource = resource;
+    public FastInsertDocParams(String taskUUID, String taskToken, String fileType, @Nullable String title) {
         this.fileType = fileType;
         this.taskUUID = taskUUID;
         this.taskToken = taskToken;
@@ -42,14 +37,6 @@ public class FastInsertDocParams {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
     }
 
     public String getTaskUUID() {

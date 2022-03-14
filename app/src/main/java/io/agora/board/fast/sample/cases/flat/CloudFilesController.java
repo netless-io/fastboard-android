@@ -74,7 +74,7 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
     }
 
     private void insertDocs(CloudFile file) {
-        FastInsertDocParams params = new FastInsertDocParams(file.url, file.type, file.taskUUID, file.taskToken);
+        FastInsertDocParams params = new FastInsertDocParams(file.taskUUID, file.taskToken, file.type, file.name);
         fastRoom.insertDocs(params, new FastResult<String>() {
             @Override
             public void onSuccess(String value) {
