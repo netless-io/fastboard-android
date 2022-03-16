@@ -3,6 +3,7 @@ package io.agora.board.fast;
 import static io.agora.board.fast.FastException.ROOM_DISCONNECT_ERROR;
 import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 
 import com.herewhite.sdk.ConverterCallbacks;
@@ -204,7 +205,7 @@ public class FastRoom {
      *
      * @param color color int as 0xFFFFFF
      */
-    public void setStrokeColor(Integer color) {
+    public void setStrokeColor(@ColorInt int color) {
         if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
