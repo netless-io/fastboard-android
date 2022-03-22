@@ -3,6 +3,7 @@ package io.agora.board.fast.sample.cases.drawsth;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
+import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.FastRegion;
@@ -16,8 +17,7 @@ import io.agora.board.fast.sample.misc.Utils;
 
 public class DrawSthActivity extends BaseActivity {
     private final Repository repository = Repository.get();
-
-    private Fastboard fastboard;
+    private FastRoom fastRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class DrawSthActivity extends BaseActivity {
 
     private void setupFastboard() {
         FastboardView fastboardView = findViewById(R.id.fastboard_view);
-        fastboard = fastboardView.getFastboard();
+        Fastboard fastboard = fastboardView.getFastboard();
 
         FastRoomOptions roomOptions = new FastRoomOptions(
                 Constants.SAMPLE_APP_ID,
@@ -39,10 +39,11 @@ public class DrawSthActivity extends BaseActivity {
                 repository.getUserId(),
                 FastRegion.CN_HZ
         );
-        fastboard.joinRoom(roomOptions);
+        fastRoom = fastboard.createFastRoom(roomOptions);
+        fastRoom.join();
 
         DrawSthController controller = new DrawSthController(findViewById(R.id.draw_sth_controller));
-        fastboardView.setRootRoomController(controller);
+        fastRoom.setRootRoomController(controller);
 
         updateFastStyle();
     }
@@ -50,9 +51,9 @@ public class DrawSthActivity extends BaseActivity {
 
     protected void updateFastStyle() {
         // global style change
-        FastStyle fastStyle = fastboard.getFastStyle();
+        FastStyle fastStyle = fastRoom.getFastStyle();
         fastStyle.setDarkMode(Utils.isDarkMode(this));
         fastStyle.setMainColor(Utils.getThemePrimaryColor(this));
-        fastboard.setFastStyle(fastStyle);
+        fastRoom.setFastStyle(fastStyle);
     }
 }

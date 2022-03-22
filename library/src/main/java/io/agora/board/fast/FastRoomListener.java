@@ -8,20 +8,12 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public interface FastListener {
-    default void onFastError(FastException error) {
-
-    }
-
+public interface FastRoomListener {
     default void onOverlayChanged(int key) {
 
     }
 
     default void onRoomReadyChanged(FastRoom fastRoom) {
-
-    }
-
-    default void onFastStyleChanged(FastStyle style) {
 
     }
 
@@ -33,7 +25,11 @@ public interface FastListener {
 
     }
 
-    default void onReplayReadyChanged(FastReplay fastReplay) {
+    default void onFastStyleChanged(FastStyle style) {
+
+    }
+
+    default void onFastError(FastException error) {
 
     }
 }

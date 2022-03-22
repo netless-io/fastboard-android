@@ -1,12 +1,11 @@
 package io.agora.board.fast.internal;
 
-import io.agora.board.fast.FastContext;
 import io.agora.board.fast.extension.OverlayHandler;
 
 public class FastOverlayHandler implements OverlayHandler {
-    private final FastContext fastContext;
+    private final FastRoomContext fastContext;
 
-    public FastOverlayHandler(FastContext fastContext) {
+    public FastOverlayHandler(FastRoomContext fastContext) {
         this.fastContext = fastContext;
     }
 

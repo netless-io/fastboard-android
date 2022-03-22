@@ -46,22 +46,6 @@ public class FastUiSettings {
     }
 
     /**
-     * hide all controller
-     */
-    public void hideRoomControllerGroup() {
-        RoomControllerGroup rootRoomController = fastboardView.getRootRoomController();
-        rootRoomController.hide();
-    }
-
-    /**
-     * show all controller
-     */
-    public void showRoomControllerGroup() {
-        RoomControllerGroup rootRoomController = fastboardView.getRootRoomController();
-        rootRoomController.show();
-    }
-
-    /**
      * hide controllers
      * ids defined in ids.xml
      * <p>

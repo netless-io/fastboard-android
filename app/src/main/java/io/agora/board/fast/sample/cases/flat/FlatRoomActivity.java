@@ -1,8 +1,11 @@
 package io.agora.board.fast.sample.cases.flat;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
@@ -23,7 +26,6 @@ public class FlatRoomActivity extends BaseActivity {
     private final Repository repository = Repository.get();
 
     private FastboardView fastboardView;
-    private Fastboard fastboard;
     private FastRoom fastRoom;
 
     private CloudFilesController cloudFilesController;
@@ -55,7 +57,7 @@ public class FlatRoomActivity extends BaseActivity {
 
     private void setupFastboard() {
         fastboardView = findViewById(R.id.fastboard_view);
-        fastboard = fastboardView.getFastboard();
+        Fastboard fastboard = fastboardView.getFastboard();
 
         FastRoomOptions roomOptions = new FastRoomOptions(
                 Constants.SAMPLE_APP_ID,
@@ -65,17 +67,20 @@ public class FlatRoomActivity extends BaseActivity {
                 FastRegion.CN_HZ
         );
 
-        fastboard.joinRoom(roomOptions, new OnRoomReadyCallback() {
-            @Override
-            public void onRoomReady(FastRoom fastRoom) {
-                FlatRoomActivity.this.fastRoom = fastRoom;
-            }
-        });
+        fastRoom = fastboard.createFastRoom(roomOptions);
+        fastRoom.join();
 
         FlatControllerGroup controller = new FlatControllerGroup(findViewById(R.id.flat_controller_layout));
         // it's a restriction that add controller before setRootRoomController
         controller.addController(cloudFilesController);
-        fastboardView.setRootRoomController(controller);
+        fastRoom.setRootRoomController(controller);
+
+        updateFastStyle();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration config) {
+        super.onConfigurationChanged(config);
 
         updateFastStyle();
     }
@@ -88,9 +93,9 @@ public class FlatRoomActivity extends BaseActivity {
 
     protected void updateFastStyle() {
         // global style change
-        FastStyle fastStyle = fastboard.getFastStyle();
+        FastStyle fastStyle = fastRoom.getFastStyle();
         fastStyle.setDarkMode(Utils.isDarkMode(this));
         fastStyle.setMainColor(Utils.getThemePrimaryColor(this));
-        fastboard.setFastStyle(fastStyle);
+        fastRoom.setFastStyle(fastStyle);
     }
 }

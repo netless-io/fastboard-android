@@ -93,7 +93,7 @@ public abstract class RoomControllerGroup implements RoomController {
             controller.updateFastStyle(style);
         }
     }
-
+    
     @Override
     public View getBindView() {
         return root;

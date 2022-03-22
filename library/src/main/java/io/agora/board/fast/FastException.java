@@ -16,6 +16,7 @@ public class FastException extends RuntimeException {
     public static final int PLAYER_JOIN_ERROR = 200;
     private int type;
     private int code;
+
     private FastException(@Type int type, int code, String message) {
         super(message);
         this.type = type;

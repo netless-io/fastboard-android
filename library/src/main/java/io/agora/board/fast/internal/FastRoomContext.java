@@ -1,32 +1,29 @@
-package io.agora.board.fast;
+package io.agora.board.fast.internal;
 
 import android.content.Context;
-
-import androidx.annotation.Nullable;
 
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import io.agora.board.fast.FastException;
+import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.FastRoomListener;
+import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
-import io.agora.board.fast.internal.FastOverlayHandler;
 import io.agora.board.fast.model.FastRedoUndo;
-import io.agora.board.fast.model.FastReplayOptions;
-import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.ResourceFetcher;
 
-public class FastContext {
+public class FastRoomContext {
     final FastboardView fastboardView;
     Context context;
-    Fastboard fastboard;
     FastRoom fastRoom;
-    FastReplay fastReplay;
     FastStyle fastStyle;
 
     ErrorHandler errorHandler;
@@ -34,11 +31,12 @@ public class FastContext {
     OverlayHandler overlayHandler;
     OverlayManager overlayManager;
     ResourceFetcher resourceFetcher;
-    CopyOnWriteArrayList<FastListener> listeners = new CopyOnWriteArrayList<>();
+    CopyOnWriteArrayList<FastRoomListener> listeners = new CopyOnWriteArrayList<>();
 
-    public FastContext(FastboardView fastboardView) {
+    public FastRoomContext(FastboardView fastboardView) {
         this.fastboardView = fastboardView;
         this.context = fastboardView.getContext();
+        this.fastStyle = fastboardView.getFastboard().getFastStyle();
         this.resourceFetcher = ResourceFetcher.get();
         this.resourceFetcher.init(context);
         this.overlayHandler = new FastOverlayHandler(this);
@@ -46,23 +44,6 @@ public class FastContext {
 
     public FastboardView getFastboardView() {
         return fastboardView;
-    }
-
-    public Fastboard getFastboard() {
-        if (fastboard == null) {
-            fastboard = new Fastboard(fastboardView);
-        }
-        return fastboard;
-    }
-
-    public void joinRoom(FastRoomOptions options, @Nullable OnRoomReadyCallback onRoomReadyCallback) {
-        fastRoom = new FastRoom(this, options, onRoomReadyCallback);
-        fastRoom.join();
-    }
-
-    public void joinPlayer(FastReplayOptions options, OnReplayReadyCallback onReplayReadyCallback) {
-        fastReplay = new FastReplay(this, options);
-        fastReplay.join();
     }
 
     public void setErrorHandler(ErrorHandler errorHandler) {
@@ -85,11 +66,11 @@ public class FastContext {
         return overlayManager;
     }
 
-    FastStyle getFastStyle() {
+    public FastStyle getFastStyle() {
         return fastStyle;
     }
 
-    void setFastStyle(FastStyle fastStyle) {
+    public void setFastStyle(FastStyle fastStyle) {
         this.fastStyle = fastStyle;
         notifyListeners(listener -> listener.onFastStyleChanged(fastStyle));
     }
@@ -98,11 +79,11 @@ public class FastContext {
         resourceFetcher.setResourceImpl(resourceImpl);
     }
 
-    public void addListener(FastListener listener) {
+    public void addListener(FastRoomListener listener) {
         listeners.addIfAbsent(listener);
     }
 
-    public void removeListener(FastListener listener) {
+    public void removeListener(FastRoomListener listener) {
         listeners.remove(listener);
     }
 
@@ -127,11 +108,6 @@ public class FastContext {
         notifyListeners(listener -> listener.onRoomReadyChanged(fastRoom));
     }
 
-    public void notifyReplayReadyChanged(FastReplay fastReplay) {
-        this.fastReplay = fastReplay;
-        notifyListeners(listener -> listener.onReplayReadyChanged(fastReplay));
-    }
-
     public void notifyFastError(FastException error) {
         errorHandler.handleError(error);
         notifyListeners(listener -> listener.onFastError(error));
@@ -142,13 +118,13 @@ public class FastContext {
     }
 
     private void notifyListeners(ListenerInvocation listenerInvocation) {
-        CopyOnWriteArrayList<FastListener> listenerSnapshot = new CopyOnWriteArrayList<>(listeners);
-        for (FastListener listener : listenerSnapshot) {
+        CopyOnWriteArrayList<FastRoomListener> listenerSnapshot = new CopyOnWriteArrayList<>(listeners);
+        for (FastRoomListener listener : listenerSnapshot) {
             listenerInvocation.invokeListener(listener);
         }
     }
 
     protected interface ListenerInvocation {
-        void invokeListener(FastListener listener);
+        void invokeListener(FastRoomListener listener);
     }
 }

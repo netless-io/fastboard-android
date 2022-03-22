@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.FastResult;
 import io.agora.board.fast.model.FastInsertDocParams;
+import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.misc.CloudFile;
 import io.agora.board.fast.sample.misc.Repository;
+import io.agora.board.fast.ui.ResourceFetcher;
 import io.agora.board.fast.ui.RoomController;
 
 public class CloudFilesController extends LinearLayoutCompat implements RoomController {
@@ -96,5 +98,10 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
     @Override
     public void setFastRoom(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
+    }
+
+    @Override
+    public void updateFastStyle(FastStyle style) {
+        setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
     }
 }

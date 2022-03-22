@@ -2,7 +2,6 @@ package io.agora.board.fast.internal;
 
 import android.util.SparseArray;
 
-import io.agora.board.fast.FastContext;
 import io.agora.board.fast.extension.FastVisiable;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.ui.OverlayLayout;
@@ -14,12 +13,10 @@ public class FastOverlayManager implements OverlayManager {
 
     private final SparseArray<FastVisiable> visiables = new SparseArray<>();
     private final OverlayLayout overlayLayer;
-    private final FastContext fastContext;
 
     private int showKey = OverlayManager.KEY_NO_OVERLAY;
 
-    public FastOverlayManager(FastContext fastContext, OverlayLayout overlayLayer) {
-        this.fastContext = fastContext;
+    public FastOverlayManager(OverlayLayout overlayLayer) {
         this.overlayLayer = overlayLayer;
         this.overlayLayer.hide();
         this.overlayLayer.setOnClickListener(v -> {
@@ -85,7 +82,8 @@ public class FastOverlayManager implements OverlayManager {
             } else {
                 overlayLayer.show();
             }
-            fastContext.handleOverlayChanged(key);
+            // TODO
+            // fastContext.handleOverlayChanged(key);
         }
     }
 }
