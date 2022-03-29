@@ -41,6 +41,7 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
+import io.agora.board.fast.internal.FastOverlayHandler;
 import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomContext;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
@@ -221,9 +222,12 @@ public class FastRoom {
 
         fastRoomContext.setRoomPhaseHandler(new FastRoomPhaseHandler(loadingLayout));
         fastRoomContext.setErrorHandler(new FastErrorHandler(errorHandleLayout));
-        fastRoomContext.setOverlayManager(new FastOverlayManager(overlayLayout));
+        fastRoomContext.setOverlayManager(new FastOverlayManager(overlayLayout, new FastOverlayHandler(fastRoomContext)));
 
         addListener(interFastRoomListener);
+        // TODO reconnect has no fastRoom instance
+        roomControllerGroup.setFastRoom(this);
+        roomControllerGroup.updateFastStyle(getFastStyle());
     }
 
     public void join() {

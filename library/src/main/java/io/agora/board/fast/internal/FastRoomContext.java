@@ -39,7 +39,6 @@ public class FastRoomContext {
         this.fastStyle = fastboardView.getFastboard().getFastStyle();
         this.resourceFetcher = ResourceFetcher.get();
         this.resourceFetcher.init(context);
-        this.overlayHandler = new FastOverlayHandler(this);
     }
 
     public FastboardView getFastboardView() {
@@ -87,12 +86,9 @@ public class FastRoomContext {
         listeners.remove(listener);
     }
 
-    public void handleOverlayChanged(int key) {
-        overlayHandler.handleOverlayChanged(key);
-    }
-
     public void notifyRoomPhaseChanged(RoomPhase phase) {
         roomPhaseHandler.handleRoomPhase(phase);
+        notifyListeners(listener -> listener.onRoomPhaseChanged(phase));
     }
 
     public void notifyRoomStateChanged(RoomState roomState) {

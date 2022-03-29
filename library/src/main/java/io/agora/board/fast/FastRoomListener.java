@@ -1,5 +1,6 @@
 package io.agora.board.fast;
 
+import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 
 import io.agora.board.fast.model.FastRedoUndo;
@@ -18,6 +19,10 @@ public interface FastRoomListener {
     }
 
     default void onRoomStateChanged(RoomState state) {
+
+    }
+
+    default void onRoomPhaseChanged(RoomPhase phase) {
 
     }
 

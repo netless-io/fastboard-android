@@ -22,6 +22,7 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
     private FastRoom fastRoom;
 
     private TextView messageView;
+    private View retry;
 
     public ErrorHandleLayout(@NonNull Context context) {
         this(context, null);
@@ -41,7 +42,7 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
         View root = LayoutInflater.from(context).inflate(R.layout.fast_layout_error_handle, this, true);
         messageView = root.findViewById(R.id.fast_error_handle_message);
 
-        View retry = root.findViewById(R.id.fast_error_handle_retry);
+        retry = root.findViewById(R.id.fast_error_handle_retry);
         retry.setOnClickListener(v -> {
             hide();
             fastRoom.join();
