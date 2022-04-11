@@ -21,8 +21,6 @@ import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.SwitchCompat;
 
-import com.herewhite.sdk.domain.SceneState;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.ControllerId;
@@ -57,10 +55,7 @@ public class RoomControlView extends FrameLayout {
         });
 
         root.findViewById(R.id.clear).setOnClickListener(v -> {
-            SceneState sceneState = fastRoom.getRoom().getRoomState().getSceneState();
-            String scenePath = sceneState.getScenePath();
-            String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
-            fastRoom.getRoom().removeScenes(dir);
+            fastRoom.getRoom().removeScenes("/");
         });
 
         SwitchCompat visiableSwitch = root.findViewById(R.id.controller_visiable_switch);
