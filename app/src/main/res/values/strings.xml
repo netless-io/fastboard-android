@@ -2,6 +2,8 @@
     <string name="app_name" translatable="false">Fastboard</string>
     <string name="switch_dark_mode" translatable="false">Switch DarkMode</string>
     <string name="delete_scenes" translatable="false">Delete Scenes</string>
+    <string name="change_visiable" translatable="false">Controller Visiable</string>
+    <string name="change_writable" translatable="false">Change Writable</string>
     <string name="change_toolbox" translatable="false" tools:ignore="ExtraTranslation">Toolbox Mode</string>
     <string name="change_toolbox_gravity" translatable="false" tools:ignore="ExtraTranslation">Toolbox Gravity</string>
     <string name="change_redo_undo" translatable="false" tools:ignore="ExtraTranslation">RedoUndo Mode</string>

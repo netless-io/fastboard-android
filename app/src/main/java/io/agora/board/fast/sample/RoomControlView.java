@@ -25,13 +25,14 @@ import com.herewhite.sdk.domain.SceneState;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastboardView;
+import io.agora.board.fast.model.ControllerId;
 import io.agora.board.fast.ui.FastUiSettings;
 
 public class RoomControlView extends FrameLayout {
     private FastRoom fastRoom;
 
-    private View controllerLayout;
-    private ImageView handleView;
+    private final View controllerLayout;
+    private final ImageView handleView;
 
     public RoomControlView(@NonNull Context context) {
         this(context, null);
@@ -61,6 +62,19 @@ public class RoomControlView extends FrameLayout {
             String dir = scenePath.substring(0, scenePath.lastIndexOf("/"));
             fastRoom.getRoom().removeScenes(dir);
         });
+
+        SwitchCompat visiableSwitch = root.findViewById(R.id.controller_visiable_switch);
+        visiableSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            FastUiSettings uiSettings = fastRoom.getFastboardView().getUiSettings();
+            if (isChecked) {
+                uiSettings.hideRoomController(ControllerId.RedoUndo, ControllerId.PageIndicator, ControllerId.ToolBox);
+            } else {
+                uiSettings.showRoomController(ControllerId.RedoUndo, ControllerId.PageIndicator, ControllerId.ToolBox);
+            }
+        });
+
+        SwitchCompat writableSwitch = root.findViewById(R.id.writable_switch);
+        writableSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> fastRoom.setWritable(isChecked));
 
         SwitchCompat toolboxSwitch = root.findViewById(R.id.toolbox_mode_switch);
         toolboxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -142,13 +156,10 @@ public class RoomControlView extends FrameLayout {
         });
 
         ImageView handle = findViewById(R.id.handle);
-        handle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isVisiable = controllerLayout.getVisibility() == VISIBLE;
-                controllerLayout.setVisibility(isVisiable ? GONE : VISIBLE);
-                updateHandleView();
-            }
+        handle.setOnClickListener(v -> {
+            boolean isVisiable = controllerLayout.getVisibility() == VISIBLE;
+            controllerLayout.setVisibility(isVisiable ? GONE : VISIBLE);
+            updateHandleView();
         });
         updateHandleView();
     }

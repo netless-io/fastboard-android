@@ -6,6 +6,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.R;
+import io.agora.board.fast.model.ControllerId;
 
 /**
  * a class to controller ui
@@ -47,19 +48,30 @@ public class FastUiSettings {
 
     /**
      * hide controllers
-     * ids defined in ids.xml
-     * <p>
-     * R.id.fast_redo_undo_layout
-     * R.id.fast_scenes_layout
-     * R.id.fast_toolbox_layout
+     * ids defined in {@link ControllerId}
      *
      * @param ids
      */
-    public void hideRoomController(int... ids) {
-        for (int id : ids) {
-            View view = fastboardView.findViewById(id);
+    public void hideRoomController(ControllerId... ids) {
+        for (ControllerId id : ids) {
+            View view = fastboardView.findViewById(id.getLayoutId());
             if (view instanceof RoomController) {
                 ((RoomController) view).hide();
+            }
+        }
+    }
+
+    /**
+     * show controllers
+     * ids defined in {@link ControllerId}
+     *
+     * @param ids
+     */
+    public void showRoomController(ControllerId... ids) {
+        for (ControllerId id : ids) {
+            View view = fastboardView.findViewById(id.getLayoutId());
+            if (view instanceof RoomController) {
+                ((RoomController) view).show();
             }
         }
     }
