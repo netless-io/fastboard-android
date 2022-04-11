@@ -1,9 +1,11 @@
 # Change Log
 
-## [Version 1.1.0] - Pending
+## [Version 1.1.0] - 2021-04-11
 
 - Fix: fix `ToolBox` selected state when overlay hide
 - New: add `FastRoomListener`.`onRoomPhaseChanged`
+- New: add `FastUiSettings.showRoomController`
+- **Breaking Change**: update `FastUiSettings.hideRoomController`, replace resId with `ControllerId`
 
 ## [Version 1.0.0] - 2021-03-20
 
