@@ -72,7 +72,7 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
     }
 
     private void insertVideo(CloudFile cloudFile) {
-        fastRoom.insertVideo(cloudFile.name, cloudFile.url);
+        fastRoom.insertVideo(cloudFile.url, cloudFile.name);
     }
 
     private void insertDocs(CloudFile file) {
