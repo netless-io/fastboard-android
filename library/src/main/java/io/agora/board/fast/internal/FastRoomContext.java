@@ -38,7 +38,6 @@ public class FastRoomContext {
         this.context = fastboardView.getContext();
         this.fastStyle = fastboardView.getFastboard().getFastStyle();
         this.resourceFetcher = ResourceFetcher.get();
-        this.resourceFetcher.init(context);
     }
 
     public FastboardView getFastboardView() {

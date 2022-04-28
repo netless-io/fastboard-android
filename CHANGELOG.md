@@ -1,5 +1,8 @@
 # Change Log
 
+## [Version 1.2.0] - Pending
+- Fix: fix get resources NullPointerException on customized `RoomControllerGroup`
+
 ## [Version 1.1.0] - 2021-04-11
 
 - Fix: fix `ToolBox` selected state when overlay hide

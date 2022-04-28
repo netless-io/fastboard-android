@@ -15,6 +15,7 @@ import com.herewhite.sdk.WhiteboardView;
 
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.FastUiSettings;
+import io.agora.board.fast.ui.ResourceFetcher;
 
 /**
  * @author fenglibin
@@ -34,6 +35,7 @@ public class FastboardView extends FrameLayout {
 
     public FastboardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setupResourceFetcher(context);
         setupStyle(context, attrs, defStyleAttr);
         setupView(context);
     }
@@ -42,6 +44,10 @@ public class FastboardView extends FrameLayout {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         post(() -> fastboard.updateWhiteboardLayout(w, h));
+    }
+
+    private void setupResourceFetcher(Context context) {
+        ResourceFetcher.get().init(context);
     }
 
     private void setupView(Context context) {
