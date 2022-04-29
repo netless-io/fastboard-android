@@ -49,7 +49,7 @@ open class DrawSthActivity : BaseActivity() {
         val fastStyle = fastRoom.fastStyle
         fastStyle.isDarkMode = Utils.isDarkMode(this)
         fastStyle.mainColor = Utils.getThemePrimaryColor(this)
-        fastRoom!!.fastStyle = fastStyle
+        fastRoom.fastStyle = fastStyle
     }
 
     private fun updateRatio(roomOptions: FastRoomOptions) {

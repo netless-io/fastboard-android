@@ -95,9 +95,9 @@ class ToolboxCollapse implements Toolbox {
     @Override
     public void setFastRoom(FastRoom fastRoom) {
         this.fastRoom = fastRoom;
-        this.overlayManager = fastRoom.getOverlayManager();
-        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_EXTENSION, extensionLayout);
-        this.overlayManager.addOverlay(OverlayManager.KEY_TOOL_LAYOUT, toolLayout);
+        overlayManager = fastRoom.getOverlayManager();
+        overlayManager.addOverlay(OverlayManager.KEY_TOOL_EXTENSION, extensionLayout);
+        overlayManager.addOverlay(OverlayManager.KEY_TOOL_LAYOUT, toolLayout);
     }
 
     @Override

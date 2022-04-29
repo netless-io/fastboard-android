@@ -72,6 +72,7 @@ public class FastConvertor {
         styleMap.put("position", "fixed");
         WindowParams windowParams = new WindowParams();
         windowParams.setChessboard(false);
+        windowParams.setContainerSizeRatio(9f / 16);
         windowParams.setDebug(true);
         windowParams.setCollectorStyles(styleMap);
         windowParams.setPrefersColorScheme(WindowPrefersColorScheme.Auto);

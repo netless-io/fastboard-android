@@ -2,7 +2,9 @@ package io.agora.board.fast;
 
 import android.widget.FrameLayout;
 
+import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.WhiteboardView;
+import com.herewhite.sdk.domain.WindowParams;
 
 import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
@@ -13,7 +15,7 @@ public class Fastboard {
 
     private final FastboardView fastboardView;
     private FastStyle fastStyle;
-    private float whiteboardRatio = 9.0f / 16;
+    private Float whiteboardRatio;
 
     public Fastboard(FastboardView fastboardView) {
         this.fastboardView = fastboardView;
@@ -39,21 +41,39 @@ public class Fastboard {
         this.fastStyle = fastStyle;
     }
 
-    public void setWhiteboardRatio(float ratio) {
+    public void setWhiteboardRatio(Float ratio) {
         this.whiteboardRatio = ratio;
         updateWhiteboardLayout(fastboardView.getWidth(), fastboardView.getHeight());
+    }
+
+    /**
+     * package api for
+     *
+     * @param roomOptions
+     */
+    void setWhiteboardRatio(FastRoomOptions roomOptions) {
+        WhiteSdkConfiguration sdkConfiguration = roomOptions.getSdkConfiguration();
+        WindowParams windowParams = roomOptions.getRoomParams().getWindowParams();
+        if (sdkConfiguration.getUseMultiViews() && windowParams != null) {
+            setWhiteboardRatio(windowParams.getContainerSizeRatio());
+        }
     }
 
     void updateWhiteboardLayout(int w, int h) {
         WhiteboardView whiteboardView = fastboardView.whiteboardView;
 
         FrameLayout.LayoutParams lps = (FrameLayout.LayoutParams) whiteboardView.getLayoutParams();
-        if (h / whiteboardRatio >= w) {
-            lps.height = (int) (w * whiteboardRatio);
-            lps.width = w;
+        if (whiteboardRatio == null) {
+            lps.height = FrameLayout.LayoutParams.MATCH_PARENT;
+            lps.width = FrameLayout.LayoutParams.MATCH_PARENT;
         } else {
-            lps.height = h;
-            lps.width = (int) (h / whiteboardRatio);
+            if (h / whiteboardRatio >= w) {
+                lps.height = (int) (w * whiteboardRatio);
+                lps.width = w;
+            } else {
+                lps.height = h;
+                lps.width = (int) (h / whiteboardRatio);
+            }
         }
         whiteboardView.setLayoutParams(lps);
     }

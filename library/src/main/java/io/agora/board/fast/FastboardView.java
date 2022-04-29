@@ -40,19 +40,8 @@ public class FastboardView extends FrameLayout {
         setupView(context);
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        post(() -> fastboard.updateWhiteboardLayout(w, h));
-    }
-
     private void setupResourceFetcher(Context context) {
         ResourceFetcher.get().init(context);
-    }
-
-    private void setupView(Context context) {
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_fastboard_view, this, true);
-        whiteboardView = root.findViewById(R.id.fast_whiteboard_view);
     }
 
     private void setupStyle(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -65,6 +54,17 @@ public class FastboardView extends FrameLayout {
         fastStyle.setMainColor(mainColor);
         fastStyle.setDarkMode(darkMode);
         getFastboard().setFastStyle(fastStyle);
+    }
+
+    private void setupView(Context context) {
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_fastboard_view, this, true);
+        whiteboardView = root.findViewById(R.id.fast_whiteboard_view);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        post(() -> fastboard.updateWhiteboardLayout(w, h));
     }
 
     void updateFastStyle(FastStyle style) {

@@ -224,10 +224,15 @@ public class FastRoom {
         fastRoomContext.setErrorHandler(new FastErrorHandler(errorHandleLayout));
         fastRoomContext.setOverlayManager(new FastOverlayManager(overlayLayout, new FastOverlayHandler(fastRoomContext)));
 
-        addListener(interFastRoomListener);
         // TODO reconnect has no fastRoom instance
         roomControllerGroup.setFastRoom(this);
         roomControllerGroup.updateFastStyle(getFastStyle());
+
+        // update default ratio
+        Fastboard fastboard = fastboardView.fastboard;
+        fastboard.setWhiteboardRatio(fastRoomOptions);
+
+        addListener(interFastRoomListener);
     }
 
     public void join() {
