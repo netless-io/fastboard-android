@@ -17,7 +17,6 @@ import com.herewhite.sdk.domain.MemberState;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.R;
@@ -37,30 +36,7 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     public static final int TYPE_TEXT = 2 | SHOW_COLORS;
     public static final int TYPE_PENCIL = 3 | SHOW_SEEKER | SHOW_COLORS;
     public static final int TYPE_TABLET_SHAPE = 4 | SHOW_TOOLS | SHOW_SEEKER | SHOW_COLORS;
-    private static final List<FastAppliance> DEFAULT_TOOLS = new ArrayList<FastAppliance>() {
-        {
-            add(FastAppliance.RECTANGLE);
-            add(FastAppliance.ELLIPSE);
-            add(FastAppliance.STRAIGHT);
-            add(FastAppliance.ARROW);
-            add(FastAppliance.PENTAGRAM);
-            add(FastAppliance.RHOMBUS);
-            add(FastAppliance.BUBBLE);
-            add(FastAppliance.TRIANGLE);
-        }
-    };
-    private static final List<Integer> DEFAULT_COLORS = new ArrayList<Integer>() {
-        {
-            add(Color.parseColor("#EC3455"));
-            add(Color.parseColor("#F5AD46"));
-            add(Color.parseColor("#68AB5D"));
-            add(Color.parseColor("#32C5FF"));
-            add(Color.parseColor("#005BF6"));
-            add(Color.parseColor("#6236FF"));
-            add(Color.parseColor("#9E51B6"));
-            add(Color.parseColor("#6D7278"));
-        }
-    };
+
     private RecyclerView toolsRecyclerView;
     private ApplianceAdapter toolsAdapter;
     private RecyclerView colorsRecyclerView;
@@ -87,11 +63,11 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
         colorsRecyclerView = root.findViewById(R.id.colors_recycler_view);
         strokeSeeker = root.findViewById(R.id.stroke_seeker);
 
-        toolsAdapter = new ApplianceAdapter(DEFAULT_TOOLS);
+        toolsAdapter = new ApplianceAdapter();
         toolsRecyclerView.setAdapter(toolsAdapter);
         toolsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
-        colorAdapter = new ColorAdapter(DEFAULT_COLORS);
+        colorAdapter = new ColorAdapter(FastUiSettings.getToolsColors());
         colorsRecyclerView.setAdapter(colorAdapter);
         colorsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
@@ -123,8 +99,12 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
         strokeSeeker.setStrokeWidth(width);
     }
 
-    public void setApplianceItem(FastAppliance applianceItem) {
-        toolsAdapter.setApplianceItem(applianceItem);
+    public void setApplianceItem(FastAppliance appliance) {
+        toolsAdapter.setApplianceItem(appliance);
+    }
+
+    public void setAppliances(List<FastAppliance> appliances) {
+        toolsAdapter.setAppliances(appliances);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.List;
 
 import io.agora.board.fast.R;
@@ -25,6 +26,10 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
     private ColorStateList iconColor;
     private boolean isDarkMode;
     private OnApplianceClickListener onApplianceClickListener;
+
+    public ApplianceAdapter() {
+        this(Collections.emptyList());
+    }
 
     public ApplianceAdapter(List<FastAppliance> appliances) {
         this.appliances = appliances;

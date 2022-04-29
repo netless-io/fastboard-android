@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.herewhite.sdk.domain.MemberState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.R;
@@ -24,20 +23,6 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ToolLayout extends FrameLayout implements RoomController {
-    private static final List<FastAppliance> PHONE_APPLIANCES = new ArrayList<FastAppliance>() {
-        {
-            add(FastAppliance.CLICKER);
-            add(FastAppliance.SELECTOR);
-            add(FastAppliance.PENCIL);
-            add(FastAppliance.ERASER);
-            add(FastAppliance.ARROW);
-            add(FastAppliance.RECTANGLE);
-            add(FastAppliance.ELLIPSE);
-            add(FastAppliance.OTHER_CLEAR);
-        }
-    };
-
-    private RecyclerView toolsRecyclerView;
     private ApplianceAdapter applianceAdapter;
 
     public ToolLayout(@NonNull Context context) {
@@ -55,9 +40,9 @@ public class ToolLayout extends FrameLayout implements RoomController {
 
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_tools, this, true);
-        toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
+        RecyclerView toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
 
-        applianceAdapter = new ApplianceAdapter(PHONE_APPLIANCES);
+        applianceAdapter = new ApplianceAdapter(FastUiSettings.getToolsCollapseAppliances());
         toolsRecyclerView.setAdapter(applianceAdapter);
         toolsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
     }
@@ -66,12 +51,12 @@ public class ToolLayout extends FrameLayout implements RoomController {
         applianceAdapter.setOnApplianceClickListener(onApplianceClickListener);
     }
 
-    public void setAppliance(FastAppliance appliance) {
-        applianceAdapter.setApplianceItem(appliance);
-    }
-
     public void setAppliances(List<FastAppliance> appliance) {
         applianceAdapter.setAppliances(appliance);
+    }
+
+    public void updateAppliance(FastAppliance appliance) {
+        applianceAdapter.setApplianceItem(appliance);
     }
 
     @Override

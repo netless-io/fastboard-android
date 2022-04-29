@@ -339,7 +339,7 @@ public class FastRoom {
     /**
      * set appliance color
      *
-     * @param color color int as 0xFFFFFF
+     * @param color color int as 0xAARRGGBB
      */
     public void setStrokeColor(@ColorInt int color) {
         if (!isReady()) {

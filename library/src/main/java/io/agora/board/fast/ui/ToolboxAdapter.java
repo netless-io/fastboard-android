@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.agora.board.fast.R;
@@ -31,6 +30,10 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
         this.items = appliances;
     }
 
+    public void setItems(List<ToolboxItem> items) {
+        this.items = items;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,12 +45,12 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ToolboxItem item = items.get(position);
 
-        holder.appliance.setImageResource(ResourceFetcher.get().getApplianceIcon(item.appliance));
+        holder.appliance.setImageResource(ResourceFetcher.get().getApplianceIcon(item.current()));
         holder.appliance.setImageTintList(iconColor);
-        holder.appliance.setSelected(item.appliance == curAppliance);
+        holder.appliance.setSelected(item.current() == curAppliance);
         holder.appliance.setBackground(ResourceFetcher.get().createApplianceBackground(isDarkMode));
 
-        holder.expand.setVisibility(item.expandable ? View.VISIBLE : View.GONE);
+        holder.expand.setVisibility(item.isExpandable() ? View.VISIBLE : View.GONE);
         holder.expand.setImageTintList(ResourceFetcher.get().getIconColor(isDarkMode));
 
         holder.itemView.setOnClickListener(v -> {
@@ -55,7 +58,7 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
                 return;
             }
 
-            if (curAppliance == item.appliance) {
+            if (curAppliance == item.current()) {
                 onToolboxClickListener.onToolboxReClick(item);
             } else {
                 onToolboxClickListener.onSwitchToolbox(item, null);
@@ -68,27 +71,11 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
         return items.size();
     }
 
-    /**
-     * TODO here It's confusing, key is a place for multiple appliance.
-     *
-     * @param key
-     * @param appliance
-     */
-    public void updateToolAppliance(int key, FastAppliance appliance) {
-        List<ToolboxItem> target = new ArrayList<>(items);
-        for (ToolboxItem toolboxItem : target) {
-            if (key == toolboxItem.key) {
-                toolboxItem.appliance = appliance;
-                break;
-            }
-        }
-        items = target;
-
-        notifyDataSetChanged();
-    }
-
     public void setAppliance(FastAppliance appliance) {
         curAppliance = appliance;
+        for (ToolboxItem toolboxItem : items) {
+            toolboxItem.update(appliance);
+        }
 
         notifyDataSetChanged();
     }

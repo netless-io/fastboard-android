@@ -21,18 +21,8 @@ import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 class ToolboxExpand implements Toolbox {
-    private static final List<ToolboxItem> TOOLBOX_ITEMS = new ArrayList<ToolboxItem>() {
-        {
-            add(new ToolboxItem(ToolboxItem.KEY_CLICK, FastAppliance.CLICKER, false));
-            add(new ToolboxItem(ToolboxItem.KEY_SELECTOR, FastAppliance.SELECTOR, false));
-            add(new ToolboxItem(ToolboxItem.KEY_PENCIL, FastAppliance.PENCIL, true));
-            add(new ToolboxItem(ToolboxItem.KEY_TEXT, FastAppliance.TEXT, true));
-            add(new ToolboxItem(ToolboxItem.KEY_ERASER, FastAppliance.ERASER, false));
-            add(new ToolboxItem(ToolboxItem.KEY_SHAPE, FastAppliance.RECTANGLE, true));
-            add(new ToolboxItem(ToolboxItem.KEY_CLEAR, FastAppliance.OTHER_CLEAR, false));
-        }
-    };
-    private final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXTENSION;
+    private static final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXTENSION;
+
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
 
@@ -56,7 +46,7 @@ class ToolboxExpand implements Toolbox {
             fastRoom.getRoom().deleteOperation();
         });
 
-        toolboxAdapter = new ToolboxAdapter(TOOLBOX_ITEMS);
+        toolboxAdapter = new ToolboxAdapter(getToolboxItems());
         toolsRecyclerView.setAdapter(toolboxAdapter);
         toolsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
@@ -67,32 +57,31 @@ class ToolboxExpand implements Toolbox {
                     overlayManager.hide(OVERLAY_EXT_LAYOUT);
                     return;
                 }
-                showExtensionIfNeed(item.key);
+                showExtensionIfNeed(item);
                 setApplianceIfNeed(item);
             }
 
             private void setApplianceIfNeed(ToolboxItem item) {
-                switch (item.key) {
-                    case ToolboxItem.KEY_CLICK:
-                    case ToolboxItem.KEY_SELECTOR:
-                    case ToolboxItem.KEY_ERASER:
-                        fastRoom.setAppliance(item.appliance);
+                switch (item.current()) {
+                    case CLICKER:
+                    case SELECTOR:
+                    case ERASER:
+                        fastRoom.setAppliance(item.current());
+                        break;
+                    default:
                         break;
                 }
             }
 
-            private void showExtensionIfNeed(int key) {
-                boolean showExtension = true;
-                if (key == ToolboxItem.KEY_PENCIL) {
+            private void showExtensionIfNeed(ToolboxItem item) {
+                if (item.current() == FastAppliance.PENCIL || item.current() == FastAppliance.TEXT) {
                     extensionLayout.setType(ExtensionLayout.TYPE_PENCIL);
-                } else if (key == ToolboxItem.KEY_TEXT) {
-                    extensionLayout.setType(ExtensionLayout.TYPE_PENCIL);
-                } else if (key == ToolboxItem.KEY_SHAPE) {
+                } else if (item.isExpandable()) {
+                    extensionLayout.setAppliances(item.appliances);
                     extensionLayout.setType(ExtensionLayout.TYPE_TABLET_SHAPE);
-                } else {
-                    showExtension = false;
                 }
-                if (showExtension) {
+
+                if (item.isExpandable()) {
                     overlayManager.show(OVERLAY_EXT_LAYOUT);
                 }
             }
@@ -101,10 +90,10 @@ class ToolboxExpand implements Toolbox {
             public void onSwitchToolbox(ToolboxItem item, ToolboxItem oldItem) {
                 overlayManager.hide(OVERLAY_EXT_LAYOUT);
 
-                if (item.appliance == FastAppliance.OTHER_CLEAR) {
+                if (item.current() == FastAppliance.OTHER_CLEAR) {
                     fastRoom.cleanScene();
                 } else {
-                    fastRoom.setAppliance(item.appliance);
+                    fastRoom.setAppliance(item.current());
                 }
             }
         });
@@ -119,7 +108,7 @@ class ToolboxExpand implements Toolbox {
 
         extensionLayout.setOnApplianceClickListener(item -> {
             fastRoom.setAppliance(item);
-            toolboxAdapter.updateToolAppliance(ToolboxItem.KEY_SHAPE, item);
+            // hide ext layout when pick a new appliance
             overlayManager.hide(OVERLAY_EXT_LAYOUT);
         });
     }
@@ -156,6 +145,14 @@ class ToolboxExpand implements Toolbox {
     @Override
     public void updateOverlayChanged(int key) {
 
+    }
+
+    private List<ToolboxItem> getToolboxItems() {
+        List<ToolboxItem> result = new ArrayList<>();
+        for (List<FastAppliance> appliances : FastUiSettings.getToolsExpandAppliances()) {
+            result.add(new ToolboxItem(appliances));
+        }
+        return result;
     }
 
     @Override

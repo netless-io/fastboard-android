@@ -111,7 +111,7 @@ class ToolboxCollapse implements Toolbox {
     @Override
     public void updateAppliance(FastAppliance fastAppliance) {
         toolButton.updateAppliance(fastAppliance);
-        toolLayout.setAppliance(fastAppliance);
+        toolLayout.updateAppliance(fastAppliance);
         extensionButton.setAppliance(fastAppliance);
     }
 

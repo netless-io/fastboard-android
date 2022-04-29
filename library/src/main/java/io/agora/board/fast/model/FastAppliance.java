@@ -3,6 +3,8 @@ package io.agora.board.fast.model;
 import com.herewhite.sdk.domain.Appliance;
 import com.herewhite.sdk.domain.ShapeType;
 
+import java.util.HashMap;
+
 /**
  * @author fenglibin
  */
@@ -49,5 +51,33 @@ public enum FastAppliance {
             }
         }
         return CLICKER;
+    }
+
+    private static HashMap<FastAppliance, Boolean> hasPropertiesMap;
+
+    static {
+        hasPropertiesMap = new HashMap<>();
+        hasPropertiesMap.put(FastAppliance.CLICKER, false);
+        hasPropertiesMap.put(FastAppliance.SELECTOR, false);
+        hasPropertiesMap.put(FastAppliance.ERASER, false);
+        hasPropertiesMap.put(FastAppliance.LASER_POINTER, false);
+        hasPropertiesMap.put(FastAppliance.OTHER_CLEAR, false);
+
+        hasPropertiesMap.put(FastAppliance.PENCIL, true);
+        hasPropertiesMap.put(FastAppliance.RECTANGLE, true);
+        hasPropertiesMap.put(FastAppliance.ELLIPSE, true);
+        hasPropertiesMap.put(FastAppliance.TEXT, true);
+        hasPropertiesMap.put(FastAppliance.ARROW, true);
+        hasPropertiesMap.put(FastAppliance.STRAIGHT, true);
+        hasPropertiesMap.put(FastAppliance.RHOMBUS, true);
+        hasPropertiesMap.put(FastAppliance.TRIANGLE, true);
+        hasPropertiesMap.put(FastAppliance.BUBBLE, true);
+    }
+
+    public boolean hasProperties() {
+        if (hasPropertiesMap.containsKey(this)) {
+            return hasPropertiesMap.get(this);
+        }
+        return false;
     }
 }

@@ -52,11 +52,12 @@ example can be found in [GetStartActivity](app/src/main/java/io/agora/board/fast
 </OuterLayout>
 ```
 ### Join Room
+<details open>
+    <summary>Java</summary>
+
 ```java
 private void setupFastboard() {
-    // step 1
     FastboardView fastboardView = findViewById(R.id.fastboard_view);
-    // step 2: obtain fastboard
     Fastboard fastboard = fastboardView.getFastboard();
 
     FastRoomOptions roomOptions = new FastRoomOptions(
@@ -66,12 +67,35 @@ private void setupFastboard() {
         uid,
         FastRegion.CN_HZ
     );
-    // step 3: join room
-    fastboard.joinRoom(roomOptions, fastRoom -> {
-
-    });
+    
+    FastRoom fastRoom = fastboard.createFastRoom(roomOptions);
+    fastRoom.join();
 }
 ```
+
+</details>
+
+<details>
+    <summary>Kotlin</summary>
+
+```kotlin
+private fun setupFastboard() {
+    val fastboardView = findViewById<FastboardView>(R.id.fastboard_view)
+    val fastboard = fastboardView.fastboard
+    val roomOptions = FastRoomOptions(
+        USER_APP_ID,
+        roomUUID,
+        roomToken,
+        uid,
+        FastRegion.CN_HZ
+    )
+
+    val fastRoom = fastboard.createFastRoom(roomOptions)
+    fastRoom.join()
+}
+```
+</details>
+
 ## Configuration
 ### Style
 

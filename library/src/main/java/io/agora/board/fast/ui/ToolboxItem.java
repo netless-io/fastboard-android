@@ -1,5 +1,7 @@
 package io.agora.board.fast.ui;
 
+import java.util.List;
+
 import io.agora.board.fast.model.FastAppliance;
 
 /**
@@ -8,26 +10,29 @@ import io.agora.board.fast.model.FastAppliance;
  * @author fenglibin
  */
 class ToolboxItem {
-    static final int KEY_CLICK = 0;
-    static final int KEY_SELECTOR = 1;
-    static final int KEY_PENCIL = 2;
-    static final int KEY_TEXT = 3;
-    static final int KEY_ERASER = 4;
-    static final int KEY_SHAPE = 5;
-    static final int KEY_CLEAR = 6;
-    static final int KEY_APP = 7;
+    List<FastAppliance> appliances;
+    int index;
 
-    int key;
-    FastAppliance appliance;
-    boolean expandable;
-
-    public ToolboxItem(int key, FastAppliance applianceItem) {
-        this(key, applianceItem, false);
+    public ToolboxItem(List<FastAppliance> appliances) {
+        this.appliances = appliances;
+        this.index = 0;
     }
 
-    public ToolboxItem(int key, FastAppliance appliance, boolean expandable) {
-        this.key = key;
-        this.appliance = appliance;
-        this.expandable = expandable;
+    public FastAppliance current() {
+        return appliances.get(index);
+    }
+
+    public void update(FastAppliance appliance) {
+        int i = appliances.indexOf(appliance);
+        if (i != -1) {
+            index = i;
+        }
+    }
+
+    public boolean isExpandable() {
+        if (appliances.size() == 1) {
+            return appliances.get(0).hasProperties();
+        }
+        return appliances.size() > 1;
     }
 }
