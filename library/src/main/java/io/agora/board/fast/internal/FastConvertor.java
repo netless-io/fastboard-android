@@ -3,19 +3,28 @@ package io.agora.board.fast.internal;
 import androidx.annotation.NonNull;
 
 import com.herewhite.sdk.RoomParams;
+import com.herewhite.sdk.WhiteSdk;
 import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.domain.PlayerConfiguration;
 import com.herewhite.sdk.domain.Region;
 import com.herewhite.sdk.domain.WindowParams;
 import com.herewhite.sdk.domain.WindowPrefersColorScheme;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
+import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 
 public class FastConvertor {
+    private static List<String> netlessUA = Arrays.asList(
+            "fastboard/" + Fastboard.VERSION,
+            "whiteboard/" + WhiteSdk.Version()
+    );
+
     public static WhiteSdkConfiguration convertSdkOptions(FastRoomOptions options) {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
         result.setUseMultiViews(true);
@@ -26,6 +35,7 @@ public class FastConvertor {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
         // fast default config
         result.setUseMultiViews(true);
+        result.setNetlessUA(netlessUA);
         return result;
     }
 
