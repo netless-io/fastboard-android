@@ -2,20 +2,19 @@ package io.agora.board.fast.ui;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.ColorInt;
 
-import io.agora.board.fast.extension.ResourceImpl;
+import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.model.FastAppliance;
 
 public class ResourceFetcher {
     private static ResourceFetcher instance;
-    private ResourceImpl resourceImpl;
+    private FastResource resource;
 
     private ResourceFetcher() {
-        resourceImpl = new ResourceImpl();
+        resource = new FastResource();
     }
 
     public static synchronized ResourceFetcher get() {
@@ -26,54 +25,54 @@ public class ResourceFetcher {
     }
 
     public void init(Context context) {
-        resourceImpl.init(context);
+        resource.init(context);
     }
 
-    public void setResourceImpl(ResourceImpl resourceImpl) {
-        this.resourceImpl = resourceImpl;
+    public void setResource(FastResource resource) {
+        this.resource = resource;
     }
 
     public Drawable getBackground(boolean darkMode) {
-        return resourceImpl.getBackground(darkMode);
+        return resource.getBackground(darkMode);
     }
 
     public Drawable getLayoutBackground(boolean darkMode) {
-        return resourceImpl.getLayoutBackground(darkMode);
+        return resource.getLayoutBackground(darkMode);
     }
 
     public Drawable getButtonBackground(boolean darkMode) {
-        return resourceImpl.getButtonBackground(darkMode);
+        return resource.getButtonBackground(darkMode);
     }
 
     public @ColorInt int getBackgroundColor(boolean darkMode) {
-        return resourceImpl.getBackgroundColor(darkMode);
+        return resource.getBackgroundColor(darkMode);
     }
 
     public ColorStateList getIconColor(boolean darkMode) {
-        return resourceImpl.getIconColor(darkMode);
+        return resource.getIconColor(darkMode);
     }
 
     public ColorStateList getIconColor(boolean darkMode, boolean changeEnable) {
-        return resourceImpl.getIconColor(darkMode, changeEnable);
+        return resource.getIconColor(darkMode, changeEnable);
     }
 
     public ColorStateList getTextColor(boolean darkMode) {
-        return resourceImpl.getTextColor(darkMode);
+        return resource.getTextColor(darkMode);
     }
 
     public Drawable createColorBackground(int mainColor) {
-        return resourceImpl.createColorBackground(mainColor);
+        return resource.createColorBackground(mainColor);
     }
 
     public Drawable createApplianceBackground(boolean darkMode) {
-        return resourceImpl.createApplianceBackground(darkMode);
+        return resource.createApplianceBackground(darkMode);
     }
 
     public Drawable getColorDrawable(int color) {
-        return resourceImpl.getColorDrawable(color);
+        return resource.getColorDrawable(color);
     }
 
     public int getApplianceIcon(FastAppliance fastAppliance) {
-        return resourceImpl.getApplianceIcon(fastAppliance);
+        return resource.getApplianceIcon(fastAppliance);
     }
 }

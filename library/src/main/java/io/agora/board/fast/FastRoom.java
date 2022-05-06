@@ -35,10 +35,10 @@ import org.json.JSONObject;
 import java.util.UUID;
 
 import io.agora.board.fast.extension.ErrorHandler;
+import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.extension.FastResult;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
-import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
@@ -524,8 +524,8 @@ public class FastRoom {
         fastRoomContext.setFastStyle(style);
     }
 
-    public void setResourceImpl(ResourceImpl resourceImpl) {
-        fastRoomContext.setResourceImpl(resourceImpl);
+    public void setResource(FastResource fastResource) {
+        fastRoomContext.setResource(fastResource);
     }
 
     public void destroy() {

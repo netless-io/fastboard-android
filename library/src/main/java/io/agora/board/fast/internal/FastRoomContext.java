@@ -12,9 +12,9 @@ import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastRoomListener;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.extension.ErrorHandler;
+import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
-import io.agora.board.fast.extension.ResourceImpl;
 import io.agora.board.fast.extension.RoomPhaseHandler;
 import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastStyle;
@@ -73,8 +73,8 @@ public class FastRoomContext {
         notifyListeners(listener -> listener.onFastStyleChanged(fastStyle));
     }
 
-    public void setResourceImpl(ResourceImpl resourceImpl) {
-        resourceFetcher.setResourceImpl(resourceImpl);
+    public void setResource(FastResource resource) {
+        resourceFetcher.setResource(resource);
     }
 
     public void addListener(FastRoomListener listener) {

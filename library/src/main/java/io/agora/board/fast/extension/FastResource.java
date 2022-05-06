@@ -23,7 +23,7 @@ import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.ui.FastColorDrawable;
 
-public class ResourceImpl {
+public class FastResource {
     private static final HashMap<FastAppliance, Integer> iconMap;
 
     static {
@@ -45,9 +45,10 @@ public class ResourceImpl {
         iconMap.put(FastAppliance.OTHER_CLEAR, R.drawable.fast_ic_tool_clear);
     }
 
-    protected Context context;
     // fast color drawable cache
-    private SparseArray<FastColorDrawable> drawables = new SparseArray<>();
+    private final SparseArray<FastColorDrawable> drawables = new SparseArray<>();
+
+    protected Context context;
 
     public void init(Context context) {
         this.context = context;
