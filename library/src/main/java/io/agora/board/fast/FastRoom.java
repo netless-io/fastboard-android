@@ -515,6 +515,11 @@ public class FastRoom {
         return fastRoomContext.getFastStyle().copy();
     }
 
+    /**
+     * update room board new style
+     *
+     * @param style
+     */
     public void setFastStyle(FastStyle style) {
         fastRoomContext.setFastStyle(style);
     }

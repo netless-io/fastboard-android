@@ -5,11 +5,11 @@
 
     <color name="fast_default_layout_bg">#FFFFFF</color>
 
-    <color name="fast_dark_mode_bg">#000000</color>
+    <color name="fast_dark_mode_bg">#14181E</color>
     <color name="fast_dark_mode_bg_selected">#4B4D54</color>
     <color name="fast_dark_mode_border_bg">#26CCCCCC</color>
     <color name="fast_dark_mode_icon_color">#FFFFFF</color>
-    <color name="fast_dark_mode_text_on_bg">#F9F9F9</color>
+    <color name="fast_dark_mode_text_on_bg">#ECF0F7</color>
     <color name="fast_dark_mode_divider_color">#DBE1EA</color>
 
     <color name="fast_light_mode_bg">#F9F9F9</color>

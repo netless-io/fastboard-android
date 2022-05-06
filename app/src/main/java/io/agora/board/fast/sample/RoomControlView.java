@@ -15,8 +15,6 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.SwitchCompat;
@@ -24,6 +22,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.ControllerId;
+import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.FastUiSettings;
 
 public class RoomControlView extends FrameLayout {
@@ -49,8 +48,9 @@ public class RoomControlView extends FrameLayout {
         SwitchCompat darkModeSwitch = root.findViewById(R.id.dark_mode_switch);
         darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (fastRoom != null) {
-                AppCompatActivity activity = (AppCompatActivity) getActivity(context);
-                activity.getDelegate().setLocalNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                FastStyle fastStyle = fastRoom.getFastStyle();
+                fastStyle.setDarkMode(isChecked);
+                fastRoom.setFastStyle(fastStyle);
             }
         });
 

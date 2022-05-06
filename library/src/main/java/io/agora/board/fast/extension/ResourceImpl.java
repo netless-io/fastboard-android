@@ -2,12 +2,14 @@ package io.agora.board.fast.extension;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.SparseArray;
 import android.util.TypedValue;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
@@ -19,10 +21,10 @@ import java.util.HashMap;
 
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastAppliance;
-import io.agora.board.fast.ui.ColorDrawable;
+import io.agora.board.fast.ui.FastColorDrawable;
 
 public class ResourceImpl {
-    private static HashMap<FastAppliance, Integer> iconMap;
+    private static final HashMap<FastAppliance, Integer> iconMap;
 
     static {
         iconMap = new HashMap<>();
@@ -45,7 +47,7 @@ public class ResourceImpl {
 
     protected Context context;
     // fast color drawable cache
-    private SparseArray<ColorDrawable> drawables = new SparseArray<>();
+    private SparseArray<FastColorDrawable> drawables = new SparseArray<>();
 
     public void init(Context context) {
         this.context = context;
@@ -53,6 +55,14 @@ public class ResourceImpl {
 
     public int getApplianceIcon(FastAppliance fastAppliance) {
         return iconMap.get(fastAppliance);
+    }
+
+    public Drawable getBackground(boolean darkMode) {
+        ColorDrawable drawable = new ColorDrawable(darkMode ?
+                color(R.color.fast_dark_mode_bg) :
+                color(R.color.fast_light_mode_bg)
+        );
+        return drawable;
     }
 
     public Drawable getLayoutBackground(boolean darkMode) {
@@ -105,6 +115,14 @@ public class ResourceImpl {
         }
         selected.setCornerRadius(dp2px(8));
         return selected;
+    }
+
+    @ColorInt
+    public int getBackgroundColor(boolean darkMode) {
+        return color(darkMode
+                ? R.color.fast_dark_mode_bg
+                : R.color.fast_light_mode_bg
+        );
     }
 
     public ColorStateList getIconColor(boolean darkMode) {
@@ -160,8 +178,11 @@ public class ResourceImpl {
 
     public Drawable createApplianceBackground(boolean darkMode) {
         GradientDrawable shape = new GradientDrawable();
-        shape.setColor(color(R.color.fast_day_night_bg_selected));
         shape.setCornerRadius(dimenPx(R.dimen.fast_bg_color_item_radius));
+        shape.setColor(darkMode ?
+                color(R.color.fast_dark_mode_bg_selected) :
+                color(R.color.fast_light_mode_bg_selected)
+        );
 
         StateListDrawable state = new StateListDrawable();
         state.addState(new int[]{android.R.attr.state_selected}, shape);
@@ -169,7 +190,7 @@ public class ResourceImpl {
     }
 
     public Drawable getColorDrawable(int color) {
-        ColorDrawable drawable = drawables.get(color);
+        FastColorDrawable drawable = drawables.get(color);
         if (drawable == null) {
             drawable = createColorDrawable(color);
             drawables.append(color, drawable);
@@ -178,11 +199,11 @@ public class ResourceImpl {
     }
 
     @NonNull
-    private ColorDrawable createColorDrawable(int color) {
+    private FastColorDrawable createColorDrawable(int color) {
         int borderWidth = dimenPx(R.dimen.fast_color_border_width);
         int borderRadius = dimenPx(R.dimen.fast_color_border_radius);
 
-        return new ColorDrawable(color, borderWidth, borderRadius);
+        return new FastColorDrawable(color, borderWidth, borderRadius);
     }
 
     protected int dp2px(float dpVal) {

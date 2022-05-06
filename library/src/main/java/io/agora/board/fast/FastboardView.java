@@ -68,8 +68,13 @@ public class FastboardView extends FrameLayout {
     }
 
     void updateFastStyle(FastStyle style) {
-        setBackgroundColor(ContextCompat.getColor(getContext(), R.color.fast_day_night_bg));
-        whiteboardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.fast_day_night_bg));
+        setBackground(ResourceFetcher.get().getBackground(style.isDarkMode()));
+        whiteboardView.setBackgroundColor(ResourceFetcher.get().getBackgroundColor(style.isDarkMode()));
+        // workaround update window manager color if existed, this should be in [FastRoom] when method support
+        whiteboardView.loadUrl(String.format(
+                "javascript:if(window.manager) { window.manager.setPrefersColorScheme(\"%s\") }",
+                style.isDarkMode() ? "dark" : "light")
+        );
     }
 
     public Fastboard getFastboard() {
