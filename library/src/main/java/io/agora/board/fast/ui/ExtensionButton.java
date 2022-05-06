@@ -86,6 +86,7 @@ public class ExtensionButton extends FrameLayout implements RoomController {
                 type = TYPE_DELETE;
                 break;
             case PENCIL:
+            case TEXT:
             case ARROW:
             case RECTANGLE:
             case ELLIPSE:

@@ -37,6 +37,7 @@ public class RoomActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        // UiConfig.setupToolBox();
         setupFastboard();
     }
 

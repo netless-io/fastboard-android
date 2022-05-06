@@ -71,7 +71,7 @@ public class ToolboxAdapter extends RecyclerView.Adapter<ToolboxAdapter.ViewHold
         return items.size();
     }
 
-    public void setAppliance(FastAppliance appliance) {
+    public void updateAppliance(FastAppliance appliance) {
         curAppliance = appliance;
         for (ToolboxItem toolboxItem : items) {
             toolboxItem.update(appliance);

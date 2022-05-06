@@ -38,7 +38,7 @@ public class DeleteButton extends FrameLayout {
         delete = root.findViewById(R.id.delete);
     }
 
-    public void setAppliance(FastAppliance fastAppliance) {
+    public void updateAppliance(FastAppliance fastAppliance) {
         setVisibility(fastAppliance == FastAppliance.SELECTOR ? VISIBLE : INVISIBLE);
     }
 

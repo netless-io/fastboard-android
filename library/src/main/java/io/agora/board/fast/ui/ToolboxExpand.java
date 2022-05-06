@@ -74,13 +74,7 @@ class ToolboxExpand implements Toolbox {
             }
 
             private void showExtensionIfNeed(ToolboxItem item) {
-                if (item.current() == FastAppliance.PENCIL || item.current() == FastAppliance.TEXT) {
-                    extensionLayout.setType(ExtensionLayout.TYPE_PENCIL);
-                } else if (item.isExpandable()) {
-                    extensionLayout.setAppliances(item.appliances);
-                    extensionLayout.setType(ExtensionLayout.TYPE_TABLET_SHAPE);
-                }
-
+                extensionLayout.updateToolboxItem(item);
                 if (item.isExpandable()) {
                     overlayManager.show(OVERLAY_EXT_LAYOUT);
                 }
@@ -130,9 +124,9 @@ class ToolboxExpand implements Toolbox {
 
     @Override
     public void updateAppliance(FastAppliance fastAppliance) {
-        toolboxAdapter.setAppliance(fastAppliance);
-        toolboxDelete.setAppliance(fastAppliance);
-        extensionLayout.setApplianceItem(fastAppliance);
+        toolboxAdapter.updateAppliance(fastAppliance);
+        toolboxDelete.updateAppliance(fastAppliance);
+        extensionLayout.updateAppliance(fastAppliance);
     }
 
     @Override

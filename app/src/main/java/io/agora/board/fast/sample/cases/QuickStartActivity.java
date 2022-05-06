@@ -30,32 +30,9 @@ public class QuickStartActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        setupToolBox();
         setupFastboard();
     }
-
-    private void setupToolBox() {
-        // config toolbox appliances
-        ArrayList<List<FastAppliance>> config = new ArrayList<>();
-        config.add(Arrays.asList(FastAppliance.CLICKER));
-        config.add(Arrays.asList(FastAppliance.SELECTOR));
-        config.add(Arrays.asList(FastAppliance.PENCIL));
-        config.add(Arrays.asList(FastAppliance.TEXT));
-        config.add(Arrays.asList(FastAppliance.ERASER));
-        config.add(Arrays.asList(
-                FastAppliance.RECTANGLE,
-                FastAppliance.ELLIPSE,
-                FastAppliance.STRAIGHT,
-                FastAppliance.ARROW,
-                FastAppliance.PENTAGRAM,
-                FastAppliance.RHOMBUS,
-                FastAppliance.BUBBLE,
-                FastAppliance.TRIANGLE
-        ));
-        config.add(Arrays.asList(FastAppliance.OTHER_CLEAR));
-        FastUiSettings.setToolsExpandAppliances(config);
-    }
-
+    
     private void setupFastboard() {
         // step 1
         FastboardView fastboardView = findViewById(R.id.fastboard_view);

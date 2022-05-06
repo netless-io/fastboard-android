@@ -45,7 +45,6 @@ class ToolboxCollapse implements Toolbox {
         });
 
         extensionLayout = root.findViewById(R.id.extension_layout);
-        extensionLayout.setType(ExtensionLayout.TYPE_PHONE);
         extensionLayout.setOnColorClickListener(color -> {
             fastRoom.setStrokeColor(color);
 
@@ -113,6 +112,7 @@ class ToolboxCollapse implements Toolbox {
         toolButton.updateAppliance(fastAppliance);
         toolLayout.updateAppliance(fastAppliance);
         extensionButton.setAppliance(fastAppliance);
+        extensionLayout.updateAppliance(fastAppliance);
     }
 
     @Override

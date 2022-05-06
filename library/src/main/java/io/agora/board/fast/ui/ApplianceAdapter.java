@@ -20,9 +20,9 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.ViewHolder> {
-    private List<FastAppliance> appliances;
+    List<FastAppliance> appliances;
+    FastAppliance curAppliance;
 
-    private FastAppliance curAppliance;
     private ColorStateList iconColor;
     private boolean isDarkMode;
     private OnApplianceClickListener onApplianceClickListener;
@@ -71,8 +71,15 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
         this.onApplianceClickListener = onApplianceClickListener;
     }
 
-    public void setApplianceItem(FastAppliance appliance) {
+    public void updateAppliance(FastAppliance appliance) {
         curAppliance = appliance;
+
+        notifyDataSetChanged();
+    }
+
+    public void updateToolboxItem(ToolboxItem item) {
+        curAppliance = item.current();
+        appliances = item.appliances;
 
         notifyDataSetChanged();
     }
@@ -80,12 +87,6 @@ public class ApplianceAdapter extends RecyclerView.Adapter<ApplianceAdapter.View
     public void setStyle(FastStyle style) {
         iconColor = ResourceFetcher.get().getIconColor(style.isDarkMode());
         isDarkMode = style.isDarkMode();
-
-        notifyDataSetChanged();
-    }
-
-    public void setAppliances(List<FastAppliance> items) {
-        appliances = items;
 
         notifyDataSetChanged();
     }

@@ -51,18 +51,14 @@ public class ToolLayout extends FrameLayout implements RoomController {
         applianceAdapter.setOnApplianceClickListener(onApplianceClickListener);
     }
 
-    public void setAppliances(List<FastAppliance> appliance) {
-        applianceAdapter.setAppliances(appliance);
-    }
-
     public void updateAppliance(FastAppliance appliance) {
-        applianceAdapter.setApplianceItem(appliance);
+        applianceAdapter.updateAppliance(appliance);
     }
 
     @Override
     public void updateMemberState(MemberState memberState) {
         FastAppliance item = FastAppliance.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
-        applianceAdapter.setApplianceItem(item);
+        applianceAdapter.updateAppliance(item);
     }
 
     @Override

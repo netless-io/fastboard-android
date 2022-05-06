@@ -1,23 +1,15 @@
 package io.agora.board.fast.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.herewhite.sdk.domain.MemberState;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.List;
 
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastAppliance;
@@ -27,18 +19,8 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ExtensionLayout extends LinearLayoutCompat implements RoomController {
-    static final int SHOW_MASK = 0xF000;
-    static final int SHOW_TOOLS = 0x1000;
-    static final int SHOW_SEEKER = 0x2000;
-    static final int SHOW_COLORS = 0x4000;
-
-    public static final int TYPE_PHONE = 1 | SHOW_SEEKER | SHOW_COLORS;
-    public static final int TYPE_TEXT = 2 | SHOW_COLORS;
-    public static final int TYPE_PENCIL = 3 | SHOW_SEEKER | SHOW_COLORS;
-    public static final int TYPE_TABLET_SHAPE = 4 | SHOW_TOOLS | SHOW_SEEKER | SHOW_COLORS;
-
-    private RecyclerView toolsRecyclerView;
-    private ApplianceAdapter toolsAdapter;
+    private RecyclerView appliancesRecyclerView;
+    private ApplianceAdapter applianceAdapter;
     private RecyclerView colorsRecyclerView;
     private ColorAdapter colorAdapter;
     private StrokeSeeker strokeSeeker;
@@ -59,13 +41,13 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
 
     private void initView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_fast_extension_layout, this, true);
-        toolsRecyclerView = root.findViewById(R.id.tools_ext_recycler_view);
+        appliancesRecyclerView = root.findViewById(R.id.tools_ext_recycler_view);
         colorsRecyclerView = root.findViewById(R.id.colors_recycler_view);
         strokeSeeker = root.findViewById(R.id.stroke_seeker);
 
-        toolsAdapter = new ApplianceAdapter();
-        toolsRecyclerView.setAdapter(toolsAdapter);
-        toolsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
+        applianceAdapter = new ApplianceAdapter();
+        appliancesRecyclerView.setAdapter(applianceAdapter);
+        appliancesRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
         colorAdapter = new ColorAdapter(FastUiSettings.getToolsColors());
         colorsRecyclerView.setAdapter(colorAdapter);
@@ -79,7 +61,7 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
     }
 
     public void setOnApplianceClickListener(ApplianceAdapter.OnApplianceClickListener onApplianceClickListener) {
-        toolsAdapter.setOnApplianceClickListener(onApplianceClickListener);
+        applianceAdapter.setOnApplianceClickListener(onApplianceClickListener);
     }
 
     public void setOnColorClickListener(ColorAdapter.OnColorClickListener onColorClickListener) {
@@ -99,46 +81,31 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
         strokeSeeker.setStrokeWidth(width);
     }
 
-    public void setApplianceItem(FastAppliance appliance) {
-        toolsAdapter.setApplianceItem(appliance);
+    public void updateAppliance(FastAppliance appliance) {
+        applianceAdapter.updateAppliance(appliance);
+        updateLayout();
     }
 
-    public void setAppliances(List<FastAppliance> appliances) {
-        toolsAdapter.setAppliances(appliances);
+    public void updateToolboxItem(ToolboxItem item) {
+        applianceAdapter.updateToolboxItem(item);
+        updateLayout();
     }
 
-    @Override
-    public void updateMemberState(MemberState memberState) {
-        updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
-    }
-
-    private void updateStroke(int[] strokeColor, double strokeWidth) {
-        int color = Color.rgb(strokeColor[0], strokeColor[1], strokeColor[2]);
-        this.setColor(color);
+    private void updateLayout() {
+        appliancesRecyclerView.setVisibility(applianceAdapter.appliances.size() > 1 ? VISIBLE : GONE);
+        colorsRecyclerView.setVisibility(applianceAdapter.curAppliance.hasProperties() ? VISIBLE : GONE);
+        strokeSeeker.setVisibility(applianceAdapter.curAppliance.hasProperties() ? VISIBLE : GONE);
     }
 
     @Override
     public void updateFastStyle(FastStyle style) {
         setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
         colorAdapter.setStyle(style);
-        toolsAdapter.setStyle(style);
+        applianceAdapter.setStyle(style);
     }
 
     @Override
     public View getBindView() {
         return this;
-    }
-
-    public void setType(@Type int type) {
-        int showFlag = type & SHOW_MASK;
-
-        toolsRecyclerView.setVisibility((showFlag & SHOW_TOOLS) > 0 ? VISIBLE : GONE);
-        strokeSeeker.setVisibility((showFlag & SHOW_SEEKER) > 0 ? VISIBLE : GONE);
-        colorsRecyclerView.setVisibility((showFlag & SHOW_COLORS) > 0 ? VISIBLE : GONE);
-    }
-
-    @IntDef({TYPE_PHONE, TYPE_TEXT, TYPE_PENCIL, TYPE_TABLET_SHAPE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Type {
     }
 }

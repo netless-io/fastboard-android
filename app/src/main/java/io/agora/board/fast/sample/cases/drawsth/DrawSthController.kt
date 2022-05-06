@@ -55,7 +55,6 @@ class DrawSthController(root: ViewGroup?) : RoomControllerGroup(root) {
         colorsButton = root.findViewById(R.id.colors_button)
         val redoUndoLayout: RedoUndoLayout = root.findViewById(R.id.redo_undo_layout)
         colorsLayout = root.findViewById(R.id.extension_layout)
-        colorsLayout.setType(ExtensionLayout.TYPE_TEXT)
         colorsLayout.setOnColorClickListener { color: Int? ->
             fastRoom!!.setStrokeColor(color!!)
             overlayManager.hideAll()
