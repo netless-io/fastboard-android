@@ -44,6 +44,7 @@ public enum FastAppliance {
         hasPropertiesMap.put(FastAppliance.TEXT, true);
         hasPropertiesMap.put(FastAppliance.ARROW, true);
         hasPropertiesMap.put(FastAppliance.STRAIGHT, true);
+        hasPropertiesMap.put(FastAppliance.PENTAGRAM, true);
         hasPropertiesMap.put(FastAppliance.RHOMBUS, true);
         hasPropertiesMap.put(FastAppliance.TRIANGLE, true);
         hasPropertiesMap.put(FastAppliance.BUBBLE, true);
