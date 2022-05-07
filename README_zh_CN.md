@@ -54,11 +54,12 @@ Fastboard 默认存在 UI，支持默认的异常，事件处理。理想情况�
 </OuterLayout>
 ```
 ### 加入房间
+<details>
+    <summary>Java</summary>
+
 ```java
 private void setupFastboard() {
-    // step 1
     FastboardView fastboardView = findViewById(R.id.fastboard_view);
-    // step 2: obtain fastboard
     Fastboard fastboard = fastboardView.getFastboard();
 
     FastRoomOptions roomOptions = new FastRoomOptions(
@@ -68,34 +69,204 @@ private void setupFastboard() {
         uid,
         FastRegion.CN_HZ
     );
-    // step 3: join room
-    fastboard.joinRoom(roomOptions, fastRoom -> {
-        
-    });
+    
+    FastRoom fastRoom = fastboard.createFastRoom(roomOptions);
+    fastRoom.join();
 }
 ```
+
+</details>
+
+<details open>
+    <summary>Kotlin</summary>
+
+```kotlin
+private fun setupFastboard() {
+    val fastboardView = findViewById<FastboardView>(R.id.fastboard_view)
+    val fastboard = fastboardView.fastboard
+    val roomOptions = FastRoomOptions(
+        USER_APP_ID,
+        roomUUID,
+        roomToken,
+        uid,
+        FastRegion.CN_HZ
+    )
+
+    val fastRoom = fastboard.createFastRoom(roomOptions)
+    fastRoom.join()
+}
+```
+
+</details>
+
 ## 可配置
-### 主题设置
+### 暗色模式设置
+
+<details>
+    <summary>Java</summary>
 
 ```java
-// code placeholder
+private void updateDarkMode(boolean darkMode) {
+    FastStyle fastStyle = fastRoom.getFastStyle();
+    fastStyle.setDarkMode(darkMode);
+    fastRoom.setFastStyle(fastStyle);
+}
 ```
 
-### 状态监听
+</details>
+
+<details>
+    <summary>Kotlin</summary>
+
+```kotlin
+private fun updateDarkMode(darkMode: Boolean) {
+    val fastStyle: FastStyle = fastRoom.fastStyle.apply {
+        isDarkMode = darkMode
+    }
+    fastRoom.fastStyle = fastStyle
+}
+```
+
+</details>
+
+### 主题色设置
+
+<details>
+    <summary>Java</summary>
+
 ```java
-// code placeholder
+private void updateMainColor(@ColorInt int color) {
+    FastStyle fastStyle = fastRoom.getFastStyle();
+    fastStyle.setMainColor(color);
+    fastRoom.setFastStyle(fastStyle);
+}
 ```
 
-### 错误处理
+</details>
+
+<details>
+    <summary>Kotlin</summary>
+
+```kotlin
+private fun updateMainColor(@ColorInt color: Int) {
+    val fastRoom = FastRoom();
+    val fastStyle: FastStyle = fastRoom.fastStyle.apply {
+        mainColor = color
+    }
+    fastRoom.fastStyle = fastStyle
+}
+```
+
+</details>
+
+### Toolbox 设置
+
+<details>
+    <summary>Java</summary>
+
 ```java
-// code placeholder
+public static void configToolBox() {
+    // config ToolsExpandAppliances
+    ArrayList<List<FastAppliance>> expandAppliances = new ArrayList<>();
+    expandAppliances.add(Arrays.asList(FastAppliance.CLICKER));
+    expandAppliances.add(Arrays.asList(FastAppliance.SELECTOR));
+    expandAppliances.add(Arrays.asList(FastAppliance.PENCIL));
+    // hide text appliance
+    expandAppliances.add(Arrays.asList(FastAppliance.TEXT));
+    expandAppliances.add(Arrays.asList(FastAppliance.ERASER));
+    expandAppliances.add(Arrays.asList(
+            FastAppliance.STRAIGHT,
+            FastAppliance.ARROW,
+            FastAppliance.RECTANGLE,
+            FastAppliance.ELLIPSE,
+            FastAppliance.PENTAGRAM,
+            FastAppliance.RHOMBUS,
+            FastAppliance.BUBBLE,
+            FastAppliance.TRIANGLE
+    ));
+    // hide clear appliance
+    // expandAppliances.add(Arrays.asList(FastAppliance.OTHER_CLEAR));
+    FastUiSettings.setToolsExpandAppliances(expandAppliances);
+
+    // config ToolsCollapseAppliances
+    ArrayList<FastAppliance> collapseAppliances = new ArrayList<>();
+    collapseAppliances.add(FastAppliance.PENCIL);
+    collapseAppliances.add(FastAppliance.ERASER);
+    collapseAppliances.add(FastAppliance.ARROW);
+    collapseAppliances.add(FastAppliance.SELECTOR);
+    collapseAppliances.add(FastAppliance.TEXT);
+    collapseAppliances.add(FastAppliance.OTHER_CLEAR);
+    FastUiSettings.setToolsCollapseAppliances(collapseAppliances);
+
+    // config ToolsColors
+    ArrayList<Integer> colors = new ArrayList<>();
+    colors.add(Color.parseColor("#EC3455"));
+    colors.add(Color.parseColor("#F5AD46"));
+    colors.add(Color.parseColor("#68AB5D"));
+    colors.add(Color.parseColor("#32C5FF"));
+    colors.add(Color.parseColor("#005BF6"));
+    colors.add(Color.parseColor("#6236FF"));
+    colors.add(Color.parseColor("#9E51B6"));
+    colors.add(Color.parseColor("#6D7278"));
+    FastUiSettings.setToolsColors(colors);
+}
 ```
 
-### 自定义UI及布局
+</details>
 
-```java
-// code placeholder
+<details>
+    <summary>Kotlin</summary>
+
+```kotlin
+fun configToolBox(): Unit {
+    // config ToolsExpandAppliances
+    val expandAppliances = listOf(
+        listOf(FastAppliance.CLICKER),
+        listOf(FastAppliance.SELECTOR),
+        listOf(FastAppliance.PENCIL),
+        // hide text appliance
+        // listOf(FastAppliance.TEXT),
+        listOf(FastAppliance.ERASER),
+        listOf(
+            FastAppliance.STRAIGHT,
+            FastAppliance.ARROW,
+            FastAppliance.RECTANGLE,
+            FastAppliance.ELLIPSE,
+            FastAppliance.PENTAGRAM,
+            FastAppliance.RHOMBUS,
+            FastAppliance.BUBBLE,
+            FastAppliance.TRIANGLE
+        ),
+        // hide clear appliance
+        // listOf(FastAppliance.OTHER_CLEAR),
+    )
+    FastUiSettings.setToolsExpandAppliances(expandAppliances)
+
+    // config ToolsCollapseAppliances
+    val collapseAppliances = listOf(
+        FastAppliance.PENCIL,
+        FastAppliance.ERASER,
+        FastAppliance.ARROW,
+        FastAppliance.SELECTOR,
+    )
+    FastUiSettings.setToolsCollapseAppliances(collapseAppliances)
+
+    // config ToolsColors
+    val colors = listOf(
+        Color.parseColor("#EC3455"),
+        Color.parseColor("#F5AD46"),
+        Color.parseColor("#68AB5D"),
+        Color.parseColor("#32C5FF"),
+        Color.parseColor("#005BF6"),
+        Color.parseColor("#6236FF"),
+        Color.parseColor("#9E51B6"),
+        Color.parseColor("#6D7278"),
+    )
+    FastUiSettings.setToolsColors(colors)
+}
 ```
+
+</details>
 
 ## 场景化
 
