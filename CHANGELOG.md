@@ -1,7 +1,13 @@
 # Change Log
 
-## [Version 1.2.0] - Pending
+## [Version 1.2.0] - 2021-05-07
+
 - Fix: fix get resources NullPointerException on customized `RoomControllerGroup`
+- Fix: fix `FastRoom.setFastStyle` only update internal `RoomController` views
+- New: add `FastUiSettings.setToolsXXX` to config colors and appliances. **Important Note** these
+  config methods should be call before join room.
+- Update: initialize the window scale without additional calls `Fastboard.setWhiteboardRatio`. 
+- **Breaking Change**: replace `ResourceImpl` with `FastResource`
 
 ## [Version 1.1.0] - 2021-04-11
 
