@@ -2,6 +2,7 @@ package io.agora.board.fast.sample.cases.helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import io.agora.board.fast.model.FastAppliance;
@@ -45,4 +46,18 @@ public class UiConfig {
         FastUiSettings.setToolsCollapseAppliances(collapseAppliances);
     }
 
+    public static void removeClearAppliance() {
+        // Publish Collection is not safe, ensure call at Main Thread or Scope
+        List<List<FastAppliance>> expandAppliances = FastUiSettings.getToolsExpandAppliances();
+        Iterator<List<FastAppliance>> iterator = expandAppliances.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().contains(FastAppliance.OTHER_CLEAR)) {
+                iterator.remove();
+            }
+        }
+
+        List<FastAppliance> appliances = FastUiSettings.getToolsCollapseAppliances();
+        appliances.remove(FastAppliance.OTHER_CLEAR);
+        FastUiSettings.setToolsCollapseAppliances(appliances);
+    }
 }
