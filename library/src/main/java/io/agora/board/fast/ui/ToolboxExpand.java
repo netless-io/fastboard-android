@@ -93,7 +93,7 @@ class ToolboxExpand implements Toolbox {
         });
 
         extensionLayout.setOnStrokeChangedListener(width -> {
-            fastRoom.setStokeWidth(width);
+            fastRoom.setStrokeWidth(width);
         });
 
         extensionLayout.setOnColorClickListener(color -> {

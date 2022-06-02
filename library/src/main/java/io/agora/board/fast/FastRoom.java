@@ -325,7 +325,7 @@ public class FastRoom {
      *
      * @param width
      */
-    public void setStokeWidth(int width) {
+    public void setStrokeWidth(int width) {
         if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;

@@ -54,7 +54,7 @@ class ToolboxCollapse implements Toolbox {
             overlayManager.hideAll();
         });
         extensionLayout.setOnStrokeChangedListener(width -> {
-            fastRoom.setStokeWidth(width);
+            fastRoom.setStrokeWidth(width);
         });
 
         toolButton.setOnClickListener(v -> {
