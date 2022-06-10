@@ -58,7 +58,10 @@ public class FastConvertor {
         return result;
     }
 
-    private static Region convertRegion(FastRegion fastRegion) {
+    public static Region convertRegion(FastRegion fastRegion) {
+        if (fastRegion == null) {
+            return Region.cn;
+        }
         switch (fastRegion) {
             case US_SV:
                 return Region.us;

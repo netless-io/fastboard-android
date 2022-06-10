@@ -18,12 +18,14 @@ import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.converter.ConvertType;
 import com.herewhite.sdk.converter.ConverterV5;
+import com.herewhite.sdk.converter.ProjectorQuery;
 import com.herewhite.sdk.domain.ConversionInfo;
 import com.herewhite.sdk.domain.ConvertException;
 import com.herewhite.sdk.domain.ConvertedFiles;
 import com.herewhite.sdk.domain.ImageInformation;
 import com.herewhite.sdk.domain.MemberState;
 import com.herewhite.sdk.domain.Promise;
+import com.herewhite.sdk.domain.Region;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
@@ -40,12 +42,14 @@ import io.agora.board.fast.extension.FastResult;
 import io.agora.board.fast.extension.OverlayHandler;
 import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.extension.RoomPhaseHandler;
+import io.agora.board.fast.internal.FastConvertor;
 import io.agora.board.fast.internal.FastErrorHandler;
 import io.agora.board.fast.internal.FastOverlayHandler;
 import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomContext;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.internal.PromiseResultAdapter;
+import io.agora.board.fast.model.ConverterType;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastInsertDocParams;
 import io.agora.board.fast.model.FastRedoUndo;
@@ -444,11 +448,24 @@ public class FastRoom {
             return;
         }
 
+        if (params.getConverterType() == ConverterType.WhiteboardConverter) {
+            insertDocsWhiteboard(params, result);
+        } else {
+            insertDocsProjector(params, result);
+        }
+    }
+
+    private void insertDocsWhiteboard(FastInsertDocParams params, @Nullable FastResult<String> result) {
+        Region region = FastConvertor.convertRegion(params.getRegion());
+
         ConverterV5 convert = new ConverterV5.Builder()
                 .setResource("")
-                .setType(isDynamicDoc(params.getFileType()) ? ConvertType.Dynamic : ConvertType.Static)
+                .setType(params.isDynamicDoc() ? ConvertType.Dynamic : ConvertType.Static)
                 .setTaskUuid(params.getTaskUUID())
                 .setTaskToken(params.getTaskToken())
+                .setRegion(region)
+                .setPoolInterval(3000)
+                .setTimeout(30_000L)
                 .setCallback(new ConverterCallbacks() {
                     @Override
                     public void onProgress(Double progress, ConversionInfo convertInfo) {
@@ -475,13 +492,40 @@ public class FastRoom {
         convert.startConvertTask();
     }
 
-    private boolean isDynamicDoc(String fileType) {
-        switch (fileType) {
-            case "pptx":
-                return true;
-            default:
-                return false;
-        }
+    private void insertDocsProjector(FastInsertDocParams params, FastResult<String> result) {
+        Region region = FastConvertor.convertRegion(params.getRegion());
+
+        ProjectorQuery projectorQuery = new ProjectorQuery.Builder()
+                .setTaskUuid(params.getTaskUUID())
+                .setTaskToken(params.getTaskToken())
+                .setRegion(region)
+                .setPoolInterval(3000)
+                .setTimeout(30_000L)
+                .setCallback(new ProjectorQuery.Callback() {
+                    @Override
+                    public void onProgress(double progress, ProjectorQuery.QueryResponse convertInfo) {
+
+                    }
+
+                    @Override
+                    public void onFinish(ProjectorQuery.QueryResponse response) {
+                        WindowAppParam param = WindowAppParam.createSlideApp(
+                                response.getUuid(),
+                                response.getPrefix(),
+                                params.getTitle()
+                        );
+                        getRoom().addApp(param, new PromiseResultAdapter<>(result));
+                    }
+
+                    @Override
+                    public void onFailure(ConvertException e) {
+                        if (result != null) {
+                            result.onError(e);
+                        }
+                    }
+                })
+                .build();
+        projectorQuery.startQuery();
     }
 
     public void setErrorHandler(ErrorHandler errorHandler) {

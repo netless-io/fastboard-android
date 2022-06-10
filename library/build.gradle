@@ -29,15 +29,18 @@ android {
 }
 
 dependencies {
+    // noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    // noinspection GradleDependency
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'org.jetbrains:annotations:15.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    // noinspection GradleDependency
     implementation 'com.google.code.gson:gson:2.8.6'
-    api 'com.github.netless-io:whiteboard-android:2.16.18'
+    api 'com.github.netless-io:whiteboard-android:2.16.23'
 }
 
 afterEvaluate {

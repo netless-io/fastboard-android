@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.FastResult;
+import io.agora.board.fast.model.ConverterType;
 import io.agora.board.fast.model.FastInsertDocParams;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.R;
@@ -77,6 +78,9 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
 
     private void insertDocs(CloudFile file) {
         FastInsertDocParams params = new FastInsertDocParams(file.taskUUID, file.taskToken, file.type, file.name);
+        if (file.projectorDoc) {
+            params.setConverterType(ConverterType.Projector);
+        }
         fastRoom.insertDocs(params, new FastResult<String>() {
             @Override
             public void onSuccess(String value) {

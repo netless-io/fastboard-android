@@ -9,6 +9,7 @@ public class CloudFile {
     // for doc
     public String taskUUID;
     public String taskToken;
+    public Boolean projectorDoc;
 
     // for image
     public Integer width;

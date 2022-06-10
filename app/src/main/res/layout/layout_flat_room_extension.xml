@@ -13,7 +13,8 @@
 
         <FrameLayout
             android:layout_width="@dimen/room_class_button_size"
-            android:layout_height="@dimen/room_class_button_size">
+            android:layout_height="@dimen/room_class_button_size"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/message"
@@ -35,12 +36,14 @@
             android:layout_width="@dimen/room_class_button_size"
             android:layout_height="@dimen/room_class_button_size"
             android:padding="@dimen/room_class_button_padding_size"
-            android:src="@drawable/ic_toolbox_ext_setting" />
+            android:src="@drawable/ic_toolbox_ext_setting"
+            android:visibility="gone" />
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/collapse"
