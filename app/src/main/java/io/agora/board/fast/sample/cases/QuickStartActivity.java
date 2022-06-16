@@ -17,6 +17,7 @@ import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.cases.base.BaseActivity;
+import io.agora.board.fast.sample.cases.helper.UiConfig;
 import io.agora.board.fast.sample.misc.Repository;
 import io.agora.board.fast.ui.FastUiSettings;
 
@@ -30,6 +31,7 @@ public class QuickStartActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        UiConfig.setupSampleCollapseAppliances();
         setupFastboard();
     }
     

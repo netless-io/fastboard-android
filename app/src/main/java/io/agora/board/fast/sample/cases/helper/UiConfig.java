@@ -60,4 +60,17 @@ public class UiConfig {
         appliances.remove(FastAppliance.OTHER_CLEAR);
         FastUiSettings.setToolsCollapseAppliances(appliances);
     }
+
+    public static void setupSampleCollapseAppliances() {
+        ArrayList<FastAppliance> collapseAppliances = new ArrayList<>();
+        collapseAppliances.add(FastAppliance.CLICKER);
+        collapseAppliances.add(FastAppliance.SELECTOR);
+        collapseAppliances.add(FastAppliance.PENCIL);
+        collapseAppliances.add(FastAppliance.ERASER);
+        collapseAppliances.add(FastAppliance.ARROW);
+        collapseAppliances.add(FastAppliance.RECTANGLE);
+        collapseAppliances.add(FastAppliance.TEXT);
+        collapseAppliances.add(FastAppliance.OTHER_CLEAR);
+        FastUiSettings.setToolsCollapseAppliances(collapseAppliances);
+    }
 }

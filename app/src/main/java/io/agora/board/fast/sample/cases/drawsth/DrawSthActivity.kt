@@ -11,6 +11,7 @@ import io.agora.board.fast.model.FastRoomOptions
 import io.agora.board.fast.sample.Constants
 import io.agora.board.fast.sample.R
 import io.agora.board.fast.sample.cases.base.BaseActivity
+import io.agora.board.fast.sample.cases.helper.UiConfig
 import io.agora.board.fast.sample.misc.Repository
 import io.agora.board.fast.sample.misc.Utils
 
@@ -24,6 +25,7 @@ open class DrawSthActivity : BaseActivity() {
         setContentView(R.layout.activity_draw_sth)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
+        UiConfig.setupSampleCollapseAppliances()
         setupFastboard()
     }
 
