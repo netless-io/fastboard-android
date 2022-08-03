@@ -1,5 +1,11 @@
 # Change Log
 
+## [Version 1.2.3] - 2021-08-03
+- Fix: `MemberState` some fields cannot be saved locally
+
+## [Version 1.2.2] - 2021-07-28
+- Fix: the minimum compileSdk problem caused by core:core-ktx in example.
+
 ## [Version 1.2.1] - 2021-06-13
 
 - Fix: `FastInsertDocParams(String taskUUID, String taskToken, String fileType)` parameter sequence
