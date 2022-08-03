@@ -28,6 +28,7 @@ public class FastConvertor {
     public static WhiteSdkConfiguration convertSdkOptions(FastRoomOptions options) {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
         result.setUseMultiViews(true);
+        result.setNetlessUA(netlessUA);
         return result;
     }
 
