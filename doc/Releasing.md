@@ -5,7 +5,7 @@ Cutting a Release
 -----------------
 
 1. Update `CHANGELOG.md`.
-   > Fix: 
+   > Fix:
    > New: new api, feature, etc.
    > Update: bump dependencies
 2. Set versions:
@@ -27,4 +27,9 @@ Cutting a Release
    git commit -am "Prepare for release $RELEASE_VERSION"
    git tag -a $RELEASE_VERSION -m "Version $RELEASE_VERSION"
    git push && git push --tags
+   ```
+
+5. Trigger jitpack build
+   ```shell
+   curl https://jitpack.io/api/builds/com.github.netless-io/fastboard-android/${RELEASE_VERSION}
    ```
