@@ -76,7 +76,9 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
         IMPL.updateFastStyle(fastStyle);
         IMPL.setLayoutGravity(gravity);
 
-        updateMemberState(fastRoom.getRoom().getRoomState().getMemberState());
+        if (fastRoom.isReady()) {
+            updateMemberState(fastRoom.getRoom().getRoomState().getMemberState());
+        }
     }
 
     @Override
