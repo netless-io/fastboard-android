@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:parentTag="android.widget.RelativeLayout">
 
@@ -14,17 +14,18 @@
 
     <io.agora.board.fast.ui.ToolButton
         android:id="@+id/tool_button"
-        android:layout_width="@dimen/fast_default_button_size"
-        android:layout_height="@dimen/fast_default_button_size"
+        android:layout_width="@dimen/fast_default_button_area_size"
+        android:layout_height="@dimen/fast_default_button_area_size"
         android:layout_below="@id/guideline"
         android:layout_alignParentLeft="true"
-        android:layout_margin="@dimen/fast_default_layout_margin"
+        android:layout_marginVertical="@dimen/fast_default_layout_margin"
+        android:layout_marginStart="@dimen/fast_default_layout_margin"
         android:background="@drawable/fast_bg_tool_button" />
 
     <io.agora.board.fast.ui.ExtensionButton
         android:id="@+id/toolbox_sub_button"
-        android:layout_width="@dimen/fast_default_button_size"
-        android:layout_height="@dimen/fast_default_button_size"
+        android:layout_width="@dimen/fast_default_button_area_size"
+        android:layout_height="@dimen/fast_default_button_area_size"
         android:layout_above="@id/tool_button"
         android:layout_alignLeft="@id/tool_button"
         android:layout_alignRight="@id/tool_button"
@@ -35,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tool_button"
+        android:layout_marginHorizontal="@dimen/fast_default_layout_margin"
         android:layout_toRightOf="@id/tool_button"
         android:background="@drawable/fast_bg_layout_round"
         android:visibility="gone"
@@ -52,5 +54,5 @@
         app:divider="@drawable/fast_divider"
         app:dividerPadding="@dimen/fast_gap_2"
         app:showDividers="middle"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 </merge>

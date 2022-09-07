@@ -5,6 +5,7 @@ public interface OverlayManager {
     int KEY_NO_OVERLAY = 0;
     int KEY_TOOL_LAYOUT = 1;
     int KEY_TOOL_EXTENSION = 2;
+    int KEY_TOOL_EXPAND_EXTENSION = 3;
 
     void addOverlay(int key, FastVisiable visiable);
 

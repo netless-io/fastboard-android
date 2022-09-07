@@ -9,4 +9,5 @@
     <string name="change_redo_undo" translatable="false" tools:ignore="ExtraTranslation">RedoUndo Mode</string>
     <string name="change_width" translatable="false" tools:ignore="ExtraTranslation">width</string>
     <string name="change_height" translatable="false" tools:ignore="ExtraTranslation">height</string>
+    <string name="change_edge_margin" translatable="false" tools:ignore="ExtraTranslation">Edge Margin</string>
 </resources>

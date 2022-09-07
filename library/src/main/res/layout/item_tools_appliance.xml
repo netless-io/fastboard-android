@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/fast_default_button_size"
-    android:layout_height="@dimen/fast_default_button_size">
+    android:layout_width="@dimen/fast_default_button_area_size"
+    android:layout_height="@dimen/fast_default_button_area_size">
 
     <ImageView
         android:id="@+id/appliance"
-        android:layout_width="@dimen/fast_default_button_icon_size"
-        android:layout_height="@dimen/fast_default_button_icon_size"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
         android:layout_gravity="center"
         android:background="@drawable/fast_bg_appliance_item"
-        tools:src="@drawable/fast_ic_tool_arrow" />
+        android:padding="4dp"
+        tools:src="@drawable/fast_ic_tool_rectangle_selector" />
 </FrameLayout>

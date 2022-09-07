@@ -3,7 +3,7 @@ package io.agora.board.fast.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,11 +18,9 @@ import io.agora.board.fast.model.FastStyle;
 /**
  * @author fenglibin
  */
-public class ToolboxLayout extends RelativeLayout implements RoomController {
-    private Toolbox IMPL;
-    private FastRoom fastRoom;
-    private FastStyle fastStyle;
-    private int gravity;
+public class ToolboxLayout extends FrameLayout implements RoomController {
+    private final ToolboxExpand toolboxExpand;
+    private final ToolboxCollapse toolboxCollapse;
 
     public ToolboxLayout(@NonNull Context context) {
         this(context, null);
@@ -34,50 +32,66 @@ public class ToolboxLayout extends RelativeLayout implements RoomController {
 
     public ToolboxLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        IMPL = Util.isTablet(context) ? new ToolboxExpand() : new ToolboxCollapse();
-        IMPL.setupView(this);
+        toolboxExpand = new ToolboxExpand(context);
+        toolboxCollapse = new ToolboxCollapse(context);
+        addView(toolboxExpand);
+        addView(toolboxCollapse);
+        setLayoutMode(Util.isTablet(context));
     }
 
     @Override
     public void updateMemberState(MemberState memberState) {
         FastAppliance appliance = FastAppliance.of(memberState.getCurrentApplianceName(), memberState.getShapeType());
-        IMPL.updateAppliance(appliance);
-        IMPL.updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
+
+        toolboxExpand.updateAppliance(appliance);
+        toolboxExpand.updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
+
+        toolboxCollapse.updateAppliance(appliance);
+        toolboxCollapse.updateStroke(memberState.getStrokeColor(), memberState.getStrokeWidth());
     }
 
     @Override
     public void updateOverlayChanged(int key) {
-        IMPL.updateOverlayChanged(key);
+        toolboxExpand.updateOverlayChanged(key);
+        toolboxCollapse.updateOverlayChanged(key);
     }
 
     @Override
     public void setFastRoom(FastRoom fastRoom) {
-        this.fastRoom = fastRoom;
-        IMPL.setFastRoom(fastRoom);
+        toolboxExpand.setFastRoom(fastRoom);
+        toolboxCollapse.setFastRoom(fastRoom);
     }
 
     @Override
     public void updateFastStyle(FastStyle fastStyle) {
-        this.fastStyle = fastStyle;
-        IMPL.updateFastStyle(fastStyle);
+        toolboxExpand.updateFastStyle(fastStyle);
+        toolboxCollapse.updateFastStyle(fastStyle);
     }
 
     public void setLayoutGravity(int gravity) {
-        this.gravity = gravity;
-        IMPL.setLayoutGravity(gravity);
+        FrameLayout.LayoutParams expandParams = (LayoutParams) toolboxExpand.getLayoutParams();
+        expandParams.gravity = gravity;
+        toolboxExpand.setLayoutGravity(gravity);
+        toolboxExpand.setLayoutParams(expandParams);
+
+        FrameLayout.LayoutParams collapseParams = (LayoutParams) toolboxCollapse.getLayoutParams();
+        collapseParams.gravity = gravity;
+        toolboxCollapse.setLayoutGravity(gravity);
+        toolboxCollapse.setLayoutParams(collapseParams);
+    }
+
+    public void setEdgeMargin(int margin) {
+        toolboxExpand.setEdgeMargin(margin);
+        toolboxCollapse.setEdgeMargin(margin);
     }
 
     public void setLayoutMode(boolean expand) {
-        removeAllViews();
-
-        IMPL = expand ? new ToolboxExpand() : new ToolboxCollapse();
-        IMPL.setupView(this);
-        IMPL.setFastRoom(fastRoom);
-        IMPL.updateFastStyle(fastStyle);
-        IMPL.setLayoutGravity(gravity);
-
-        if (fastRoom.isReady()) {
-            updateMemberState(fastRoom.getRoom().getRoomState().getMemberState());
+        if (expand) {
+            toolboxExpand.setVisibility(VISIBLE);
+            toolboxCollapse.setVisibility(GONE);
+        } else {
+            toolboxExpand.setVisibility(GONE);
+            toolboxCollapse.setVisibility(VISIBLE);
         }
     }
 

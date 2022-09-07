@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/fast_default_button_size"
-    android:layout_height="@dimen/fast_default_button_size"
+    android:layout_width="@dimen/fast_default_button_area_size"
+    android:layout_height="@dimen/fast_default_button_area_size"
     tools:parentTag="android.widget.FrameLayout">
 
     <ImageView
         android:id="@+id/tool_button_image"
-        android:layout_width="@dimen/fast_default_button_icon_size"
-        android:layout_height="@dimen/fast_default_button_icon_size"
+        android:layout_width="@dimen/fast_default_button_size"
+        android:layout_height="@dimen/fast_default_button_size"
         android:layout_gravity="center"
+        android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_rectangle" />
 
     <ImageView
@@ -17,6 +18,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fast_gap_1_5"
+        android:layout_margin="@dimen/fast_toolbox_expandable_icon_margin"
         android:src="@drawable/fast_ic_tool_expandable" />
 </merge>

@@ -2,11 +2,11 @@ package io.agora.board.fast.ui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,24 +20,35 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
-class ToolboxExpand implements Toolbox {
-    private static final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXTENSION;
+class ToolboxExpand extends RelativeLayout implements Toolbox {
+    private static final int OVERLAY_EXT_LAYOUT = OverlayManager.KEY_TOOL_EXPAND_EXTENSION;
 
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
 
-    private ToolboxLayout toolboxLayout;
     private RecyclerView toolsRecyclerView;
     private ToolboxAdapter toolboxAdapter;
     private DeleteButton toolboxDelete;
     private ExtensionLayout extensionLayout;
+    private int edgeMargin;
+    private int gravity;
 
-    @Override
-    public void setupView(ToolboxLayout toolboxLayout) {
-        this.toolboxLayout = toolboxLayout;
-        Context context = toolboxLayout.getContext();
+    public ToolboxExpand(Context context) {
+        this(context, null);
+    }
 
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_expand, toolboxLayout, true);
+    public ToolboxExpand(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public ToolboxExpand(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        setupView(context);
+        edgeMargin = context.getResources().getDimensionPixelSize(R.dimen.fast_default_layout_margin);
+    }
+
+    public void setupView(Context context) {
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_expand, this, true);
         toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
         extensionLayout = root.findViewById(R.id.extension_layout);
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);
@@ -141,6 +152,11 @@ class ToolboxExpand implements Toolbox {
 
     }
 
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+    }
+
     private List<ToolboxItem> getToolboxItems() {
         List<ToolboxItem> result = new ArrayList<>();
         for (List<FastAppliance> appliances : FastUiSettings.getToolsExpandAppliances()) {
@@ -151,6 +167,17 @@ class ToolboxExpand implements Toolbox {
 
     @Override
     public void setLayoutGravity(int gravity) {
+        this.gravity = gravity;
+        updateLayout();
+    }
+
+    @Override
+    public void setEdgeMargin(int edgeMargin) {
+        this.edgeMargin = edgeMargin;
+        updateLayout();
+    }
+
+    private void updateLayout() {
         boolean isLeft = (gravity & Gravity.LEFT) == Gravity.LEFT;
         boolean isRight = (gravity & Gravity.RIGHT) == Gravity.RIGHT;
 
@@ -158,6 +185,8 @@ class ToolboxExpand implements Toolbox {
             LayoutParams toolsLp = (LayoutParams) toolsRecyclerView.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             toolsLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            toolsLp.leftMargin = edgeMargin;
+            toolsLp.rightMargin = 0;
 
             LayoutParams subToolsLp = (LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.LEFT_OF);
@@ -168,11 +197,13 @@ class ToolboxExpand implements Toolbox {
             LayoutParams toolsLp = (LayoutParams) toolsRecyclerView.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
             toolsLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            toolsLp.leftMargin = 0;
+            toolsLp.rightMargin = edgeMargin;
 
             LayoutParams subToolsLp = (LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
             subToolsLp.addRule(RelativeLayout.LEFT_OF, toolsRecyclerView.getId());
         }
-        toolboxLayout.requestLayout();
+        requestLayout();
     }
 }

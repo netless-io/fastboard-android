@@ -133,6 +133,16 @@ public class FastUiSettings {
     }
 
     /**
+     * change toolbox margin to the edge
+     *
+     * @param margin px value
+     */
+    public void setToolboxEdgeMargin(int margin) {
+        ToolboxLayout toolbox = fastboardView.findViewById(R.id.fast_toolbox_layout);
+        toolbox.setEdgeMargin(margin);
+    }
+
+    /**
      * change redoUndoLayout as HORIZONTAL, VERTICAL
      *
      * @param orientation HORIZONTAL or VERTICAL

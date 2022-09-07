@@ -16,8 +16,8 @@
         android:id="@id/fast_scenes_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/fast_default_layout_margin"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fast_default_layout_margin"
         android:background="@drawable/fast_bg_layout_round" />
 
     <io.agora.board.fast.ui.ToolboxLayout

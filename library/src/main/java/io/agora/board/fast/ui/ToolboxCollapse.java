@@ -2,10 +2,14 @@ package io.agora.board.fast.ui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
@@ -13,7 +17,7 @@ import io.agora.board.fast.extension.OverlayManager;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
-class ToolboxCollapse implements Toolbox {
+class ToolboxCollapse extends RelativeLayout implements Toolbox {
     private ToolButton toolButton;
     private ToolLayout toolLayout;
     private ExtensionButton extensionButton;
@@ -21,14 +25,25 @@ class ToolboxCollapse implements Toolbox {
 
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
-    private ToolboxLayout toolboxLayout;
+    private int gravity;
+    private int edgeMargin;
 
-    @Override
-    public void setupView(ToolboxLayout toolboxLayout) {
-        this.toolboxLayout = toolboxLayout;
-        Context context = toolboxLayout.getContext();
+    public ToolboxCollapse(@NonNull Context context) {
+        this(context, null);
+    }
 
-        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_collapse, toolboxLayout, true);
+    public ToolboxCollapse(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public ToolboxCollapse(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        setupView(context);
+        edgeMargin = context.getResources().getDimensionPixelSize(R.dimen.fast_default_layout_margin);
+    }
+
+    public void setupView(Context context) {
+        View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_collapse, this, true);
         toolButton = root.findViewById(R.id.tool_button);
         extensionButton = root.findViewById(R.id.toolbox_sub_button);
         toolLayout = root.findViewById(R.id.tool_layout);
@@ -131,6 +146,17 @@ class ToolboxCollapse implements Toolbox {
 
     @Override
     public void setLayoutGravity(int gravity) {
+        this.gravity = gravity;
+        updateLayout();
+    }
+
+    @Override
+    public void setEdgeMargin(int edgeMargin) {
+        this.edgeMargin = edgeMargin;
+        updateLayout();
+    }
+
+    private void updateLayout() {
         boolean isLeft = (gravity & Gravity.LEFT) == Gravity.LEFT;
         boolean isRight = (gravity & Gravity.RIGHT) == Gravity.RIGHT;
 
@@ -138,6 +164,8 @@ class ToolboxCollapse implements Toolbox {
             RelativeLayout.LayoutParams toolBtnLp = (RelativeLayout.LayoutParams) toolButton.getLayoutParams();
             toolBtnLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             toolBtnLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            toolBtnLp.leftMargin = edgeMargin;
+            toolBtnLp.rightMargin = 0;
 
             RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolLayout.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.LEFT_OF);
@@ -152,6 +180,8 @@ class ToolboxCollapse implements Toolbox {
             RelativeLayout.LayoutParams toolBtnLp = (RelativeLayout.LayoutParams) toolButton.getLayoutParams();
             toolBtnLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
             toolBtnLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            toolBtnLp.leftMargin = 0;
+            toolBtnLp.rightMargin = edgeMargin;
 
             RelativeLayout.LayoutParams toolsLp = (RelativeLayout.LayoutParams) toolLayout.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.RIGHT_OF);
@@ -161,6 +191,6 @@ class ToolboxCollapse implements Toolbox {
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
             subToolsLp.addRule(RelativeLayout.LEFT_OF, extensionButton.getId());
         }
-        toolboxLayout.requestLayout();
+        requestLayout();
     }
 }

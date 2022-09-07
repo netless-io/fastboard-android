@@ -11,6 +11,7 @@
         android:id="@+id/tool_scene_prev"
         android:layout_width="@dimen/fast_default_button_size"
         android:layout_height="@dimen/fast_default_button_size"
+        android:layout_margin="@dimen/fast_default_button_gap"
         android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_scene_prev" />
 
@@ -28,6 +29,7 @@
         android:id="@+id/tool_scene_next"
         android:layout_width="@dimen/fast_default_button_size"
         android:layout_height="@dimen/fast_default_button_size"
+        android:layout_margin="@dimen/fast_default_button_gap"
         android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_scene_next" />
 
@@ -35,7 +37,7 @@
         android:id="@+id/tool_scene_add"
         android:layout_width="@dimen/fast_default_button_size"
         android:layout_height="@dimen/fast_default_button_size"
-        android:layout_marginStart="@dimen/fast_gap_0_5"
+        android:layout_marginVertical="@dimen/fast_default_button_gap"
         android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_scene_add" />
 </merge>

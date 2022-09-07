@@ -5,8 +5,6 @@ import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
 
 public interface Toolbox {
-    void setupView(ToolboxLayout toolboxLayout);
-
     void setFastRoom(FastRoom fastRoom);
 
     void updateFastStyle(FastStyle fastStyle);
@@ -18,4 +16,6 @@ public interface Toolbox {
     void updateOverlayChanged(int key);
 
     void setLayoutGravity(int gravity);
+
+    void setEdgeMargin(int edgeMargin);
 }

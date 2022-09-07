@@ -23,7 +23,7 @@
 
     <io.agora.board.fast.ui.StrokeSeeker
         android:id="@+id/stroke_seeker"
-        android:layout_width="@dimen/fast_default_seekbar_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/fast_default_seekbar_height"
         android:layout_marginHorizontal="@dimen/fast_gap_2"
         android:layout_marginTop="@dimen/fast_gap_2"

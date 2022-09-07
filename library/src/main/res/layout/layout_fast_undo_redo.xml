@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     tools:background="@drawable/fast_bg_layout_round"
+    tools:layout_height="wrap_content"
+    tools:layout_width="wrap_content"
     tools:orientation="horizontal"
     tools:parentTag="android.widget.LinearLayout">
 
@@ -11,6 +11,7 @@
         android:id="@+id/tool_undo"
         android:layout_width="@dimen/fast_default_button_size"
         android:layout_height="@dimen/fast_default_button_size"
+        android:layout_margin="@dimen/fast_default_button_gap"
         android:contentDescription="@null"
         android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_undo" />
@@ -19,6 +20,7 @@
         android:id="@+id/tool_redo"
         android:layout_width="@dimen/fast_default_button_size"
         android:layout_height="@dimen/fast_default_button_size"
+        android:layout_margin="@dimen/fast_default_button_gap"
         android:contentDescription="@null"
         android:padding="@dimen/fast_default_button_gap"
         android:src="@drawable/fast_ic_tool_redo" />
