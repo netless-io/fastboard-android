@@ -1,5 +1,6 @@
 package io.agora.board.fast.internal;
 
+import android.app.Application;
 import android.content.Context;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -21,7 +22,7 @@ public class FastReplayContext {
         this.fastboardView = fastboardView;
         this.context = fastboardView.getContext();
         this.resourceFetcher = ResourceFetcher.get();
-        this.resourceFetcher.init(context);
+        this.resourceFetcher.init((Application) context.getApplicationContext());
     }
 
     public void addListener(FastReplayListener listener) {

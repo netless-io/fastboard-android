@@ -126,6 +126,12 @@ public class FastResource {
         );
     }
 
+    /**
+     * config icon image tint color
+     *
+     * @param darkMode
+     * @return
+     */
     public ColorStateList getIconColor(boolean darkMode) {
         int color = color(darkMode
                 ? R.color.fast_dark_mode_icon_color

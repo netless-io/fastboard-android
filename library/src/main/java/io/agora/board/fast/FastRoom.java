@@ -272,6 +272,10 @@ public class FastRoom {
         return room;
     }
 
+    public WhiteSdk getWhiteSdk() {
+        return whiteSdk;
+    }
+
     public OverlayManager getOverlayManager() {
         return fastRoomContext.getOverlayManger();
     }

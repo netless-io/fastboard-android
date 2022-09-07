@@ -1,6 +1,6 @@
 package io.agora.board.fast.ui;
 
-import android.content.Context;
+import android.app.Application;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 
@@ -12,6 +12,7 @@ import io.agora.board.fast.model.FastAppliance;
 public class ResourceFetcher {
     private static ResourceFetcher instance;
     private FastResource resource;
+    private Application context;
 
     private ResourceFetcher() {
         resource = new FastResource();
@@ -24,11 +25,13 @@ public class ResourceFetcher {
         return instance;
     }
 
-    public void init(Context context) {
+    public void init(Application context) {
+        this.context = context;
         resource.init(context);
     }
 
     public void setResource(FastResource resource) {
+        resource.init(context);
         this.resource = resource;
     }
 
@@ -44,7 +47,8 @@ public class ResourceFetcher {
         return resource.getButtonBackground(darkMode);
     }
 
-    public @ColorInt int getBackgroundColor(boolean darkMode) {
+    @ColorInt
+    public int getBackgroundColor(boolean darkMode) {
         return resource.getBackgroundColor(darkMode);
     }
 

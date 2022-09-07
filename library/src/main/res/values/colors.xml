@@ -5,16 +5,16 @@
 
     <color name="fast_default_layout_bg">#FFFFFF</color>
 
-    <color name="fast_dark_mode_bg">#14181E</color>
+    <color name="fast_dark_mode_bg">#FF272A30</color>
     <color name="fast_dark_mode_bg_selected">#4B4D54</color>
-    <color name="fast_dark_mode_border_bg">#26CCCCCC</color>
+    <color name="fast_dark_mode_border_bg">#4B4D54</color>
     <color name="fast_dark_mode_icon_color">#B7BBC1</color>
     <color name="fast_dark_mode_text_on_bg">#B7BBC1</color>
     <color name="fast_dark_mode_divider_color">#383B42</color>
 
-    <color name="fast_light_mode_bg">#F9F9F9</color>
+    <color name="fast_light_mode_bg">#FFFFFF</color>
     <color name="fast_light_mode_bg_selected">#E5E8F0</color>
-    <color name="fast_light_mode_border_bg">#26000000</color>
+    <color name="fast_light_mode_border_bg">#D5D9E0</color>
     <color name="fast_light_mode_icon_color">#5D6066</color>
     <color name="fast_light_mode_text_on_bg">#5D6066</color>
     <color name="fast_light_mode_divider_color">#E5E8F0</color>

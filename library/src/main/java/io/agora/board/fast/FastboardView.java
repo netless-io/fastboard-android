@@ -1,5 +1,6 @@
 package io.agora.board.fast;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -41,7 +42,7 @@ public class FastboardView extends FrameLayout {
     }
 
     private void setupResourceFetcher(Context context) {
-        ResourceFetcher.get().init(context);
+        ResourceFetcher.get().init((Application) context.getApplicationContext());
     }
 
     private void setupStyle(Context context, AttributeSet attrs, int defStyleAttr) {
