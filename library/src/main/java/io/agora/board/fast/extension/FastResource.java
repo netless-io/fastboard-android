@@ -28,20 +28,20 @@ public class FastResource {
 
     static {
         iconMap = new HashMap<>();
-        iconMap.put(FastAppliance.CLICKER, R.drawable.fast_ic_tool_clicker);
-        iconMap.put(FastAppliance.SELECTOR, R.drawable.fast_ic_tool_selector);
-        iconMap.put(FastAppliance.PENCIL, R.drawable.fast_ic_tool_pencil);
-        iconMap.put(FastAppliance.RECTANGLE, R.drawable.fast_ic_tool_rectangle);
-        iconMap.put(FastAppliance.ELLIPSE, R.drawable.fast_ic_tool_circle);
-        iconMap.put(FastAppliance.TEXT, R.drawable.fast_ic_tool_text);
-        iconMap.put(FastAppliance.ERASER, R.drawable.fast_ic_tool_eraser);
+        iconMap.put(FastAppliance.CLICKER, R.drawable.fast_ic_tool_clicker_selector);
+        iconMap.put(FastAppliance.SELECTOR, R.drawable.fast_ic_tool_selector_selector);
+        iconMap.put(FastAppliance.PENCIL, R.drawable.fast_ic_tool_pencil_selector);
+        iconMap.put(FastAppliance.RECTANGLE, R.drawable.fast_ic_tool_rectangle_selector);
+        iconMap.put(FastAppliance.ELLIPSE, R.drawable.fast_ic_tool_circle_selector);
+        iconMap.put(FastAppliance.TEXT, R.drawable.fast_ic_tool_text_selector);
+        iconMap.put(FastAppliance.ERASER, R.drawable.fast_ic_tool_eraser_selector);
         iconMap.put(FastAppliance.LASER_POINTER, R.drawable.fast_ic_tool_raser);
-        iconMap.put(FastAppliance.ARROW, R.drawable.fast_ic_tool_arrow);
-        iconMap.put(FastAppliance.STRAIGHT, R.drawable.fast_ic_tool_straight);
-        iconMap.put(FastAppliance.PENTAGRAM, R.drawable.fast_ic_shape_pentagram);
-        iconMap.put(FastAppliance.RHOMBUS, R.drawable.fast_ic_shape_rhombus);
-        iconMap.put(FastAppliance.TRIANGLE, R.drawable.fast_ic_shape_triangle);
-        iconMap.put(FastAppliance.BUBBLE, R.drawable.fast_ic_shape_speechballoon);
+        iconMap.put(FastAppliance.ARROW, R.drawable.fast_ic_tool_arrow_selector);
+        iconMap.put(FastAppliance.STRAIGHT, R.drawable.fast_ic_tool_straight_selector);
+        iconMap.put(FastAppliance.PENTAGRAM, R.drawable.fast_ic_tool_pentagram_selector);
+        iconMap.put(FastAppliance.RHOMBUS, R.drawable.fast_ic_tool_rhombus_selector);
+        iconMap.put(FastAppliance.TRIANGLE, R.drawable.fast_ic_tool_triangle_selector);
+        iconMap.put(FastAppliance.BUBBLE, R.drawable.fast_ic_tool_balloon_selector);
         iconMap.put(FastAppliance.OTHER_CLEAR, R.drawable.fast_ic_tool_clear);
     }
 
