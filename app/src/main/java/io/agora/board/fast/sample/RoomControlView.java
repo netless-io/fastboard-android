@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +91,31 @@ public class RoomControlView extends FrameLayout {
         });
 
         setupWHTest(root);
+        setupEdgeMarginTest(root);
+    }
+
+    private void setupEdgeMarginTest(View root) {
+        AppCompatSeekBar marginSeekBar = root.findViewById(R.id.change_edge_margin);
+        marginSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    FastboardView fastboardView = fastRoom.getFastboardView();
+                    fastboardView.getUiSettings().setToolboxEdgeMargin(progress / 100);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        marginSeekBar.setMax(dp2px(32) * 100);
     }
 
     private void setupWHTest(View root) {
@@ -179,5 +205,13 @@ public class RoomControlView extends FrameLayout {
             }
         }
         return null;
+    }
+
+    protected int dp2px(float dpVal) {
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dpVal,
+                getContext().getResources().getDisplayMetrics()
+        );
     }
 }
