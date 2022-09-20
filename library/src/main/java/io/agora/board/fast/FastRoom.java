@@ -409,6 +409,10 @@ public class FastRoom {
         });
     }
 
+    public boolean isWritable() {
+        return isReady() && room.getWritable();
+    }
+
     /**
      * Insert Image
      *
