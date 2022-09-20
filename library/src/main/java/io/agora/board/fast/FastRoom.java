@@ -30,7 +30,6 @@ import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
 import com.herewhite.sdk.domain.WindowAppParam;
-import com.herewhite.sdk.internal.Logger;
 
 import org.json.JSONObject;
 
@@ -379,6 +378,10 @@ public class FastRoom {
      * @param writable
      */
     public void setWritable(boolean writable) {
+        setWritable(writable, null);
+    }
+
+    public void setWritable(boolean writable, FastResult<Boolean> result) {
         if (!isReady()) {
             FastLogger.warn("call fast room before join..");
             return;
@@ -386,16 +389,22 @@ public class FastRoom {
 
         room.setWritable(writable, new Promise<Boolean>() {
             @Override
-            public void then(Boolean result) {
-                Logger.info("set writable result " + result);
-                if (result) {
+            public void then(Boolean success) {
+                FastLogger.info("set writable result " + success);
+                if (success) {
                     room.disableSerialization(false);
+                }
+                if (result != null) {
+                    result.onSuccess(success);
                 }
             }
 
             @Override
             public void catchEx(SDKError t) {
-                Logger.error("set writable error", t);
+                FastLogger.error("set writable error", t);
+                if (result != null) {
+                    result.onError(t);
+                }
             }
         });
     }
