@@ -19,6 +19,8 @@ public class FastReplayOptions {
 
     private WhiteSdkConfiguration sdkConfiguration;
 
+    private Float containerSizeRatio;
+
     public FastReplayOptions(String appId, String uuid, String token) {
         this.appId = appId;
         this.uuid = uuid;
@@ -65,5 +67,13 @@ public class FastReplayOptions {
 
     public void setSdkConfiguration(WhiteSdkConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+
+    public Float getContainerSizeRatio() {
+        return containerSizeRatio;
+    }
+
+    public void setContainerSizeRatio(Float ratio) {
+        this.containerSizeRatio = ratio;
     }
 }
