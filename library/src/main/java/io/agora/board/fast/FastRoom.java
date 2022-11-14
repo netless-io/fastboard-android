@@ -19,6 +19,7 @@ import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.converter.ConvertType;
 import com.herewhite.sdk.converter.ConverterV5;
 import com.herewhite.sdk.converter.ProjectorQuery;
+import com.herewhite.sdk.domain.CameraState;
 import com.herewhite.sdk.domain.ConversionInfo;
 import com.herewhite.sdk.domain.ConvertException;
 import com.herewhite.sdk.domain.ConvertedFiles;
@@ -431,8 +432,11 @@ public class FastRoom {
         imageInfo.setUuid(uuid);
         imageInfo.setWidth(width);
         imageInfo.setHeight(height);
-        imageInfo.setCenterX(0);
-        imageInfo.setCenterY(0);
+
+        CameraState cameraState = getRoom().getRoomState().getCameraState();
+        imageInfo.setCenterX(cameraState.getCenterX());
+        imageInfo.setCenterY(cameraState.getCenterY());
+
         getRoom().insertImage(imageInfo);
         getRoom().completeImageUpload(uuid, url);
     }
