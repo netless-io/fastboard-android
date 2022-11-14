@@ -47,7 +47,7 @@ public class FastConvertor {
 
         // fast default config
         result.setDisableNewPencil(false);
-        result.setWindowParams(createWindowParams());
+        result.setWindowParams(createWindowParams(options.getContainerSizeRatio()));
 
         return result;
     }
@@ -55,7 +55,7 @@ public class FastConvertor {
     public static PlayerConfiguration convertReplayOptions(FastReplayOptions options) {
         PlayerConfiguration result = new PlayerConfiguration(options.getUuid(), options.getToken());
         result.setRegion(convertRegion(options.getFastRegion()));
-        result.setWindowParams(createWindowParams());
+        result.setWindowParams(createWindowParams(options.getContainerSizeRatio()));
         return result;
     }
 
@@ -79,14 +79,14 @@ public class FastConvertor {
     }
 
     @NonNull
-    private static WindowParams createWindowParams() {
+    private static WindowParams createWindowParams(Float ratio) {
         HashMap<String, String> styleMap = new HashMap<>();
         styleMap.put("bottom", "30px");
         styleMap.put("right", "44px");
         styleMap.put("position", "fixed");
         WindowParams windowParams = new WindowParams();
         windowParams.setChessboard(false);
-        windowParams.setContainerSizeRatio(9f / 16);
+        windowParams.setContainerSizeRatio(ratio != null ? ratio : 9f / 16);
         windowParams.setDebug(true);
         windowParams.setCollectorStyles(styleMap);
         windowParams.setPrefersColorScheme(WindowPrefersColorScheme.Auto);

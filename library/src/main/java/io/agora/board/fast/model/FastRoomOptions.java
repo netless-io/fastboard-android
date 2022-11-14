@@ -17,6 +17,8 @@ public class FastRoomOptions {
 
     private final FastRegion fastRegion;
 
+    private Float containerSizeRatio;
+
     private RoomParams roomParams;
     private WhiteSdkConfiguration sdkConfiguration;
 
@@ -77,5 +79,13 @@ public class FastRoomOptions {
 
     public void setSdkConfiguration(WhiteSdkConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+
+    public Float getContainerSizeRatio() {
+        return containerSizeRatio;
+    }
+
+    public void setContainerSizeRatio(Float ratio) {
+        this.containerSizeRatio = ratio;
     }
 }

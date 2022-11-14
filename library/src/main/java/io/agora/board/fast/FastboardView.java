@@ -61,6 +61,7 @@ public class FastboardView extends FrameLayout {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_fastboard_view, this, true);
         whiteboardView = root.findViewById(R.id.fast_whiteboard_view);
         whiteboardView.setAutoResize(false);
+        updateFastStyle(getFastboard().getFastStyle());
     }
 
     @Override
