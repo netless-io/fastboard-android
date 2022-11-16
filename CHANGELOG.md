@@ -1,4 +1,10 @@
 # Change Log
+## [Version 1.3.1] - 2021-11-16
+- Update: adjust UI, icons and default margins.
+- Add: `FastUiSettings.setToolboxEdgeMargin` to update toolbox margin.
+- Add: `FastRoom.setWritable()` with callback.
+- Add: `FastRoom.isWritable()`.
+- Add: `FastRoomOptions.containerSizeRatio` to config default context view ratio.
 
 ## [Version 1.2.3] - 2021-08-03
 - Fix: `MemberState` some fields cannot be saved locally
