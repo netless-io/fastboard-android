@@ -17,6 +17,9 @@ public class FastRoomOptions {
 
     private final FastRegion fastRegion;
 
+    /**
+     * 本地显示窗口内容高与宽比例，默认为 9:16
+     */
     private Float containerSizeRatio;
 
     private RoomParams roomParams;
@@ -81,10 +84,20 @@ public class FastRoomOptions {
         this.sdkConfiguration = sdkConfiguration;
     }
 
+    /**
+     * 获取窗口显示内容比例
+     *
+     * @return
+     */
     public Float getContainerSizeRatio() {
         return containerSizeRatio;
     }
 
+    /**
+     * 设置窗口显示内容比例
+     *
+     * @param ratio
+     */
     public void setContainerSizeRatio(Float ratio) {
         this.containerSizeRatio = ratio;
     }
