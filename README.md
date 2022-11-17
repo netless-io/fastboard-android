@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation "com.github.netless-io:fastboard-android:1.3.1"
+    implementation "com.github.netless-io:fastboard-android:1.3.2"
 }
 ```
 
