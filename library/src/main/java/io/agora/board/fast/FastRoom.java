@@ -142,6 +142,7 @@ public class FastRoom {
             FastRoom.this.room = room;
             notifyRoomState(room.getRoomState());
             updateWritable();
+            updateIfTextAppliance();
             notifyRoomReady();
         }
 
@@ -151,6 +152,16 @@ public class FastRoom {
             fastRoomContext.notifyFastError(FastException.createRoom(ROOM_JOIN_ERROR, t.getMessage(), t));
         }
     };
+
+    /**
+     * workaround for text appliance when init state
+     */
+    private void updateIfTextAppliance() {
+        String applianceName = getRoom().getRoomState().getMemberState().getCurrentApplianceName();
+        if (FastAppliance.TEXT.appliance.equals(applianceName)) {
+            fastboardView.whiteboardView.requestFocus();
+        }
+    }
 
     private final FastRoomListener interFastRoomListener = new FastRoomListener() {
         @Override
