@@ -6,6 +6,7 @@ import com.herewhite.sdk.domain.WindowParams
 import io.agora.board.fast.FastRoom
 import io.agora.board.fast.Fastboard
 import io.agora.board.fast.FastboardView
+import io.agora.board.fast.model.ControllerId
 import io.agora.board.fast.model.FastRegion
 import io.agora.board.fast.model.FastRoomOptions
 import io.agora.board.fast.sample.Constants
@@ -17,6 +18,7 @@ import io.agora.board.fast.sample.misc.Utils
 
 open class DrawSthActivity : BaseActivity() {
     private val repository = Repository.get()
+    private lateinit var fastboardView: FastboardView
     private lateinit var fastboard: Fastboard
     private lateinit var fastRoom: FastRoom
 
@@ -44,6 +46,7 @@ open class DrawSthActivity : BaseActivity() {
         fastRoom.join()
         fastRoom.rootRoomController = DrawSthController(findViewById(R.id.draw_sth_controller))
         updateFastStyle()
+
     }
 
     private fun updateFastStyle() {
@@ -64,5 +67,13 @@ open class DrawSthActivity : BaseActivity() {
         roomOptions.roomParams = roomParams
         // 设置内部白板整体大小
         fastboard.setWhiteboardRatio(hwRatio)
+    }
+
+    private fun hideController() {
+        fastboardView.uiSettings.hideRoomController(
+            ControllerId.RedoUndo,
+            ControllerId.PageIndicator,
+            ControllerId.ToolBox
+        )
     }
 }
