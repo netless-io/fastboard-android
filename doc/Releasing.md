@@ -26,7 +26,8 @@ Cutting a Release
    ```
    git commit -am "Prepare for release $RELEASE_VERSION"
    git tag -a $RELEASE_VERSION -m "Version $RELEASE_VERSION"
-   git push && git push --tags
+   git push -v origin refs/heads/main:refs/heads/main
+   git push origin $RELEASE_VERSION
    ```
 
 5. Trigger jitpack build
