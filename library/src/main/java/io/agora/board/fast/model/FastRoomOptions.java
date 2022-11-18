@@ -22,6 +22,8 @@ public class FastRoomOptions {
      */
     private Float containerSizeRatio;
 
+    private FastUserPayload userPayload;
+
     private RoomParams roomParams;
     private WhiteSdkConfiguration sdkConfiguration;
 
@@ -94,11 +96,24 @@ public class FastRoomOptions {
     }
 
     /**
-     * 设置窗口显示内容比例
+     * 设置窗口显示内容高比宽比例，默认9:16
      *
      * @param ratio
      */
     public void setContainerSizeRatio(Float ratio) {
         this.containerSizeRatio = ratio;
+    }
+
+    public FastUserPayload getUserPayload() {
+        return userPayload;
+    }
+
+    /**
+     * 设置用户信息，主要用于操作时显示
+     *
+     * @param userPayload
+     */
+    public void setUserPayload(FastUserPayload userPayload) {
+        this.userPayload = userPayload;
     }
 }
