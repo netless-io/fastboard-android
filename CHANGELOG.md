@@ -1,4 +1,9 @@
 # Change Log
+## [Version 1.3.3] - 2021-11-21
+- Fix: `FastUiSettings.hideRoomController` not working on startup stage.
+- Fix: TextAppliance initial with no focus.
+- Add: `FastRoomOptions.userPayload` to enable user cursor and set cursor display.
+
 ## [Version 1.3.1] - 2021-11-16
 - Update: adjust UI, icons and default margins.
 - Add: `FastUiSettings.setToolboxEdgeMargin` to update toolbox margin.
