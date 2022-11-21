@@ -32,5 +32,5 @@ Cutting a Release
 
 5. Trigger jitpack build
    ```shell
-   curl https://jitpack.io/api/builds/com.github.netless-io/fastboard-android/${RELEASE_VERSION}
+   curl https://jitpack.io/api/builds/com.github.netless-io/fastboard-android/$RELEASE_VERSION
    ```
