@@ -1,4 +1,8 @@
 # Change Log
+## [Version 1.3.4] - 2022-02-03
+- **Breaking Change**: remove `FastResource.getBackground`, and replace it with `FastResource.getBackgroundColor`
+- Add: `FastResource.getBoardBackgroundColor` to config whiteboard background, it default value is `FastResource.getBackgroundColor`
+
 ## [Version 1.3.3] - 2021-11-21
 - Fix: `FastUiSettings.hideRoomController` not working on startup stage.
 - Fix: TextAppliance initial with no focus.
