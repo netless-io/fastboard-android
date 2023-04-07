@@ -59,11 +59,32 @@ public class FastResource {
     }
 
     public Drawable getBackground(boolean darkMode) {
-        ColorDrawable drawable = new ColorDrawable(darkMode ?
-                color(R.color.fast_dark_mode_bg) :
-                color(R.color.fast_light_mode_bg)
+        return new ColorDrawable(getBackgroundColor(darkMode));
+    }
+
+    /**
+     * 配置 Fastboard 控件底色
+     *
+     * @param darkMode
+     * @return
+     */
+    @ColorInt
+    public int getBackgroundColor(boolean darkMode) {
+        return color(darkMode
+                ? R.color.fast_dark_mode_bg
+                : R.color.fast_light_mode_bg
         );
-        return drawable;
+    }
+
+    /**
+     * 配置白板底色
+     *
+     * @param darkMode
+     * @return
+     */
+    @ColorInt
+    public int getBoardBackgroundColor(boolean darkMode) {
+        return getBackgroundColor(darkMode);
     }
 
     public Drawable getLayoutBackground(boolean darkMode) {
@@ -116,14 +137,6 @@ public class FastResource {
         }
         selected.setCornerRadius(dp2px(8));
         return selected;
-    }
-
-    @ColorInt
-    public int getBackgroundColor(boolean darkMode) {
-        return color(darkMode
-                ? R.color.fast_dark_mode_bg
-                : R.color.fast_light_mode_bg
-        );
     }
 
     /**

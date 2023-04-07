@@ -2,6 +2,7 @@ package io.agora.board.fast.sample.cases;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
+import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
@@ -56,6 +58,12 @@ public class RoomActivity extends BaseActivity {
                 FastRegion.CN_HZ
         );
         fastRoom = fastboard.createFastRoom(roomOptions);
+        fastRoom.setResource(new FastResource() {
+            @Override
+            public int getBackgroundColor(boolean darkMode) {
+                return Color.TRANSPARENT;
+            }
+        });
         fastRoom.join();
 
         // global style change

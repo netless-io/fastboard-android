@@ -1,4 +1,19 @@
 # Change Log
+## [Version 1.3.4] - 2022-02-03
+- **Breaking Change**: remove `FastResource.getBackground`, and replace it with `FastResource.getBackgroundColor`
+- Add: `FastResource.getBoardBackgroundColor` to config whiteboard background, it default value is `FastResource.getBackgroundColor`
+
+## [Version 1.3.3] - 2021-11-21
+- Fix: `FastUiSettings.hideRoomController` not working on startup stage.
+- Fix: TextAppliance initial with no focus.
+- Add: `FastRoomOptions.userPayload` to enable user cursor and set cursor display.
+
+## [Version 1.3.1] - 2021-11-16
+- Update: adjust UI, icons and default margins.
+- Add: `FastUiSettings.setToolboxEdgeMargin` to update toolbox margin.
+- Add: `FastRoom.setWritable()` with callback.
+- Add: `FastRoom.isWritable()`.
+- Add: `FastRoomOptions.containerSizeRatio` to config default context view ratio.
 
 ## [Version 1.2.3] - 2021-08-03
 - Fix: `MemberState` some fields cannot be saved locally

@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import io.agora.board.fast.R;
-import io.agora.board.fast.model.FastWindowBoxState;
 
 /**
  * @author fenglibin
@@ -29,22 +28,5 @@ public class FastRoomController extends RoomControllerGroup {
         addController(redoUndoLayout);
         addController(scenesLayout);
         addController(toolboxLayout);
-    }
-
-    @Override
-    public void updateWindowBoxState(String windowBoxState) {
-        super.updateWindowBoxState(windowBoxState);
-        FastWindowBoxState boxState = FastWindowBoxState.of(windowBoxState);
-        switch (boxState) {
-            case Maximized:
-                redoUndoLayout.hide();
-                scenesLayout.hide();
-                break;
-            case Minimized:
-            case Normal:
-                redoUndoLayout.show();
-                scenesLayout.show();
-                break;
-        }
     }
 }

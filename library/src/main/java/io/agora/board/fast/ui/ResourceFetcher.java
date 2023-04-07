@@ -35,8 +35,14 @@ public class ResourceFetcher {
         this.resource = resource;
     }
 
-    public Drawable getBackground(boolean darkMode) {
-        return resource.getBackground(darkMode);
+    @ColorInt
+    public int getBackgroundColor(boolean darkMode) {
+        return resource.getBackgroundColor(darkMode);
+    }
+
+    @ColorInt
+    public int getBoardBackgroundColor(boolean darkMode) {
+        return resource.getBoardBackgroundColor(darkMode);
     }
 
     public Drawable getLayoutBackground(boolean darkMode) {
@@ -45,11 +51,6 @@ public class ResourceFetcher {
 
     public Drawable getButtonBackground(boolean darkMode) {
         return resource.getButtonBackground(darkMode);
-    }
-
-    @ColorInt
-    public int getBackgroundColor(boolean darkMode) {
-        return resource.getBackgroundColor(darkMode);
     }
 
     public ColorStateList getIconColor(boolean darkMode) {

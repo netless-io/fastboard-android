@@ -28,13 +28,13 @@ public class FastConvertor {
     public static WhiteSdkConfiguration convertSdkOptions(FastRoomOptions options) {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
         result.setUseMultiViews(true);
+        result.setUserCursor(options.getUserPayload() != null);
         result.setNetlessUA(netlessUA);
         return result;
     }
 
     public static WhiteSdkConfiguration convertSdkOptions(FastReplayOptions options) {
         WhiteSdkConfiguration result = new WhiteSdkConfiguration(options.getAppId());
-        // fast default config
         result.setUseMultiViews(true);
         result.setNetlessUA(netlessUA);
         return result;
@@ -44,6 +44,7 @@ public class FastConvertor {
         RoomParams result = new RoomParams(options.getUuid(), options.getToken(), options.getUid());
         result.setWritable(options.isWritable());
         result.setRegion(convertRegion(options.getFastRegion()));
+        result.setUserPayload(options.getUserPayload());
 
         // fast default config
         result.setDisableNewPencil(false);
