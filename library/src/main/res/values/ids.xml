@@ -8,4 +8,6 @@
     <item name="fast_redo_undo_layout" type="id" />
     <item name="fast_scenes_layout" type="id" />
     <item name="fast_toolbox_layout" type="id" />
+
+    <item name="fast_tools_addition_layout" type="id" />
 </resources>

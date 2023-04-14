@@ -6,26 +6,39 @@
     android:layout_height="match_parent"
     tools:parentTag="android.widget.RelativeLayout">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tools_recycler_view"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/tools_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginVertical="@dimen/fast_default_layout_margin"
         android:layout_marginStart="8dp"
         android:background="@drawable/fast_bg_layout_round"
-        android:scrollbars="none"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="8"
-        tools:listitem="@layout/item_tools_appliance" />
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tools_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="8"
+            tools:listitem="@layout/item_tools_appliance" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@id/fast_tools_addition_layout"
+            android:layout_width="@dimen/fast_default_button_area_size"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <io.agora.board.fast.ui.DeleteButton
         android:id="@+id/toolbox_sub_delete"
         android:layout_width="@dimen/fast_default_button_area_size"
         android:layout_height="@dimen/fast_default_button_area_size"
-        android:layout_above="@id/tools_recycler_view"
-        android:layout_alignStart="@id/tools_recycler_view"
-        android:layout_alignRight="@id/tools_recycler_view"
+        android:layout_above="@id/tools_layout"
+        android:layout_alignStart="@id/tools_layout"
+        android:layout_alignRight="@id/tools_layout"
         android:background="@drawable/fast_bg_tool_button"
         android:src="@drawable/fast_ic_tool_delete"
         android:visibility="gone"
@@ -35,9 +48,9 @@
         android:id="@+id/extension_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/tools_recycler_view"
+        android:layout_alignTop="@id/tools_layout"
         android:layout_marginHorizontal="@dimen/fast_default_layout_margin"
-        android:layout_toRightOf="@id/tools_recycler_view"
+        android:layout_toRightOf="@id/tools_layout"
         android:background="@drawable/fast_bg_layout_round"
         android:visibility="gone"
         app:divider="@drawable/fast_divider"

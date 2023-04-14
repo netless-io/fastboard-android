@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,8 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
     private FastRoom fastRoom;
     private OverlayManager overlayManager;
 
+    private ViewGroup toolsLayout;
+    private ViewGroup toolsAdditionLayout;
     private RecyclerView toolsRecyclerView;
     private ToolboxAdapter toolboxAdapter;
     private DeleteButton toolboxDelete;
@@ -49,6 +52,8 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
 
     public void setupView(Context context) {
         View root = LayoutInflater.from(context).inflate(R.layout.layout_toolbox_expand, this, true);
+        toolsLayout = root.findViewById(R.id.tools_layout);
+        toolsAdditionLayout = root.findViewById(R.id.fast_tools_addition_layout);
         toolsRecyclerView = root.findViewById(R.id.tools_recycler_view);
         extensionLayout = root.findViewById(R.id.extension_layout);
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);
@@ -127,7 +132,8 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
 
     @Override
     public void updateFastStyle(FastStyle fastStyle) {
-        toolsRecyclerView.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
+        toolsLayout.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
+        // toolsRecyclerView.setBackground(ResourceFetcher.get().getLayoutBackground(fastStyle.isDarkMode()));
         toolboxAdapter.updateFastStyle(fastStyle);
         toolboxDelete.updateFastStyle(fastStyle);
         extensionLayout.updateFastStyle(fastStyle);
@@ -181,8 +187,9 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
         boolean isLeft = (gravity & Gravity.LEFT) == Gravity.LEFT;
         boolean isRight = (gravity & Gravity.RIGHT) == Gravity.RIGHT;
 
+        View layoutView = toolsLayout;
         if (isLeft) {
-            LayoutParams toolsLp = (LayoutParams) toolsRecyclerView.getLayoutParams();
+            LayoutParams toolsLp = (LayoutParams) layoutView.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             toolsLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             toolsLp.leftMargin = edgeMargin;
@@ -190,11 +197,11 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
 
             LayoutParams subToolsLp = (LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.LEFT_OF);
-            subToolsLp.addRule(RelativeLayout.RIGHT_OF, toolsRecyclerView.getId());
+            subToolsLp.addRule(RelativeLayout.RIGHT_OF, layoutView.getId());
         }
 
         if (isRight) {
-            LayoutParams toolsLp = (LayoutParams) toolsRecyclerView.getLayoutParams();
+            LayoutParams toolsLp = (LayoutParams) layoutView.getLayoutParams();
             toolsLp.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
             toolsLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             toolsLp.leftMargin = 0;
@@ -202,7 +209,7 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
 
             LayoutParams subToolsLp = (LayoutParams) extensionLayout.getLayoutParams();
             subToolsLp.removeRule(RelativeLayout.RIGHT_OF);
-            subToolsLp.addRule(RelativeLayout.LEFT_OF, toolsRecyclerView.getId());
+            subToolsLp.addRule(RelativeLayout.LEFT_OF, layoutView.getId());
         }
         requestLayout();
     }
