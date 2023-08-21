@@ -1,4 +1,13 @@
 # Change Log
+
+## [Version 1.4.0] - 2022-08-21
+- Update: change minimum whiteboard-android to 2.16.47.
+- Update: `FastRoom.insertImage` insert image into the center of the current view.
+- Add: `FastRoom.insertStaticDoc` to insert static docs.
+- Add: `FastRoom.insertPptx` to insert projector converted docs.
+- Add: `FastLogger.setLogger` to set custom logger.
+- Add: `FastAppliance.PENCIL_ERASER` to partially erase strokes.
+
 ## [Version 1.3.4] - 2022-02-03
 - **Breaking Change**: remove `FastResource.getBackground`, and replace it with `FastResource.getBackgroundColor`
 - Add: `FastResource.getBoardBackgroundColor` to config whiteboard background, it default value is `FastResource.getBackgroundColor`
