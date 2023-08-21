@@ -2,20 +2,16 @@ package io.agora.board.fast.sample.cases.flat;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.extension.FastResult;
-import io.agora.board.fast.model.ConverterType;
-import io.agora.board.fast.model.FastInsertDocParams;
+import io.agora.board.fast.model.DocPage;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.misc.CloudFile;
@@ -24,7 +20,9 @@ import io.agora.board.fast.ui.ResourceFetcher;
 import io.agora.board.fast.ui.RoomController;
 
 public class CloudFilesController extends LinearLayoutCompat implements RoomController {
+
     private RecyclerView recyclerView;
+
     private FastRoom fastRoom;
 
     public CloudFilesController(@NonNull Context context) {
@@ -59,9 +57,11 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
                     insertVideo(cloudFile);
                     break;
                 case "pptx":
+                    insertProjectorPptx(cloudFile);
+                    break;
                 case "ppt":
                 case "pdf":
-                    insertDocs(cloudFile);
+                    insertStaticDoc(cloudFile);
                     break;
             }
             hide();
@@ -76,20 +76,33 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
         fastRoom.insertVideo(cloudFile.url, cloudFile.name);
     }
 
-    private void insertDocs(CloudFile file) {
-        FastInsertDocParams params = new FastInsertDocParams(file.taskUUID, file.taskToken, file.type, file.name);
-        if (file.projectorDoc) {
-            params.setConverterType(ConverterType.Projector);
-        }
-        fastRoom.insertDocs(params, new FastResult<String>() {
+    private void insertProjectorPptx(CloudFile cloudFile) {
+        String taskUuid = cloudFile.taskUuid;
+        String prefixUrl = cloudFile.prefixUrl;
+        fastRoom.insertPptx(taskUuid, prefixUrl, "Pptx Display Title", new FastResult<String>() {
             @Override
             public void onSuccess(String value) {
-                Log.i("CloudFilesController", "insert Docs success");
+                // insert projector pptx success
             }
 
             @Override
             public void onError(Exception exception) {
-                Log.i("CloudFilesController", "insert Docs fail");
+                // insert projector pptx fail
+            }
+        });
+    }
+
+    private void insertStaticDoc(CloudFile file) {
+        DocPage[] pages = Repository.get().getDocPages(file.taskUuid);
+        fastRoom.insertStaticDoc(pages, "Static Doc Title", new FastResult<String>() {
+            @Override
+            public void onSuccess(String value) {
+                // insert static doc success
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                // insert static doc fail
             }
         });
     }

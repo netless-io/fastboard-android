@@ -6,10 +6,13 @@ import com.herewhite.sdk.RoomParams;
 import com.herewhite.sdk.WhiteSdk;
 import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.domain.PlayerConfiguration;
+import com.herewhite.sdk.domain.PptPage;
 import com.herewhite.sdk.domain.Region;
+import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.WindowParams;
 import com.herewhite.sdk.domain.WindowPrefersColorScheme;
 
+import io.agora.board.fast.model.DocPage;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -77,6 +80,24 @@ public class FastConvertor {
             default:
                 return Region.cn;
         }
+    }
+
+    @NonNull
+    public static Scene[] convertScenes(DocPage[] pages) {
+        Scene[] scenes = new Scene[pages.length];
+        for (int i = 0; i < pages.length; i++) {
+            DocPage page = pages[i];
+            Scene scene = new Scene();
+            scene.setName(String.valueOf(i + 1));
+            scene.setPpt(new PptPage(
+                page.getSrc(),
+                page.getWidth(),
+                page.getHeight(),
+                page.getPreview()
+            ));
+            scenes[i] = scene;
+        }
+        return scenes;
     }
 
     @NonNull
