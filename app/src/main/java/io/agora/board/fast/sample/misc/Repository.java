@@ -40,9 +40,16 @@ public class Repository {
         +
         "    {\n" +
         "        \"type\":\"pptx\",\n" +
-        "        \"name\":\"Projector Pptx\",\n" +
-        "        \"taskUuid\":\"39afca4336344419909ef711f227f60a\",\n" +
-        "        \"prefixUrl\":\"https://convertcdn.netless.link/dynamicConvert\"" +
+        "        \"name\":\"声网白板 Fastboard\",\n" +
+        "        \"taskUuid\":\"dc01ee126edc4ce7be8da3f7361a2f70\",\n" +
+        "        \"prefixUrl\":\"https://conversion-demo-cn.oss-cn-hangzhou.aliyuncs.com/demo/dynamicConvert\"" +
+        "    },\n"
+        +
+        "    {\n" +
+        "        \"type\":\"pptx\",\n" +
+        "        \"name\":\"Agora Fastboard\",\n" +
+        "        \"taskUuid\":\"3e3a2b8845194f998e6e05adab70e1a1\",\n" +
+        "        \"prefixUrl\":\"https://conversion-demo-cn.oss-cn-hangzhou.aliyuncs.com/demo/dynamicConvert\"" +
         "    },\n"
         +
         "    {\n" +

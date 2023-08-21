@@ -76,10 +76,10 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
         fastRoom.insertVideo(cloudFile.url, cloudFile.name);
     }
 
-    private void insertProjectorPptx(CloudFile cloudFile) {
-        String taskUuid = cloudFile.taskUuid;
-        String prefixUrl = cloudFile.prefixUrl;
-        fastRoom.insertPptx(taskUuid, prefixUrl, "Pptx Display Title", new FastResult<String>() {
+    private void insertProjectorPptx(CloudFile file) {
+        String taskUuid = file.taskUuid;
+        String prefixUrl = file.prefixUrl;
+        fastRoom.insertPptx(taskUuid, prefixUrl, file.name, new FastResult<String>() {
             @Override
             public void onSuccess(String value) {
                 // insert projector pptx success
@@ -94,7 +94,7 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
 
     private void insertStaticDoc(CloudFile file) {
         DocPage[] pages = Repository.get().getDocPages(file.taskUuid);
-        fastRoom.insertStaticDoc(pages, "Static Doc Title", new FastResult<String>() {
+        fastRoom.insertStaticDoc(pages, file.name, new FastResult<String>() {
             @Override
             public void onSuccess(String value) {
                 // insert static doc success
