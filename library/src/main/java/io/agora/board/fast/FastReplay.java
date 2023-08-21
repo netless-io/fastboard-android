@@ -35,6 +35,7 @@ public class FastReplay {
 
         @Override
         public void sdkSetupFail(SDKError error) {
+            FastLogger.error("sdk setup fail", error);
             fastReplayContext.notifyFastError(FastException.createSdk(error.getMessage()));
         }
 

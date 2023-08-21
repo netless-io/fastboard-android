@@ -8,6 +8,8 @@ import android.view.Gravity;
 
 import androidx.annotation.NonNull;
 
+import io.agora.board.fast.FastLogger;
+import io.agora.board.fast.FastLogger.Logger;
 import java.util.Objects;
 
 import io.agora.board.fast.FastRoom;
@@ -31,6 +33,7 @@ import io.agora.board.fast.ui.FastUiSettings;
 public class RoomActivity extends BaseActivity {
 
     private final Repository repository = Repository.get();
+
     private FastRoom fastRoom;
 
     @Override
@@ -51,11 +54,11 @@ public class RoomActivity extends BaseActivity {
 
         // join room
         FastRoomOptions roomOptions = new FastRoomOptions(
-                Constants.SAMPLE_APP_ID,
-                getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
-                getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
-                repository.getUserId(),
-                FastRegion.CN_HZ
+            Constants.SAMPLE_APP_ID,
+            getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
+            getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
+            repository.getUserId(),
+            FastRegion.CN_HZ
         );
         fastRoom = fastboard.createFastRoom(roomOptions);
         fastRoom.setResource(new FastResource() {
@@ -78,6 +81,34 @@ public class RoomActivity extends BaseActivity {
 
         // dev tools display
         Utils.setupDevTools(this, fastRoom);
+
+        // set custom logger
+        FastLogger.setLogger(new Logger() {
+            @Override
+            public void debug(String msg) {
+
+            }
+
+            @Override
+            public void info(String msg) {
+
+            }
+
+            @Override
+            public void warn(String msg) {
+
+            }
+
+            @Override
+            public void error(String msg) {
+
+            }
+
+            @Override
+            public void error(String msg, Throwable throwable) {
+
+            }
+        });
     }
 
     @Override
