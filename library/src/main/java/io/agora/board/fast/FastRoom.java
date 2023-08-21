@@ -438,12 +438,14 @@ public class FastRoom {
         }
 
         String uuid = UUID.randomUUID().toString();
+
         ImageInformation imageInfo = new ImageInformation();
         imageInfo.setUuid(uuid);
         imageInfo.setWidth(width);
         imageInfo.setHeight(height);
-        imageInfo.setCenterX(0);
-        imageInfo.setCenterY(0);
+        imageInfo.setCenterX(getRoom().getRoomState().getCameraState().getCenterX());
+        imageInfo.setCenterY(getRoom().getRoomState().getCameraState().getCenterY());
+
         getRoom().insertImage(imageInfo);
         getRoom().completeImageUpload(uuid, url);
     }
