@@ -24,6 +24,7 @@ import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.ui.FastColorDrawable;
 
 public class FastResource {
+
     private static final HashMap<FastAppliance, Integer> iconMap;
 
     static {
@@ -35,6 +36,7 @@ public class FastResource {
         iconMap.put(FastAppliance.ELLIPSE, R.drawable.fast_ic_tool_circle_selector);
         iconMap.put(FastAppliance.TEXT, R.drawable.fast_ic_tool_text_selector);
         iconMap.put(FastAppliance.ERASER, R.drawable.fast_ic_tool_eraser_selector);
+        iconMap.put(FastAppliance.PENCIL_ERASER, R.drawable.fast_ic_tool_pencil_eraser_selector);
         iconMap.put(FastAppliance.LASER_POINTER, R.drawable.fast_ic_tool_raser);
         iconMap.put(FastAppliance.ARROW, R.drawable.fast_ic_tool_arrow_selector);
         iconMap.put(FastAppliance.STRAIGHT, R.drawable.fast_ic_tool_straight_selector);
