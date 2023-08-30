@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_weight="1"
+  android:gravity="center_horizontal"
+  android:orientation="vertical"
+  tools:background="@color/black">
+
+  <ImageView
+    android:id="@+id/icon"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:background="@drawable/hione_bg_appliance_item"
+    app:tint="@color/white"
+    tools:src="@drawable/fast_ic_tool_clicker_selector" />
+
+  <TextView
+    android:layout_marginTop="2dp"
+    android:id="@+id/text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/white"
+    android:textSize="10sp"
+    tools:text="拖拽" />
+</LinearLayout>

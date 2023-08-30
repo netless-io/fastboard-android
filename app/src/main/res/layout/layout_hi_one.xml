@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:background="@color/black"
+  tools:layout_height="300dp"
+  tools:parentTag="android.widget.FrameLayout">
+
+  <LinearLayout
+    android:background="@color/black"
+    android:id="@+id/appliances_layout"
+    android:layout_width="match_parent"
+    android:paddingVertical="4dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal" />
+
+  <io.agora.board.fast.sample.cases.hione.HiOneGestureView
+    android:id="@+id/gesture_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:visibility="gone" />
+
+  <LinearLayout
+    android:background="@drawable/fast_bg_layout_round"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top|start"
+    android:padding="4dp"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+      android:id="@+id/editor"
+      android:layout_width="32dp"
+      android:layout_height="32dp">
+
+      <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="4dp"
+        android:background="@drawable/fast_bg_appliance_item"
+        android:src="@drawable/fast_ic_tool_pencil_selector" />
+    </FrameLayout>
+
+    <FrameLayout
+      android:id="@+id/cloud_service"
+      android:layout_width="32dp"
+      android:layout_height="32dp">
+
+      <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/fast_bg_appliance_item"
+        android:padding="4dp"
+        android:src="@drawable/ic_toolbox_ext_cloudservice" />
+    </FrameLayout>
+  </LinearLayout>
+</merge>

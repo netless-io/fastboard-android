@@ -8,6 +8,7 @@ import android.provider.Settings;
 import com.google.gson.reflect.TypeToken;
 
 import io.agora.board.fast.model.DocPage;
+import io.agora.board.fast.sample.cases.hione.HiOneActivity;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -147,6 +148,14 @@ public class Repository {
             FlatRoomActivity.class,
             new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
         ));
+
+        result.add(new TestCase(
+            "HiOne Sample",
+            "Extension Sample 1",
+            HiOneActivity.class,
+            new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+        ));
+
         return result;
     }
 

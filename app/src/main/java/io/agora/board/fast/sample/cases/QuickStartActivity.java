@@ -17,6 +17,7 @@ import io.agora.board.fast.sample.cases.helper.UiConfig;
 import io.agora.board.fast.sample.misc.Repository;
 
 public class QuickStartActivity extends BaseActivity {
+
     private final Repository repository = Repository.get();
 
     @Override
@@ -37,19 +38,28 @@ public class QuickStartActivity extends BaseActivity {
         Fastboard fastboard = fastboardView.getFastboard();
         // step 3: join room
         FastRoomOptions roomOptions = new FastRoomOptions(
-                Constants.SAMPLE_APP_ID,
-                getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
-                getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
-                repository.getUserId(),
-                FastRegion.CN_HZ
+            Constants.SAMPLE_APP_ID,
+            getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
+            getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
+            repository.getUserId(),
+            FastRegion.CN_HZ
         );
         FastRoom fastRoom = fastboard.createFastRoom(roomOptions);
         fastRoom.join();
+
+        findViewById(R.id.rejoin_btn).setOnClickListener(
+            v -> fastRoom.join()
+        );
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setupFullScreen();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
