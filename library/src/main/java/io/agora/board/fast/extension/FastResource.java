@@ -31,6 +31,7 @@ public class FastResource {
         iconMap = new HashMap<>();
         iconMap.put(FastAppliance.CLICKER, R.drawable.fast_ic_tool_clicker_selector);
         iconMap.put(FastAppliance.SELECTOR, R.drawable.fast_ic_tool_selector_selector);
+        iconMap.put(FastAppliance.HAND, R.drawable.fast_ic_tool_hand_selector);
         iconMap.put(FastAppliance.PENCIL, R.drawable.fast_ic_tool_pencil_selector);
         iconMap.put(FastAppliance.RECTANGLE, R.drawable.fast_ic_tool_rectangle_selector);
         iconMap.put(FastAppliance.ELLIPSE, R.drawable.fast_ic_tool_circle_selector);
