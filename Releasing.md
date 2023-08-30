@@ -21,6 +21,11 @@ Cutting a Release
    sed -i "" \
    "s/\"com.github.netless-io:\([^\:]*\):[^\"]*\"/\"com.github.netless-io:\1:$RELEASE_VERSION\"/g" \
    README.md README_zh_CN.md
+   
+   # app denpendencies
+   sed -i "" \
+   "s/\"com.github.netless-io:fastboard-android:[^\"]*\"/\"com.github.netless-io:fastboard-android:$RELEASE_VERSION\"/g" \
+   app/build.gradle
     ```
 4. Tag the release and push to GitHub.
    ```

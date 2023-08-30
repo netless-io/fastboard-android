@@ -1,4 +1,6 @@
 # Change Log
+## [Version 1.4.1] - 2022-08-30
+- Add: `FastAppliance.HAND` to move the view.
 
 ## [Version 1.4.0] - 2022-08-21
 - Update: change minimum whiteboard-android to 2.16.47.
