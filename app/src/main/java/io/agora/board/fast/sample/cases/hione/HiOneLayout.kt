@@ -32,23 +32,6 @@ class HiOneLayout @JvmOverloads constructor(
 
     private var listener: HiOneLayoutListener? = null
 
-    private val roomListener = object : FastRoomListener {
-        override fun onRoomStateChanged(state: RoomState?) {
-            super.onRoomStateChanged(state)
-
-            state?.memberState?.run {
-                updateMemberState(this)
-            }
-        }
-    }
-
-    private fun updateMemberState(memberState: MemberState) {
-        val appliance = FastAppliance.of(memberState.currentApplianceName, memberState.shapeType)
-        items.forEachIndexed { index, item ->
-            appliances.getChildAt(index).isSelected = item.appliance == appliance
-        }
-    }
-
     private val items = mutableListOf(
         Item(FastAppliance.HAND, R.drawable.fast_ic_tool_hand_selector, "拖拽"),
         Item(FastAppliance.LASER_POINTER, R.drawable.fast_ic_tool_raser, "激光"),
@@ -119,10 +102,27 @@ class HiOneLayout @JvmOverloads constructor(
         }
     }
 
+    private val roomListener = object : FastRoomListener {
+        override fun onRoomStateChanged(state: RoomState?) {
+            super.onRoomStateChanged(state)
+
+            state?.memberState?.run {
+                updateMemberState(this)
+            }
+        }
+    }
+
     fun attachRoom(fastRoom: FastRoom) {
         this.fastRoom = fastRoom
         fastRoom.addListener(roomListener)
         updateMemberState(fastRoom.room.memberState)
+    }
+
+    private fun updateMemberState(memberState: MemberState) {
+        val appliance = FastAppliance.of(memberState.currentApplianceName, memberState.shapeType)
+        items.forEachIndexed { index, item ->
+            appliances.getChildAt(index).isSelected = item.appliance == appliance
+        }
     }
 
     override fun onDetachedFromWindow() {

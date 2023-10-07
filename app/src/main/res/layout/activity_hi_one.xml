@@ -14,8 +14,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/ratio_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
     <io.agora.board.fast.FastboardView
       android:id="@+id/fastboard_view"

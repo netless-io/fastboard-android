@@ -2,9 +2,6 @@ package io.agora.board.fast.sample.cases;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-
-import java.util.Objects;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
@@ -15,6 +12,7 @@ import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.cases.base.BaseActivity;
 import io.agora.board.fast.sample.cases.helper.UiConfig;
 import io.agora.board.fast.sample.misc.Repository;
+import java.util.Objects;
 
 public class QuickStartActivity extends BaseActivity {
 
@@ -44,12 +42,9 @@ public class QuickStartActivity extends BaseActivity {
             repository.getUserId(),
             FastRegion.CN_HZ
         );
+
         FastRoom fastRoom = fastboard.createFastRoom(roomOptions);
         fastRoom.join();
-
-        findViewById(R.id.rejoin_btn).setOnClickListener(
-            v -> fastRoom.join()
-        );
     }
 
     @Override

@@ -133,4 +133,9 @@ open class HiOneActivity : BaseActivity() {
             ControllerId.ToolBox
         )
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fastRoom.destroy()
+    }
 }
