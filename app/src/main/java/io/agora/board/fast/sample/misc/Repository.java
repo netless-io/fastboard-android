@@ -129,11 +129,18 @@ public class Repository {
         ));
 
         result.add(new TestCase(
-            "Draw Something",
-            "Use fastboard in case with several people",
-            DrawSthActivity.class,
+            "HiOne Sample",
+            "Extension Sample 1, Orientation portrait",
+            HiOneActivity.class,
             new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
         ));
+
+        // result.add(new TestCase(
+        //     "Draw Something",
+        //     "Use fastboard in case with several people",
+        //     DrawSthActivity.class,
+        //     new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+        // ));
 
         result.add(new TestCase(
             "Extension Apis",
@@ -146,13 +153,6 @@ public class Repository {
             "Flat Sample",
             "Test apis with cloud file and window-manager",
             FlatRoomActivity.class,
-            new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
-        ));
-
-        result.add(new TestCase(
-            "HiOne Sample",
-            "Extension Sample 1",
-            HiOneActivity.class,
             new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
         ));
 

@@ -24,12 +24,15 @@ import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.ControllerId;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.sample.cases.helper.RoomOperationsKT;
 import io.agora.board.fast.ui.FastUiSettings;
 
 public class RoomControlView extends FrameLayout {
+
     private FastRoom fastRoom;
 
     private final View controllerLayout;
+
     private final ImageView handleView;
 
     public RoomControlView(@NonNull Context context) {
@@ -57,6 +60,10 @@ public class RoomControlView extends FrameLayout {
 
         root.findViewById(R.id.clear).setOnClickListener(v -> {
             fastRoom.getRoom().removeScenes("/");
+        });
+
+        root.findViewById(R.id.addApps).setOnClickListener(v -> {
+            new RoomOperationsKT(fastRoom).addYoutubeApp();
         });
 
         SwitchCompat visiableSwitch = root.findViewById(R.id.controller_visiable_switch);
@@ -187,7 +194,8 @@ public class RoomControlView extends FrameLayout {
 
     private void updateHandleView() {
         boolean isVisiable = controllerLayout.getVisibility() == VISIBLE;
-        handleView.setImageResource(isVisiable ? R.drawable.ic_toolbox_ext_expanded : R.drawable.ic_toolbox_ext_collapsed);
+        handleView.setImageResource(
+            isVisiable ? R.drawable.ic_toolbox_ext_expanded : R.drawable.ic_toolbox_ext_collapsed);
     }
 
     public void attachFastRoom(FastRoom fastRoom) {
@@ -209,9 +217,9 @@ public class RoomControlView extends FrameLayout {
 
     protected int dp2px(float dpVal) {
         return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dpVal,
-                getContext().getResources().getDisplayMetrics()
+            TypedValue.COMPLEX_UNIT_DIP,
+            dpVal,
+            getContext().getResources().getDisplayMetrics()
         );
     }
 }
