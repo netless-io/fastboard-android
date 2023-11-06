@@ -5,12 +5,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.LinearLayoutCompat;
-
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.R;
 import io.agora.board.fast.model.FastStyle;
@@ -19,9 +17,11 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ErrorHandleLayout extends LinearLayoutCompat implements RoomController {
+
     private FastRoom fastRoom;
 
     private TextView messageView;
+
     private View retry;
 
     public ErrorHandleLayout(@NonNull Context context) {
@@ -45,7 +45,9 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
         retry = root.findViewById(R.id.fast_error_handle_retry);
         retry.setOnClickListener(v -> {
             hide();
-            fastRoom.join();
+            if (fastRoom != null) {
+                fastRoom.join();
+            }
         });
     }
 
