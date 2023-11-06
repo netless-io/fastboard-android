@@ -2,8 +2,8 @@ package io.agora.board.fast;
 
 import android.util.Log;
 
-class FastLogger {
-    private final static Logger logger = new DefaultLogger();
+public class FastLogger {
+    private static Logger logger = new DefaultLogger();
 
     static void debug(String msg) {
         logger.debug(msg);
@@ -25,6 +25,11 @@ class FastLogger {
         logger.error(msg, throwable);
     }
 
+    public static void setLogger(Logger logger) {
+        if (logger != null) {
+            FastLogger.logger = logger;
+        }
+    }
 
     public interface Logger {
         void debug(String msg);

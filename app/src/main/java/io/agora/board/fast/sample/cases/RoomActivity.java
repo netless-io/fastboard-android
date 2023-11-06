@@ -5,14 +5,13 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
-
 import androidx.annotation.NonNull;
-
-import java.util.Objects;
-
+import io.agora.board.fast.FastLogger;
+import io.agora.board.fast.FastLogger.Logger;
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
+import io.agora.board.fast.OnRoomReadyCallback;
 import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastRoomOptions;
@@ -20,10 +19,12 @@ import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.Constants;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.cases.base.BaseActivity;
+import io.agora.board.fast.sample.cases.helper.RoomOperationsKT;
 import io.agora.board.fast.sample.cases.helper.UiConfig;
 import io.agora.board.fast.sample.misc.Repository;
 import io.agora.board.fast.sample.misc.Utils;
 import io.agora.board.fast.ui.FastUiSettings;
+import java.util.Objects;
 
 /**
  * @author fenglibin
@@ -31,6 +32,7 @@ import io.agora.board.fast.ui.FastUiSettings;
 public class RoomActivity extends BaseActivity {
 
     private final Repository repository = Repository.get();
+
     private FastRoom fastRoom;
 
     @Override
@@ -51,11 +53,11 @@ public class RoomActivity extends BaseActivity {
 
         // join room
         FastRoomOptions roomOptions = new FastRoomOptions(
-                Constants.SAMPLE_APP_ID,
-                getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
-                getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
-                repository.getUserId(),
-                FastRegion.CN_HZ
+            Constants.SAMPLE_APP_ID,
+            getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
+            getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
+            repository.getUserId(),
+            FastRegion.CN_HZ
         );
         fastRoom = fastboard.createFastRoom(roomOptions);
         fastRoom.setResource(new FastResource() {
@@ -64,7 +66,13 @@ public class RoomActivity extends BaseActivity {
                 return Color.TRANSPARENT;
             }
         });
-        fastRoom.join();
+        fastRoom.join(new OnRoomReadyCallback() {
+            @Override
+            public void onRoomReady(@NonNull FastRoom fastRoom) {
+                // register apps
+                new RoomOperationsKT(fastRoom).registerApps();
+            }
+        });
 
         // global style change
         FastStyle fastStyle = fastRoom.getFastStyle();
@@ -78,6 +86,34 @@ public class RoomActivity extends BaseActivity {
 
         // dev tools display
         Utils.setupDevTools(this, fastRoom);
+
+        // set custom logger
+        FastLogger.setLogger(new Logger() {
+            @Override
+            public void debug(String msg) {
+
+            }
+
+            @Override
+            public void info(String msg) {
+
+            }
+
+            @Override
+            public void warn(String msg) {
+
+            }
+
+            @Override
+            public void error(String msg) {
+
+            }
+
+            @Override
+            public void error(String msg, Throwable throwable) {
+
+            }
+        });
     }
 
     @Override

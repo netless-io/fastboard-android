@@ -11,11 +11,13 @@ import java.util.HashMap;
 public enum FastAppliance {
     CLICKER(Appliance.CLICKER),
     SELECTOR(Appliance.SELECTOR),
+    HAND(Appliance.HAND),
     PENCIL(Appliance.PENCIL),
     RECTANGLE(Appliance.RECTANGLE),
     ELLIPSE(Appliance.ELLIPSE),
     TEXT(Appliance.TEXT),
     ERASER(Appliance.ERASER),
+    PENCIL_ERASER(Appliance.PENCIL_ERASER),
     LASER_POINTER(Appliance.LASER_POINTER),
     ARROW(Appliance.ARROW),
     STRAIGHT(Appliance.STRAIGHT),
@@ -34,7 +36,9 @@ public enum FastAppliance {
         hasPropertiesMap = new HashMap<>();
         hasPropertiesMap.put(FastAppliance.CLICKER, false);
         hasPropertiesMap.put(FastAppliance.SELECTOR, false);
+        hasPropertiesMap.put(FastAppliance.HAND, false);
         hasPropertiesMap.put(FastAppliance.ERASER, false);
+        hasPropertiesMap.put(FastAppliance.PENCIL_ERASER, false);
         hasPropertiesMap.put(FastAppliance.LASER_POINTER, false);
         hasPropertiesMap.put(FastAppliance.OTHER_CLEAR, false);
 

@@ -5,10 +5,8 @@ import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
 
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
-
 import com.herewhite.sdk.CommonCallback;
 import com.herewhite.sdk.ConverterCallbacks;
 import com.herewhite.sdk.Room;
@@ -19,7 +17,6 @@ import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.converter.ConvertType;
 import com.herewhite.sdk.converter.ConverterV5;
 import com.herewhite.sdk.converter.ProjectorQuery;
-import com.herewhite.sdk.domain.CameraState;
 import com.herewhite.sdk.domain.ConversionInfo;
 import com.herewhite.sdk.domain.ConvertException;
 import com.herewhite.sdk.domain.ConvertedFiles;
@@ -30,6 +27,7 @@ import com.herewhite.sdk.domain.Region;
 import com.herewhite.sdk.domain.RoomPhase;
 import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
+import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.WindowAppParam;
 
 import org.json.JSONObject;
@@ -50,6 +48,7 @@ import io.agora.board.fast.internal.FastRoomContext;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.internal.PromiseResultAdapter;
 import io.agora.board.fast.model.ConverterType;
+import io.agora.board.fast.model.DocPage;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastInsertDocParams;
 import io.agora.board.fast.model.FastRedoUndo;
@@ -62,11 +61,17 @@ import io.agora.board.fast.ui.OverlayLayout;
 import io.agora.board.fast.ui.RoomControllerGroup;
 
 public class FastRoom {
+
     private final FastboardView fastboardView;
+
     private final FastRoomOptions fastRoomOptions;
+
     private final FastRoomContext fastRoomContext;
+
     private WhiteSdk whiteSdk;
+
     private Room room;
+
     private OnRoomReadyCallback onRoomReadyCallback;
 
     private RoomControllerGroup roomControllerGroup;
@@ -84,6 +89,7 @@ public class FastRoom {
 
         @Override
         public void sdkSetupFail(SDKError error) {
+            FastLogger.error("sdk setup fail ", error);
             fastRoomContext.notifyFastError(FastException.createSdk(error.getMessage()));
         }
 
@@ -95,6 +101,7 @@ public class FastRoom {
 
     private final RoomListener roomListener = new RoomListener() {
         private long canUndoSteps;
+
         private long canRedoSteps;
 
         @Override
@@ -237,7 +244,8 @@ public class FastRoom {
 
         fastRoomContext.setRoomPhaseHandler(new FastRoomPhaseHandler(loadingLayout));
         fastRoomContext.setErrorHandler(new FastErrorHandler(errorHandleLayout));
-        fastRoomContext.setOverlayManager(new FastOverlayManager(overlayLayout, new FastOverlayHandler(fastRoomContext)));
+        fastRoomContext.setOverlayManager(
+            new FastOverlayManager(overlayLayout, new FastOverlayHandler(fastRoomContext)));
 
         // TODO reconnect has no fastRoom instance
         roomControllerGroup.setFastRoom(this);
@@ -251,7 +259,7 @@ public class FastRoom {
     }
 
     public void join() {
-        join(null);
+        join(this.onRoomReadyCallback);
     }
 
     public void join(@Nullable OnRoomReadyCallback onRoomReadyCallback) {
@@ -274,8 +282,7 @@ public class FastRoom {
     }
 
     /**
-     * Gets the original whiteboard room. Note that mostly there is no need
-     * to care about the room
+     * Gets the original whiteboard room. Note that mostly there is no need to care about the room
      *
      * @return internal room of whiteboard.
      */
@@ -368,9 +375,9 @@ public class FastRoom {
 
         MemberState memberState = new MemberState();
         memberState.setStrokeColor(new int[]{
-                color >> 16 & 0xff,
-                color >> 8 & 0xff,
-                color & 0xff,
+            color >> 16 & 0xff,
+            color >> 8 & 0xff,
+            color & 0xff,
         });
         getRoom().setMemberState(memberState);
     }
@@ -439,14 +446,13 @@ public class FastRoom {
         }
 
         String uuid = UUID.randomUUID().toString();
+
         ImageInformation imageInfo = new ImageInformation();
         imageInfo.setUuid(uuid);
         imageInfo.setWidth(width);
         imageInfo.setHeight(height);
-
-        CameraState cameraState = getRoom().getRoomState().getCameraState();
-        imageInfo.setCenterX(cameraState.getCenterX());
-        imageInfo.setCenterY(cameraState.getCenterY());
+        imageInfo.setCenterX(getRoom().getRoomState().getCameraState().getCenterX());
+        imageInfo.setCenterY(getRoom().getRoomState().getCameraState().getCenterY());
 
         getRoom().insertImage(imageInfo);
         getRoom().completeImageUpload(uuid, url);
@@ -469,10 +475,77 @@ public class FastRoom {
     }
 
     /**
+     * Insert Older Convertor Converted PPTX.
+     * <p>
+     * Note: this method is only for older convertor, and will be deprecated in the future.
+     *
+     * @param pages
+     * @param title
+     * @param result
+     */
+    public void insertPptx(DocPage[] pages, String title, FastResult<String> result) {
+        if (!isReady()) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
+        Scene[] scenes = FastConvertor.convertScenes(pages);
+        WindowAppParam param = WindowAppParam.createSlideApp(
+            "/" + UUID.randomUUID().toString(),
+            scenes,
+            title
+        );
+        getRoom().addApp(param, new PromiseResultAdapter<>(result));
+    }
+
+    /**
+     * Insert Projector Converted PPTX. which is converted by https://api.netless.link/v5/projector/tasks.
+     *
+     * @param taskUuid
+     * @param prefixUrl
+     * @param result
+     */
+    public void insertPptx(String taskUuid, String prefixUrl, String title, FastResult<String> result) {
+        if (!isReady()) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
+        WindowAppParam param = WindowAppParam.createSlideApp(
+            taskUuid,
+            prefixUrl,
+            title
+        );
+        getRoom().addApp(param, new PromiseResultAdapter<>(result));
+    }
+
+    /**
+     * insert static doc insert window
+     *
+     * @param pages
+     */
+    public void insertStaticDoc(DocPage[] pages, String title, FastResult<String> result) {
+        if (!isReady()) {
+            FastLogger.warn("call fast room before join..");
+            return;
+        }
+
+        Scene[] scenes = FastConvertor.convertScenes(pages);
+        WindowAppParam param = WindowAppParam.createDocsViewerApp(
+            "/" + UUID.randomUUID().toString(),
+            scenes,
+            title
+        );
+        getRoom().addApp(param, new PromiseResultAdapter<>(result));
+    }
+
+    /**
      * insert static or dynamic doc insert window
      *
      * @param params
      * @param result
+     * @deprecated Use {@link #insertStaticDoc(DocPage[], String, FastResult)} for static doc. Use {@link #insertPptx}
+     * for dynamic doc.
      */
     public void insertDocs(FastInsertDocParams params, @Nullable FastResult<String> result) {
         if (!isReady()) {
@@ -491,36 +564,37 @@ public class FastRoom {
         Region region = FastConvertor.convertRegion(params.getRegion());
 
         ConverterV5 convert = new ConverterV5.Builder()
-                .setResource("")
-                .setType(params.isDynamicDoc() ? ConvertType.Dynamic : ConvertType.Static)
-                .setTaskUuid(params.getTaskUUID())
-                .setTaskToken(params.getTaskToken())
-                .setRegion(region)
-                .setPoolInterval(3000)
-                .setTimeout(30_000L)
-                .setCallback(new ConverterCallbacks() {
-                    @Override
-                    public void onProgress(Double progress, ConversionInfo convertInfo) {
-                    }
+            .setResource("")
+            .setType(params.isDynamicDoc() ? ConvertType.Dynamic : ConvertType.Static)
+            .setTaskUuid(params.getTaskUUID())
+            .setTaskToken(params.getTaskToken())
+            .setRegion(region)
+            .setPoolInterval(3000)
+            .setTimeout(30_000L)
+            .setCallback(new ConverterCallbacks() {
+                @Override
+                public void onProgress(Double progress, ConversionInfo convertInfo) {
+                }
 
-                    @Override
-                    public void onFinish(ConvertedFiles converted, ConversionInfo convertInfo) {
-                        WindowAppParam param = WindowAppParam.createSlideApp(generateUniqueDir(params.getTaskUUID()), converted.getScenes(), params.getTitle());
-                        getRoom().addApp(param, new PromiseResultAdapter<>(result));
-                    }
+                @Override
+                public void onFinish(ConvertedFiles converted, ConversionInfo convertInfo) {
+                    WindowAppParam param = WindowAppParam.createSlideApp(generateUniqueDir(params.getTaskUUID()),
+                        converted.getScenes(), params.getTitle());
+                    getRoom().addApp(param, new PromiseResultAdapter<>(result));
+                }
 
-                    private String generateUniqueDir(String taskUUID) {
-                        String uuid = UUID.randomUUID().toString();
-                        return String.format("/%s/%s", taskUUID, uuid);
-                    }
+                private String generateUniqueDir(String taskUUID) {
+                    String uuid = UUID.randomUUID().toString();
+                    return String.format("/%s/%s", taskUUID, uuid);
+                }
 
-                    @Override
-                    public void onFailure(ConvertException e) {
-                        if (result != null) {
-                            result.onError(e);
-                        }
+                @Override
+                public void onFailure(ConvertException e) {
+                    if (result != null) {
+                        result.onError(e);
                     }
-                }).build();
+                }
+            }).build();
         convert.startConvertTask();
     }
 
@@ -528,35 +602,35 @@ public class FastRoom {
         Region region = FastConvertor.convertRegion(params.getRegion());
 
         ProjectorQuery projectorQuery = new ProjectorQuery.Builder()
-                .setTaskUuid(params.getTaskUUID())
-                .setTaskToken(params.getTaskToken())
-                .setRegion(region)
-                .setPoolInterval(3000)
-                .setTimeout(30_000L)
-                .setCallback(new ProjectorQuery.Callback() {
-                    @Override
-                    public void onProgress(double progress, ProjectorQuery.QueryResponse convertInfo) {
+            .setTaskUuid(params.getTaskUUID())
+            .setTaskToken(params.getTaskToken())
+            .setRegion(region)
+            .setPoolInterval(3000)
+            .setTimeout(30_000L)
+            .setCallback(new ProjectorQuery.Callback() {
+                @Override
+                public void onProgress(double progress, ProjectorQuery.QueryResponse convertInfo) {
 
-                    }
+                }
 
-                    @Override
-                    public void onFinish(ProjectorQuery.QueryResponse response) {
-                        WindowAppParam param = WindowAppParam.createSlideApp(
-                                response.getUuid(),
-                                response.getPrefix(),
-                                params.getTitle()
-                        );
-                        getRoom().addApp(param, new PromiseResultAdapter<>(result));
-                    }
+                @Override
+                public void onFinish(ProjectorQuery.QueryResponse response) {
+                    WindowAppParam param = WindowAppParam.createSlideApp(
+                        response.getUuid(),
+                        response.getPrefix(),
+                        params.getTitle()
+                    );
+                    getRoom().addApp(param, new PromiseResultAdapter<>(result));
+                }
 
-                    @Override
-                    public void onFailure(ConvertException e) {
-                        if (result != null) {
-                            result.onError(e);
-                        }
+                @Override
+                public void onFailure(ConvertException e) {
+                    if (result != null) {
+                        result.onError(e);
                     }
-                })
-                .build();
+                }
+            })
+            .build();
         projectorQuery.startQuery();
     }
 

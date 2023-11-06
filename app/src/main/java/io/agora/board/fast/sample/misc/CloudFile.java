@@ -7,9 +7,8 @@ public class CloudFile {
 
     // for test, Production environments use separate classes as Doc, Image
     // for doc
-    public String taskUUID;
-    public String taskToken;
-    public Boolean projectorDoc;
+    public String taskUuid;
+    public String prefixUrl;
 
     // for image
     public Integer width;

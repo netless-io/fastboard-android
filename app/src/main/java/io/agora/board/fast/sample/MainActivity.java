@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TestCaseAdapter(Repository.get().getTestCases());
         adapter.setOnItemClickListener(this::startTestCase);
         testcaseRv.setAdapter(adapter);
+
+        // startTestCase(Repository.get().getTestCases().get(4));
     }
 
     private void startTestCase(TestCase testCase) {
