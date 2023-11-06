@@ -95,4 +95,8 @@ public class FastboardView extends FrameLayout {
         }
         return fastUiSettings;
     }
+
+    public WhiteboardView getWhiteboardView() {
+        return whiteboardView;
+    }
 }
