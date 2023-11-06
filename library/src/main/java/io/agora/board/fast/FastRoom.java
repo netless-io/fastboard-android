@@ -259,7 +259,7 @@ public class FastRoom {
     }
 
     public void join() {
-        join(null);
+        join(this.onRoomReadyCallback);
     }
 
     public void join(@Nullable OnRoomReadyCallback onRoomReadyCallback) {
