@@ -122,7 +122,7 @@ public class FastRoom {
 
         @Override
         public void onRoomStateChanged(RoomState modifyState) {
-            notifyRoomState(modifyState);
+            fastRoomContext.notifyRoomStateChanged(modifyState);
         }
 
         @Override
@@ -148,7 +148,7 @@ public class FastRoom {
         public void then(Room room) {
             FastLogger.info("join room success" + room.toString());
             FastRoom.this.room = room;
-            // notifyRoomState(room.getRoomState());
+            updateRoomState(room.getRoomState());
             updateWritable();
             updateIfTextAppliance();
             notifyRoomReady();
@@ -160,6 +160,28 @@ public class FastRoom {
             fastRoomContext.notifyFastError(FastException.createRoom(ROOM_JOIN_ERROR, t.getMessage(), t));
         }
     };
+
+    private void updateRoomState(RoomState roomState) {
+        if (roomState.getBroadcastState() != null) {
+            roomControllerGroup.updateBroadcastState(roomState.getBroadcastState());
+        }
+
+        if (roomState.getMemberState() != null) {
+            roomControllerGroup.updateMemberState(roomState.getMemberState());
+        }
+
+        if (roomState.getSceneState() != null) {
+            roomControllerGroup.updateSceneState(roomState.getSceneState());
+        }
+
+        if (roomState.getPageState() != null) {
+            roomControllerGroup.updatePageState(roomState.getPageState());
+        }
+
+        if (roomState.getWindowBoxState() != null) {
+            roomControllerGroup.updateWindowBoxState(roomState.getWindowBoxState());
+        }
+    }
 
     /**
      * workaround for text appliance when init state
@@ -183,25 +205,7 @@ public class FastRoom {
 
         @Override
         public void onRoomStateChanged(RoomState roomState) {
-            if (roomState.getBroadcastState() != null) {
-                roomControllerGroup.updateBroadcastState(roomState.getBroadcastState());
-            }
-
-            if (roomState.getMemberState() != null) {
-                roomControllerGroup.updateMemberState(roomState.getMemberState());
-            }
-
-            if (roomState.getSceneState() != null) {
-                roomControllerGroup.updateSceneState(roomState.getSceneState());
-            }
-
-            if (roomState.getPageState() != null) {
-                roomControllerGroup.updatePageState(roomState.getPageState());
-            }
-
-            if (roomState.getWindowBoxState() != null) {
-                roomControllerGroup.updateWindowBoxState(roomState.getWindowBoxState());
-            }
+            updateRoomState(roomState);
         }
 
         @Override
@@ -302,10 +306,6 @@ public class FastRoom {
         if (room.getWritable()) {
             room.disableSerialization(false);
         }
-    }
-
-    private void notifyRoomState(RoomState roomState) {
-        fastRoomContext.notifyRoomStateChanged(roomState);
     }
 
     private void notifyRoomReady() {

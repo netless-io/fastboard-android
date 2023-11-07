@@ -51,6 +51,7 @@ public class FastConvertor {
 
         // fast default config
         result.setDisableNewPencil(false);
+        result.setDisableInitialStateCallback(true);
         result.setWindowParams(createWindowParams(options.getContainerSizeRatio()));
 
         return result;
