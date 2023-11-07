@@ -148,7 +148,7 @@ public class FastRoom {
         public void then(Room room) {
             FastLogger.info("join room success" + room.toString());
             FastRoom.this.room = room;
-            notifyRoomState(room.getRoomState());
+            // notifyRoomState(room.getRoomState());
             updateWritable();
             updateIfTextAppliance();
             notifyRoomReady();
