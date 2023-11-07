@@ -14,7 +14,7 @@ Cutting a Release
     export RELEASE_VERSION=X.Y.Z
     ```
 3. Update versions:
-   ```
+   ```shell
    sed -i "" \
    "s/VERSION = \".*\"/VERSION = \"$RELEASE_VERSION\"/g" \
    "library/src/main/java/io/agora/board/fast/Fastboard.java"
@@ -28,7 +28,7 @@ Cutting a Release
    app/build.gradle
     ```
 4. Tag the release and push to GitHub.
-   ```
+   ```shell
    git commit -am "Prepare for release $RELEASE_VERSION"
    git tag -a $RELEASE_VERSION -m "Version $RELEASE_VERSION"
    git push -v origin refs/heads/main:refs/heads/main
