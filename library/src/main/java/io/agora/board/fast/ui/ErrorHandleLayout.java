@@ -61,7 +61,7 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
 
     @Override
     public void updateFastStyle(FastStyle style) {
-
+        setBackgroundColor(ResourceFetcher.get().getBackgroundColor(style.isDarkMode()));
     }
 
     @Override
