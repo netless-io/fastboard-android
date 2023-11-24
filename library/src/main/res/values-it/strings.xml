@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Italian -->
+<resources>
+    <string name="fast_default_exit_title">Esci?</string>
+    <string name="fast_default_init_sdk_error">Errore di inizializzazione del SDK, clicca e riprova</string>
+    <string name="fast_default_room_error_message">Errore nell\'entrare nella stanza, clicca e riprova</string>
+    <string name="fast_default_play_error_message">Errore nell\'entrare nel giocatore, clicca e riprova</string>
+    <string name="fast_default_exit_ok">OK</string>
+    <string name="fast_loading_text">caricamento…</string>
+    <string name="fast_retry">Riprova</string>
+</resources>

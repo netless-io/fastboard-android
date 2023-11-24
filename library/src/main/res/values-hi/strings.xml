@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hindi -->
+<resources>
+    <string name="fast_default_exit_title">बाहर जाएं?</string>
+    <string name="fast_default_init_sdk_error">SDK शुरू करने में त्रुटि, क्लिक करें और पुनः प्रयास करें</string>
+    <string name="fast_default_room_error_message">रुम में शामिल होने में त्रुटि, क्लिक करें और पुनः प्रयास करें</string>
+    <string name="fast_default_play_error_message">खिलाड़ी में शामिल होने में त्रुटि, क्लिक करें और पुनः प्रयास करें</string>
+    <string name="fast_default_exit_ok">ठीक है</string>
+    <string name="fast_loading_text">लोड हो रहा है…</string>
+    <string name="fast_retry">पुनः प्रयास करें</string>
+</resources>

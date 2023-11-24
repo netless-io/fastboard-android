@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Japanese -->
+<resources>
+    <string name="fast_default_exit_title">終了しますか？</string>
+    <string name="fast_default_init_sdk_error">SDKの初期化エラー、クリックして再試行してください</string>
+    <string name="fast_default_room_error_message">ルームへの参加エラー、クリックして再試行してください</string>
+    <string name="fast_default_play_error_message">プレイヤーへの参加エラー、クリックして再試行してください</string>
+    <string name="fast_default_exit_ok">OK</string>
+    <string name="fast_loading_text">読み込み中…</string>
+    <string name="fast_retry">リトライ</string>
+</resources>

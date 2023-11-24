@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fast_default_exit_title">離開？</string>
+    <string name="fast_default_init_sdk_error">SDK 初始化錯誤，請點擊重試</string>
+    <string name="fast_default_room_error_message">加入房間錯誤，請點擊重試</string>
+    <string name="fast_default_play_error_message">加入玩家錯誤，請點擊重試</string>
+    <string name="fast_default_exit_ok">確定</string>
+    <string name="fast_loading_text">正在載入…</string>
+    <string name="fast_retry">重試</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Indonesian -->
+<resources>
+    <string name="fast_default_exit_title">Keluar?</string>
+    <string name="fast_default_init_sdk_error">Galat inisialisasi SDK, klik dan coba lagi</string>
+    <string name="fast_default_room_error_message">Galat bergabung dengan ruang, klik dan coba lagi</string>
+    <string name="fast_default_play_error_message">Galat bergabung dengan pemain, klik dan coba lagi</string>
+    <string name="fast_default_exit_ok">Oke</string>
+    <string name="fast_loading_text">Memuat…</string>
+    <string name="fast_retry">Coba lagi</string>
+</resources>
