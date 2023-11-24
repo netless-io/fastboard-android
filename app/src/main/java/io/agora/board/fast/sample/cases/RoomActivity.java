@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import io.agora.board.fast.FastLogger;
 import io.agora.board.fast.FastLogger.Logger;
 import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.FastRoomListener;
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.FastboardView;
-import io.agora.board.fast.OnRoomReadyCallback;
 import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.model.FastRegion;
 import io.agora.board.fast.model.FastRoomOptions;
@@ -66,13 +66,16 @@ public class RoomActivity extends BaseActivity {
                 return Color.TRANSPARENT;
             }
         });
-        fastRoom.join(new OnRoomReadyCallback() {
+        fastRoom.addListener(new FastRoomListener() {
             @Override
-            public void onRoomReady(@NonNull FastRoom fastRoom) {
-                // register apps
-                new RoomOperationsKT(fastRoom).registerApps();
+            public void onRoomReadyChanged(FastRoom fastRoom) {
+                if (fastRoom.isReady()) {
+                    // register apps
+                    new RoomOperationsKT(fastRoom).registerApps();
+                }
             }
         });
+        fastRoom.join();
 
         // global style change
         FastStyle fastStyle = fastRoom.getFastStyle();
