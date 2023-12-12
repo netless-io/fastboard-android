@@ -2,13 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <com.herewhite.sdk.WhiteboardView
-        android:id="@id/fast_whiteboard_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
-
+    
     <io.agora.board.fast.ui.OverlayLayout
         android:id="@+id/fast_overlay_handle_view"
         android:layout_width="match_parent"

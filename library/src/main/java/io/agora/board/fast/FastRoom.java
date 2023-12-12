@@ -30,6 +30,7 @@ import com.herewhite.sdk.domain.SDKError;
 import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.WindowAppParam;
 
+import io.agora.board.fast.internal.WhiteboardViewManager;
 import org.json.JSONObject;
 
 import java.util.UUID;
@@ -680,8 +681,8 @@ public class FastRoom {
 
     public void destroy() {
         WhiteboardView whiteboardView = fastboardView.whiteboardView;
-        whiteboardView.removeAllViews();
-        whiteboardView.destroy();
+        fastboardView.removeView(whiteboardView);
+        WhiteboardViewManager.get().release(whiteboardView);
     }
 
     public RoomControllerGroup getRootRoomController() {
