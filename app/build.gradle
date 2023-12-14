@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation project(':library')
-    // implementation "com.github.netless-io:fastboard-android:1.5.1"
+    // implementation "com.github.netless-io:fastboard-android:1.6.0"
     implementation("com.github.netless-io:whiteboard-android:2.16.73")
 
     implementation 'androidx.appcompat:appcompat:1.4.0'
