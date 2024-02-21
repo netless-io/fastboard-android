@@ -13,7 +13,7 @@ import io.agora.board.fast.model.FastStyle;
 
 public class Fastboard {
 
-    public static final String VERSION = "nl_2.0.0-alpha.4";
+    public static final String VERSION = "nl_2.0.0-alpha.5";
 
     private final FastboardView fastboardView;
 
