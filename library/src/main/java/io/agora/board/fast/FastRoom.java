@@ -2,6 +2,8 @@ package io.agora.board.fast;
 
 import static io.agora.board.fast.FastException.ROOM_DISCONNECT_ERROR;
 import static io.agora.board.fast.FastException.ROOM_JOIN_ERROR;
+import static io.agora.board.fast.FastException.ROOM_KICKED;
+import static io.agora.board.fast.FastException.SDK_SETUP_ERROR;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +31,6 @@ import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
 import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.WindowAppParam;
-
-import io.agora.board.fast.internal.WhiteboardViewManager;
-import org.json.JSONObject;
-
-import java.util.UUID;
-
 import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.extension.FastResult;
@@ -48,6 +44,8 @@ import io.agora.board.fast.internal.FastOverlayManager;
 import io.agora.board.fast.internal.FastRoomContext;
 import io.agora.board.fast.internal.FastRoomPhaseHandler;
 import io.agora.board.fast.internal.PromiseResultAdapter;
+import io.agora.board.fast.internal.Util;
+import io.agora.board.fast.internal.WhiteboardViewManager;
 import io.agora.board.fast.model.ConverterType;
 import io.agora.board.fast.model.DocPage;
 import io.agora.board.fast.model.FastAppliance;
@@ -60,6 +58,8 @@ import io.agora.board.fast.ui.FastRoomController;
 import io.agora.board.fast.ui.LoadingLayout;
 import io.agora.board.fast.ui.OverlayLayout;
 import io.agora.board.fast.ui.RoomControllerGroup;
+import java.util.UUID;
+import org.json.JSONObject;
 
 public class FastRoom {
 
@@ -80,7 +80,9 @@ public class FastRoom {
     private final CommonCallback commonCallback = new CommonCallback() {
         @Override
         public void throwError(Object args) {
-
+            String message = Util.toJson(args);
+            FastLogger.error("sdk throw error " + message);
+            fastRoomContext.notifyFastError(FastException.createSdk(message));
         }
 
         @Override
@@ -91,7 +93,7 @@ public class FastRoom {
         @Override
         public void sdkSetupFail(SDKError error) {
             FastLogger.error("sdk setup fail ", error);
-            fastRoomContext.notifyFastError(FastException.createSdk(error.getMessage()));
+            fastRoomContext.notifyFastError(FastException.createSdk(SDK_SETUP_ERROR, error.getMessage()));
         }
 
         @Override
@@ -119,6 +121,7 @@ public class FastRoom {
         @Override
         public void onKickedWithReason(String reason) {
             FastLogger.warn("receive kicked from js with reason " + reason);
+            fastRoomContext.notifyFastError(FastException.createRoom(ROOM_KICKED, reason));
         }
 
         @Override

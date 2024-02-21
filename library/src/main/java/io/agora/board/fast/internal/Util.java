@@ -41,4 +41,8 @@ public class Util {
         Configuration configuration = context.getResources().getConfiguration();
         return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
+
+    public static String toJson(Object args) {
+        return gson.toJson(args);
+    }
 }
