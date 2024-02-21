@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Portuguese -->
+<resources>
+    <string name="fast_default_exit_title">Sair?</string>
+    <string name="fast_default_init_sdk_error">Erro ao inicializar o SDK, clique e tente novamente</string>
+    <string name="fast_default_room_error_message">Erro ao entrar na sala, clique e tente novamente</string>
+    <string name="fast_default_play_error_message">Erro ao entrar no jogador, clique e tente novamente</string>
+    <string name="fast_default_exit_ok">OK</string>
+    <string name="fast_loading_text">carregando…</string>
+    <string name="fast_retry">Tentar Novamente</string>
+</resources>

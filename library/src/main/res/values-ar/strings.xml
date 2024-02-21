@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Russian -->
+<resources>
+    <string name="fast_default_exit_title">Выйти?</string>
+    <string name="fast_default_init_sdk_error">Ошибка инициализации SDK, нажмите и повторите попытку</string>
+    <string name="fast_default_room_error_message">Ошибка входа в комнату, нажмите и повторите попытку</string>
+    <string name="fast_default_play_error_message">Ошибка входа в игрока, нажмите и повторите попытку</string>
+    <string name="fast_default_exit_ok">OK</string>
+    <string name="fast_loading_text">загрузка…</string>
+    <string name="fast_retry">Повторить</string>
+</resources>

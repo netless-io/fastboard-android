@@ -50,6 +50,7 @@ public class LoadingLayout extends LinearLayoutCompat implements RoomController 
 
     @Override
     public void updateFastStyle(FastStyle style) {
+        setBackgroundColor(ResourceFetcher.get().getBackgroundColor(style.isDarkMode()));
         progressBar.setIndeterminateTintList(ColorStateList.valueOf(style.getMainColor()));
     }
 

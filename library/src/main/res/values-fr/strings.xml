@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- French -->
+<resources>
+    <string name="fast_default_exit_title">Quitter ?</string>
+    <string name="fast_default_init_sdk_error">Erreur d\'initialisation du SDK, cliquez et réessayez</string>
+    <string name="fast_default_room_error_message">Erreur de connexion à la salle, cliquez et réessayez</string>
+    <string name="fast_default_play_error_message">Erreur de connexion au joueur, cliquez et réessayez</string>
+    <string name="fast_default_exit_ok">OK</string>
+    <string name="fast_loading_text">chargement…</string>
+    <string name="fast_retry">Réessayer</string>
+</resources>

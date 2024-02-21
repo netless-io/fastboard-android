@@ -6,15 +6,19 @@ import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.domain.WindowParams;
 
+import io.agora.board.fast.internal.WhiteboardViewManager;
 import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
 
 public class Fastboard {
+
     public static final String VERSION = "nl_2.0.0-alpha.4";
 
     private final FastboardView fastboardView;
+
     private FastStyle fastStyle;
+
     private Float whiteboardRatio;
 
     public Fastboard(FastboardView fastboardView) {
@@ -80,5 +84,17 @@ public class Fastboard {
 
     public String getVersion() {
         return VERSION;
+    }
+
+    private static FastboardConfig sConfig;
+
+    public static void setConfig(FastboardConfig config) {
+        sConfig = config;
+
+        WhiteboardViewManager.get().init(config);
+    }
+
+    static FastboardConfig getConfig() {
+        return sConfig;
     }
 }

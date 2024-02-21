@@ -1,4 +1,13 @@
 # 更新日志
+## [Version 1.6.0] - 2022-12-14
+- 新增: 新增 `FastboardConfig` 用于 Fastboard 辅助配置。 
+  - 支持预加载提升白板加载速度，配置项为 `FastboardConfig.enablePreload` 和 `FastboardConfig.preloadCount`。 
+  - 使用 `Fastboard.setConfig(FastboardConfig config)` 配置。
+
+## [Version 1.5.0] - 2022-11-07
+- 更新: 更新 whiteboard-android 版本要求为 2.16.73。
+- 更新：禁用房间加入成功后全量回调 `roomState`, 客户端需要通过 `Room.getRoomState()` 来获取完整的 `RoomState`。
+
 ## [Version 1.4.1] - 2022-08-30
 - 新增: `FastAppliance.HAND` 用于移动视图。
 

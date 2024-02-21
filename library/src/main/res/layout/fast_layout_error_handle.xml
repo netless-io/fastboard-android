@@ -28,5 +28,5 @@
         android:paddingVertical="4dp"
         android:text="@string/fast_retry"
         android:textColor="@color/fast_day_night_text_on_bg"
-        android:textSize="14dp"></TextView>
+        android:textSize="14dp"/>
 </merge>

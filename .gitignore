@@ -14,9 +14,11 @@
 .cxx
 local.properties
 /.idea/misc.xml
+/.idea/deploymentTargetDropDown.xml
+/.idea/gradle.xml
 
 # IntelliJ
-.idea/**
+/.idea/**
 # Keep the code styles.
 !/.idea/codeStyles
 !.idea/codeStyles/Project.xml

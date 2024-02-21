@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Korean -->
+<resources>
+    <string name="fast_default_exit_title">종료하시겠습니까?</string>
+    <string name="fast_default_init_sdk_error">SDK 초기화 오류, 클릭하여 다시 시도하세요</string>
+    <string name="fast_default_room_error_message">방 참여 오류, 클릭하여 다시 시도하세요</string>
+    <string name="fast_default_play_error_message">플레이어 참여 오류, 클릭하여 다시 시도하세요</string>
+    <string name="fast_default_exit_ok">확인</string>
+    <string name="fast_loading_text">로딩 중…</string>
+    <string name="fast_retry">재시도</string>
+</resources>

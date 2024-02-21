@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Arabic -->
+<resources>
+    <string name="fast_default_exit_title">الخروج؟</string>
+    <string name="fast_default_init_sdk_error">خطأ في بدء التشغيل للـ SDK، انقر وأعد المحاولة</string>
+    <string name="fast_default_room_error_message">خطأ في الانضمام إلى الغرفة، انقر وأعد المحاولة</string>
+    <string name="fast_default_play_error_message">خطأ في الانضمام إلى اللاعب، انقر وأعد المحاولة</string>
+    <string name="fast_default_exit_ok">موافق</string>
+    <string name="fast_loading_text">جار التحميل...</string>
+    <string name="fast_retry">إعادة المحاولة</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- German -->
+<resources>
+    <string name="fast_default_exit_title">Beenden?</string>
+    <string name="fast_default_init_sdk_error">SDK-Fehler bei der Initialisierung, klicken Sie und versuchen Sie es erneut</string>
+    <string name="fast_default_room_error_message">Fehler beim Betreten des Raums, klicken Sie und versuchen Sie es erneut</string>
+    <string name="fast_default_play_error_message">Fehler beim Betreten des Spielers, klicken Sie und versuchen Sie es erneut</string>
+    <string name="fast_default_exit_ok">OK</string>
+    <string name="fast_loading_text">laden…</string>
+    <string name="fast_retry">Erneut versuchen</string>
+</resources>

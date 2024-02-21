@@ -1,4 +1,14 @@
 # Change Log
+[Version 1.6.0] - 2023-12-14
+- Add: `FastboardConfig` for Fastboard configuration.
+  - Supports preloading to improve whiteboard loading speed. The configuration items are `FastboardConfig.enablePreload`
+    and `FastboardConfig.preloadCount`.
+  - Use `Fastboard.setConfig(FastboardConfig config)` to configure.
+
+## [Version 1.5.0] - 2022-11-07
+- Update: change minimum whiteboard-android to 2.16.73.
+- Update: Disable complete roomState callback when room ready. The `Client` should now use room.getRoomState() to fetch the complete RoomState.
+
 ## [Version 1.4.1] - 2022-08-30
 - Add: `FastAppliance.HAND` to move the view.
 
