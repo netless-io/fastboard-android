@@ -31,7 +31,7 @@ Cutting a Release
    ```shell
    git commit -am "Prepare for release $RELEASE_VERSION"
    git tag -a $RELEASE_VERSION -m "Version $RELEASE_VERSION"
-   git push -v origin refs/heads/main:refs/heads/main
+   git push -v origin refs/heads/2.x:refs/heads/2.x
    git push origin $RELEASE_VERSION
    ```
 
