@@ -17,6 +17,7 @@ import java.util.Objects;
 public class QuickStartActivity extends BaseActivity {
 
     private final Repository repository = Repository.get();
+    private FastRoom fastRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class QuickStartActivity extends BaseActivity {
             FastRegion.CN_HZ
         );
 
-        FastRoom fastRoom = fastboard.createFastRoom(roomOptions);
+        fastRoom = fastboard.createFastRoom(roomOptions);
         fastRoom.join();
     }
 
@@ -56,5 +57,8 @@ public class QuickStartActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (fastRoom != null) {
+            fastRoom.destroy();
+        }
     }
 }
