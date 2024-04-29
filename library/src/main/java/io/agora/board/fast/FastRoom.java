@@ -82,7 +82,6 @@ public class FastRoom {
         public void throwError(Object args) {
             String message = Util.toJson(args);
             FastLogger.error("sdk throw error " + message);
-            fastRoomContext.notifyFastError(FastException.createSdk(message));
         }
 
         @Override
@@ -121,7 +120,6 @@ public class FastRoom {
         @Override
         public void onKickedWithReason(String reason) {
             FastLogger.warn("receive kicked from js with reason " + reason);
-            fastRoomContext.notifyFastError(FastException.createRoom(ROOM_KICKED, reason));
         }
 
         @Override
