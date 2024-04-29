@@ -191,8 +191,12 @@ public class FastRoom {
      * workaround for text appliance when init state
      */
     private void updateIfTextAppliance() {
-        String applianceName = getRoom().getRoomState().getMemberState().getCurrentApplianceName();
-        if (FastAppliance.TEXT.appliance.equals(applianceName)) {
+        MemberState memberState = getRoom().getRoomState().getMemberState();
+        if (memberState == null) {
+            FastLogger.warn("Member state null: roomOptions={" + Util.toJson(fastRoomOptions) + "}, roomState={" + Util.toJson(getRoom().getRoomState()) + "}");
+            return;
+        }
+        if (FastAppliance.TEXT.appliance.equals(memberState.getCurrentApplianceName())) {
             fastboardView.whiteboardView.requestFocus();
         }
     }
