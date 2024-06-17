@@ -19,6 +19,7 @@ public class MainApplication extends Application {
         FastboardConfig config = new FastboardConfig.Builder(this)
             .enablePreload(true)
             .preloadCount(1)
+            .autoPreload(true)
             .build();
         Fastboard.setConfig(config);
     }

@@ -4,8 +4,12 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.view.Gravity;
+
 import androidx.annotation.NonNull;
+
 import io.agora.board.fast.FastLogger;
 import io.agora.board.fast.FastLogger.Logger;
 import io.agora.board.fast.FastRoom;
@@ -24,6 +28,7 @@ import io.agora.board.fast.sample.cases.helper.UiConfig;
 import io.agora.board.fast.sample.misc.Repository;
 import io.agora.board.fast.sample.misc.Utils;
 import io.agora.board.fast.ui.FastUiSettings;
+
 import java.util.Objects;
 
 /**
@@ -44,6 +49,7 @@ public class RoomActivity extends BaseActivity {
 
         UiConfig.setupSampleCollapseAppliances();
         setupFastboard();
+        preloadWebViewOnIdle();
     }
 
     private void setupFastboard() {
@@ -53,11 +59,11 @@ public class RoomActivity extends BaseActivity {
 
         // join room
         FastRoomOptions roomOptions = new FastRoomOptions(
-            Constants.SAMPLE_APP_ID,
-            getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
-            getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
-            repository.getUserId(),
-            FastRegion.CN_HZ
+                Constants.SAMPLE_APP_ID,
+                getIntent().getStringExtra(Constants.KEY_ROOM_UUID),
+                getIntent().getStringExtra(Constants.KEY_ROOM_TOKEN),
+                repository.getUserId(),
+                FastRegion.CN_HZ
         );
         fastRoom = fastboard.createFastRoom(roomOptions);
         fastRoom.setResource(new FastResource() {
@@ -138,6 +144,13 @@ public class RoomActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setupFullScreen();
+    }
+
+    private void preloadWebViewOnIdle() {
+        Looper.myQueue().addIdleHandler(() -> {
+            Fastboard.preloadWebView();
+            return false;
+        });
     }
 
     @Override
