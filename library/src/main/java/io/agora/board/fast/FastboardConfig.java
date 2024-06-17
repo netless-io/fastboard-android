@@ -16,16 +16,24 @@ public class FastboardConfig {
     // The number of WebViews to preload. May be subject to memory constraints.
     private final int preloadCount;
 
+    // Flag indicating whether auto preloading of WhiteboardViews is enabled.
+    private final boolean autoPreload;
+
     // Default value for enablePreload if not explicitly set.
     private static final boolean DEFAULT_ENABLE_PRELOAD = false;
 
     // Default value for preloadCount if not explicitly set.
     private static final int DEFAULT_PRELOAD_COUNT = 0;
 
+    // Default value for autoPreload if not explicitly set.
+    private static final boolean DEFAULT_AUTO_PRELOAD = true;
+
+
     private FastboardConfig(Builder builder) {
         this.context = builder.context;
         this.enablePreload = builder.enablePreload;
         this.preloadCount = builder.preloadCount;
+        this.autoPreload = builder.autoPreload;
     }
 
     /**
@@ -55,6 +63,10 @@ public class FastboardConfig {
         return preloadCount;
     }
 
+    public boolean isAutoPreload() {
+        return autoPreload;
+    }
+
     public static class Builder {
 
         private final Context context;
@@ -62,6 +74,8 @@ public class FastboardConfig {
         private boolean enablePreload = DEFAULT_ENABLE_PRELOAD;
 
         private int preloadCount = DEFAULT_PRELOAD_COUNT;
+
+        private boolean autoPreload = DEFAULT_AUTO_PRELOAD;
 
         /**
          * Constructor for the Builder class.
@@ -92,6 +106,18 @@ public class FastboardConfig {
          */
         public Builder preloadCount(int preloadCount) {
             this.preloadCount = preloadCount;
+            return this;
+        }
+
+        /**
+         * Sets the autoPreload flag. If true, WhiteboardViews are preloaded automatically. If false, the WhiteboardViews
+         * will not preload until the preload() method is explicitly called.
+         *
+         * @param autoPreload autoPreload Determines whether auto preloading is enabled.
+         * @return The Builder instance.
+         */
+        public Builder autoPreload(boolean autoPreload) {
+            this.autoPreload = autoPreload;
             return this;
         }
 

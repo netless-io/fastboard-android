@@ -2,9 +2,12 @@ package io.agora.board.fast.internal;
 
 import android.content.Context;
 import android.os.Handler;
+
 import com.herewhite.sdk.WhiteboardView;
-import io.agora.board.fast.FastboardConfig;
+
 import java.util.concurrent.LinkedBlockingQueue;
+
+import io.agora.board.fast.FastboardConfig;
 
 /**
  * Manages the lifecycle of WhiteboardView instances based on the provided configuration.
@@ -57,9 +60,15 @@ public class WhiteboardViewManager {
 
         // Choose the appropriate allocator based on the configuration.
         if (config.isEnablePreload()) {
-            allocator = new PreloadAllocator(config.getContext(), config.getPreloadCount());
+            allocator = new PreloadAllocator(config.getContext(), config.getPreloadCount(), config.isAutoPreload());
         } else {
             allocator = new DefaultAllocator(config.getContext());
+        }
+    }
+
+    public void preload() {
+        if (allocator instanceof PreloadAllocator) {
+            ((PreloadAllocator) allocator).preload();
         }
     }
 
@@ -119,13 +128,15 @@ public class WhiteboardViewManager {
 
         private final LinkedBlockingQueue<WhiteboardView> preloadViews;
 
-        PreloadAllocator(Context context, int count) {
+        PreloadAllocator(Context context, int count, boolean autoPreload) {
             this.context = context;
             this.handler = new Handler(context.getMainLooper());
             this.count = count;
             this.preloadViews = new LinkedBlockingQueue<>(count);
 
-            preload();
+            if (autoPreload) {
+                preload();
+            }
         }
 
         @Override
@@ -136,7 +147,9 @@ public class WhiteboardViewManager {
                 result = new WhiteboardView(context);
             }
 
-            preload();
+            if (preloadViews.size() < count) {
+                preloadWithDelay();
+            }
 
             return result;
         }
@@ -147,18 +160,15 @@ public class WhiteboardViewManager {
             whiteboardView.destroy();
         }
 
-        private void preload() {
-            handler.postDelayed(() -> {
-                WhiteboardView whiteboardView = new WhiteboardView(getContext());
-                preloadViews.offer(whiteboardView);
-                if (preloadViews.size() < count) {
-                    preload();
-                }
-            }, PRELOAD_DELAY_MS);
+        public void preload() {
+            if (preloadViews.size() < count) {
+                preloadViews.offer(new WhiteboardView(context));
+                preloadWithDelay();
+            }
         }
 
-        private Context getContext() {
-            return context;
+        private void preloadWithDelay() {
+            handler.postDelayed(this::preload, PRELOAD_DELAY_MS);
         }
     }
 }
