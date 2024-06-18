@@ -148,7 +148,7 @@ public class RoomActivity extends BaseActivity {
 
     private void preloadWebViewOnIdle() {
         Looper.myQueue().addIdleHandler(() -> {
-            Fastboard.preloadWebView();
+            Fastboard.preloadWhiteboardView();
             return false;
         });
     }

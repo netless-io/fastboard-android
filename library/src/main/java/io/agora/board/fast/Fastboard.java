@@ -96,7 +96,7 @@ public class Fastboard {
         return sConfig;
     }
 
-    public static void preloadWebView() {
+    public static void preloadWhiteboardView() {
         WhiteboardViewManager.get().preload();
     }
 }
