@@ -1,4 +1,7 @@
 # Change Log
+## [Version 1.6.2] - 2024-06-18
+- Add: `Fastboard.preloadWhiteboardView` and `FastboardConfig.autoPreload` for manual control of whiteboard preloading.
+
 ## [Version 1.6.1] - 2024-04-29
 - Fix: Occasional NullPointerException in `FastRoom.updateIfTextAppliance`.
 

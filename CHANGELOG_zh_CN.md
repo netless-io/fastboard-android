@@ -1,4 +1,7 @@
 # 更新日志
+## [Version 1.6.2] - 2024-06-18
+- 新增: 新增 `Fastboard.preloadWhiteboardView` and `FastboardConfig.autoPreload` 用于手动控制白板预加载
+
 ## [Version 1.6.1] - 2024-04-29
 - 修复: 修复 `FastRoom.updateIfTextAppliance` 偶现空指针异常
 
