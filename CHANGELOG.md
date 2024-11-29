@@ -1,4 +1,7 @@
 # Change Log
+## [Version 1.6.3] - 2024-11-29
+- Fix: `FastUiSettings.setToolboxEdgeMargin` not working when Gravity is not specified.
+
 ## [Version 1.6.2] - 2024-06-18
 - Add: `Fastboard.preloadWhiteboardView` and `FastboardConfig.autoPreload` for manual control of whiteboard preloading.
 

@@ -1,4 +1,7 @@
 # 更新日志
+## [Version 1.6.3] - 2024-11-29
+- 修复: 修复 `FastUiSettings.setToolboxEdgeMargin` 在未指定 Toolbox Gravity 时无效的问题。
+  `
 ## [Version 1.6.2] - 2024-06-18
 - 新增: 新增 `Fastboard.preloadWhiteboardView` and `FastboardConfig.autoPreload` 用于手动控制白板预加载
 
