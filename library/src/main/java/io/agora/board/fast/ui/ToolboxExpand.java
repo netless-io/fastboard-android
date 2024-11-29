@@ -45,6 +45,7 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
         super(context, attrs, defStyleAttr);
         setupView(context);
         edgeMargin = context.getResources().getDimensionPixelSize(R.dimen.fast_default_layout_margin);
+        gravity = Gravity.LEFT;
     }
 
     public void setupView(Context context) {
