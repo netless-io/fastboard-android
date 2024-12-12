@@ -1,4 +1,8 @@
 # Change Log
+[Version 1.7.0] - 2024-12-12
+- Add: `FastRoom.registerApp` for registering third-party window applications.
+- Add: Support for registering third-party applications via both network files and local files.
+
 ## [Version 1.6.3] - 2024-11-29
 - Fix: `FastUiSettings.setToolboxEdgeMargin` not working when Gravity is not specified.
 

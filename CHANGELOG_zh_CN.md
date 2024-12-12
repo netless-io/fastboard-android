@@ -1,4 +1,8 @@
 # 更新日志
+## [Version 1.7.0] - 2024-12-12
+- 新增: 新增 `FastRoom.registerApp` 用于注册第三方窗口应用。
+- 新增: 支持通过网络文件和本地文件两种方式注册第三方应用程序。
+
 ## [Version 1.6.3] - 2024-11-29
 - 修复: 修复 `FastUiSettings.setToolboxEdgeMargin` 在未指定 Toolbox Gravity 时无效的问题。
   `
