@@ -35,10 +35,11 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
             //     emptyMap(),
             // ),
             // Plyr app local js
-            FastRegisterAppParams(/* javascriptString = */ getAppJsFromAsserts("app/appPlyr-v0.1.3.iife.js"),/* kind = */
-                "Plyr",/* variable = */
-                "NetlessAppPlyr.default",/* appOptions = */
-                emptyMap()
+            FastRegisterAppParams(
+                /* javascriptString = */ getAppJsFromAsserts("app/appPlyr-v0.1.3.iife.js"),
+                /* kind = */ "Plyr",
+                /* variable = */ "NetlessAppPlyr.default",
+                /* appOptions = */ emptyMap()
             ),
             // EmbeddedPage app
             FastRegisterAppParams(

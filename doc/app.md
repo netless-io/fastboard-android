@@ -15,7 +15,7 @@ Fastboard 支持在多窗口中运行多个应用程序，每个应用程序均�
 
 #### 方法一：通过本地文件注册
 
-若使用本地文件注册，需指定挂载的全局变量名。此变量名在 JavaScript 文件中暴露，可参考插件文档获取。Netless
+若使用本地文件注册，需设置 **variable** 指定挂载的全局变量名。此变量名在 JavaScript 文件中暴露，可参考插件文档获取。Netless
 应用插件的变量命名通常为 NetlessApp${PluginName}.default。
 
 ```kotlin
