@@ -11,10 +11,15 @@ import io.agora.board.fast.sample.misc.Utils
 import java.io.IOException
 import java.util.Arrays
 
+/**
+ * Room operations
+ */
 class RoomOperationsKT(val fastRoom: FastRoom) {
     private val context = fastRoom.fastboardView.context
 
     /**
+     * Register apps, all netless apps can be found in {@link https://github.com/netless-io/netless-app/}
+     *
      * for cn region, use https://netless-app.oss-cn-hangzhou.aliyuncs.com/ for other region, use
      * https://cdn.jsdelivr.net/ or https://unpkg.com/
      */
@@ -30,10 +35,9 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
             //     emptyMap(),
             // ),
             // Plyr app local js
-            FastRegisterAppParams(
-                getAppJsFromAsserts("app/appPlyr-v0.1.3.iife.js"),
-                "Plyr",
-                "NetlessAppPlyr.default",
+            FastRegisterAppParams(/* javascriptString = */ getAppJsFromAsserts("app/appPlyr-v0.1.3.iife.js"),/* kind = */
+                "Plyr",/* variable = */
+                "NetlessAppPlyr.default",/* appOptions = */
                 emptyMap()
             ),
             // EmbeddedPage app
