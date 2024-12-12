@@ -51,6 +51,7 @@ import io.agora.board.fast.model.DocPage;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastInsertDocParams;
 import io.agora.board.fast.model.FastRedoUndo;
+import io.agora.board.fast.model.FastRegisterAppParams;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.ui.ErrorHandleLayout;
@@ -662,6 +663,31 @@ public class FastRoom {
 
     public void removeListener(FastRoomListener listener) {
         fastRoomContext.removeListener(listener);
+    }
+
+    /**
+     * register app
+     *
+     * @param params
+     * @param result
+     */
+    public void registerApp(FastRegisterAppParams params, FastResult<Boolean> result) {
+        initSdkIfNeed(fastRoomOptions.getSdkConfiguration());
+        whiteSdk.registerApp(FastConvertor.convertRegisterAppParams(params), new Promise<Boolean>() {
+            @Override
+            public void then(Boolean aBoolean) {
+                if (result != null) {
+                    result.onSuccess(aBoolean);
+                }
+            }
+
+            @Override
+            public void catchEx(SDKError t) {
+                if (result != null) {
+                    result.onError(t);
+                }
+            }
+        });
     }
 
     /**

@@ -5,10 +5,11 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.MessageQueue;
 import android.view.Gravity;
 
 import androidx.annotation.NonNull;
+
+import java.util.Objects;
 
 import io.agora.board.fast.FastLogger;
 import io.agora.board.fast.FastLogger.Logger;
@@ -28,8 +29,6 @@ import io.agora.board.fast.sample.cases.helper.UiConfig;
 import io.agora.board.fast.sample.misc.Repository;
 import io.agora.board.fast.sample.misc.Utils;
 import io.agora.board.fast.ui.FastUiSettings;
-
-import java.util.Objects;
 
 /**
  * @author fenglibin
@@ -76,11 +75,11 @@ public class RoomActivity extends BaseActivity {
             @Override
             public void onRoomReadyChanged(FastRoom fastRoom) {
                 if (fastRoom.isReady()) {
-                    // register apps
-                    new RoomOperationsKT(fastRoom).registerApps();
+                    // call room when room is ready
                 }
             }
         });
+        new RoomOperationsKT(fastRoom).registerApps();
         fastRoom.join();
 
         // global style change

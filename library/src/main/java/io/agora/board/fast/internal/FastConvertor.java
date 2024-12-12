@@ -11,6 +11,7 @@ import com.herewhite.sdk.domain.Region;
 import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.WindowParams;
 import com.herewhite.sdk.domain.WindowPrefersColorScheme;
+import com.herewhite.sdk.domain.WindowRegisterAppParams;
 
 import io.agora.board.fast.model.DocPage;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import io.agora.board.fast.Fastboard;
 import io.agora.board.fast.model.FastRegion;
+import io.agora.board.fast.model.FastRegisterAppParams;
 import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.model.FastRoomOptions;
 
@@ -114,5 +116,22 @@ public class FastConvertor {
         windowParams.setCollectorStyles(styleMap);
         windowParams.setPrefersColorScheme(WindowPrefersColorScheme.Auto);
         return windowParams;
+    }
+
+    public static WindowRegisterAppParams convertRegisterAppParams(FastRegisterAppParams params) {
+        if (params.getJavascriptString() != null) {
+            return new WindowRegisterAppParams(
+                    params.getJavascriptString(),
+                    params.getKind(),
+                    params.getVariable(),
+                    params.getAppOptions()
+            );
+        } else {
+            return new WindowRegisterAppParams(
+                    params.getUrl(),
+                    params.getKind(),
+                    params.getAppOptions()
+            );
+        }
     }
 }

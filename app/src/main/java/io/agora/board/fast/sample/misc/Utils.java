@@ -9,7 +9,12 @@ import android.widget.FrameLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 
 import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.sample.RoomControlView;
@@ -55,5 +60,18 @@ public class Utils {
 
     public static <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
         return gson.fromJson(json, typeOfT);
+    }
+
+    public static String getStringFromAsserts(Context context, String path) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try (InputStream is = context.getAssets().open(path);
+             BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+            String str;
+            while ((str = br.readLine()) != null) {
+                sb.append(str);
+            }
+        }
+
+        return sb.toString();
     }
 }
