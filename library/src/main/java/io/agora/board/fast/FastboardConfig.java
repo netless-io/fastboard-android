@@ -99,7 +99,7 @@ public class FastboardConfig {
 
         /**
          * Set the number of WhiteboardViews to preload. It is important to consider memory constraints when setting
-         * this value. Avoid setting it to more than three to prevent potential memory issues.
+         * this value. Avoid setting it to more than three to prevent potential memory issues. Mostly, preloadCount is 1.
          *
          * @param preloadCount The preload count.
          * @return The Builder instance.
