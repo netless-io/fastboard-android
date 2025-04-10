@@ -68,10 +68,19 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
     }
 
     class PlyrAttributes @JvmOverloads constructor(
-        val src: String, val provider: String? = PLYR_PROVIDER_NORMAL
+        val src: String,
+        val provider: String? = PLYR_PROVIDER_NORMAL,
+        val type: String? = null,
+        val poster: String? = null,
     ) : WindowAppParam.Attributes() {
 
         companion object {
+            @JvmField
+            val PLAY_TYPE_VIDEO = "video/mp4"
+
+            @JvmField
+            val PLAY_TYPE_AUDIO = "audio/mp3"
+
             @JvmField
             val PLYR_PROVIDER_YOUTUBE = "youtube"
 
@@ -92,7 +101,27 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
         val options = Options("Youtube")
         val attributes = PlyrAttributes(
             "https://www.youtube.com/embed/bTqVqk7FSmY",
-            PlyrAttributes.PLYR_PROVIDER_YOUTUBE,
+            provider = PlyrAttributes.PLYR_PROVIDER_YOUTUBE,
+        )
+        val param = WindowAppParam(KIND_PLYR, options, attributes)
+        fastRoom.room.addApp(param, object : Promise<String> {
+            override fun then(t: String) {
+                // success
+            }
+
+            override fun catchEx(t: SDKError) {
+                // fail
+            }
+        })
+    }
+
+    fun addPlyrVideo() {
+        // youtube
+        val options = Options("Video")
+        val attributes = PlyrAttributes(
+            src = "https://whiteboard-cros-test.oss-cn-hangzhou.aliyuncs.com/BigBuckBunny_tiny.mp4",
+            poster = "https://whiteboard-cros-test.oss-cn-hangzhou.aliyuncs.com/BigBuckBunny.png",
+            type = PlyrAttributes.PLAY_TYPE_VIDEO,
         )
         val param = WindowAppParam(KIND_PLYR, options, attributes)
         fastRoom.room.addApp(param, object : Promise<String> {
