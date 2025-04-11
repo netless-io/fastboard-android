@@ -47,5 +47,17 @@ class RoomOptionsProcessorKT(
         // roomOptions.roomParams = roomParams
         roomOptions.userPayload = FastUserPayload("Hi Nick")
     }
+
+    // 设置窗口最小化位置
+    fun updateWindowMinimizePosition() {
+        val roomParams = roomOptions.roomParams.apply {
+            windowParams.collectorStyles = hashMapOf(
+                "right" to "12px",
+                "bottom" to "120px",
+                "position" to "fixed"
+            )
+        }
+        roomOptions.roomParams = roomParams
+    }
 }
 

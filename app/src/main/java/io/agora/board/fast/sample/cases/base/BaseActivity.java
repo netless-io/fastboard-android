@@ -10,6 +10,10 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public BaseActivity() {
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
