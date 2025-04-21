@@ -19,6 +19,9 @@ import io.agora.board.fast.model.FastStyle;
  * @author fenglibin
  */
 public class ExtensionLayout extends LinearLayoutCompat implements RoomController {
+    private static final int STROKE_RANGE_MIN = 1;
+    private static final int STROKE_RANGE_MAX = 24;
+
     private RecyclerView appliancesRecyclerView;
     private ApplianceAdapter applianceAdapter;
     private RecyclerView colorsRecyclerView;
@@ -53,7 +56,7 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
         colorsRecyclerView.setAdapter(colorAdapter);
         colorsRecyclerView.setLayoutManager(new GridLayoutManager(context, 4));
 
-        strokeSeeker.setStrokeRange(3, 12);
+        strokeSeeker.setStrokeRange(STROKE_RANGE_MIN, STROKE_RANGE_MAX);
 
         setOnClickListener(v -> {
 
@@ -79,6 +82,10 @@ public class ExtensionLayout extends LinearLayoutCompat implements RoomControlle
 
     public void setStrokeWidth(int width) {
         strokeSeeker.setStrokeWidth(width);
+    }
+
+    public void setStrokeRange(int min, int max) {
+        strokeSeeker.setStrokeRange(min, max);
     }
 
     public void updateAppliance(FastAppliance appliance) {

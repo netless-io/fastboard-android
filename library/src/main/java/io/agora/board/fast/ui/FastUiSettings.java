@@ -181,4 +181,9 @@ public class FastUiSettings {
             }
         }
     }
+
+    public void setStrokeRange(int min, int max) {
+        ToolboxLayout toolbox = fastboardView.findViewById(R.id.fast_toolbox_layout);
+        toolbox.setStrokeRange(min, max);
+    }
 }

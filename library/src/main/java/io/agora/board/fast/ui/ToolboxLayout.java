@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.herewhite.sdk.domain.MemberState;
 
 import io.agora.board.fast.FastRoom;
+import io.agora.board.fast.R;
 import io.agora.board.fast.internal.Util;
 import io.agora.board.fast.model.FastAppliance;
 import io.agora.board.fast.model.FastStyle;
@@ -92,6 +93,18 @@ public class ToolboxLayout extends FrameLayout implements RoomController {
         } else {
             toolboxExpand.setVisibility(GONE);
             toolboxCollapse.setVisibility(VISIBLE);
+        }
+    }
+
+    public void setStrokeRange(int min, int max) {
+        applyStrokeRange(toolboxExpand, min, max);
+        applyStrokeRange(toolboxCollapse, min, max);
+    }
+
+    private void applyStrokeRange(View parent, int min, int max) {
+        View view = parent.findViewById(R.id.extension_layout);
+        if (view instanceof ExtensionLayout) {
+            ((ExtensionLayout) view).setStrokeRange(min, max);
         }
     }
 
