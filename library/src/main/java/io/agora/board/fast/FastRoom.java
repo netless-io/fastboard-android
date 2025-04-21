@@ -708,6 +708,12 @@ public class FastRoom {
 
     public void setResource(FastResource fastResource) {
         fastRoomContext.setResource(fastResource);
+        updateUiFastStyle(getFastStyle());
+    }
+
+    private void updateUiFastStyle(FastStyle fastStyle) {
+        roomControllerGroup.updateFastStyle(fastStyle);
+        fastboardView.updateFastStyle(fastStyle);
     }
 
     public void destroy() {
