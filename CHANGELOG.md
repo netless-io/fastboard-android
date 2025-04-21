@@ -1,4 +1,7 @@
 # Change Log
+## [Version 1.7.1] - 2025-04-21
+- Fix: first-time `FastRoom.setResource` not applying UI changes.
+
 [Version 1.7.0] - 2024-12-12
 - Add: `FastRoom.registerApp` for registering third-party window applications.
 - Add: Support for registering third-party applications via both network files and local files.
