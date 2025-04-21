@@ -88,6 +88,7 @@ public class FastboardView extends FrameLayout {
         whiteboardView = WhiteboardViewManager.get().obtain();
         whiteboardView.setId(R.id.fast_whiteboard_view);
         whiteboardView.setAutoResize(false);
+        whiteboardView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity.CENTER);
         // whiteboard view should be the first child
