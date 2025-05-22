@@ -122,6 +122,10 @@ public class RoomActivity extends BaseActivity {
 
             }
         });
+
+        // 最小化按钮自定义
+        // MinimizedWindowController controller = new MinimizedWindowController(findViewById(R.id.minimize_menu));
+        // fastRoom.getRootRoomController().addController(controller);
     }
 
     @Override

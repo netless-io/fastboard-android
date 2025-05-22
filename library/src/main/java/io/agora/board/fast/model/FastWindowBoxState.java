@@ -12,6 +12,10 @@ public enum FastWindowBoxState {
         this.windowBoxState = windowBoxState;
     }
 
+    public String value() {
+        return windowBoxState;
+    }
+
     /**
      * @param windowBoxState
      * @return FastWindowBoxState

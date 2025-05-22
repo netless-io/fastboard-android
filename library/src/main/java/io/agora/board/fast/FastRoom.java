@@ -54,6 +54,7 @@ import io.agora.board.fast.model.FastRedoUndo;
 import io.agora.board.fast.model.FastRegisterAppParams;
 import io.agora.board.fast.model.FastRoomOptions;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.model.FastWindowBoxState;
 import io.agora.board.fast.ui.ErrorHandleLayout;
 import io.agora.board.fast.ui.FastRoomController;
 import io.agora.board.fast.ui.LoadingLayout;
@@ -387,6 +388,10 @@ public class FastRoom {
             color & 0xff,
         });
         getRoom().setMemberState(memberState);
+    }
+
+    public void setWindowBoxState(FastWindowBoxState state) {
+        fastboardView.whiteboardView.evaluateJavascript("manager.setBoxState(\"" + state.value() + "\")");
     }
 
     public void cleanScene() {
