@@ -57,9 +57,12 @@ import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.model.FastWindowBoxState;
 import io.agora.board.fast.ui.ErrorHandleLayout;
 import io.agora.board.fast.ui.FastRoomController;
+import io.agora.board.fast.ui.FastUiSettings;
 import io.agora.board.fast.ui.LoadingLayout;
 import io.agora.board.fast.ui.OverlayLayout;
 import io.agora.board.fast.ui.RoomControllerGroup;
+
+import java.util.List;
 import java.util.UUID;
 import org.json.JSONObject;
 
@@ -155,6 +158,7 @@ public class FastRoom {
             updateRoomState(room.getRoomState());
             updateWritable();
             updateIfTextAppliance();
+            ensureValidStrokeColor();
             notifyRoomReady();
         }
 
@@ -198,6 +202,29 @@ public class FastRoom {
         }
         if (FastAppliance.TEXT.appliance.equals(memberState.getCurrentApplianceName())) {
             fastboardView.whiteboardView.requestFocus();
+        }
+    }
+
+    /**
+     * Ensure that the stroke color is valid.
+     */
+    private void ensureValidStrokeColor() {
+        MemberState memberState = getRoom().getRoomState().getMemberState();
+        if (memberState == null) {
+            FastLogger.warn("Member state null: roomOptions=" + Util.toJson(fastRoomOptions) + ", roomState=" + Util.toJson(getRoom().getRoomState()));
+            return;
+        }
+
+        int color = Util.rgbToColor(memberState.getStrokeColor());
+        List<Integer> toolsColors = FastUiSettings.getToolsColors();
+        boolean isValidColor = toolsColors != null && toolsColors.contains(color);
+
+        if (!isValidColor) {
+            FastLogger.info("Stroke color " + Util.toHexColorString(color) + " not in tools colors, using default color");
+            if (toolsColors != null && !toolsColors.isEmpty()) {
+                int randomIndex = Util.randomInt(toolsColors.size());
+                setStrokeColor(toolsColors.get(randomIndex));
+            }
         }
     }
 
