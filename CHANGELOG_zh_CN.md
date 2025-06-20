@@ -1,4 +1,8 @@
 # 更新日志
+## [Version 1.7.2] - 2025-06-20
+- 修复：画笔颜色未包含在 `FastUiSettings.setToolsColors` 中的问题。
+- 新增：新增 `FastUiSettings.setStrokeRange` 方法，用于设置画笔粗细的范围。
+
 ## [Version 1.7.1] - 2025-04-21
 - 修复：首次调用 `FastRoom.setResource` 时未生效的 UI 更新问题
 

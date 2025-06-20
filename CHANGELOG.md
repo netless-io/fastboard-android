@@ -1,4 +1,8 @@
 # Change Log
+## [Version 1.7.2] - 2025-06-20
+- Fix: Resolved the issue where brush colors were not included in `FastUiSettings.setToolsColors`.
+- Add: Added `FastUiSettings.setStrokeRange` to configure the brush stroke width range.
+
 ## [Version 1.7.1] - 2025-04-21
 - Fix: first-time `FastRoom.setResource` not applying UI changes.
 
