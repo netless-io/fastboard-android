@@ -209,6 +209,11 @@ public class FastRoom {
      * Ensure that the stroke color is valid.
      */
     private void ensureValidStrokeColor() {
+        if (!room.getWritable()) {
+            FastLogger.info("Room is not writable, skipping stroke color validation.");
+            return;
+        }
+
         MemberState memberState = getRoom().getRoomState().getMemberState();
         if (memberState == null) {
             FastLogger.warn("Member state null: roomOptions=" + Util.toJson(fastRoomOptions) + ", roomState=" + Util.toJson(getRoom().getRoomState()));
@@ -449,9 +454,7 @@ public class FastRoom {
             @Override
             public void then(Boolean success) {
                 FastLogger.info("set writable result " + success);
-                if (success) {
-                    room.disableSerialization(false);
-                }
+                updateWritable();
                 if (result != null) {
                     result.onSuccess(success);
                 }
