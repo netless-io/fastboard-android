@@ -1,5 +1,8 @@
 package io.agora.board.fast;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
 
 import com.herewhite.sdk.CommonCallback;
@@ -17,6 +20,9 @@ import org.json.JSONObject;
 
 import io.agora.board.fast.internal.FastReplayContext;
 import io.agora.board.fast.model.FastReplayOptions;
+import io.agora.board.fast.ui.ErrorHandleLayout;
+import io.agora.board.fast.ui.LoadingLayout;
+import io.agora.board.fast.ui.OverlayLayout;
 
 public class FastReplay {
     private final FastboardView fastboardView;
@@ -93,9 +99,14 @@ public class FastReplay {
 
         @Override
         public void onReplayReadyChanged(FastReplay fastReplay) {
-
+            if (fastReplay.isReady()) {
+                loadingLayout.hide();
+            } else {
+                loadingLayout.show();
+            }
         }
     };
+    private LoadingLayout loadingLayout;
     private Player player;
     private OnReplayReadyCallback onReplayReadyCallback;
     private final Promise<Player> playerPromise = new Promise<Player>() {
@@ -119,8 +130,19 @@ public class FastReplay {
         this.fastboardView = fastboardView;
         this.fastReplayOptions = options;
         this.fastReplayContext = new FastReplayContext(fastboardView);
-        // setupView();
+        setupView();
         addListener(interFastReplayListener);
+    }
+
+    private void setupView() {
+        ViewGroup root = fastboardView;
+
+        loadingLayout = root.findViewById(R.id.fast_loading_layout);
+        ViewGroup container = root.findViewById(R.id.fast_room_controller);
+        ErrorHandleLayout errorHandleLayout = root.findViewById(R.id.fast_error_handle_layout);
+
+        container.setVisibility(View.GONE);
+        errorHandleLayout.setVisibility(View.GONE);
     }
 
     private void initSdkIfNeed(WhiteSdkConfiguration config) {
@@ -154,5 +176,29 @@ public class FastReplay {
 
     public void removeListener(FastReplayListener listener) {
         fastReplayContext.removeListener(listener);
+    }
+
+    public void play() {
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    public void pause() {
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    public void stop() {
+        if (player != null) {
+            player.stop();
+        }
+    }
+
+    public void seekTo(long time) {
+        if (player != null) {
+            player.seekToScheduleTime(time);
+        }
     }
 }

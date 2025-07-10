@@ -1,5 +1,7 @@
 package io.agora.board.fast.model;
 
+import androidx.annotation.Nullable;
+
 import com.herewhite.sdk.WhiteSdkConfiguration;
 import com.herewhite.sdk.domain.PlayerConfiguration;
 
@@ -20,6 +22,12 @@ public class FastReplayOptions {
     private WhiteSdkConfiguration sdkConfiguration;
 
     private Float containerSizeRatio;
+
+    @Nullable
+    private Long duration;
+
+    @Nullable
+    private Long beginTimestamp;
 
     public FastReplayOptions(String appId, String uuid, String token) {
         this.appId = appId;
@@ -75,5 +83,21 @@ public class FastReplayOptions {
 
     public void setContainerSizeRatio(Float ratio) {
         this.containerSizeRatio = ratio;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public Long getBeginTimestamp() {
+        return beginTimestamp;
+    }
+
+    public void setBeginTimestamp(Long beginTimestamp) {
+        this.beginTimestamp = beginTimestamp;
     }
 }

@@ -8,6 +8,7 @@ import android.provider.Settings;
 import com.google.gson.reflect.TypeToken;
 
 import io.agora.board.fast.model.DocPage;
+import io.agora.board.fast.sample.cases.QuickReplayActivity;
 import io.agora.board.fast.sample.cases.hione.HiOneActivity;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -154,6 +155,13 @@ public class Repository {
             "Test apis with cloud file and window-manager",
             FlatRoomActivity.class,
             new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
+        ));
+
+        result.add(new TestCase(
+                "Replay Sample",
+                "Replay a room",
+                QuickReplayActivity.class,
+                new TestCase.RoomInfo(Constants.SAMPLE_ROOM_UUID, Constants.SAMPLE_ROOM_TOKEN, true)
         ));
 
         return result;

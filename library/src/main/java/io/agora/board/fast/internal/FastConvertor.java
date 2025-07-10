@@ -63,6 +63,8 @@ public class FastConvertor {
         PlayerConfiguration result = new PlayerConfiguration(options.getUuid(), options.getToken());
         result.setRegion(convertRegion(options.getFastRegion()));
         result.setWindowParams(createWindowParams(options.getContainerSizeRatio()));
+        result.setDuration(options.getDuration());
+        result.setBeginTimestamp(options.getBeginTimestamp());
         return result;
     }
 

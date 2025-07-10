@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.agora.board.fast.sample">
+    package="io.agora.board.fast.sample">
 
-  <application
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:name=".MainApplication"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/Theme.Fastboard">
-    <activity
-      android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
-      android:exported="false"
-      android:name=".cases.QuickStartActivity"
-      android:windowSoftInputMode="stateHidden|adjustNothing" />
-    <activity
-      android:exported="false"
-      android:name=".cases.drawsth.DrawSthActivity" />
-    <activity
-      android:exported="true"
-      android:name=".MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Fastboard">
+        <activity
+            android:name=".cases.QuickStartActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".cases.drawsth.DrawSthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-    <activity
-      android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
-      android:name=".cases.RoomActivity"
-      android:windowSoftInputMode="stateHidden|adjustNothing" />
-    <activity
-      android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
-      android:name=".cases.flat.FlatRoomActivity"
-      android:windowSoftInputMode="stateHidden|adjustNothing" />
-    <activity
-      android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
-      android:name=".cases.hione.HiOneActivity"
-      android:screenOrientation="portrait"
-      android:windowSoftInputMode="stateHidden|adjustNothing" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".cases.RoomActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".cases.flat.FlatRoomActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".cases.hione.HiOneActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
 
-    <receiver
-        android:name=".misc.MyBroadcastReceiver"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="io.agora.board.fast.sample.ACTION" />
-      </intent-filter>
-    </receiver>
-  </application>
+        <activity
+            android:name=".cases.QuickReplayActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+
+        <receiver
+            android:name=".misc.MyBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.agora.board.fast.sample.ACTION" />
+            </intent-filter>
+        </receiver>
+    </application>
 
 </manifest>
