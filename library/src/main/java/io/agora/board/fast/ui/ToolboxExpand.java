@@ -55,6 +55,9 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
         toolboxDelete = root.findViewById(R.id.toolbox_sub_delete);
 
         toolboxDelete.setOnClickListener(v -> {
+            if (fastRoom == null || fastRoom.getRoom() == null) {
+                return;
+            }
             fastRoom.getRoom().deleteOperation();
         });
 
@@ -65,6 +68,9 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
         toolboxAdapter.setOnToolboxClickListener(new ToolboxAdapter.OnToolboxClickListener() {
             @Override
             public void onToolboxReClick(ToolboxItem item) {
+                if (overlayManager == null) {
+                    return;
+                }
                 if (overlayManager.isShowing(OVERLAY_EXT_LAYOUT)) {
                     overlayManager.hide(OVERLAY_EXT_LAYOUT);
                     return;
@@ -74,6 +80,9 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
             }
 
             private void setApplianceIfNeed(ToolboxItem item) {
+                if (fastRoom == null) {
+                    return;
+                }
                 switch (item.current()) {
                     case CLICKER:
                     case SELECTOR:
@@ -88,13 +97,17 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
             private void showExtensionIfNeed(ToolboxItem item) {
                 extensionLayout.updateToolboxItem(item);
                 if (item.isExpandable()) {
-                    overlayManager.show(OVERLAY_EXT_LAYOUT);
+                    if (overlayManager != null) {
+                        overlayManager.show(OVERLAY_EXT_LAYOUT);
+                    }
                 }
             }
 
             @Override
             public void onSwitchToolbox(ToolboxItem item, ToolboxItem oldItem) {
-                overlayManager.hide(OVERLAY_EXT_LAYOUT);
+                if (overlayManager != null) {
+                    overlayManager.hide(OVERLAY_EXT_LAYOUT);
+                }
 
                 if (item.current() == FastAppliance.OTHER_CLEAR) {
                     fastRoom.cleanScene();
@@ -113,9 +126,13 @@ class ToolboxExpand extends RelativeLayout implements Toolbox {
         });
 
         extensionLayout.setOnApplianceClickListener(item -> {
-            fastRoom.setAppliance(item);
+            if (fastRoom != null) {
+                fastRoom.setAppliance(item);
+            }
             // hide ext layout when pick a new appliance
-            overlayManager.hide(OVERLAY_EXT_LAYOUT);
+            if (overlayManager != null) {
+                overlayManager.hide(OVERLAY_EXT_LAYOUT);
+            }
         });
     }
 

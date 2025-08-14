@@ -60,14 +60,23 @@ public class ScenesLayout extends LinearLayout implements RoomController {
     }
 
     private void prevScene() {
+        if (fastRoom == null) {
+            return;
+        }
         fastRoom.getRoom().prevPage(null);
     }
 
     private void nextScene() {
+        if (fastRoom == null) {
+            return;
+        }
         fastRoom.getRoom().nextPage(null);
     }
 
     private void addScene() {
+        if (fastRoom == null) {
+            return;
+        }
         fastRoom.getRoom().addPage(null, true);
         fastRoom.getRoom().nextPage(null);
     }

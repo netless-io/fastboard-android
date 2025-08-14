@@ -49,6 +49,9 @@ class ToolboxCollapse extends RelativeLayout implements Toolbox {
         extensionButton = root.findViewById(R.id.toolbox_sub_button);
         toolLayout = root.findViewById(R.id.tool_layout);
         toolLayout.setOnApplianceClickListener(item -> {
+            if (fastRoom == null) {
+                return;
+            }
             if (item == FastAppliance.OTHER_CLEAR) {
                 fastRoom.cleanScene();
             } else {
@@ -62,6 +65,9 @@ class ToolboxCollapse extends RelativeLayout implements Toolbox {
 
         extensionLayout = root.findViewById(R.id.extension_layout);
         extensionLayout.setOnColorClickListener(color -> {
+            if (fastRoom == null) {
+                return;
+            }
             fastRoom.setStrokeColor(color);
 
             extensionButton.setColor(color);
@@ -70,10 +76,16 @@ class ToolboxCollapse extends RelativeLayout implements Toolbox {
             overlayManager.hideAll();
         });
         extensionLayout.setOnStrokeChangedListener(width -> {
+            if (fastRoom == null) {
+                return;
+            }
             fastRoom.setStrokeWidth(width);
         });
 
         toolButton.setOnClickListener(v -> {
+            if (overlayManager == null) {
+                return;
+            }
             boolean target = !overlayManager.isShowing(OverlayManager.KEY_TOOL_LAYOUT);
             if (target) {
                 overlayManager.show(OverlayManager.KEY_TOOL_LAYOUT);
@@ -88,11 +100,17 @@ class ToolboxCollapse extends RelativeLayout implements Toolbox {
         extensionButton.setOnSubToolClickListener(new ExtensionButton.OnSubToolClickListener() {
             @Override
             public void onDeleteClick() {
+                if (fastRoom == null || fastRoom.getRoom() == null) {
+                    return;
+                }
                 fastRoom.getRoom().deleteOperation();
             }
 
             @Override
             public void onColorClick() {
+                if (overlayManager == null) {
+                    return;
+                }
                 boolean target = !overlayManager.isShowing(OverlayManager.KEY_TOOL_EXTENSION);
 
                 if (target) {

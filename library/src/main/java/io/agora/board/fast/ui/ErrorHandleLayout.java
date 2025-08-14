@@ -45,7 +45,9 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
         retry = root.findViewById(R.id.fast_error_handle_retry);
         retry.setOnClickListener(v -> {
             hide();
-            fastRoom.join();
+            if (fastRoom != null) {
+                fastRoom.join();
+            }
         });
     }
 

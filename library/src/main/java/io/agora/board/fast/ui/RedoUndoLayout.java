@@ -27,6 +27,9 @@ public class RedoUndoLayout extends LinearLayoutCompat implements RoomController
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (fastRoom == null) {
+                return;
+            }
             if (v == redoImage) {
                 fastRoom.redo();
             } else if (v == undoImage) {
