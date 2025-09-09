@@ -45,6 +45,7 @@ public class RoomActivity extends BaseActivity {
         setContentView(R.layout.activity_room);
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setupWindowInsets();
 
         UiConfig.setupSampleCollapseAppliances();
         setupFastboard();

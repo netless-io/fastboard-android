@@ -37,6 +37,7 @@ public class FlatRoomActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        setupWindowInsets();
         setupCloud();
         setupFastboard();
     }
