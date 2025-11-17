@@ -203,6 +203,12 @@ public class FastReplay {
         }
     }
 
+    public void setPlaybackSpeed(double playbackSpeed) {
+        if (player != null) {
+            player.setPlaybackSpeed(playbackSpeed);
+        }
+    }
+
     public void destroy() {
         WhiteboardView whiteboardView = fastboardView.whiteboardView;
         fastboardView.removeView(whiteboardView);
