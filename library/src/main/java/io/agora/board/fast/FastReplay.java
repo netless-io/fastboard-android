@@ -19,6 +19,7 @@ import com.herewhite.sdk.domain.SDKError;
 import org.json.JSONObject;
 
 import io.agora.board.fast.internal.FastReplayContext;
+import io.agora.board.fast.internal.WhiteboardViewManager;
 import io.agora.board.fast.model.FastReplayOptions;
 import io.agora.board.fast.ui.ErrorHandleLayout;
 import io.agora.board.fast.ui.LoadingLayout;
@@ -200,5 +201,11 @@ public class FastReplay {
         if (player != null) {
             player.seekToScheduleTime(time);
         }
+    }
+
+    public void destroy() {
+        WhiteboardView whiteboardView = fastboardView.whiteboardView;
+        fastboardView.removeView(whiteboardView);
+        WhiteboardViewManager.get().release(whiteboardView);
     }
 }

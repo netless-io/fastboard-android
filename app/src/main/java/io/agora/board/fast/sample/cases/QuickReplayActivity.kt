@@ -49,6 +49,6 @@ class QuickReplayActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        fastReplay?.stop()
+        fastReplay?.destroy()
     }
 }
