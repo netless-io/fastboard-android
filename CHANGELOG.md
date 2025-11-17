@@ -1,4 +1,7 @@
 # Change Log
+## [Version 1.7.3] - 2025-11-17
+- Fix: Resolved a NullPointerException that could occur when clicking certain buttons after a failed join operation.
+
 ## [Version 1.7.2] - 2025-06-20
 - Fix: Resolved the issue where brush colors were not included in `FastUiSettings.setToolsColors`.
 - Add: Added `FastUiSettings.setStrokeRange` to configure the brush stroke width range.

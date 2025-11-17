@@ -1,4 +1,7 @@
 # 更新日志
+## [Version 1.7.3] - 2025-11-17
+- 修复：解决加入失败后点击部分按钮可能导致的空指针异常问题。
+
 ## [Version 1.7.2] - 2025-06-20
 - 修复：画笔颜色未包含在 `FastUiSettings.setToolsColors` 中的问题。
 - 新增：新增 `FastUiSettings.setStrokeRange` 方法，用于设置画笔粗细的范围。

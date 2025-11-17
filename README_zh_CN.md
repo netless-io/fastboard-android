@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation "com.github.netless-io:fastboard-android:1.7.2"
+    implementation "com.github.netless-io:fastboard-android:1.7.3"
 }
 ```
 ## 快速接入
