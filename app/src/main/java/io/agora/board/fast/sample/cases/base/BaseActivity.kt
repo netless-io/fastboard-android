@@ -1,7 +1,5 @@
 package io.agora.board.fast.sample.cases.base
 
-import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,6 +22,8 @@ open class BaseActivity : AppCompatActivity() {
      * It's a test include all operation, reorganize in production environment
      */
     protected fun setupFullScreen() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         val controller = WindowInsetsControllerCompat(window, window.decorView)
         controller.hide(WindowInsetsCompat.Type.navigationBars())
         controller.hide(WindowInsetsCompat.Type.statusBars())

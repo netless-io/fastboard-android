@@ -1,5 +1,6 @@
 package io.agora.board.fast.sample.cases.helper
 
+import android.content.res.Configuration
 import io.agora.board.fast.FastboardView
 
 object RoomHelperKT {
@@ -80,4 +81,55 @@ object RoomHelperKT {
         fastboardView.whiteboardView.evaluateJavascript(js, null)
     }
 
+    private val portraitCollectorStyles = mapOf(
+        "right" to "12px",
+        "bottom" to "80px",
+    )
+
+    private val landscapeCollectorStyles = mapOf(
+        "right" to "120px",
+        "bottom" to "48px",
+    )
+
+    fun applyCollectorStyles(fastboardView: FastboardView, config: Configuration) {
+        val isLandscape = config.screenWidthDp > config.screenHeightDp
+        val styles = if (isLandscape) landscapeCollectorStyles else portraitCollectorStyles
+        updateCollectorStyles(fastboardView, styles)
+    }
+
+    private fun updateCollectorStyles(fastboardView: FastboardView, styles: Map<String, String>) {
+        if (styles.isEmpty()) return
+
+        val jsBuilder = StringBuilder()
+
+        jsBuilder.append(
+            """
+        (function () {
+            try {
+                var el = manager.boxManager.teleBoxManager.collector.${'$'}collector;
+                if (!el || !el.style) return;
+        """.trimIndent()
+        )
+
+        styles.forEach { (key, value) ->
+            val escapedValue = value.replace("\\", "\\\\").replace("'", "\\'")
+
+            jsBuilder.append(
+                """
+                el.style['$key'] = '$escapedValue';
+            """.trimIndent()
+            )
+        }
+
+        jsBuilder.append(
+            """
+            } catch (e) {
+                console.warn('[WebView] updateCollectorStyles error', e);
+            }
+        })();
+        """.trimIndent()
+        )
+
+        fastboardView.whiteboardView.evaluateJavascript(jsBuilder.toString(), null)
+    }
 }
