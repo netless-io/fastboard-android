@@ -55,6 +55,10 @@ public class CloudFilesAdapter extends RecyclerView.Adapter<CloudFilesAdapter.Vi
                 return R.drawable.ic_cloud_storage_pdf;
             case "mp4":
                 return R.drawable.ic_cloud_storage_video;
+            case "video_url":
+                return R.drawable.ic_ply_video;
+            case "youtube_url":
+                return R.drawable.ic_youtube;
         }
         return R.drawable.ic_cloud_storage_doc;
     }

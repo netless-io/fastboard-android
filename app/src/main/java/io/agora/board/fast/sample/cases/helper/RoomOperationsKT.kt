@@ -1,5 +1,8 @@
 package io.agora.board.fast.sample.cases.helper
 
+import android.app.AlertDialog
+import android.widget.EditText
+import android.widget.LinearLayout
 import com.herewhite.sdk.domain.Promise
 import com.herewhite.sdk.domain.SDKError
 import com.herewhite.sdk.domain.WindowAppParam
@@ -24,7 +27,7 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
      * https://cdn.jsdelivr.net/ or https://unpkg.com/
      */
     fun registerApps() {
-        val paramsList = Arrays.asList(
+        val paramsList = listOf(
             // Plyr app remote js
             // Youtube, OnlineVideo etc.
             // FastRegisterAppParams(
@@ -36,23 +39,38 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
             // ),
             // Plyr app local js
             FastRegisterAppParams(
-                /* javascriptString = */ getAppJsFromAsserts("app/appPlyr-v0.1.3.iife.js"),
+                /* javascriptString = */ getAppJsFromAsserts("app/appPlyr-v0.2.6.iife.js"),
                 /* kind = */ "Plyr",
                 /* variable = */ "NetlessAppPlyr.default",
                 /* appOptions = */ emptyMap()
             ),
             // EmbeddedPage app
             FastRegisterAppParams(
-                "https://netless-app.oss-cn-hangzhou.aliyuncs.com/@netless/app-embedded-page/0.1.1/dist/main.iife.js",
+                getAppJsFromAsserts("app/embedPage.iife.js"),
                 "EmbeddedPage",
-                emptyMap()
+                "NetlessAppEmbeddedPage.default",
+                emptyMap(),
             ),
             // Monaco app
             FastRegisterAppParams(
                 "https://netless-app.oss-cn-hangzhou.aliyuncs.com/@netless/app-monaco/0.1.14-beta.1/dist/main.iife.js",
                 "Monaco",
                 emptyMap(),
-            )
+            ),
+            // geogebra app
+            FastRegisterAppParams(
+                getAppJsFromAsserts("app/geogebra.iife.js"),
+                "GeoGebra",
+                "NetlessAppGeoGebra.default",
+                emptyMap(),
+            ),
+            // quill app
+            FastRegisterAppParams(
+                getAppJsFromAsserts("app/quill.iife.js"),
+                "Quill",
+                "NetlessAppQuill.default",
+                emptyMap(),
+            ),
         )
         for (params in paramsList) {
             fastRoom.registerApp(params, object : FastResult<Boolean> {
@@ -97,10 +115,13 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
     }
 
     fun addYoutubeApp() {
-        // youtube
+        addYoutubeApp("https://www.youtube.com/embed/bTqVqk7FSmY")
+    }
+
+    fun addYoutubeApp(url: String) {
         val options = Options("Youtube")
         val attributes = PlyrAttributes(
-            "https://www.youtube.com/embed/bTqVqk7FSmY",
+            url,
             provider = PlyrAttributes.PLYR_PROVIDER_YOUTUBE,
         )
         val param = WindowAppParam(KIND_PLYR, options, attributes)
@@ -116,11 +137,14 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
     }
 
     fun addPlyrVideo() {
-        // youtube
+        addPlyrVideo("https://whiteboard-cros-test.oss-cn-hangzhou.aliyuncs.com/BigBuckBunny_tiny.mp4")
+    }
+
+    fun addPlyrVideo(url: String, poster: String? = null) {
         val options = Options("Video")
         val attributes = PlyrAttributes(
-            src = "https://whiteboard-cros-test.oss-cn-hangzhou.aliyuncs.com/BigBuckBunny_tiny.mp4",
-            poster = "https://whiteboard-cros-test.oss-cn-hangzhou.aliyuncs.com/BigBuckBunny.png",
+            src = url,
+            poster = poster,
             type = PlyrAttributes.PLAY_TYPE_VIDEO,
         )
         val param = WindowAppParam(KIND_PLYR, options, attributes)
@@ -141,5 +165,55 @@ class RoomOperationsKT(val fastRoom: FastRoom) {
         } catch (ignored: IOException) {
             ""
         }
+    }
+
+    fun showVideoInputDialog() {
+        val container = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(48, 24, 48, 24)
+        }
+
+        val urlInput = EditText(context).apply {
+            hint = "输入视频地址 (MP4)"
+            setText("https://whiteboard-cros-test.oss-cn-hangzhou.aliyuncs.com/BigBuckBunny_tiny.mp4")
+        }
+        container.addView(urlInput)
+
+        AlertDialog.Builder(context)
+            .setTitle("添加视频")
+            .setView(container)
+            .setPositiveButton("确定") { _, _ ->
+                val url = urlInput.text.toString().trim()
+                if (url.isNotEmpty()) {
+                    addPlyrVideo(url)
+                }
+            }
+            .setNegativeButton("取消", null)
+            .show()
+    }
+
+    fun showYoutubeInputDialog() {
+        val container = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(48, 24, 48, 24)
+        }
+
+        val urlInput = EditText(context).apply {
+            hint = "输入 YouTube 地址"
+            setText("https://www.youtube.com/embed/bTqVqk7FSmY")
+        }
+        container.addView(urlInput)
+
+        AlertDialog.Builder(context)
+            .setTitle("添加 YouTube 视频")
+            .setView(container)
+            .setPositiveButton("确定") { _, _ ->
+                val url = urlInput.text.toString().trim()
+                if (url.isNotEmpty()) {
+                    addYoutubeApp(url)
+                }
+            }
+            .setNegativeButton("取消", null)
+            .show()
     }
 }

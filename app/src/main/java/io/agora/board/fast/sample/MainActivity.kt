@@ -2,6 +2,7 @@ package io.agora.board.fast.sample
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.agora.board.fast.sample.misc.Repository
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
             )
         })
         testcaseRv!!.setAdapter(adapter)
+
+        // 显示版本信息
+        findViewById<TextView>(R.id.tv_version).text = "v${BuildConfig.VERSION_NAME} (${BuildConfig.BUILD_VERSION})"
 
         // startTestCase(Repository.get().getTestCases().get(4));
     }

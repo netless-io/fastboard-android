@@ -16,14 +16,18 @@ import io.agora.board.fast.model.FastStyle;
 import io.agora.board.fast.sample.R;
 import io.agora.board.fast.sample.misc.CloudFile;
 import io.agora.board.fast.sample.misc.Repository;
+import java.util.ArrayList;
+import java.util.List;
 import io.agora.board.fast.ui.ResourceFetcher;
 import io.agora.board.fast.ui.RoomController;
+import io.agora.board.fast.sample.cases.helper.RoomOperationsKT;
 
 public class CloudFilesController extends LinearLayoutCompat implements RoomController {
 
     private RecyclerView recyclerView;
 
     private FastRoom fastRoom;
+    private RoomOperationsKT roomOperations;
 
     public CloudFilesController(@NonNull Context context) {
         this(context, null);
@@ -44,7 +48,13 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
 
         recyclerView = findViewById(R.id.cloud_files);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        CloudFilesAdapter adapter = new CloudFilesAdapter(Repository.get().getCloudFiles());
+
+        // 获取云端文件列表并添加自定义 URL 输入项
+        List<CloudFile> cloudFiles = new ArrayList<>(Repository.get().getCloudFiles());
+        cloudFiles.add(createCloudFileItem("video_url", "添加视频 URL"));
+        cloudFiles.add(createCloudFileItem("youtube_url", "添加 YouTube"));
+
+        CloudFilesAdapter adapter = new CloudFilesAdapter(cloudFiles);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(cloudFile -> {
@@ -63,9 +73,26 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
                 case "pdf":
                     insertStaticDoc(cloudFile);
                     break;
+                case "video_url":
+                    if (roomOperations != null) {
+                        roomOperations.showVideoInputDialog();
+                    }
+                    break;
+                case "youtube_url":
+                    if (roomOperations != null) {
+                        roomOperations.showYoutubeInputDialog();
+                    }
+                    break;
             }
             hide();
         });
+    }
+
+    private CloudFile createCloudFileItem(String type, String name) {
+        CloudFile item = new CloudFile();
+        item.type = type;
+        item.name = name;
+        return item;
     }
 
     private void insertImage(CloudFile cloudFile) {
@@ -120,5 +147,9 @@ public class CloudFilesController extends LinearLayoutCompat implements RoomCont
     @Override
     public void updateFastStyle(FastStyle style) {
         setBackground(ResourceFetcher.get().getLayoutBackground(style.isDarkMode()));
+    }
+
+    public void setRoomOperations(RoomOperationsKT roomOperations) {
+        this.roomOperations = roomOperations;
     }
 }

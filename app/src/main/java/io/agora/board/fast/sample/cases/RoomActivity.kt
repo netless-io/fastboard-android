@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.os.MessageQueue
 import android.view.Gravity
-import android.widget.Button
+import android.view.View
 import io.agora.board.fast.FastLogger
 import io.agora.board.fast.FastRoom
 import io.agora.board.fast.FastRoomListener
@@ -19,6 +19,7 @@ import io.agora.board.fast.model.FastRoomOptions
 import io.agora.board.fast.sample.Constants
 import io.agora.board.fast.sample.R
 import io.agora.board.fast.sample.cases.base.BaseActivity
+import io.agora.board.fast.sample.cases.flat.CloudFilesController
 import io.agora.board.fast.sample.cases.helper.RoomOperationsKT
 import io.agora.board.fast.sample.cases.helper.UiConfig
 import io.agora.board.fast.sample.misc.Repository
@@ -31,6 +32,7 @@ class RoomActivity : BaseActivity() {
     private val repository: Repository = Repository.get()
 
     private var fastRoom: FastRoom? = null
+    private lateinit var cloudFilesController: CloudFilesController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +42,22 @@ class RoomActivity : BaseActivity() {
         setupWindowInsets()
 
         UiConfig.setupSampleCollapseAppliances()
+        setupCloud()
         setupFastboard()
         preloadWebViewOnIdle()
+    }
+
+    private fun setupCloud() {
+        cloudFilesController = findViewById(R.id.cloud_files_controller)
+        cloudFilesController.hide()
+
+        findViewById<View>(R.id.cloud).setOnClickListener {
+            if (cloudFilesController.isShowing) {
+                cloudFilesController.hide()
+            } else {
+                cloudFilesController.show()
+            }
+        }
     }
 
     private fun setupFastboard() {
@@ -80,7 +96,10 @@ class RoomActivity : BaseActivity() {
                 }
             }
         })
-        RoomOperationsKT(fastRoom!!).registerApps()
+
+        val roomOperations = RoomOperationsKT(fastRoom!!)
+        roomOperations.registerApps()
+
         fastRoom!!.join()
 
         fastboardView.fastboard.setWhiteboardRatio(null)
@@ -119,6 +138,8 @@ class RoomActivity : BaseActivity() {
         // 最小化按钮自定义
         // val controller = MinimizedWindowController(findViewById(R.id.minimize_menu));
         // fastRoom?.rootRoomController?.addController(controller);
+        cloudFilesController.setRoomOperations(roomOperations)
+        fastRoom?.rootRoomController?.addController(cloudFilesController)
     }
 
     override fun onConfigurationChanged(config: Configuration) {

@@ -28,4 +28,29 @@
             android:layout_margin="4dp"
             android:src="@drawable/ic_ip_application_menu" />
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/cloud_btn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginHorizontal="@dimen/fast_default_layout_margin"
+        android:background="@drawable/sample_flat_layout_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/cloud"
+            android:layout_width="@dimen/room_class_button_size"
+            android:layout_height="@dimen/room_class_button_size"
+            android:padding="@dimen/room_class_button_padding_size"
+            android:src="@drawable/ic_toolbox_ext_cloudservice" />
+    </LinearLayout>
+
+    <io.agora.board.fast.sample.cases.flat.CloudFilesController
+        android:id="@+id/cloud_files_controller"
+        android:layout_width="@dimen/sample_gap_25"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginHorizontal="@dimen/sample_gap_6"
+        android:background="@drawable/sample_flat_layout_bg" />
 </FrameLayout>

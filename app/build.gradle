@@ -1,7 +1,14 @@
+import java.text.SimpleDateFormat
+
 plugins {
     id 'com.android.application'
 }
 apply plugin: 'kotlin-android'
+
+def getBuildVersion() {
+    def formatter = new SimpleDateFormat("MMdd.HHmm")
+    return formatter.format(new Date())
+}
 
 android {
     compileSdk 33
@@ -14,6 +21,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BUILD_VERSION", "\"${getBuildVersion()}\""
     }
 
     buildTypes {
@@ -26,12 +35,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def version = getBuildVersion()
+            outputFileName = "fastboard-demo-${version}.apk"
+        }
+    }
 }
 
 dependencies {
     implementation project(':library')
     // implementation "com.github.netless-io:fastboard-android:1.7.3"
-    implementation("com.github.netless-io:whiteboard-android:2.16.111")
+    // implementation("com.github.netless-io:whiteboard-android:8e40f6d91858a04eb5a12995a5faa92e0918943c")
 
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
