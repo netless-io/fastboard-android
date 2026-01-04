@@ -1,3 +1,17 @@
 rootProject.name = "fastboard-android"
 include ':app'
 include ':library'
+
+// 读取 local.properties 配置
+def localPropertiesFile = file("local.properties")
+def localProperties = new Properties()
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.newDataInputStream())
+}
+
+// 如果配置了 whiteboard.dir，则引入本地 whiteboard-android 项目
+def whiteboardDir = localProperties.getProperty('whiteboard.dir')
+if (whiteboardDir != null && !whiteboardDir.isEmpty()) {
+    include ':whiteboard-android'
+    project(':whiteboard-android').projectDir = new File(whiteboardDir, 'sdk')
+}
