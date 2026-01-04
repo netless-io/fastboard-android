@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.herewhite.sdk.WhiteboardView;
+import com.herewhite.sdk.WhiteboardViewOptions;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -58,11 +59,16 @@ public class WhiteboardViewManager {
         }
         initialized = true;
 
+        WhiteboardViewOptions whiteboardViewOptions = null;
+        if (config.isEnableAssetsHttps()) {
+            whiteboardViewOptions = new WhiteboardViewOptions().setEnableAssetsHttps(true);
+        }
+
         // Choose the appropriate allocator based on the configuration.
         if (config.isEnablePreload()) {
-            allocator = new PreloadAllocator(config.getContext(), config.getPreloadCount(), config.isAutoPreload());
+            allocator = new PreloadAllocator(config.getContext(), config.getPreloadCount(), config.isAutoPreload(), whiteboardViewOptions);
         } else {
-            allocator = new DefaultAllocator(config.getContext());
+            allocator = new DefaultAllocator(config.getContext(), whiteboardViewOptions);
         }
     }
 
@@ -97,13 +103,16 @@ public class WhiteboardViewManager {
 
         private final Context context;
 
-        DefaultAllocator(Context context) {
+        private final WhiteboardViewOptions whiteboardViewOptions;
+
+        DefaultAllocator(Context context, WhiteboardViewOptions whiteboardViewOptions) {
             this.context = context;
+            this.whiteboardViewOptions = whiteboardViewOptions;
         }
 
         @Override
         public WhiteboardView obtain() {
-            return new WhiteboardView(context);
+            return new WhiteboardView(context, whiteboardViewOptions);
         }
 
         @Override
@@ -128,11 +137,14 @@ public class WhiteboardViewManager {
 
         private final LinkedBlockingQueue<WhiteboardView> preloadViews;
 
-        PreloadAllocator(Context context, int count, boolean autoPreload) {
+        private final WhiteboardViewOptions whiteboardViewOptions;
+
+        PreloadAllocator(Context context, int count, boolean autoPreload, WhiteboardViewOptions whiteboardViewOptions) {
             this.context = context;
             this.handler = new Handler(context.getMainLooper());
             this.count = count;
             this.preloadViews = new LinkedBlockingQueue<>(count);
+            this.whiteboardViewOptions = whiteboardViewOptions;
 
             if (autoPreload) {
                 preload();
@@ -144,7 +156,7 @@ public class WhiteboardViewManager {
             WhiteboardView result = preloadViews.poll();
 
             if (result == null) {
-                result = new WhiteboardView(context);
+                result = new WhiteboardView(context, whiteboardViewOptions);
             }
 
             if (preloadViews.size() < count) {
@@ -162,7 +174,7 @@ public class WhiteboardViewManager {
 
         public void preload() {
             if (preloadViews.size() < count) {
-                preloadViews.offer(new WhiteboardView(context));
+                preloadViews.offer(new WhiteboardView(context, whiteboardViewOptions));
                 preloadWithDelay();
             }
         }

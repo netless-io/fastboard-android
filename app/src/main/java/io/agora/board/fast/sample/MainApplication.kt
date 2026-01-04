@@ -17,6 +17,7 @@ class MainApplication : Application() {
             .enablePreload(true)
             .preloadCount(1)
             .autoPreload(true)
+            .enableAssetsHttps(true)
             .build()
         Fastboard.setConfig(config)
     }

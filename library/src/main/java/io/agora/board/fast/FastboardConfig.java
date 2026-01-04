@@ -19,6 +19,8 @@ public class FastboardConfig {
     // Flag indicating whether auto preloading of WhiteboardViews is enabled.
     private final boolean autoPreload;
 
+    private final boolean enableAssetsHttps;
+
     // Default value for enablePreload if not explicitly set.
     private static final boolean DEFAULT_ENABLE_PRELOAD = false;
 
@@ -34,6 +36,7 @@ public class FastboardConfig {
         this.enablePreload = builder.enablePreload;
         this.preloadCount = builder.preloadCount;
         this.autoPreload = builder.autoPreload;
+        this.enableAssetsHttps = builder.enableAssetsHttps;
     }
 
     /**
@@ -67,6 +70,10 @@ public class FastboardConfig {
         return autoPreload;
     }
 
+    public boolean isEnableAssetsHttps() {
+        return enableAssetsHttps;
+    }
+
     public static class Builder {
 
         private final Context context;
@@ -76,6 +83,8 @@ public class FastboardConfig {
         private int preloadCount = DEFAULT_PRELOAD_COUNT;
 
         private boolean autoPreload = DEFAULT_AUTO_PRELOAD;
+
+        private boolean enableAssetsHttps = false;
 
         /**
          * Constructor for the Builder class.
@@ -118,6 +127,21 @@ public class FastboardConfig {
          */
         public Builder autoPreload(boolean autoPreload) {
             this.autoPreload = autoPreload;
+            return this;
+        }
+
+        /**
+         * Sets whether to enable HTTPS resource loading for WhiteboardView.
+         * By default, WhiteboardView uses the file protocol to load built-in whiteboard resources
+         * which is the most stable mode of operation.
+         * For special scenarios that require breaking the file protocol restrictions,
+         * this method can be used to explicitly enable the HTTPS resource loading scheme based on WebViewAssetLoader.
+         *
+         * @param enableAssetsHttps
+         * @return The Builder instance.
+         */
+        public Builder enableAssetsHttps(boolean enableAssetsHttps) {
+            this.enableAssetsHttps = enableAssetsHttps;
             return this;
         }
 
