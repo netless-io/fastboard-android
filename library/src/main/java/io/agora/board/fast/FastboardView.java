@@ -49,7 +49,7 @@ public class FastboardView extends FrameLayout {
     private void setupWhiteboardViewManager() {
         FastboardConfig config = Fastboard.getConfig();
         if (config == null) {
-            config = new FastboardConfig.Builder(getContext()).build();
+            config = new FastboardConfig.Builder(getContext().getApplicationContext()).build();
         }
         WhiteboardViewManager.get().init(config);
     }
