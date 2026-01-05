@@ -92,7 +92,7 @@ public class FastboardConfig {
          * @param context The application context.
          */
         public Builder(Context context) {
-            this.context = context;
+            this.context = context.getApplicationContext();;
         }
 
         /**

@@ -90,6 +90,9 @@ public class FastboardView extends FrameLayout {
         whiteboardView.setAutoResize(false);
         whiteboardView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
+        // Attach the WhiteboardView to the host view to ensure correct context usage
+        WhiteboardViewManager.get().attachToHost(whiteboardView, root);
+
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity.CENTER);
         // whiteboard view should be the first child
         root.addView(whiteboardView, 0, lp);

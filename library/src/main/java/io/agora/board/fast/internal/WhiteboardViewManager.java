@@ -1,7 +1,9 @@
 package io.agora.board.fast.internal;
 
 import android.content.Context;
+import android.content.MutableContextWrapper;
 import android.os.Handler;
+import android.view.View;
 
 import com.herewhite.sdk.WhiteboardView;
 import com.herewhite.sdk.WhiteboardViewOptions;
@@ -47,6 +49,13 @@ public class WhiteboardViewManager {
         allocator.release(whiteboardView);
     }
 
+    public void attachToHost(WhiteboardView webView, View host) {
+        Context ctx = webView.getContext();
+        if (ctx instanceof MutableContextWrapper) {
+            ((MutableContextWrapper) ctx).setBaseContext(host.getContext());
+        }
+    }
+
     /**
      * Initializes the WhiteboardViewManager with the provided configuration. This method should be called before any
      * other methods.
@@ -64,11 +73,13 @@ public class WhiteboardViewManager {
             whiteboardViewOptions = new WhiteboardViewOptions().setEnableAssetsHttps(true);
         }
 
+        // Wrap the context to allow for future modifications if needed.
+        Context contextWrapper = new MutableContextWrapper(config.getContext());
         // Choose the appropriate allocator based on the configuration.
         if (config.isEnablePreload()) {
-            allocator = new PreloadAllocator(config.getContext(), config.getPreloadCount(), config.isAutoPreload(), whiteboardViewOptions);
+            allocator = new PreloadAllocator(contextWrapper, config.getPreloadCount(), config.isAutoPreload(), whiteboardViewOptions);
         } else {
-            allocator = new DefaultAllocator(config.getContext(), whiteboardViewOptions);
+            allocator = new DefaultAllocator(contextWrapper, whiteboardViewOptions);
         }
     }
 
