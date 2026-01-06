@@ -1,0 +1,4 @@
+-keep class io.agora.board.fast.* { *; }
+-keep class io.agora.board.fast.extension.** { *; }
+-keep class io.agora.board.fast.model.** { *; }
+-keep class io.agora.board.fast.ui.** { *; }
