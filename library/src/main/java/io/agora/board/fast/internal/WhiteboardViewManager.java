@@ -57,6 +57,15 @@ public class WhiteboardViewManager {
     }
 
     /**
+     * Creates a WhiteboardView with a MutableContextWrapper to allow context switching.
+     * This pairs with {@link #attachToHost(WhiteboardView, View)} which updates the context.
+     */
+    private static WhiteboardView createWhiteboardView(Context context, WhiteboardViewOptions options) {
+        Context contextWrapper = new MutableContextWrapper(context);
+        return new WhiteboardView(contextWrapper, options);
+    }
+
+    /**
      * Initializes the WhiteboardViewManager with the provided configuration. This method should be called before any
      * other methods.
      *
@@ -73,13 +82,13 @@ public class WhiteboardViewManager {
             whiteboardViewOptions = new WhiteboardViewOptions().setEnableAssetsHttps(true);
         }
 
-        // Wrap the context to allow for future modifications if needed.
-        Context contextWrapper = new MutableContextWrapper(config.getContext());
         // Choose the appropriate allocator based on the configuration.
+        // Note: MutableContextWrapper is created in allocator when obtaining WhiteboardView,
+        // to avoid context leaks caused by sharing a single wrapper.
         if (config.isEnablePreload()) {
-            allocator = new PreloadAllocator(contextWrapper, config.getPreloadCount(), config.isAutoPreload(), whiteboardViewOptions);
+            allocator = new PreloadAllocator(config.getContext(), config.getPreloadCount(), config.isAutoPreload(), whiteboardViewOptions);
         } else {
-            allocator = new DefaultAllocator(contextWrapper, whiteboardViewOptions);
+            allocator = new DefaultAllocator(config.getContext(), whiteboardViewOptions);
         }
     }
 
@@ -123,7 +132,7 @@ public class WhiteboardViewManager {
 
         @Override
         public WhiteboardView obtain() {
-            return new WhiteboardView(context, whiteboardViewOptions);
+            return createWhiteboardView(context, whiteboardViewOptions);
         }
 
         @Override
@@ -167,7 +176,7 @@ public class WhiteboardViewManager {
             WhiteboardView result = preloadViews.poll();
 
             if (result == null) {
-                result = new WhiteboardView(context, whiteboardViewOptions);
+                result = createWhiteboardView(context, whiteboardViewOptions);
             }
 
             if (preloadViews.size() < count) {
@@ -185,7 +194,7 @@ public class WhiteboardViewManager {
 
         public void preload() {
             if (preloadViews.size() < count) {
-                preloadViews.offer(new WhiteboardView(context, whiteboardViewOptions));
+                preloadViews.offer(createWhiteboardView(context, whiteboardViewOptions));
                 preloadWithDelay();
             }
         }
