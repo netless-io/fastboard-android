@@ -37,7 +37,7 @@ dependencies {
     if (findProject(":whiteboard-android") != null) {
         api project(':whiteboard-android')
     } else {
-        api 'com.github.netless-io:whiteboard-android:2.16.114-beta.1'
+        api 'com.github.netless-io:whiteboard-android:2.16.114'
     }
 
     testImplementation 'junit:junit:4.13.2'
