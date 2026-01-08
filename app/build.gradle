@@ -47,7 +47,7 @@ android {
 dependencies {
     implementation project(':library')
     // implementation "com.github.netless-io:fastboard-android:1.7.3"
-    // implementation("com.github.netless-io:whiteboard-android:8e40f6d91858a04eb5a12995a5faa92e0918943c")
+    // implementation("com.github.netless-io:whiteboard-android:2.16.114")
 
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
@@ -58,6 +58,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation "androidx.core:core-ktx:1.8.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
 }
 repositories {
     mavenCentral()
