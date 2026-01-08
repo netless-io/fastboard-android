@@ -124,6 +124,10 @@ open class HiOneActivity : BaseActivity() {
 
         // hide all interactive controllers
         hideController()
+
+        // register HiOne JS Bridge
+        val whiteboardView = fastRoom.fastboardView.whiteboardView
+        whiteboardView.addJavascriptObject(HiOneJSBridge(), "hione")
     }
 
     private fun hideController() {
