@@ -2,6 +2,7 @@
 ## [Version 1.8.0] - 2026-01-08
 - Add: Added `FastboardConfig.enableAssetsHttps` for loading local assets through an HTTPS proxy.
 - Fix: Fixed a potential Context leak that could occur when `FastboardConfig` is not set.
+- Update: Updated `whiteboard-android` version requirement to 2.16.114.
 
 ## [Version 1.7.3] - 2025-11-17
 - Fix: Resolved a NullPointerException that could occur when clicking certain buttons after a failed join operation.

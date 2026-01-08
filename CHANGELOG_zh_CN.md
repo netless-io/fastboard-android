@@ -2,6 +2,7 @@
 ## [Version 1.8.0] - 2026-01-08
 - 新增: 新增 `FastboardConfig.enableAssetsHttps`, 启动通过https代理加载本地assets。
 - 修复: 修复未配置`FastboardConfig`导致的 context 泄漏问题。
+- 更新: 更新 `whiteboard-android` 版本要求为 2.16.114。
 
 ## [Version 1.7.3] - 2025-11-17
 - 修复：解决加入失败后点击部分按钮可能导致的空指针异常问题。
