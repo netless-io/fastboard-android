@@ -31,6 +31,8 @@ import com.herewhite.sdk.domain.RoomState;
 import com.herewhite.sdk.domain.SDKError;
 import com.herewhite.sdk.domain.Scene;
 import com.herewhite.sdk.domain.WindowAppParam;
+
+import io.agora.board.fast.extension.EmptyResult;
 import io.agora.board.fast.extension.ErrorHandler;
 import io.agora.board.fast.extension.FastResource;
 import io.agora.board.fast.extension.FastResult;
@@ -749,6 +751,38 @@ public class FastRoom {
     private void updateUiFastStyle(FastStyle fastStyle) {
         roomControllerGroup.updateFastStyle(fastStyle);
         fastboardView.updateFastStyle(fastStyle);
+    }
+
+    public void disconnect() {
+        disconnect(null);
+    }
+
+    public void disconnect(@Nullable FastResult<Object> result) {
+        FastResult<Object> cb = (result != null) ? result : new EmptyResult<>();
+
+        if (room == null) {
+            FastLogger.warn("call disconnect before join..");
+            cb.onError(FastException.createSdk("room is null"));
+            return;
+        }
+
+        Room r = room;
+        room = null;
+
+        r.disconnect(new Promise<Object>() {
+
+            @Override
+            public void then(Object o) {
+                fastRoomContext.notifyRoomReadyChanged(FastRoom.this);
+                cb.onSuccess(o);
+            }
+
+            @Override
+            public void catchEx(SDKError t) {
+                fastRoomContext.notifyRoomReadyChanged(FastRoom.this);
+                cb.onError(FastException.wrap(t));
+            }
+        });
     }
 
     public void destroy() {

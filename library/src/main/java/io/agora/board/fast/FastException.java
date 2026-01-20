@@ -1,6 +1,9 @@
 package io.agora.board.fast;
 
 import androidx.annotation.IntDef;
+
+import com.herewhite.sdk.domain.SDKError;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -39,6 +42,10 @@ public class FastException extends RuntimeException {
         super(message, throwable);
         this.type = type;
         this.code = code;
+    }
+
+    public static FastException wrap(SDKError error) {
+        return new FastException(TYPE_SDK, SDK_ERROR, error.getMessage());
     }
 
     public static FastException createSdk(String message) {
