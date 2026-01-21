@@ -12,7 +12,7 @@
 
         <ScrollView
             android:id="@+id/controller_layout"
-            android:layout_width="200dp"
+            android:layout_width="240dp"
             android:layout_height="300dp"
             android:layout_gravity="start"
             android:background="@drawable/shape_debug_bg"
@@ -217,6 +217,25 @@
                       android:layout_gravity="end|center_vertical"
                       android:textAllCaps="false"
                       android:text="addApps" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:text="@string/disconnect" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/disconnect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:textAllCaps="false"
+                        android:text="disconnect" />
                 </FrameLayout>
 
             </LinearLayout>

@@ -24,6 +24,7 @@ import io.agora.board.fast.FastRoom;
 import io.agora.board.fast.FastboardView;
 import io.agora.board.fast.model.ControllerId;
 import io.agora.board.fast.model.FastStyle;
+import io.agora.board.fast.sample.cases.helper.RoomHelperKT;
 import io.agora.board.fast.sample.cases.helper.RoomOperationsKT;
 import io.agora.board.fast.ui.FastUiSettings;
 
@@ -64,6 +65,10 @@ public class RoomControlView extends FrameLayout {
 
         root.findViewById(R.id.addApps).setOnClickListener(v -> {
             new RoomOperationsKT(fastRoom).addYoutubeApp();
+        });
+
+        root.findViewById(R.id.disconnect).setOnClickListener(v -> {
+            RoomHelperKT.INSTANCE.closeAppsBeforeDestroy(fastRoom);
         });
 
         SwitchCompat visiableSwitch = root.findViewById(R.id.controller_visiable_switch);

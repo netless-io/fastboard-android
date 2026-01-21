@@ -39,3 +39,23 @@ Cutting a Release
    ```shell
    curl https://jitpack.io/api/builds/com.github.netless-io/fastboard-android/$RELEASE_VERSION
    ```
+
+JitPack 发布限制
+-----------------
+
+> **注意**: 对于单一 GitHub 仓库，JitPack **无法生成独立可单独引用的多模块 artifact**。
+>
+> 在 `netless-io/fastboard-android` 项目中，尝试发布 `library` 和 `library-ktx` 两个模块时，引用方式会变成：
+>
+> ```text
+> com.github.netless-io:fastboard-android
+> ----com.github.netless-io:fastboard-android:fastboard-android
+> ----com.github.netless-io:fastboard-android:fastboard-android-ktx
+> ```
+>
+> 这种格式与通用 Maven / Gradle artifact 引用习惯不一致，容易造成混淆。
+>
+> **解决方案**：
+>
+> 1. 如果希望每个模块都能像普通库一样单独引用，需要将模块拆分到 **独立的 Git 仓库**；
+> 2. 或者选择其他发布渠道（如 Maven Central、Sonatype OSSRH）来支持多模块独立发布。

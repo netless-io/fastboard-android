@@ -1,7 +1,13 @@
 package io.agora.board.fast.sample.cases.helper
 
 import android.content.res.Configuration
+import io.agora.board.fast.FastRoom
 import io.agora.board.fast.FastboardView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 object RoomHelperKT {
     /**
@@ -131,5 +137,19 @@ object RoomHelperKT {
         )
 
         fastboardView.whiteboardView.evaluateJavascript(jsBuilder.toString(), null)
+    }
+
+    fun closeAppsBeforeDestroy(fastRoom: FastRoom) {
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            try {
+                fastRoom.closeAllApps()
+                fastRoom.awaitDisconnect()
+            } catch (_: Exception) {
+            } finally {
+                withContext(Dispatchers.Main) {
+                    fastRoom.destroy()
+                }
+            }
+        }
     }
 }

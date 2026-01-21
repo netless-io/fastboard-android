@@ -31,7 +31,7 @@ import io.agora.board.fast.sample.misc.Utils
 class RoomActivity : BaseActivity() {
     private val repository: Repository = Repository.get()
 
-    private var fastRoom: FastRoom? = null
+    private lateinit var fastRoom: FastRoom
     private lateinit var cloudFilesController: CloudFilesController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,12 +84,12 @@ class RoomActivity : BaseActivity() {
         }
 
         fastRoom = fastboard.createFastRoom(roomOptions)
-        fastRoom!!.setResource(object : FastResource() {
+        fastRoom.setResource(object : FastResource() {
             override fun getBackgroundColor(darkMode: Boolean): Int {
                 return Color.TRANSPARENT
             }
         })
-        fastRoom!!.addListener(object : FastRoomListener {
+        fastRoom.addListener(object : FastRoomListener {
             override fun onRoomReadyChanged(fastRoom: FastRoom) {
                 if (fastRoom.isReady) {
                     // call room when room is ready
@@ -100,15 +100,15 @@ class RoomActivity : BaseActivity() {
         val roomOperations = RoomOperationsKT(fastRoom!!)
         roomOperations.registerApps()
 
-        fastRoom!!.join()
+        fastRoom.join()
 
         fastboardView.fastboard.setWhiteboardRatio(null)
 
         // global style change
-        val fastStyle = fastRoom!!.fastStyle
+        val fastStyle = fastRoom.fastStyle
         fastStyle.isDarkMode = Utils.isDarkMode(this)
         fastStyle.mainColor = Utils.getThemePrimaryColor(this)
-        fastRoom!!.fastStyle = fastStyle
+        fastRoom.fastStyle = fastStyle
 
         // change ui
         val uiSettings = fastboardView.getUiSettings()
@@ -139,7 +139,7 @@ class RoomActivity : BaseActivity() {
         // val controller = MinimizedWindowController(findViewById(R.id.minimize_menu));
         // fastRoom?.rootRoomController?.addController(controller);
         cloudFilesController.setRoomOperations(roomOperations)
-        fastRoom?.rootRoomController?.addController(cloudFilesController)
+        fastRoom.rootRoomController?.addController(cloudFilesController)
     }
 
     override fun onConfigurationChanged(config: Configuration) {
@@ -151,9 +151,9 @@ class RoomActivity : BaseActivity() {
     private fun updateDayNightStyle(config: Configuration) {
         val nightMode = config.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-        val fastStyle = fastRoom!!.fastStyle
+        val fastStyle = fastRoom.fastStyle
         fastStyle.isDarkMode = nightMode == Configuration.UI_MODE_NIGHT_YES
-        fastRoom!!.fastStyle = fastStyle
+        fastRoom.fastStyle = fastStyle
     }
 
     override fun onResume() {
@@ -170,8 +170,6 @@ class RoomActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (fastRoom != null) {
-            fastRoom!!.destroy()
-        }
+        fastRoom.destroy()
     }
 }
