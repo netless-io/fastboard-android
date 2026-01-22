@@ -1,4 +1,8 @@
 # 更新日志
+## [Version 1.8.1] - 2026-01-22
+- 更新: 更新 `whiteboard-android` 版本要求为 2.16.115。
+- 更新: 调整 WhiteboardView Context 处理逻辑，统一使用 Activity Context 创建视图实例。
+
 ## [Version 1.8.0] - 2026-01-08
 - 新增: 新增 `FastboardConfig.enableAssetsHttps`, 启动通过https代理加载本地assets。
 - 修复: 修复未配置`FastboardConfig`导致的 context 泄漏问题。

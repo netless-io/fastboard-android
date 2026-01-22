@@ -1,4 +1,8 @@
 # Change Log
+## [Version 1.8.1] - 2026-01-22
+- Update: Updated `whiteboard-android` version requirement to 2.16.115.
+- Fix: Adjusted WhiteboardView Context handling to use Activity Context, improving lifecycle safety and stability.
+
 ## [Version 1.8.0] - 2026-01-08
 - Add: Added `FastboardConfig.enableAssetsHttps` for loading local assets through an HTTPS proxy.
 - Fix: Fixed a potential Context leak that could occur when `FastboardConfig` is not set.
