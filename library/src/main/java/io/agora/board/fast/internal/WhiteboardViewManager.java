@@ -32,12 +32,13 @@ public class WhiteboardViewManager {
     }
 
     /**
-     * Acquires a WhiteboardView from the allocator.
+     * Acquires a WhiteboardView from the allocator using the provided context.
      *
+     * @param context The activity context to use for the WhiteboardView.
      * @return The obtained WhiteboardView.
      */
-    public WhiteboardView obtain() {
-        return allocator.obtain();
+    public WhiteboardView obtain(Context context) {
+        return allocator.obtain(context);
     }
 
     /**
@@ -49,6 +50,15 @@ public class WhiteboardViewManager {
         allocator.release(whiteboardView);
     }
 
+    /**
+     * Manually attaches a WhiteboardView to a host view by switching its context.
+     * <p>
+     * Note: This method is now optional since {@link #obtain(Context)} already handles
+     * context switching automatically. It is kept for backward compatibility or manual context updates.
+     *
+     * @param webView The WhiteboardView to attach.
+     * @param host    The host view whose context will be used.
+     */
     public void attachToHost(WhiteboardView webView, View host) {
         Context ctx = webView.getContext();
         if (ctx instanceof MutableContextWrapper) {
@@ -58,7 +68,6 @@ public class WhiteboardViewManager {
 
     /**
      * Creates a WhiteboardView with a MutableContextWrapper to allow context switching.
-     * This pairs with {@link #attachToHost(WhiteboardView, View)} which updates the context.
      */
     private static WhiteboardView createWhiteboardView(Context context, WhiteboardViewOptions options) {
         Context contextWrapper = new MutableContextWrapper(context);
@@ -103,7 +112,7 @@ public class WhiteboardViewManager {
      */
     interface WhiteboardViewAllocator {
 
-        WhiteboardView obtain();
+        WhiteboardView obtain(Context context);
 
         void release(WhiteboardView whiteboardView);
     }
@@ -118,20 +127,19 @@ public class WhiteboardViewManager {
 
     /**
      * Allocator for WhiteboardView instances without preloading.
+     * Uses the provided activity context directly for creating WhiteboardView.
      */
     static class DefaultAllocator implements WhiteboardViewAllocator {
-
-        private final Context context;
 
         private final WhiteboardViewOptions whiteboardViewOptions;
 
         DefaultAllocator(Context context, WhiteboardViewOptions whiteboardViewOptions) {
-            this.context = context;
             this.whiteboardViewOptions = whiteboardViewOptions;
         }
 
         @Override
-        public WhiteboardView obtain() {
+        public WhiteboardView obtain(Context context) {
+            // For DefaultAllocator, use the provided context directly (typically activity context)
             return createWhiteboardView(context, whiteboardViewOptions);
         }
 
@@ -144,6 +152,7 @@ public class WhiteboardViewManager {
 
     /**
      * Allocator for preloading WhiteboardView instances with a delay.
+     * Preloaded views are created with application context and switched to activity context on obtain.
      */
     static class PreloadAllocator implements WhiteboardViewAllocator {
 
@@ -172,11 +181,18 @@ public class WhiteboardViewManager {
         }
 
         @Override
-        public WhiteboardView obtain() {
+        public WhiteboardView obtain(Context context) {
             WhiteboardView result = preloadViews.poll();
 
             if (result == null) {
+                // No preloaded view available, create one with the provided context directly
                 result = createWhiteboardView(context, whiteboardViewOptions);
+            } else {
+                // Switch the preloaded view's context from application context to the provided context
+                Context ctx = result.getContext();
+                if (ctx instanceof MutableContextWrapper) {
+                    ((MutableContextWrapper) ctx).setBaseContext(context);
+                }
             }
 
             if (preloadViews.size() < count) {

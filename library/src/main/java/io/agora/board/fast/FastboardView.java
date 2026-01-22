@@ -85,13 +85,11 @@ public class FastboardView extends FrameLayout {
     }
 
     private void setupWhiteboardView(FrameLayout root) {
-        whiteboardView = WhiteboardViewManager.get().obtain();
+        // Use the host's context (activity context) instead of application context
+        whiteboardView = WhiteboardViewManager.get().obtain(root.getContext());
         whiteboardView.setId(R.id.fast_whiteboard_view);
         whiteboardView.setAutoResize(false);
         whiteboardView.getSettings().setAllowUniversalAccessFromFileURLs(true);
-
-        // Attach the WhiteboardView to the host view to ensure correct context usage
-        WhiteboardViewManager.get().attachToHost(whiteboardView, root);
 
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity.CENTER);
         // whiteboard view should be the first child
