@@ -8,6 +8,7 @@ import android.os.Looper
 import android.os.MessageQueue
 import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
 import io.agora.board.fast.FastLogger
 import io.agora.board.fast.FastRoom
 import io.agora.board.fast.FastRoomListener
@@ -61,7 +62,16 @@ class RoomActivity : BaseActivity() {
     }
 
     private fun setupFastboard() {
-        val fastboardView = findViewById<FastboardView>(R.id.fastboard_view)
+        // test dynamic layout
+        // create FastboardView and add it to the main layout at index 0 with match-parent params
+        val fastboardView = FastboardView(this).also { view ->
+            val params = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            findViewById<FrameLayout>(R.id.main_layout).addView(view, 0, params)
+        }
+
         // create fastSdk
         val fastboard = fastboardView.getFastboard()
 

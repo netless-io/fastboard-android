@@ -21,17 +21,17 @@ class MainActivity : AppCompatActivity() {
     private fun setupUi() {
         testcaseRv = findViewById<RecyclerView>(R.id.testcase_rv)
         adapter = TestCaseAdapter(Repository.get().getTestCases())
-        adapter!!.setOnItemClickListener(TestCaseAdapter.OnItemClickListener { testCase: TestCase? ->
+        adapter!!.setOnItemClickListener { testCase: TestCase? ->
             this.startTestCase(
                 testCase!!
             )
-        })
+        }
         testcaseRv!!.setAdapter(adapter)
 
         // 显示版本信息
         findViewById<TextView>(R.id.tv_version).text = "v${BuildConfig.VERSION_NAME} (${BuildConfig.BUILD_VERSION})"
 
-        // startTestCase(Repository.get().getTestCases().get(4));
+        // startTestCase(Repository.get().getTestCases()[2]);
     }
 
     private fun startTestCase(testCase: TestCase) {
