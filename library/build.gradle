@@ -26,6 +26,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.returnDefaultValues = true // Only ContextWrapper is stubbed in configuration tests.
+    }
 }
 
 dependencies {
@@ -35,9 +38,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     if (findProject(":whiteboard-android") != null) {
+        logger.warn("Fastboard uses LOCAL Whiteboard SDK: " + project(':whiteboard-android').projectDir + "; release version pin is bypassed")
         api project(':whiteboard-android')
     } else {
-        api 'com.github.netless-io:whiteboard-android:2.16.115'
+        api 'com.github.netless-io:whiteboard-android:2.16.131'
     }
 
     testImplementation 'junit:junit:4.13.2'

@@ -32,6 +32,7 @@ public class FastRoomContext {
     OverlayManager overlayManager;
     ResourceFetcher resourceFetcher;
     CopyOnWriteArrayList<FastRoomListener> listeners = new CopyOnWriteArrayList<>();
+    private boolean closed;
 
     public FastRoomContext(FastboardView fastboardView) {
         this.fastboardView = fastboardView;
@@ -78,7 +79,7 @@ public class FastRoomContext {
     }
 
     public void addListener(FastRoomListener listener) {
-        listeners.addIfAbsent(listener);
+        if (!closed) listeners.addIfAbsent(listener);
     }
 
     public void removeListener(FastRoomListener listener) {
@@ -86,6 +87,7 @@ public class FastRoomContext {
     }
 
     public void notifyRoomPhaseChanged(RoomPhase phase) {
+        if (closed) return;
         roomPhaseHandler.handleRoomPhase(phase);
         notifyListeners(listener -> listener.onRoomPhaseChanged(phase));
     }
@@ -99,11 +101,13 @@ public class FastRoomContext {
     }
 
     public void notifyRoomReadyChanged(FastRoom fastRoom) {
+        if (closed) return;
         this.fastRoom = fastRoom;
         notifyListeners(listener -> listener.onRoomReadyChanged(fastRoom));
     }
 
     public void notifyFastError(FastException error) {
+        if (closed) return;
         errorHandler.handleError(error);
         notifyListeners(listener -> listener.onFastError(error));
     }
@@ -115,8 +119,16 @@ public class FastRoomContext {
     private void notifyListeners(ListenerInvocation listenerInvocation) {
         CopyOnWriteArrayList<FastRoomListener> listenerSnapshot = new CopyOnWriteArrayList<>(listeners);
         for (FastRoomListener listener : listenerSnapshot) {
+            if (closed) break;
+            if (!listeners.contains(listener)) continue;
             listenerInvocation.invokeListener(listener);
         }
+    }
+
+    public void close() {
+        closed = true;
+        listeners.clear();
+        fastRoom = null;
     }
 
     protected interface ListenerInvocation {

@@ -1,4 +1,11 @@
 # Change Log
+## [Version 1.8.2] - 2026-09-28
+- Update: Pin the official Whiteboard Android SDK to 2.16.131.
+- Add: Presentation static courseware, App focus, structured document commands and unified page-state APIs; insertStaticDoc continues to create DocsViewer.
+- Fix: Join cancellation, late asynchronous results, replay lifecycle, callback reentrancy and SDK failure retry handling.
+- Fix: Preserve mutable room configuration and forward SDK/plugin callbacks without replacing internal error handling.
+- Note: UI and room lifecycle operations must run on the main thread. App IDs and structured command results preserve the native SDK's return semantics; App commit does not imply render readiness.
+
 ## [Version 1.8.1] - 2026-01-22
 - Update: Updated `whiteboard-android` version requirement to 2.16.115.
 - Fix: Adjusted WhiteboardView Context handling to use Activity Context, improving lifecycle safety and stability.

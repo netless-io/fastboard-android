@@ -84,7 +84,6 @@ public class WhiteboardViewManager {
         if (initialized) {
             return;
         }
-        initialized = true;
 
         WhiteboardViewOptions whiteboardViewOptions = null;
         if (config.isEnableAssetsHttps()) {
@@ -99,6 +98,7 @@ public class WhiteboardViewManager {
         } else {
             allocator = new DefaultAllocator(config.getContext(), whiteboardViewOptions);
         }
+        initialized = true;
     }
 
     public void preload() {

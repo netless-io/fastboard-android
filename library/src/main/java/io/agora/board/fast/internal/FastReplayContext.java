@@ -17,6 +17,7 @@ public class FastReplayContext {
     FastReplay fastReplay;
     ResourceFetcher resourceFetcher;
     CopyOnWriteArrayList<FastReplayListener> listeners = new CopyOnWriteArrayList<>();
+    private volatile boolean closed;
 
     public FastReplayContext(FastboardView fastboardView) {
         this.fastboardView = fastboardView;
@@ -26,11 +27,17 @@ public class FastReplayContext {
     }
 
     public void addListener(FastReplayListener listener) {
-        listeners.addIfAbsent(listener);
+        if (!closed) listeners.addIfAbsent(listener);
     }
 
     public void removeListener(FastReplayListener listener) {
         listeners.remove(listener);
+    }
+
+    public void clearListeners() {
+        closed = true;
+        listeners.clear();
+        fastReplay = null;
     }
 
     public void notifyReplayReadyChanged(FastReplay fastReplay) {
@@ -45,6 +52,7 @@ public class FastReplayContext {
     private void notifyListeners(ListenerInvocation listenerInvocation) {
         CopyOnWriteArrayList<FastReplayListener> listenerSnapshot = new CopyOnWriteArrayList<>(listeners);
         for (FastReplayListener listener : listenerSnapshot) {
+            if (closed) return;
             listenerInvocation.invokeListener(listener);
         }
     }

@@ -1,4 +1,11 @@
 # 更新日志
+## [Version 1.8.2] - 2026-09-28
+- 更新：依赖锁定为正式 whiteboard-android 2.16.131。
+- 新增：Presentation 静态课件、App 聚焦、结构化文档命令和统一页状态 API；原 insertStaticDoc 继续创建 DocsViewer。
+- 修复：入房取消、异步晚到结果、回放生命周期、回调重入和 SDK 故障后的重试状态。
+- 修复：房间配置修改保留，补齐 SDK / 插件回调转发且不覆盖内部错误处理。
+- 注意：UI 与房间生命周期操作须在主线程调用；App ID 和命令结果按 Native SDK 语义返回，App 提交成功不等于渲染就绪。
+
 ## [Version 1.8.1] - 2026-01-22
 - 更新: 更新 `whiteboard-android` 版本要求为 2.16.115。
 - 更新: 调整 WhiteboardView Context 处理逻辑，统一使用 Activity Context 创建视图实例。

@@ -23,6 +23,7 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
 
     private TextView messageView;
     private View retry;
+    private int errorResource;
 
     public ErrorHandleLayout(@NonNull Context context) {
         this(context, null);
@@ -44,6 +45,11 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
 
         retry = root.findViewById(R.id.fast_error_handle_retry);
         retry.setOnClickListener(v -> {
+            // State may have changed since this error was displayed.
+            if (fastRoom != null && !fastRoom.canRetryJoin()) {
+                showRetry(R.string.fast_default_room_error_message);
+                return;
+            }
             hide();
             if (fastRoom != null) {
                 fastRoom.join();
@@ -52,8 +58,34 @@ public class ErrorHandleLayout extends LinearLayoutCompat implements RoomControl
     }
 
     public void showRetry(@StringRes int resId) {
-        messageView.setText(resId);
+        if (fastRoom != null && fastRoom.isReady()) {
+            hide();
+            return;
+        }
+        errorResource = resId;
+        renderError();
         show();
+    }
+
+    /** Re-evaluate an already displayed error after asynchronous join/leave completion. */
+    public void refreshRetryState() {
+        if (fastRoom != null && fastRoom.isReady()) {
+            hide();
+        } else if (errorResource != 0 && getVisibility() == VISIBLE) {
+            renderError();
+        }
+    }
+
+    private void renderError() {
+        int resId = errorResource;
+        boolean canRetry = fastRoom == null || fastRoom.canRetryJoin();
+        if (fastRoom != null && fastRoom.requiresRecreation()) {
+            resId = R.string.fast_default_reopen_required;
+        } else if (!canRetry) {
+            resId = R.string.fast_default_room_busy;
+        }
+        messageView.setText(resId);
+        retry.setVisibility(canRetry ? VISIBLE : GONE);
     }
 
     @Override

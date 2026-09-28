@@ -25,6 +25,8 @@ public class FastException extends RuntimeException {
     public static final int ROOM_DISCONNECT_ERROR = 201;
 
     public static final int ROOM_KICKED = 202;
+    public static final int ROOM_OPERATION_CANCELLED = 203;
+    public static final int ROOM_NOT_READY = 204;
 
     public static final int PLAYER_JOIN_ERROR = 200;
 

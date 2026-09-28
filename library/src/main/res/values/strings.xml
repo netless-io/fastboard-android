@@ -8,4 +8,6 @@
 
     <string name="fast_loading_text">loading…</string>
     <string name="fast_retry">Retry</string>
+    <string name="fast_default_reopen_required">Unable to recover this whiteboard. Please close it and open it again.</string>
+    <string name="fast_default_room_busy">The whiteboard is busy. Please wait for the current operation to finish.</string>
 </resources>

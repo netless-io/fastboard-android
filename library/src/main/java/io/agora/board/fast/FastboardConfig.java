@@ -25,7 +25,7 @@ public class FastboardConfig {
     private static final boolean DEFAULT_ENABLE_PRELOAD = false;
 
     // Default value for preloadCount if not explicitly set.
-    private static final int DEFAULT_PRELOAD_COUNT = 0;
+    private static final int DEFAULT_PRELOAD_COUNT = 1;
 
     // Default value for autoPreload if not explicitly set.
     private static final boolean DEFAULT_AUTO_PRELOAD = true;
@@ -146,6 +146,9 @@ public class FastboardConfig {
         }
 
         public FastboardConfig build() {
+            if (enablePreload && preloadCount <= 0) {
+                throw new IllegalArgumentException("preloadCount must be positive when preloading is enabled");
+            }
             return new FastboardConfig(this);
         }
     }

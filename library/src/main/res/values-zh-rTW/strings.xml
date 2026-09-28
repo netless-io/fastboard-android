@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="fast_default_reopen_required">目前白板無法恢復，請關閉後重新開啟。</string>
+    <string name="fast_default_room_busy">白板忙碌中，請等待目前操作完成。</string>
     <string name="fast_default_exit_title">離開？</string>
     <string name="fast_default_init_sdk_error">SDK 初始化錯誤，請點擊重試</string>
     <string name="fast_default_room_error_message">加入房間錯誤，請點擊重試</string>

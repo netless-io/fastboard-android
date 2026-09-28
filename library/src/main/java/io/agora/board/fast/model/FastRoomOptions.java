@@ -68,7 +68,8 @@ public class FastRoomOptions {
         if (roomParams != null) {
             return roomParams;
         }
-        return FastConvertor.convertRoomOptions(this);
+        roomParams = FastConvertor.convertRoomOptions(this);
+        return roomParams;
     }
 
     public void setRoomParams(RoomParams roomParams) {
@@ -79,7 +80,8 @@ public class FastRoomOptions {
         if (sdkConfiguration != null) {
             return sdkConfiguration;
         }
-        return FastConvertor.convertSdkOptions(this);
+        sdkConfiguration = FastConvertor.convertSdkOptions(this);
+        return sdkConfiguration;
     }
 
     public void setSdkConfiguration(WhiteSdkConfiguration sdkConfiguration) {
@@ -102,6 +104,9 @@ public class FastRoomOptions {
      */
     public void setContainerSizeRatio(Float ratio) {
         this.containerSizeRatio = ratio;
+        if (roomParams != null && roomParams.getWindowParams() != null) {
+            roomParams.getWindowParams().setContainerSizeRatio(ratio != null ? ratio : 9f / 16);
+        }
     }
 
     public FastUserPayload getUserPayload() {
@@ -115,5 +120,7 @@ public class FastRoomOptions {
      */
     public void setUserPayload(FastUserPayload userPayload) {
         this.userPayload = userPayload;
+        if (roomParams != null) roomParams.setUserPayload(userPayload);
+        if (sdkConfiguration != null) sdkConfiguration.setUserCursor(userPayload != null);
     }
 }
